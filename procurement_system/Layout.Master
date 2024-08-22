@@ -1,0 +1,723 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Layout.master.cs" Inherits="procurement_system.Layout" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Procurement System - YLID | <%: Page.Title %> </title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <!-- Favicon icon -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Custom Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="./plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <!-- Pignose Calender -->
+    <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <link href="./plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- Page plugins css -->
+    <link href="./plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="./plugins/jquery-asColorPicker-master/css/asColorPicker.css" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+    <!-- Daterange picker plugins css -->
+    <link href="./plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+    <link href="./plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Dropzone Css -->
+    <script src="plugins/chart.js/Chart.bundle.min.js"></script>
+
+    <!-- Date range Plugin JavaScript -->
+    <script src="./plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="./plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="./plugins/moment/moment.js"></script>
+    <script src="./plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+    <link href="plugins/dropzone/dropzone.css" rel="stylesheet">
+
+    <link href="vendors/sweetalert.css" rel="stylesheet" />
+    <script src="vendors/sweetalert.js"></script>
+    <script src="vendors/sweetalert.min.js"></script>
+    <link href="plugins/fullcalendar/css/fullcalendar.min.css" rel="stylesheet" />
+
+    <%--<link href="vendors/toastr/toastr.min.css" rel="stylesheet" />
+    <script src="vendors/toastr/toastr.min.js"></script>--%>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <!--*******************
+		Preloader start
+	********************-->
+
+        <div id="preloader">
+            <div class="loader">
+                <svg class="circular" viewBox="25 25 50 50">
+                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+                </svg>
+            </div>
+        </div>
+
+        <div hidden="hidden">
+            <asp:Label ID="lblNamaBranch" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblLvlUser" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblFullname" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lbNIK" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotif" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblKodeUser" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lbiduser" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lbltitle" runat="server" Text=""></asp:Label>
+
+            <asp:Label ID="lblnotifEstimatePriceRF" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedApproveManagerDivisionRF" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedApproveGMDivisionRF" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedApproveDeputyDirectorRF" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedApproveDivisionDirectorRF" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedApproveITHeadRF" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedApproveGAHeadRF" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedApproveGMAdminRF" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedApproveDirectorAdminRF" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifFixedPriceRF" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedCreatePO" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedApproveGAHeadPO" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedApproveITHeadPO" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedApproveGMAdminPO" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifNeedApproveDirectorPO" runat="server" Text=""></asp:Label>
+
+            <asp:Label ID="lblnotifRequestItem" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifRequestOnsystem" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifRequestOnsystemApproveIT" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifRequestOnsystemDeveloper" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifRequestAcces" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifAcceptance" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifApprovalAcceptance" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifApprovalAccessConfig" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblnotifITHelpdesk" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblEmail" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblSection" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblDivision" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblPosition" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblLocation" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblOid" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblOidEmployees" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lbRFNumber" runat="server" Text=""></asp:Label>
+        </div>
+        <!--*******************
+		Preloader end
+	********************-->
+
+
+        <!--**********************************
+		Main wrapper start
+	***********************************-->
+        <div id="main-wrapper">
+
+            <!--**********************************
+			Nav header start
+		***********************************-->
+            <%--<div class="nav-header">
+                <div class="brand-logo">
+                    <a href="#">
+                        <b class="logo-abbr">
+                            <img src="images/logo.png" alt="">
+                        </b>
+                        <span class="logo-compact">
+                            <img src="images/logo-compact.png" alt=""></span>
+                        <span class="brand-title">
+                            <img src="images/logo-text.png" alt="">
+                        </span>
+                    </a>
+                </div>
+            </div>--%>
+            <div class="nav-header">
+                <div class="brand-logo text-center">
+                    <a href="#">
+                        <b class="logo-abbr text-center">
+                            <img src="images/logo.png" alt="">
+                        </b>
+                        <span class="logo-compact">
+                            <img src="images/logo-compact.png" alt=""></span>
+                        <span class="brand-title">
+                            <img src="images/logo-text.png" alt="">
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <!--**********************************
+			Nav header end 
+		***********************************-->
+
+            <!--**********************************
+			Header start
+		***********************************-->
+            <div class="header">
+                <div class="header-content clearfix">
+
+                    <div class="nav-control">
+                        <%--<div class="hamburger">
+                            <span class="toggle-icon"><i class="icon-menu"></i></span>
+
+                        </div>--%>
+                    </div>
+
+                    <div class="header-left">
+                        <div class="input-group icons">
+                            <div class="input-group-prepend">
+                                <%--<h2 class="red-text" style="color: white;">&nbsp;&nbsp;Procurement System - YLID</h2>--%>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="header-right">
+                        <ul class="clearfix">
+                            <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
+                                <i class="mdi mdi-bell-outline"></i>
+                                <span runat="server" id="numberNotif" class="badge badge-pill gradient-2 badge-primary">
+                                    <asp:Label ID="txtNotif" runat="server"></asp:Label></span>
+                            </a>
+                                <div class="drop-down animated fadeIn dropdown-menu dropdown-notfication">
+                                    <div class="dropdown-content-heading d-flex justify-content-between">
+                                        <span class="">
+                                            <asp:Label ID="lblShowTotalNotif" Text="0" runat="server"></asp:Label>
+                                            New Notifications</span>
+
+                                    </div>
+                                    <div class="dropdown-content-body">
+                                        <ul>
+                                            <!--********************************** -RF- ***********************************-->
+                                            <li runat="server" id="ViewEstimatePriceRFNotif">
+                                                <asp:LinkButton runat="server" OnClick="TabEstimatePrice_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need price check RF</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewEstimatePriceRFNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <li runat="server" id="ViewPOCreateNotif">
+                                                <asp:LinkButton runat="server" OnClick="TabFixedPrice_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need PO Create</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewPOCreateNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <li runat="server" id="ViewNeedApproveManagerDivisionRFNotif">
+                                                <asp:LinkButton runat="server" OnClick="TabManagerDivision_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved division manager</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewRFNeedApproveManagerDivisionNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <li runat="server" id="ViewNeedApproveGMDivisionRFNotif">
+                                                <asp:LinkButton runat="server" OnClick="TabGMDivision_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved division gm</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewRFNeedApproveGMDivisionNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <li runat="server" id="ViewNeedApproveDeputyDirectorRFNotif">
+                                                <asp:LinkButton runat="server" OnClick="TabDeputyDirector_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved deputy director</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewRFNeedApproveDeputyDirectorNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <li runat="server" id="ViewNeedApproveDivisionDirectorRFNotif">
+                                                <asp:LinkButton runat="server" OnClick="TabDivisionDirector_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved division director</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewRFNeedApproveDivisionDirectorNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <li runat="server" id="ViewNeedApproveITHeadRFNotif">
+                                                <asp:LinkButton runat="server" OnClick="TabITHead_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved IT Head</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewRFNeedApproveITHeadNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <li runat="server" id="ViewNeedApproveGAHeadRFNotif">
+                                                <asp:LinkButton runat="server" OnClick="TabGAHead_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved GA Head</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewRFNeedApproveGAHeadNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <li runat="server" id="ViewNeedApproveGMAdminRFNotif">
+                                                <asp:LinkButton runat="server" OnClick="TabGMAdmin_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved GM Admin</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewRFNeedApproveGMAdminNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <li runat="server" id="ViewNeedApproveDirectorAdminRFNotif">
+                                                <asp:LinkButton runat="server" OnClick="TabDirectorAdmin_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved Director Admin</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewRFNeedApproveDirectorAdminNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <!--********************************** -PO- ***********************************-->
+                                            <li runat="server" id="ViewNeedApproveGAHeadPONotif">
+                                                <asp:LinkButton runat="server" OnClick="TabGAHeadPO_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Purchase Order (PO)-<i>need approved GA Head</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewPONeedApproveGAHeadNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <li runat="server" id="ViewNeedApproveITHeadPONotif">
+                                                <asp:LinkButton runat="server" OnClick="TabITHeadPO_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Purchase Order (PO)-<i>need approved IT Head</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewPONeedApproveITHeadNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <li runat="server" id="ViewNeedApproveGMAdminPONotif">
+                                                <asp:LinkButton runat="server" OnClick="TabGMAdminPO_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Purchase Order (PO)-<i>need approved GM Admin</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewPONeedApproveGMAdminNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                            <li runat="server" id="ViewNeedApproveDirectorPONotif">
+                                                <asp:LinkButton runat="server" OnClick="TabDirectorPO_Click">
+                                                    <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
+                                                    <div class="notification-content">
+                                                        <h6 class="notification-heading">Purchase Order (PO)-<i>need approved Director/Presdir</i></h6>
+                                                        <span class="notification-text">
+                                                            <asp:Panel ID="PanelViewPONeedApproveDirectorNotif" runat="server"></asp:Panel>
+                                                        </span>
+                                                    </div>
+                                                </asp:LinkButton>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="icons dropdown d-none d-md-flex">
+
+                                <div class="header-left">
+                                    <div class="input-group icons">
+                                        <div class="input-group-prepend">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--**********************************
+			Header end ti-comment-alt
+		***********************************-->
+
+            <!--**********************************
+			Sidebar start
+		***********************************-->
+            <div class="nk-sidebar">
+                <div class="nk-nav-scroll">
+                    <div>
+                        <br />
+                    </div>
+                    <div id="mainnav-profile" class="mainnav-profile">
+                        <div class="profile-wrap text-center">
+                            <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="false">
+                                <span class="nav-text">
+                                    <img src="images/img.png" height="40" width="40" alt="">
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <br />
+                    </div>
+                    <div class="mainnav-profile">
+                        <div class="profile-wrap text-center">
+                            <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="false">
+                                <span class="nav-text">
+                                    <label runat="server" id="lbFullname" style="color: white;"></label>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mainnav-profile">
+                        <div class="profile-wrap text-center">
+                            <a runat="server" href="login.aspx"><i class="fa fa-sign-out menu-icon" aria-hidden="true"></i><span>&nbsp;Logout</span></a>
+                        </div>
+                    </div>
+                    <div>
+                        <br />
+                    </div>
+                    <ul class="metismenu" id="menu">
+                        <%--<li class="nav-label">Dashboard</li>--%>
+                        <li id="home" runat="server">
+                            <a class="nav-link" href="index.aspx">
+                                <i class="fa-solid fa-home"></i>
+                                <span>Home</span></a>
+                        </li>
+                        <li runat="server" id="user_management">
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa-solid fa-users-gear"></i><span class="nav-text">User Management</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li runat="server" id="user_registration"><a href="user_registration.aspx"><span class="nav-text">User Registration</span></a></li>
+                                <li runat="server" id="module_registration"><a href="module_registration.aspx"><span class="nav-text">Module Registration</span></a></li>
+                                <li runat="server" id="group_registration"><a href="group_registration.aspx"><span class="nav-text">Group Registration</span></a></li>
+                            </ul>
+                        </li>
+                        <li runat="server" id="menu_master_data" class="mega-menu mega-menu-sm">
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa-solid fa-server"></i><span class="nav-text">Master Data</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <%--<li runat="server" id="menu_it_goods_stock">
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">IT Goods Stock</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li runat="server" id="it_category"><a href="it_category.aspx"><span class="nav-text">Category</span></a></li>
+                                        <li runat="server" id="it_item"><a href="it_item.aspx"><span class="nav-text">Item</span></a></li>
+                                        <li runat="server" id="it_merk"><a href="it_merk.aspx"><span class="nav-text">Merk</span></a></li>
+                                        <li runat="server" id="it_goods_catalog"><a href="it_goods_catalog.aspx"><span class="nav-text">Goods Catalog</span></a></li>
+                                        <li runat="server" id="it_stock"><a href="it_stock.aspx"><span class="nav-text">Goods Stock</span></a></li>
+                                    </ul>
+                                </li>--%>
+                                <%--<li runat="server" id="menu_goods_stock">
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">YLID Goods Stock</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        
+                                    </ul>
+                                </li>--%>
+                                <li runat="server" id="category"><a href="category.aspx"><span class="nav-text">Category</span></a></li>
+                                <li runat="server" id="item"><a href="item.aspx"><span class="nav-text">Item</span></a></li>
+                                <li runat="server" id="merk"><a href="merk.aspx"><span class="nav-text">Merk</span></a></li>
+                                <li runat="server" id="goods_catalog"><a href="goods_catalog.aspx"><span class="nav-text">Goods Catalog</span></a></li>
+                                <li runat="server" id="stock"><a href="stock.aspx"><span class="nav-text">Goods Stock</span></a></li>
+                                <li runat="server" id="unit_of_measurement"><a href="unit_of_measurement.aspx"><span class="nav-text">Unit Of Measurement</span></a></li>
+                                <li runat="server" id="vendor_menu">
+                                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                        <span class="nav-text">Vendor</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li runat="server" id="vendor_category"><a href="vendor_category.aspx"><span class="nav-text">Vendor Category</span></a></li>
+                                        <li runat="server" id="vendor_detail"><a href="vendor_detail.aspx"><span class="nav-text">Vendor Detail</span></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li runat="server" id="menu_orders">
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa-solid fa-cart-arrow-down"></i><span class="nav-text">Orders</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li runat="server" id="requisition_form"><a href="requisition_form.aspx"><span class="nav-text">Requisition Form (RF)</span></a></li>
+                                <li runat="server" id="requisition_check"><a href="requisition_price_check.aspx"><span class="nav-text">RF Price Check</span></a></li>
+                                <li runat="server" id="purchase_order"><a href="purchase_order.aspx"><span class="nav-text">Purchase Order (PO)</span></a></li>
+                                <li runat="server" id="goods_received"><a href="goods_received.aspx"><span class="nav-text">Goods Received (GR)</span></a></li>
+                                <%--<li runat="server" id="Li1"><a href="test_email_oauth.aspx"><span class="nav-text">Test Email OAUTH</span></a></li>--%>
+                            </ul>
+                        </li>
+                        <li runat="server" id="menu_approval">
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                <i class="fa-solid fa-file-signature"></i><span class="nav-text">Approval</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li runat="server" id="app_rf"><a href="approval_requisition_form.aspx"><span class="nav-text">Requisition Form (RF)</span></a></li>
+                                <li runat="server" id="app_po"><a href="approval_purchase_order.aspx"><span class="nav-text">Purchase Order (PO)</span></a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!--**********************************
+			Sidebar end
+		***********************************-->
+
+            <!--**********************************
+			Content body start
+		***********************************-->
+
+            <div class="content-body">
+                <div class="page-content">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+            <!--**********************************
+			Content body end
+		***********************************-->
+
+
+            <!--**********************************
+			Footer start
+		***********************************-->
+            <div class="footer">
+                <div class="copyright">
+                    <p>Copyright &copy; Designed & Developed by IT - YLID Jakarta 2023</p>
+                </div>
+            </div>
+            <!--**********************************
+			Footer end
+		***********************************-->
+        </div>
+
+        <!--**********************************
+		Main wrapper end
+	***********************************-->
+
+        <!--**********************************
+		Scripts
+	***********************************-->
+        <script src="plugins/common/common.min.js"></script>
+        <script src="js/custom.min.js"></script>
+        <script src="js/settings.js"></script>
+        <script src="js/gleek.js"></script>
+        <script src="js/styleSwitcher.js"></script>
+
+        <!-- PNotify -->
+        <link href="vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+        <link href="vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+        <link href="vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+        <script src="vendors/pnotify/dist/pnotify.js"></script>
+        <script src="vendors/pnotify/dist/pnotify.buttons.js"></script>
+        <script src="vendors/pnotify/dist/pnotify.nonblock.js"></script>
+
+        <!-- Chartjs -->
+        <script src="./plugins/chart.js/Chart.bundle.min.js"></script>
+        <!-- Circle progress -->
+        <script src="./plugins/circle-progress/circle-progress.min.js"></script>
+        <!-- Datamap -->
+        <script src="./plugins/d3v3/index.js"></script>
+        <script src="./plugins/topojson/topojson.min.js"></script>
+        <script src="./plugins/datamaps/datamaps.world.min.js"></script>
+        <!-- Morrisjs -->
+        <script src="./plugins/raphael/raphael.min.js"></script>
+        <script src="./plugins/morris/morris.min.js"></script>
+        <!-- Pignose Calender -->
+        <script src="./plugins/moment/moment.min.js"></script>
+        <script src="./plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+        <!-- ChartistJS -->
+        <script src="./plugins/chartist/js/chartist.min.js"></script>
+        <script src="./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+
+        <script src="./plugins/tables/js/jquery.dataTables.min.js"></script>
+        <script src="./plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+        <script src="./plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+
+        <!-- Toastr -->
+        <%--<script src="./plugins/toastr/js/toastr.min.js"></script>
+        <script src="./plugins/toastr/js/toastr.init.js"></script>
+        --%>
+        <%--<script src="./js/dashboard/dashboard-1.js"></script>--%>
+
+        <script src="./plugins/moment/moment.js"></script>
+        <script src="./plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+        <!-- Clock Plugin JavaScript -->
+        <script src="./plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+        <!-- Color Picker Plugin JavaScript -->
+        <script src="./plugins/jquery-asColorPicker-master/libs/jquery-asColor.js"></script>
+        <script src="./plugins/jquery-asColorPicker-master/libs/jquery-asGradient.js"></script>
+        <script src="./plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
+        <!-- Date Picker Plugin JavaScript -->
+        <script src="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <!-- Date range Plugin JavaScript -->
+        <script src="./plugins/timepicker/bootstrap-timepicker.min.js"></script>
+        <script src="./plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <script src="./plugins/moment/moment.js"></script>
+        <script src="./plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+        <script src="./js/plugins-init/form-pickers-init.js"></script>
+        <!-- Dropzone Plugin Js -->
+        <script src="../../plugins/dropzone/dropzone.js"></script>
+
+        <!-- Datatables -->
+
+        <link href="plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <script src="plugins/tables/js/jquery.dataTables.min.js"></script>
+        <script src="plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+        <script src="plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+
+        <script src="plugins/tables/js/datatable/dataTables.fixedColumns.min.js"></script>
+        <script src="plugins/tables/js/datatable/dataTables.fixedColumns.js"></script>
+        <script src="plugins/fullcalendar/js/fullcalendar.min.js"></script>
+        <script src="js/plugins-init/fullcalendar-init.js"></script>
+
+
+        <script>
+            (function ($) {
+                "use strict"
+
+                new quixSettings({
+                    version: "light", //2 options "light" and "dark"
+                    layout: "vertical", //2 options, "vertical" and "horizontal"
+                    navheaderBg: "color_1", //have 10 options, "color_1" to "color_10"
+                    headerBg: "color_1", //have 10 options, "color_1" to "color_10"
+                    sidebarStyle: "vertical", //defines how sidebar should look like, options are: "full", "compact", "mini" and "overlay". If layout is "horizontal", sidebarStyle won't take "overlay" argument anymore, this will turn into "full" automatically!
+                    sidebarBg: "color_1", //have 10 options, "color_1" to "color_10"
+                    sidebarPosition: "fixed", //have two options, "static" and "fixed"
+                    headerPosition: "static", //have two options, "static" and "fixed"
+                    containerLayout: "wide",  //"boxed" and  "wide". If layout "vertical" and containerLayout "boxed", sidebarStyle will automatically turn into "overlay".
+                    direction: "ltr" //"ltr" = Left to Right; "rtl" = Right to Left
+                });
+
+
+            })(jQuery);
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $('#date').bootstrapMaterialDatePicker
+                    ({
+                        time: false,
+                        clearButton: true
+                    });
+                $('#time').bootstrapMaterialDatePicker
+                    ({
+                        date: false,
+                        shortTime: false,
+                        format: 'HH:mm'
+                    });
+                $('#date-format').bootstrapMaterialDatePicker
+                    ({
+                        format: 'dddd DD MMMM YYYY - HH:mm'
+                    });
+                $('#date-fr').bootstrapMaterialDatePicker
+                    ({
+                        format: 'DD/MM/YYYY HH:mm',
+                        lang: 'fr',
+                        weekStart: 1,
+                        cancelText: 'ANNULER',
+                        nowButton: true,
+                        switchOnClick: true
+                    });
+
+                $('#date-end').bootstrapMaterialDatePicker
+                    ({
+                        weekStart: 0, format: 'DD/MM/YYYY HH:mm'
+                    });
+                $('#date-start').bootstrapMaterialDatePicker
+                    ({
+                        weekStart: 0, format: 'DD/MM/YYYY HH:mm', shortTime: true
+                    }).on('change', function (e, date) {
+                        $('#date-end').bootstrapMaterialDatePicker('setMinDate', date);
+                    });
+                $.material.init()
+            });
+        </script>
+
+        <script src="vendors/sweetalert.js"></script>
+        <script src="vendors/sweetalert.min.js"></script>
+        <link href="OtherThemes/fontawesome-free-6.4.0-web/css/fontawesome.css" rel="stylesheet" />
+        <link href="OtherThemes/fontawesome-free-6.4.0-web/css/brands.css" rel="stylesheet" />
+        <link href="OtherThemes/fontawesome-free-6.4.0-web/css/solid.css" rel="stylesheet" />
+
+        <!--**********************************
+        Modal Select RF Number
+        ***********************************-->
+        <div class="modal fade bs-example-modal-lg" id="mdlSelectRFNumber" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel1">Find RF Number</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="x_content">
+                            <div class="row">
+                                <div class='col-sm-12'>
+                                    <br />
+                                </div>
+                                <div class='col-sm-12'>
+                                    <fieldset class="scheduler-border">
+                                        <legend class="scheduler-border">Select RF Number</legend>
+                                        <div style="margin-left: 10px; height: 150px; overflow: auto;">
+                                            <div class="table-responsive">
+                                                <asp:GridView ID="TableRFNumber" runat="server" CssClass="table table-striped row-border order-column table-bordered nowrap" AutoGenerateColumns="False" Style="width: 100%"
+                                                    ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found">
+                                                    <HeaderStyle BackColor="#06183d" ForeColor="White" />
+                                                    <Columns>
+                                                        <asp:HyperLinkField DataTextField="rf_no" DataNavigateUrlFields="rf_no" DataNavigateUrlFormatString="~/input_vendor.aspx?rf_no={0}"
+                                                            HeaderText="RF Number" ItemStyle-Width="150" />
+                                                    </Columns>
+                                                </asp:GridView>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="<%=btnCloseModal.ClientID %>.click()" class="btn mb-1 buttonColor">
+                            Close <span class="btn-icon-right">
+                                <i class="fa fa-close"></i></span>
+                        </button>
+                        <asp:Button runat="server" Style="display: none;" ID="btnCloseModal" OnClick="btnCloseModal_Click"></asp:Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>
