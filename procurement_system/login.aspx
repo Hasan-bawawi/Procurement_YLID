@@ -63,7 +63,7 @@
         function InfoBox() {
             swal({
                 title: '<strong>Perhatian!</strong>',
-                text: '<strong>Welcome to Procurement System Test</strong>' +
+                text: '<strong>Welcome to Purchasing System Test</strong>' +
                     '<br/> ' +
                     '(Hanya untuk uji coba sistem sebelum Live).' +
                     '<br/> ' +
@@ -114,7 +114,7 @@
         }
     </script>
 
-    <title>Procurement System - YLID | Login</title>
+    <title>Purchasing System - YLID | Login</title>
 
 </head>
 
@@ -166,7 +166,7 @@
                             <h1 style="color: white">System Testing</h1>
                         </div>
                         <div class="form-wrapper align-items-center">
-                            <h1 style="color: white">Procurement - YLID</h1>
+                            <h1 style="color: white">Purchasing - YLID</h1>
                         </div>
                         <div class="form-wrapper align-items-center">
                             &nbsp;
@@ -214,7 +214,7 @@
                                 </p>
                                 <p>
 
-                                <p>
+                                <%--<p>
                                     <b>
                                         <a href="ForgotPassword.aspx">Forgot Password ? </a>
                                     </b>
@@ -225,7 +225,7 @@
                                     <a href="Register.aspx">Create Account</a>
 
 
-                                </p>
+                                </p>--%>
                                 <div class="clearfix"></div>
                                 <br />
                             </div>
@@ -234,7 +234,7 @@
                             &nbsp;
                         </div>
                         <div class="form-wrapper align-items-center">
-                            <a style="color: white">©2023 All Rights Reserved. PT. Yusen Logistics Indonesia.</a>
+                            <a style="color: white">©2023 All Rights Reserved. PT Yusen Logistics Indonesia</a>
                         </div>
 
 

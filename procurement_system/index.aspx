@@ -21,8 +21,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="page-head">
         <div id="page-title">
-            <h2 class="page-header text-center" style="color: white;">Welcome to Procurement System</h2>
-            <h5 class="page-header text-center" style="color: white;">PT. Yusen Logistics Indonesia</h5>
+            <h2 class="page-header text-center" style="color: white;">Welcome to Purchasing System - YLID</h2>
+            <h5 class="page-header text-center" style="color: white;">&nbsp;</h5>
         </div>
     </div>
     <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/images/Background_Icon20210401.png" />

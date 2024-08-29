@@ -190,7 +190,7 @@
                                                                                 <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                                                 <ItemStyle CssClass="fixed-column" />
                                                                                 <ItemTemplate>
-                                                                                    <asp:LinkButton runat="server" ID="btnViewITSectionHead" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewITSectionHead_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                                    <asp:LinkButton runat="server" ID="btnViewITSectionHead" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewITSectionHead_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />
@@ -233,7 +233,7 @@
                                                                                 <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                                                 <ItemStyle CssClass="fixed-column" />
                                                                                 <ItemTemplate>
-                                                                                    <asp:LinkButton runat="server" ID="btnViewHistoryITSectionHead" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewHistoryITSectionHead_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                                    <asp:LinkButton runat="server" ID="btnViewHistoryITSectionHead" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewHistoryITSectionHead_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />
@@ -273,7 +273,7 @@
                                                                                 <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                                                 <ItemStyle CssClass="fixed-column" />
                                                                                 <ItemTemplate>
-                                                                                    <asp:LinkButton runat="server" ID="btnViewGASectionHead" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewGASectionHead_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                                    <asp:LinkButton runat="server" ID="btnViewGASectionHead" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewGASectionHead_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />
@@ -315,7 +315,7 @@
                                                                                 <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                                                 <ItemStyle CssClass="fixed-column" />
                                                                                 <ItemTemplate>
-                                                                                    <asp:LinkButton runat="server" ID="btnViewHistoryGASectionHead" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewHistoryGASectionHead_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                                    <asp:LinkButton runat="server" ID="btnViewHistoryGASectionHead" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewHistoryGASectionHead_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />
@@ -355,7 +355,7 @@
                                                                                 <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                                                 <ItemStyle CssClass="fixed-column" />
                                                                                 <ItemTemplate>
-                                                                                    <asp:LinkButton runat="server" ID="btnViewGMAdminApproval" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewGMAdminApproval_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                                    <asp:LinkButton runat="server" ID="btnViewGMAdminApproval" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewGMAdminApproval_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />
@@ -397,7 +397,7 @@
                                                                                 <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                                                 <ItemStyle CssClass="fixed-column" />
                                                                                 <ItemTemplate>
-                                                                                    <asp:LinkButton runat="server" ID="btnViewHistoryGMAdmin" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewHistoryGMAdmin_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                                    <asp:LinkButton runat="server" ID="btnViewHistoryGMAdmin" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewHistoryGMAdmin_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />
@@ -437,7 +437,7 @@
                                                                                 <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                                                 <ItemStyle CssClass="fixed-column" />
                                                                                 <ItemTemplate>
-                                                                                    <asp:LinkButton runat="server" ID="btnViewDirector" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewDirector_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                                    <asp:LinkButton runat="server" ID="btnViewDirector" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewDirector_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />
@@ -479,7 +479,7 @@
                                                                                 <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                                                 <ItemStyle CssClass="fixed-column" />
                                                                                 <ItemTemplate>
-                                                                                    <asp:LinkButton runat="server" ID="btnViewHistoryDirector" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewHistoryDirector_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                                    <asp:LinkButton runat="server" ID="btnViewHistoryDirector" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnViewHistoryDirector_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />

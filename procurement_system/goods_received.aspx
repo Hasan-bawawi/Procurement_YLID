@@ -351,7 +351,7 @@
                                                                 <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                                 <ItemStyle CssClass="fixed-column" />
                                                                 <ItemTemplate>
-                                                                    <asp:LinkButton runat="server" ID="btnView" CommandName="Buat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                    <asp:LinkButton runat="server" ID="btnView" CommandName="Buat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                             <asp:BoundField DataField="id" HeaderText="id" />

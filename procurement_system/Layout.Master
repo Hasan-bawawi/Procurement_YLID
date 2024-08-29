@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Procurement System - YLID | <%: Page.Title %> </title>
+    <title>Purchasing System - YLID | <%: Page.Title %> </title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <!-- Favicon icon -->
@@ -161,10 +161,10 @@
                 <div class="header-content clearfix">
 
                     <div class="nav-control">
-                        <%--<div class="hamburger">
+                        <div class="hamburger">
                             <span class="toggle-icon"><i class="icon-menu"></i></span>
 
-                        </div>--%>
+                        </div>
                     </div>
 
                     <div class="header-left">

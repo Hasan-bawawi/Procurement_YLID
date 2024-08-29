@@ -402,7 +402,7 @@
                                                                 <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                                 <ItemStyle CssClass="fixed-column" />
                                                                 <ItemTemplate>
-                                                                    <asp:LinkButton runat="server" ID="btnView" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                    <asp:LinkButton runat="server" ID="btnView" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                     <%--<asp:LinkButton runat="server" ID="btnEdit" CommandName="Ubah" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnEdit_Click" ToolTip="Edit"><i class="fa-solid fa-pen-to-square"></i></asp:LinkButton>--%>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
@@ -449,7 +449,7 @@
                                                                 <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                                 <ItemStyle CssClass="fixed-column" />
                                                                 <ItemTemplate>
-                                                                    <asp:LinkButton runat="server" ID="btnView_Admin" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_Admin_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                    <asp:LinkButton runat="server" ID="btnView_Admin" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_Admin_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                     <%--<asp:LinkButton runat="server" ID="btnEdit" CommandName="Ubah" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnEdit_Click" ToolTip="Edit"><i class="fa-solid fa-pen-to-square"></i></asp:LinkButton>--%>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
@@ -513,7 +513,7 @@
                                                             <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                             <ItemStyle CssClass="fixed-column" />
                                                             <ItemTemplate>
-                                                                <asp:LinkButton runat="server" ID="btnView_DetailRF" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_DetailRF_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                <asp:LinkButton runat="server" ID="btnView_DetailRF" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_DetailRF_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                 <%--<asp:LinkButton runat="server" ID="btnEdit" CommandName="Ubah" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnEdit_Click" ToolTip="Edit"><i class="fa-solid fa-pen-to-square"></i></asp:LinkButton>--%>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
@@ -549,7 +549,7 @@
                                                             <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                             <ItemStyle CssClass="fixed-column" />
                                                             <ItemTemplate>
-                                                                <asp:LinkButton runat="server" ID="btnView_MasterRF" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_MasterRF_Click" ToolTip="View Details"><i class="fa-solid fa-eye"></i></asp:LinkButton>
+                                                                <asp:LinkButton runat="server" ID="btnView_MasterRF" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_MasterRF_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
                                                                 <%--<asp:LinkButton runat="server" ID="btnEdit" CommandName="Ubah" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnEdit_Click" ToolTip="Edit"><i class="fa-solid fa-pen-to-square"></i></asp:LinkButton>--%>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
