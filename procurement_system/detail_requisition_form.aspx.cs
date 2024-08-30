@@ -152,7 +152,7 @@ namespace procurement_system
                 if (Session["status_approve"].ToString() == "Price Checked")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -190,8 +190,7 @@ namespace procurement_system
                         }
                     }
                     //EST.PRICE <= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -232,7 +231,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -267,7 +266,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -374,7 +373,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Approved (Division Manager)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -425,8 +424,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE <= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -479,7 +477,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -526,7 +524,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -668,7 +666,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Approved (Division GM)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -719,8 +717,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE <= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -773,7 +770,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -832,7 +829,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -1011,7 +1008,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Approved (Deputy Director)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -1063,7 +1060,7 @@ namespace procurement_system
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                     )
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -1116,7 +1113,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -1187,7 +1184,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -1402,7 +1399,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Approved (Division Director)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -1454,7 +1451,7 @@ namespace procurement_system
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    )
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -1507,7 +1504,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -1578,7 +1575,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -1817,7 +1814,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Approved (IT Head)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -1881,7 +1878,7 @@ namespace procurement_system
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                     )
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -1934,7 +1931,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -2017,7 +2014,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -2239,7 +2236,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Approved (GA Head)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -2315,7 +2312,7 @@ namespace procurement_system
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                     )
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -2380,7 +2377,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -2475,7 +2472,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -2736,7 +2733,7 @@ namespace procurement_system
                     if (Session["status"].ToString() == "Complete")
                     {
                         //EST.PRICE <= 1Jt IT Catalog
-                        if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                        if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                         {
                             GetDataPriceEstimatedApproval();
                             GetDataMgrApproval();
@@ -2777,7 +2774,7 @@ namespace procurement_system
                         }
                         //EST.PRICE <= 1Jt GA Catalog
                         else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                            && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                           )
                         {
                             GetDataPriceEstimatedApproval();
                             GetDataMgrApproval();
@@ -2812,7 +2809,7 @@ namespace procurement_system
                             status_completed.Attributes.Add("class", "StepProgress-item is-done");
                         }
                         //EST.PRICE >= 1Jt IT Catalog
-                        else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                        else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                         {
                             GetDataPriceEstimatedApproval();
                             GetDataMgrApproval();
@@ -2862,7 +2859,7 @@ namespace procurement_system
                             status_completed.Attributes.Add("class", "StepProgress-item is-done");
                         }
                         //EST.PRICE >= 1Jt GA Catalog
-                        else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                        else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                         {
                             GetDataPriceEstimatedApproval();
                             GetDataMgrApproval();
@@ -3026,7 +3023,7 @@ namespace procurement_system
                     else
                     {
                         //EST.PRICE <= 1Jt IT Catalog
-                        if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                        if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                         {
                             if (Session["status"].ToString() == "Canceled")
                             {
@@ -3114,7 +3111,7 @@ namespace procurement_system
                         }
                         //EST.PRICE <= 1Jt GA Catalog
                         else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                            && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                           )
                         {
                             if (Session["status"].ToString() == "Canceled")
                             {
@@ -3191,7 +3188,7 @@ namespace procurement_system
 
                         }
                         //EST.PRICE >= 1Jt IT Catalog
-                        else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                        else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                         {
                             if (Session["status"].ToString() == "Canceled")
                             {
@@ -3298,7 +3295,7 @@ namespace procurement_system
 
                         }
                         //EST.PRICE >= 1Jt GA Catalog
-                        else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                        else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                         {
                             if (Session["status"].ToString() == "Canceled")
                             {
@@ -3837,7 +3834,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (Division Manager)" || Session["status_approve"].ToString() == "Cancel (Division Manager)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApprovalReject();
@@ -3859,7 +3856,7 @@ namespace procurement_system
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                       )
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApprovalReject();
@@ -3881,7 +3878,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApprovalReject();
@@ -3900,7 +3897,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApprovalReject();
@@ -3961,7 +3958,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (Division GM)" || Session["status_approve"].ToString() == "Cancel (Division GM)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -3983,7 +3980,7 @@ namespace procurement_system
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                       )
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4005,7 +4002,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4031,7 +4028,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4113,7 +4110,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (Deputy Director)" || Session["status_approve"].ToString() == "Cancel (Deputy Director)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4135,7 +4132,7 @@ namespace procurement_system
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                       )
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4157,7 +4154,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4189,7 +4186,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4289,7 +4286,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (Division Director)" || Session["status_approve"].ToString() == "Cancel (Division Director)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4311,7 +4308,7 @@ namespace procurement_system
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                       )
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4333,7 +4330,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4364,7 +4361,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4475,7 +4472,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (IT Head)" || Session["status_approve"].ToString() == "Cancel (IT Head)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4504,7 +4501,7 @@ namespace procurement_system
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                       )
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4526,7 +4523,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4564,7 +4561,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4666,7 +4663,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (GA Head)" || Session["status_approve"].ToString() == "Cancel (GA Head)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4701,7 +4698,7 @@ namespace procurement_system
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                       )
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4730,7 +4727,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4774,7 +4771,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -4986,7 +4983,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (Fully Approved)" || Session["status_approve"].ToString() == "Cancel (Fully Approved)")
                 {
                     //EST.PRICE <= 1Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -5026,7 +5023,7 @@ namespace procurement_system
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                        && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                       )
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -5060,7 +5057,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
-                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -5109,7 +5106,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -5275,7 +5272,7 @@ namespace procurement_system
                 if (Session["status_approve"].ToString() == "Price Checked")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -5310,7 +5307,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -5417,7 +5414,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Approved (Division Manager)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -5464,7 +5461,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -5607,7 +5604,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Approved (Division GM)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -5666,7 +5663,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -5845,7 +5842,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Approved (Deputy Director)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -5916,7 +5913,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -6131,7 +6128,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Approved (Division Director)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -6202,7 +6199,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -6441,7 +6438,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Approved (IT Head)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -6524,7 +6521,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -6787,7 +6784,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Approved (GA Head)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -6882,7 +6879,7 @@ namespace procurement_system
 
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         if (Session["status"].ToString() == "Canceled")
                         {
@@ -7173,7 +7170,7 @@ namespace procurement_system
                     if (Session["status"].ToString() == "Complete")
                     {
                         //EST.PRICE <= 1Jt IT Catalog
-                        if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                        if (Session["catalog_type"].ToString() == "IT" && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                         {
                             GetDataPriceEstimatedApproval();
                             GetDataMgrApproval();
@@ -7214,7 +7211,7 @@ namespace procurement_system
                         }
                         //EST.PRICE <= 1Jt GA Catalog
                         else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
-                            && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                           )
                         {
                             GetDataPriceEstimatedApproval();
                             GetDataMgrApproval();
@@ -7249,7 +7246,7 @@ namespace procurement_system
                             status_completed.Attributes.Add("class", "StepProgress-item is-done");
                         }
                         //EST.PRICE >= 1Jt IT Catalog
-                        else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                        else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                         {
                             GetDataPriceEstimatedApproval();
                             GetDataMgrApproval();
@@ -7299,7 +7296,7 @@ namespace procurement_system
                             status_completed.Attributes.Add("class", "StepProgress-item is-done");
                         }
                         //EST.PRICE >= 1Jt GA Catalog
-                        else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                        else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                         {
                             GetDataPriceEstimatedApproval();
                             GetDataMgrApproval();
@@ -7463,7 +7460,7 @@ namespace procurement_system
                     else
                     {
                         //EST.PRICE <= 5Jt IT Catalog
-                        if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                        if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                         {
                             if (Session["status"].ToString() == "Canceled")
                             {
@@ -7570,7 +7567,7 @@ namespace procurement_system
 
                         }
                         //EST.PRICE <= 5Jt GA Catalog
-                        else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                        else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                         {
                             if (Session["status"].ToString() == "Canceled")
                             {
@@ -8139,7 +8136,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (Division Manager)" || Session["status_approve"].ToString() == "Cancel (Division Manager)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApprovalReject();
@@ -8158,7 +8155,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if (Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if (Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApprovalReject();
@@ -8219,7 +8216,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (Division GM)" || Session["status_approve"].ToString() == "Cancel (Division GM)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -8245,7 +8242,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -8327,7 +8324,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (Deputy Director)" || Session["status_approve"].ToString() == "Cancel (Deputy Director)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -8359,7 +8356,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -8459,7 +8456,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (Division Director)" || Session["status_approve"].ToString() == "Cancel (Division Director)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -8490,7 +8487,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -8601,7 +8598,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (IT Head)" || Session["status_approve"].ToString() == "Cancel (IT Head)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -8639,7 +8636,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -8761,7 +8758,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (GA Head)" || Session["status_approve"].ToString() == "Cancel (GA Head)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -8805,7 +8802,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -9046,7 +9043,7 @@ namespace procurement_system
                 else if (Session["status_approve"].ToString() == "Reject (Fully Approved)" || Session["status_approve"].ToString() == "Cancel (Fully Approved)")
                 {
                     //EST.PRICE <= 5Jt IT Catalog
-                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
+                    if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -9095,7 +9092,7 @@ namespace procurement_system
                         //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
-                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
+                    else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null)
                     {
                         GetDataPriceEstimatedApproval();
                         GetDataMgrApproval();
@@ -12028,8 +12025,8 @@ namespace procurement_system
             sqlcomm.Parameters.AddWithValue("@nama_branch", lbLocation.Text.Trim());
             //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", "890556");
             sqlcomm.Parameters.AddWithValue("@stok_code", ddlItem.SelectedValue);
-            sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
-            sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
+            //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
+            //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
 
             sqlcomm.ExecuteNonQuery();
             Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "AddItemsSuccess();", true);
