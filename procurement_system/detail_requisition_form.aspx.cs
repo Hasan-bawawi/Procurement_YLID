@@ -89,18 +89,18 @@ namespace procurement_system
                         Session.Add("ManagerApprove", (string)(rdr.IsDBNull(7) ? null : rdr["ManagerApprove"]));
                         Session.Add("GMApprove", (string)(rdr.IsDBNull(9) ? null : rdr["GMApprove"]));
                         Session.Add("DeputyDirectorApprove", (string)(rdr.IsDBNull(11) ? null : rdr["DeputyDirectorApprove"]));
-                        Session.Add("AdmManagerApprove", (string)(rdr.IsDBNull(13) ? null : rdr["AdmManagerApprove"]));
-                        Session.Add("AdmGMApprove", (string)(rdr.IsDBNull(15) ? null : rdr["AdmGMApprove"]));
-                        Session.Add("ITManagerApprove", (string)(rdr.IsDBNull(17) ? null : rdr["ITManagerApprove"]));
+                        //Session.Add("AdmManagerApprove", (string)(rdr.IsDBNull(13) ? null : rdr["AdmManagerApprove"]));
+                        //Session.Add("AdmGMApprove", (string)(rdr.IsDBNull(15) ? null : rdr["AdmGMApprove"]));
+                        //Session.Add("ITManagerApprove", (string)(rdr.IsDBNull(17) ? null : rdr["ITManagerApprove"]));
                         Session.Add("DirectorApprove", (string)(rdr.IsDBNull(18) ? null : rdr["DirectorApprove"]));
-                        Session.Add("AdmDirectorApprove", (string)(rdr.IsDBNull(19) ? null : rdr["AdmDirectorApprove"]));
+                        //Session.Add("AdmDirectorApprove", (string)(rdr.IsDBNull(19) ? null : rdr["AdmDirectorApprove"]));
                         Session.Add("EmailRequester", (string)rdr["EmailRequester"]);
                         Session.Add("EmailManagerApprove", (string)(rdr.IsDBNull(8) ? null : rdr["EmailManagerApprove"]));
                         //Session.Add("EmailGMApprove", (string)rdr["EmailGMApprove"]);
-                        Session.Add("EmailAdmManagerApprove", (string)(rdr.IsDBNull(14) ? null : rdr["EmailAdmManagerApprove"]));
-                        Session.Add("EmailAdmGMApprove", (string)(rdr.IsDBNull(16) ? null : rdr["EmailAdmGMApprove"]));
-                        Session.Add("nik_adm_manager", (string)rdr["nik_adm_manager"]);
-                        Session.Add("nik_adm_gm", (string)rdr["nik_adm_gm"]);
+                        //Session.Add("EmailAdmManagerApprove", (string)(rdr.IsDBNull(14) ? null : rdr["EmailAdmManagerApprove"]));
+                        //Session.Add("EmailAdmGMApprove", (string)(rdr.IsDBNull(16) ? null : rdr["EmailAdmGMApprove"]));
+                        //Session.Add("nik_adm_manager", (string)rdr["nik_adm_manager"]);
+                        //Session.Add("nik_adm_gm", (string)rdr["nik_adm_gm"]);
                         Session.Add("DivisionReq", (string)rdr["DivisionReq"].ToString());
                         Session.Add("IDSectionRequester", (string)rdr["IDSectionRequester"].ToString());
                     }
@@ -141,10 +141,10 @@ namespace procurement_system
             //hblEmailGM.Value = Session["EmailGMApprove"].ToString();
             //hlbEmailManagerAdm.Value = Session["EmailAdmManagerApprove"].ToString();
             //hlbEmailGMAdm.Value = Session["EmailAdmGMApprove"].ToString();
-            hlbNIKManagerAdm.Value = Session["nik_adm_manager"].ToString();
-            hlbNIKGMAdm.Value = Session["nik_adm_gm"].ToString();
-            hlbManagerAdm.Value = Session["AdmManagerApprove"].ToString();
-            hlbGMAdm.Value = Session["AdmGMApprove"].ToString();
+            //hlbNIKManagerAdm.Value = Session["nik_adm_manager"].ToString();
+            //hlbNIKGMAdm.Value = Session["nik_adm_gm"].ToString();
+            //hlbManagerAdm.Value = Session["AdmManagerApprove"].ToString();
+            //hlbGMAdm.Value = Session["AdmGMApprove"].ToString();
 
             #region BarStatus
             if (lbLocation.Text == "YLID-SUB" || lbLocation.Text == "YLID-SRG")
@@ -167,7 +167,7 @@ namespace procurement_system
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
@@ -186,7 +186,7 @@ namespace procurement_system
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
                     }
                     //EST.PRICE <= 1Jt GA Catalog
@@ -205,9 +205,9 @@ namespace procurement_system
                             lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
@@ -225,9 +225,9 @@ namespace procurement_system
                             lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -245,7 +245,7 @@ namespace procurement_system
                             string GetReqDatePE = ParseDatetimePE.ToString("dd MMMM yyyy");
                             lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
@@ -262,7 +262,7 @@ namespace procurement_system
                             string GetReqDatePE = ParseDatetimePE.ToString("dd MMMM yyyy");
                             lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -279,9 +279,9 @@ namespace procurement_system
                             DateTime ParseDatetimePE = DateTime.Parse(ReqDatePE);
                             string GetReqDatePE = ParseDatetimePE.ToString("dd MMMM yyyy");
                             lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
@@ -297,9 +297,9 @@ namespace procurement_system
                             DateTime ParseDatetimePE = DateTime.Parse(ReqDatePE);
                             string GetReqDatePE = ParseDatetimePE.ToString("dd MMMM yyyy");
                             lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -348,7 +348,7 @@ namespace procurement_system
                                 DateTime ParseDatetimePE = DateTime.Parse(ReqDatePE);
                                 string GetReqDatePE = ParseDatetimePE.ToString("dd MMMM yyyy");
                                 lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
                                 DateTime ParseDateCancel = DateTime.Parse(DateCancel);
@@ -364,7 +364,7 @@ namespace procurement_system
                                 DateTime ParseDatetimePE = DateTime.Parse(ReqDatePE);
                                 string GetReqDatePE = ParseDatetimePE.ToString("dd MMMM yyyy");
                                 lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -395,7 +395,7 @@ namespace procurement_system
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
@@ -420,7 +420,7 @@ namespace procurement_system
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -446,9 +446,9 @@ namespace procurement_system
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
@@ -472,9 +472,9 @@ namespace procurement_system
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -498,7 +498,7 @@ namespace procurement_system
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
@@ -521,7 +521,7 @@ namespace procurement_system
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -544,9 +544,9 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
@@ -568,9 +568,9 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -637,7 +637,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                                 string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                                 lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
                                 DateTime ParseDateCancel = DateTime.Parse(DateCancel);
@@ -659,7 +659,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                                 string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                                 lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -689,7 +689,7 @@ namespace procurement_system
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
@@ -714,7 +714,7 @@ namespace procurement_system
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -739,9 +739,9 @@ namespace procurement_system
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -766,9 +766,9 @@ namespace procurement_system
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -797,7 +797,7 @@ namespace procurement_system
                             string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                             lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivGMApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -827,7 +827,7 @@ namespace procurement_system
                             string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                             lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivGMApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -855,9 +855,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDivGM = DateTime.Parse(ReqDateDivGM);
                             string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                             lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivGMApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -886,9 +886,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDivGM = DateTime.Parse(ReqDateDivGM);
                             string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                             lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivGMApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -972,7 +972,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivGM = DateTime.Parse(ReqDateDivGM);
                                 string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                                 lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivGMApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1001,7 +1001,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivGM = DateTime.Parse(ReqDateDivGM);
                                 string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                                 lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivGMApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -1031,7 +1031,7 @@ namespace procurement_system
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1057,7 +1057,7 @@ namespace procurement_system
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -1082,9 +1082,9 @@ namespace procurement_system
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1109,9 +1109,9 @@ namespace procurement_system
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -1146,7 +1146,7 @@ namespace procurement_system
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1182,7 +1182,7 @@ namespace procurement_system
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -1216,9 +1216,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1253,9 +1253,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -1357,7 +1357,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1392,7 +1392,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -1422,7 +1422,7 @@ namespace procurement_system
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1448,7 +1448,7 @@ namespace procurement_system
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -1473,9 +1473,9 @@ namespace procurement_system
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1500,9 +1500,9 @@ namespace procurement_system
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -1537,7 +1537,7 @@ namespace procurement_system
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1573,7 +1573,7 @@ namespace procurement_system
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -1607,9 +1607,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1644,9 +1644,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -1766,7 +1766,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1807,7 +1807,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -1835,15 +1835,15 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
                         else
                         {
@@ -1861,15 +1861,15 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1900,9 +1900,9 @@ namespace procurement_system
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
                         else
                         {
@@ -1921,9 +1921,9 @@ namespace procurement_system
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -1964,13 +1964,13 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -2006,13 +2006,13 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -2046,9 +2046,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -2083,9 +2083,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -2122,11 +2122,11 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -2162,11 +2162,11 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
                             }
 
                         }
@@ -2197,7 +2197,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -2230,7 +2230,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                             }
                         }
 
@@ -2258,20 +2258,20 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -2296,20 +2296,20 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -2333,16 +2333,16 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -2366,16 +2366,16 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -2411,18 +2411,18 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -2459,18 +2459,18 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -2505,14 +2505,14 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -2548,14 +2548,14 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -2593,16 +2593,16 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -2639,16 +2639,16 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                             }
 
                         }
@@ -2680,12 +2680,12 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -2719,12 +2719,12 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //it_section_head.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -2754,25 +2754,25 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-done");
                         }
                         //EST.PRICE <= 1Jt GA Catalog
@@ -2794,21 +2794,21 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-done");
                         }
                         //EST.PRICE >= 1Jt IT Catalog
@@ -2842,23 +2842,23 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-done");
                         }
                         //EST.PRICE >= 1Jt GA Catalog
@@ -2891,19 +2891,19 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-done");
                         }
                         else
@@ -2945,26 +2945,26 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                                admin_director.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                                //admin_director.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin"].ToString();
                                 DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                                 string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                                lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
+                                //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-done");
                             }
                             else
@@ -3003,22 +3003,22 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("style", "display:none");
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                                admin_director.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                                //admin_director.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin"].ToString();
                                 DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                                 string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                                lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
+                                //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-done");
                             }
                         }
@@ -3046,25 +3046,25 @@ namespace procurement_system
                                 DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                                 string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                                 lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                                 gm.Attributes.Add("style", "display:none");
                                 deputy_director.Attributes.Add("style", "display:none");
                                 director.Attributes.Add("style", "display:none");
-                                admin_director.Attributes.Add("style", "display:none");
+                                //admin_director.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -3090,25 +3090,25 @@ namespace procurement_system
                                 DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                                 string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                                 lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                                 gm.Attributes.Add("style", "display:none");
                                 deputy_director.Attributes.Add("style", "display:none");
                                 director.Attributes.Add("style", "display:none");
-                                admin_director.Attributes.Add("style", "display:none");
+                                //admin_director.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -3133,21 +3133,21 @@ namespace procurement_system
                                 DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                                 string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                                 lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                                 gm.Attributes.Add("style", "display:none");
                                 deputy_director.Attributes.Add("style", "display:none");
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 director.Attributes.Add("style", "display:none");
-                                admin_director.Attributes.Add("style", "display:none");
+                                //admin_director.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -3172,21 +3172,21 @@ namespace procurement_system
                                 DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                                 string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                                 lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                                 gm.Attributes.Add("style", "display:none");
                                 deputy_director.Attributes.Add("style", "display:none");
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 director.Attributes.Add("style", "display:none");
-                                admin_director.Attributes.Add("style", "display:none");
+                                //admin_director.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -3223,23 +3223,23 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                                 director.Attributes.Add("style", "display:none");
-                                admin_director.Attributes.Add("style", "display:none");
+                                //admin_director.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -3277,23 +3277,23 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                                 director.Attributes.Add("style", "display:none");
-                                admin_director.Attributes.Add("style", "display:none");
+                                //admin_director.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -3329,19 +3329,19 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 director.Attributes.Add("style", "display:none");
-                                admin_director.Attributes.Add("style", "display:none");
+                                //admin_director.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -3378,19 +3378,19 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 director.Attributes.Add("style", "display:none");
-                                admin_director.Attributes.Add("style", "display:none");
+                                //admin_director.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -3435,26 +3435,26 @@ namespace procurement_system
                                     DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                     string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                     lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                    it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                    //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                     DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                     string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                    lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                    //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                     DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                     string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                    lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                    admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                    //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                                     DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                     string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                    lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                                    admin_director.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                                    //admin_director.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin"].ToString();
                                     DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                                     string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                                    lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
+                                    //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
                                     GetDataCancelRFl();
                                     status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                     string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -3499,26 +3499,26 @@ namespace procurement_system
                                     DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                     string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                     lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                    it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                    //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                     DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                     string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                    lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                    //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                     DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                     string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                    lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                    admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                    //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                                     DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                     string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                    lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                                    admin_director.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                                    //admin_director.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin"].ToString();
                                     DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                                     string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                                    lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
+                                    //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
                                 }
 
                             }
@@ -3560,22 +3560,22 @@ namespace procurement_system
                                     DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                     string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                     lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                    it_section_head.Attributes.Add("style", "display:none");
-                                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                    //it_section_head.Attributes.Add("style", "display:none");
+                                    //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                     DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                     string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                    lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                    admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                    //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                                     DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                     string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                    lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                                    admin_director.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                                    //admin_director.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin"].ToString();
                                     DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                                     string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                                    lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
+                                    //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
                                     GetDataCancelRFl();
                                     status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                     string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -3619,22 +3619,22 @@ namespace procurement_system
                                     DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                     string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                     lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                    it_section_head.Attributes.Add("style", "display:none");
-                                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                    //it_section_head.Attributes.Add("style", "display:none");
+                                    //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                     DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                     string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                    lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                    admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                    //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                                     DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                     string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                    lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                                    admin_director.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                                    //admin_director.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin"].ToString();
                                     DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                                     string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                                    lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
+                                    //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
                                 }
 
                             }
@@ -3675,21 +3675,21 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -3727,21 +3727,21 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
                         }
 
                     }
@@ -3774,17 +3774,17 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                            //it_section_head.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -3819,17 +3819,17 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                            //it_section_head.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -3855,7 +3855,7 @@ namespace procurement_system
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
@@ -3876,9 +3876,9 @@ namespace procurement_system
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["MgrApprovalreject"].ToString();
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
                     else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
@@ -3897,7 +3897,7 @@ namespace procurement_system
                         string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["MgrApprovalreject"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -3915,9 +3915,9 @@ namespace procurement_system
                         DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                         string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["MgrApprovalreject"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE > 5Jt IT Catalog
                     else
@@ -3953,7 +3953,7 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["MgrApprovalreject"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -3979,7 +3979,7 @@ namespace procurement_system
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
@@ -4000,9 +4000,9 @@ namespace procurement_system
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
                     else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
@@ -4028,7 +4028,7 @@ namespace procurement_system
                         string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                         lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DivGMApprovalreject"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -4053,9 +4053,9 @@ namespace procurement_system
                         DateTime ParseDatetimeDivGM = DateTime.Parse(ReqDateDivGM);
                         string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                         lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DivGMApprovalreject"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE > 5Jt IT Catalog
                     else
@@ -4105,7 +4105,7 @@ namespace procurement_system
                             DateTime ParseDatetimeDivGM = DateTime.Parse(ReqDateDivGM);
                             string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                             lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DivGMApprovalreject"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -4131,7 +4131,7 @@ namespace procurement_system
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
@@ -4152,9 +4152,9 @@ namespace procurement_system
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
                     else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
@@ -4186,7 +4186,7 @@ namespace procurement_system
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DeputyDirectorApprovalreject"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -4217,9 +4217,9 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DeputyDirectorApprovalreject"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE > 5Jt IT Catalog
                     else
@@ -4281,7 +4281,7 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DeputyDirectorApprovalreject"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -4307,7 +4307,7 @@ namespace procurement_system
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
@@ -4328,9 +4328,9 @@ namespace procurement_system
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
                     else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
@@ -4361,7 +4361,7 @@ namespace procurement_system
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -4391,9 +4391,9 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE > 5Jt IT Catalog
                     else
@@ -4467,7 +4467,7 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DivisionDirectorApprovalreject"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -4492,15 +4492,15 @@ namespace procurement_system
                         DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                         string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                        it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        //it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateITHead = Session["tgl_approve_ITHead_reject"].ToString();
                         DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                         string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                        lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["ITHeadApprovalreject"].ToString();
+                        //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["ITHeadApprovalreject"].ToString();
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
@@ -4521,9 +4521,9 @@ namespace procurement_system
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
                     else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
@@ -4555,13 +4555,13 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        //it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateITHead = Session["tgl_approve_ITHead_reject"].ToString();
                         DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                         string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                        lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["ITHeadApprovalreject"].ToString();
+                        //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["ITHeadApprovalreject"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -4591,9 +4591,9 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE > 5Jt IT Catalog
                     else
@@ -4627,11 +4627,11 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                             string ReqDateITHead = Session["tgl_approve_ITHead_reject"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["ITHeadApprovalreject"].ToString();
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["ITHeadApprovalreject"].ToString();
                         }
                         else
                         {
@@ -4658,7 +4658,7 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -4684,20 +4684,20 @@ namespace procurement_system
                         DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                         string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                         DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                         string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                        lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateGAHead = Session["tgl_approve_GAHead_reject"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
@@ -4718,16 +4718,16 @@ namespace procurement_system
                         DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                         string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateGAHead = Session["tgl_approve_GAHead_reject"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
                     else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
@@ -4760,18 +4760,18 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                         DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                         string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                        lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateGAHead = Session["tgl_approve_GAHead_reject"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -4803,14 +4803,14 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateGAHead = Session["tgl_approve_GAHead_reject"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE > 5Jt IT Catalog
                     else
@@ -4845,16 +4845,16 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                             string ReqDateGAHead = Session["tgl_approve_GAHead_reject"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
                         }
                         else
                         {
@@ -4883,12 +4883,12 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                             string ReqDateGAHead = Session["tgl_approve_GAHead_reject"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
+                            //it_section_head.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -4926,21 +4926,21 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                         DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                         string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                        lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                        admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                        //admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateGMAdmin = Session["tgl_approve_GMAdmin_reject"].ToString();
                         DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                         string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                        lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GMAdminApprovalreject"].ToString();
+                        //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GMAdminApprovalreject"].ToString();
                     }
                     else
                     {
@@ -4970,17 +4970,17 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                        admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                        //admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateGMAdmin = Session["tgl_approve_GMAdmin_reject"].ToString();
                         DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                         string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                        lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GMAdminApprovalreject"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GMAdminApprovalreject"].ToString();
+                        //it_section_head.Attributes.Add("style", "display:none");
                     }
                 }
                 else if (Session["status_approve"].ToString() == "Reject (Fully Approved)" || Session["status_approve"].ToString() == "Cancel (Fully Approved)")
@@ -5004,25 +5004,25 @@ namespace procurement_system
                         DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                         string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                         DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                         string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                        lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                        admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                        //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                         DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                         string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                        lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                        //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null
@@ -5043,21 +5043,21 @@ namespace procurement_system
                         DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                         string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                        admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                        //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                         DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                         string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                        lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                        //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                         gm.Attributes.Add("style", "display:none");
                         deputy_director.Attributes.Add("style", "display:none");
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt IT Catalog
                     else if (Session["catalog_type"].ToString() == "IT" && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null)
@@ -5090,23 +5090,23 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                         DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                         string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                        lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                        admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                        //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                         DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                         string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                        lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                        //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE >= 1Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -5138,19 +5138,19 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                        admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                        //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                         DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                         string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                        lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     else
                     {
@@ -5192,26 +5192,26 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                            admin_director.Attributes.Add("class", "StepProgress-item is-reject");
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                            //admin_director.Attributes.Add("class", "StepProgress-item is-reject");
                             string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin_reject"].ToString();
                             DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                             string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                            lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DirectorAdminApprovalreject"].ToString();
+                            //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DirectorAdminApprovalreject"].ToString();
                         }
                         else
                         {
@@ -5250,22 +5250,22 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("style", "display:none");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                            admin_director.Attributes.Add("class", "StepProgress-item is-reject");
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                            //admin_director.Attributes.Add("class", "StepProgress-item is-reject");
                             string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin_reject"].ToString();
                             DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                             string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                            lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DirectorAdminApprovalreject"].ToString();
+                            //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DirectorAdminApprovalreject"].ToString();
                         }
                     }
                 }
@@ -5287,7 +5287,7 @@ namespace procurement_system
                             string GetReqDatePE = ParseDatetimePE.ToString("dd MMMM yyyy");
                             lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -5305,7 +5305,7 @@ namespace procurement_system
                             string GetReqDatePE = ParseDatetimePE.ToString("dd MMMM yyyy");
                             lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -5321,9 +5321,9 @@ namespace procurement_system
                             DateTime ParseDatetimePE = DateTime.Parse(ReqDatePE);
                             string GetReqDatePE = ParseDatetimePE.ToString("dd MMMM yyyy");
                             lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -5340,9 +5340,9 @@ namespace procurement_system
                             DateTime ParseDatetimePE = DateTime.Parse(ReqDatePE);
                             string GetReqDatePE = ParseDatetimePE.ToString("dd MMMM yyyy");
                             lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -5390,7 +5390,7 @@ namespace procurement_system
                                 DateTime ParseDatetimePE = DateTime.Parse(ReqDatePE);
                                 string GetReqDatePE = ParseDatetimePE.ToString("dd MMMM yyyy");
                                 lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -5407,7 +5407,7 @@ namespace procurement_system
                                 DateTime ParseDatetimePE = DateTime.Parse(ReqDatePE);
                                 string GetReqDatePE = ParseDatetimePE.ToString("dd MMMM yyyy");
                                 lbDatePriceEstimate.Text = GetReqDatePE + "&nbsp;-&nbsp;" + "Price Checked by" + "&nbsp" + Session["PriceEstInput"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -5435,7 +5435,7 @@ namespace procurement_system
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -5459,7 +5459,7 @@ namespace procurement_system
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -5481,9 +5481,9 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -5506,9 +5506,9 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -5574,7 +5574,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                                 string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                                 lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -5597,7 +5597,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                                 string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                                 lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -5631,7 +5631,7 @@ namespace procurement_system
                             string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                             lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivGMApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -5661,7 +5661,7 @@ namespace procurement_system
                             string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                             lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivGMApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -5689,9 +5689,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDivGM = DateTime.Parse(ReqDateDivGM);
                             string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                             lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivGMApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -5720,9 +5720,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDivGM = DateTime.Parse(ReqDateDivGM);
                             string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                             lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivGMApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -5806,7 +5806,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivGM = DateTime.Parse(ReqDateDivGM);
                                 string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                                 lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivGMApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -5835,7 +5835,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivGM = DateTime.Parse(ReqDateDivGM);
                                 string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                                 lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivGMApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -5875,7 +5875,7 @@ namespace procurement_system
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -5911,7 +5911,7 @@ namespace procurement_system
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -5945,9 +5945,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -5982,9 +5982,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -6086,7 +6086,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -6121,7 +6121,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -6161,7 +6161,7 @@ namespace procurement_system
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -6197,7 +6197,7 @@ namespace procurement_system
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -6231,9 +6231,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -6268,9 +6268,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -6390,7 +6390,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -6431,7 +6431,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //it_section_head.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -6471,13 +6471,13 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -6513,13 +6513,13 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -6559,9 +6559,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -6602,9 +6602,9 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -6647,11 +6647,11 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -6693,11 +6693,11 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
                             }
 
                         }
@@ -6736,7 +6736,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -6777,7 +6777,7 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             }
 
                         }
@@ -6818,18 +6818,18 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -6866,18 +6866,18 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -6913,14 +6913,14 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                           // it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -6957,14 +6957,14 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -7008,16 +7008,16 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -7060,16 +7060,16 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                             }
 
                         }
@@ -7109,12 +7109,12 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("style", "display:none");
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -7156,12 +7156,12 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("style", "display:none");
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
                             }
 
                         }
@@ -7191,25 +7191,25 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-done");
                         }
                         //EST.PRICE <= 1Jt GA Catalog
@@ -7231,21 +7231,21 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["MgrApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                             gm.Attributes.Add("style", "display:none");
                             deputy_director.Attributes.Add("style", "display:none");
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-done");
                         }
                         //EST.PRICE >= 1Jt IT Catalog
@@ -7279,23 +7279,23 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-done");
                         }
                         //EST.PRICE >= 1Jt GA Catalog
@@ -7328,19 +7328,19 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                            //it_section_head.Attributes.Add("style", "display:none");
                             director.Attributes.Add("style", "display:none");
-                            admin_director.Attributes.Add("style", "display:none");
+                            //admin_director.Attributes.Add("style", "display:none");
                             status_completed.Attributes.Add("class", "StepProgress-item is-done");
                         }
                         else
@@ -7382,26 +7382,26 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                                admin_director.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                                //admin_director.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin"].ToString();
                                 DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                                 string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                                lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
+                                //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-done");
                             }
                             else
@@ -7440,22 +7440,22 @@ namespace procurement_system
                                 DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                 string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                 lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("style", "display:none");
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                                admin_director.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                                //admin_director.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin"].ToString();
                                 DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                                 string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                                lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
+                                //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-done");
                             }
                         }
@@ -7495,23 +7495,23 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                                 director.Attributes.Add("style", "display:none");
-                                admin_director.Attributes.Add("style", "display:none");
+                                //admin_director.Attributes.Add("style", "display:none");
                                 GetDataCancelRFl();
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -7549,23 +7549,23 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                 DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                 string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                                 director.Attributes.Add("style", "display:none");
-                                admin_director.Attributes.Add("style", "display:none");
+                                //admin_director.Attributes.Add("style", "display:none");
                             }
 
                         }
@@ -7603,19 +7603,19 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 director.Attributes.Add("style", "display:none");
-                                admin_director.Attributes.Add("style", "display:none");
+                                //admin_director.Attributes.Add("style", "display:none");
                                 status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                 string DateCancel = Session["tgl_approve_Cancel"].ToString();
                                 DateTime ParseDateCancel = DateTime.Parse(DateCancel);
@@ -7652,19 +7652,19 @@ namespace procurement_system
                                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                                ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                 DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                 string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                 string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                                 DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                 string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
-                                it_section_head.Attributes.Add("style", "display:none");
+                                //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                                //it_section_head.Attributes.Add("style", "display:none");
                                 director.Attributes.Add("style", "display:none");
-                                admin_director.Attributes.Add("style", "display:none");
+                                //admin_director.Attributes.Add("style", "display:none");
                             }
                         }
                         else
@@ -7708,26 +7708,26 @@ namespace procurement_system
                                     DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                     string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                     lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                    it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                    //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                     DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                     string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                    lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                    //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                     DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                     string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                    lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                    admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                   // admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                                     DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                     string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                    lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                                    admin_director.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                                    //admin_director.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin"].ToString();
                                     DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                                     string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                                    lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
+                                    //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
                                     GetDataCancelRFl();
                                     status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                     string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -7772,26 +7772,26 @@ namespace procurement_system
                                     DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                     string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                     lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                    it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                    //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                                     DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                                     string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                                    lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                                    //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                     DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                     string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                    lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                    admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                    //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                                     DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                     string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                    lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                                    admin_director.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                                    //admin_director.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin"].ToString();
                                     DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                                     string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                                    lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
+                                    //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
                                 }
 
                             }
@@ -7833,22 +7833,22 @@ namespace procurement_system
                                     DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                     string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                     lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                    it_section_head.Attributes.Add("style", "display:none");
-                                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                    //it_section_head.Attributes.Add("style", "display:none");
+                                    //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                     DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                     string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                    lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                    admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                    //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                                     DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                     string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                    lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                                    admin_director.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                                    //admin_director.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin"].ToString();
                                     DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                                     string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                                    lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
+                                    //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
                                     GetDataCancelRFl();
                                     status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                                     string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -7892,22 +7892,22 @@ namespace procurement_system
                                     DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                                     string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                                     lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                                    it_section_head.Attributes.Add("style", "display:none");
-                                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                                    //it_section_head.Attributes.Add("style", "display:none");
+                                    //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                                     DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                                     string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                                    lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                                    admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                                    //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                                     DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                                     string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                                    lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                                    admin_director.Attributes.Add("class", "StepProgress-item is-done");
+                                    //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                                    //admin_director.Attributes.Add("class", "StepProgress-item is-done");
                                     string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin"].ToString();
                                     DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                                     string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                                    lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
+                                    //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DirectorAdminApproval"].ToString();
                                 }
 
                             }
@@ -7955,21 +7955,21 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -8013,21 +8013,21 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
                         }
 
                     }
@@ -8068,17 +8068,17 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("style", "display:none");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
                             GetDataCancelRFl();
                             status_completed.Attributes.Add("class", "StepProgress-item is-reject");
                             string DateCancel = Session["tgl_approve_Cancel"].ToString();
@@ -8121,17 +8121,17 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("style", "display:none");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
                         }
 
                     }
@@ -8155,7 +8155,7 @@ namespace procurement_system
                         string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["MgrApprovalreject"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
                     else if (Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -8173,9 +8173,9 @@ namespace procurement_system
                         DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                         string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                         lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["MgrApprovalreject"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE > 5Jt IT Catalog
                     else
@@ -8211,7 +8211,7 @@ namespace procurement_system
                             DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                             string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                             lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["MgrApprovalreject"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -8242,7 +8242,7 @@ namespace procurement_system
                         string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                         lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DivGMApprovalreject"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -8267,9 +8267,9 @@ namespace procurement_system
                         DateTime ParseDatetimeDivGM = DateTime.Parse(ReqDateDivGM);
                         string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                         lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DivGMApprovalreject"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE > 5Jt IT Catalog
                     else
@@ -8319,7 +8319,7 @@ namespace procurement_system
                             DateTime ParseDatetimeDivGM = DateTime.Parse(ReqDateDivGM);
                             string GetReqDateDivGM = ParseDatetimeDivGM.ToString("dd MMMM yyyy");
                             lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DivGMApprovalreject"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -8356,7 +8356,7 @@ namespace procurement_system
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DeputyDirectorApprovalreject"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -8387,9 +8387,9 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DeputyDirectorApprovalreject"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE > 5Jt IT Catalog
                     else
@@ -8451,7 +8451,7 @@ namespace procurement_system
                             DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                             string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                             lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DeputyDirectorApprovalreject"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -8487,7 +8487,7 @@ namespace procurement_system
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -8517,9 +8517,9 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE > 5Jt IT Catalog
                     else
@@ -8593,7 +8593,7 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DivisionDirectorApprovalreject"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
+                            //it_section_head.Attributes.Add("style", "display:none");
                         }
 
                     }
@@ -8630,13 +8630,13 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        //it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateITHead = Session["tgl_approve_ITHead_reject"].ToString();
                         DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                         string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                        lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["ITHeadApprovalreject"].ToString();
+                        //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["ITHeadApprovalreject"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -8672,9 +8672,9 @@ namespace procurement_system
                         DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                         string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                         lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE > 5Jt IT Catalog
                     else
@@ -8714,11 +8714,11 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                             string ReqDateITHead = Session["tgl_approve_ITHead_reject"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["ITHeadApprovalreject"].ToString();
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["ITHeadApprovalreject"].ToString();
                         }
                         else
                         {
@@ -8753,7 +8753,7 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         }
 
                     }
@@ -8791,18 +8791,18 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                         DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                         string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                        lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateGAHead = Session["tgl_approve_GAHead_reject"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -8835,14 +8835,14 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateGAHead = Session["tgl_approve_GAHead_reject"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE > 5Jt IT Catalog
                     else
@@ -8883,16 +8883,16 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                             string ReqDateGAHead = Session["tgl_approve_GAHead_reject"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
                         }
                         else
                         {
@@ -8929,12 +8929,12 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                            //it_section_head.Attributes.Add("style", "display:none");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
                             string ReqDateGAHead = Session["tgl_approve_GAHead_reject"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GAHeadApprovalreject"].ToString();
                         }
 
                     }
@@ -8978,21 +8978,21 @@ namespace procurement_system
                         DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                         string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                         lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                         DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                         string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                        lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                        admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                        //admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateGMAdmin = Session["tgl_approve_GMAdmin_reject"].ToString();
                         DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                         string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                        lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GMAdminApprovalreject"].ToString();
+                        //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GMAdminApprovalreject"].ToString();
                     }
                     else
                     {
@@ -9030,17 +9030,17 @@ namespace procurement_system
                         DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                         string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                         lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //it_section_head.Attributes.Add("style", "display:none");
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                        admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                        //admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
                         string ReqDateGMAdmin = Session["tgl_approve_GMAdmin_reject"].ToString();
                         DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                         string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                        lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GMAdminApprovalreject"].ToString();
+                        //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["GMAdminApprovalreject"].ToString();
                     }
                 }
                 else if (Session["status_approve"].ToString() == "Reject (Fully Approved)" || Session["status_approve"].ToString() == "Cancel (Fully Approved)")
@@ -9076,23 +9076,23 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                         DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                         string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                        lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                        admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                        //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                         DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                         string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                        lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                        //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     //EST.PRICE <= 5Jt GA Catalog
                     else if ((Session["catalog_type"].ToString() == "GA" || Session["catalog_type"].ToString() == "OPS") && Session["DirectorApprove"] is null && Session["AdmDirectorApprove"] is null && Session["ITManagerApprove"] is null)
@@ -9125,19 +9125,19 @@ namespace procurement_system
                         DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                         string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                         lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DeputyDirectorApproval"].ToString();
-                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                         DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                         string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                        lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                        admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                        //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                        //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                         string ReqDateGMAdmin = Session["tgl_approve_GMAdminFull"].ToString();
                         DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                         string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                        lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
-                        it_section_head.Attributes.Add("style", "display:none");
+                        //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApprovalFull"].ToString();
+                        //it_section_head.Attributes.Add("style", "display:none");
                         director.Attributes.Add("style", "display:none");
-                        admin_director.Attributes.Add("style", "display:none");
+                        //admin_director.Attributes.Add("style", "display:none");
                     }
                     else
                     {
@@ -9179,26 +9179,26 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateITHead = Session["tgl_approve_ITHead"].ToString();
                             DateTime ParseDatetimeITHead = DateTime.Parse(ReqDateITHead);
                             string GetReqDateITHead = ParseDatetimeITHead.ToString("dd MMMM yyyy");
-                            lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateITHead.Text = GetReqDateITHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["ITHeadApproval"].ToString();
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                            admin_director.Attributes.Add("class", "StepProgress-item is-reject");
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                            //admin_director.Attributes.Add("class", "StepProgress-item is-reject");
                             string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin_reject"].ToString();
                             DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                             string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                            lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DirectorAdminApprovalreject"].ToString();
+                            //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DirectorAdminApprovalreject"].ToString();
                         }
                         else
                         {
@@ -9237,22 +9237,22 @@ namespace procurement_system
                             DateTime ParseDatetimeDivisionDirector = DateTime.Parse(ReqDateDivisionDirector);
                             string GetReqDateDivisionDirector = ParseDatetimeDivisionDirector.ToString("dd MMMM yyyy");
                             lbDateDir.Text = GetReqDateDivisionDirector + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["DivisionDirectorApproval"].ToString();
-                            it_section_head.Attributes.Add("style", "display:none");
-                            ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                            //it_section_head.Attributes.Add("style", "display:none");
+                            //ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGAHead = Session["tgl_approve_GAHead"].ToString();
                             DateTime ParseDatetimeGAHead = DateTime.Parse(ReqDateGAHead);
                             string GetReqDateGAHead = ParseDatetimeGAHead.ToString("dd MMMM yyyy");
-                            lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
-                            admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                            //lbDateGAHead.Text = GetReqDateGAHead + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GAHeadApproval"].ToString();
+                            //admin_gm.Attributes.Add("class", "StepProgress-item is-done");
                             string ReqDateGMAdmin = Session["tgl_approve_GMAdmin"].ToString();
                             DateTime ParseDatetimeGMAdmin = DateTime.Parse(ReqDateGMAdmin);
                             string GetReqDateGMAdmin = ParseDatetimeGMAdmin.ToString("dd MMMM yyyy");
-                            lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
-                            admin_director.Attributes.Add("class", "StepProgress-item is-reject");
+                            //lbDateGMAdm.Text = GetReqDateGMAdmin + "&nbsp;-&nbsp;" + "Approved by" + "&nbsp" + Session["GMAdminApproval"].ToString();
+                            //admin_director.Attributes.Add("class", "StepProgress-item is-reject");
                             string ReqDateDirectorAdmin = Session["tgl_approve_DirectorAdmin_reject"].ToString();
                             DateTime ParseDatetimeDirectorAdmin = DateTime.Parse(ReqDateDirectorAdmin);
                             string GetReqDateDirectorAdmin = ParseDatetimeDirectorAdmin.ToString("dd MMMM yyyy");
-                            lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DirectorAdminApprovalreject"].ToString();
+                            //lbDateDirAdm.Text = GetReqDateDirectorAdmin + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DirectorAdminApprovalreject"].ToString();
                         }
                     }
                 }
