@@ -228,11 +228,11 @@
                                                             <asp:BoundField DataField="ManagerApprove" HeaderText="Manager Approve" />
                                                             <asp:BoundField DataField="GMApprove" HeaderText="GM Approve" />
                                                             <asp:BoundField DataField="DeputyDirectorApprove" HeaderText="Deputy Director Approve" />
-                                                            <asp:BoundField DataField="DirectorApprove" HeaderText="Director Approve" />
+                                                           <%-- <asp:BoundField DataField="DirectorApprove" HeaderText="Director Approve" />
                                                             <asp:BoundField DataField="ITManagerApprove" HeaderText="IT Head Approve" />
                                                             <asp:BoundField DataField="AdmManagerApprove" HeaderText="GA Head Approve" />
                                                             <asp:BoundField DataField="AdmGMApprove" HeaderText="Admin GM Approve" />
-                                                            <asp:BoundField DataField="AdmDirectorApprove" HeaderText="Admin Director Approve" />
+                                                            <asp:BoundField DataField="AdmDirectorApprove" HeaderText="Admin Director Approve" />--%>
                                                             <asp:BoundField DataField="status_approve" HeaderText="Approval Status" />
                                                             <asp:BoundField DataField="status" HeaderText="RF Status" />
                                                             <asp:BoundField DataField="nama_branch" HeaderText="Location" />

@@ -180,14 +180,14 @@
                                 </li>
                                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#director">Director</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#ga_section_head">GA Section Head</a>
+                                <%--<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#ga_section_head">GA Section Head</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#it_section_head">IT Section Head</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#gm_adm">Administration GM</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#director_adm">Administration Director</a>
-                                </li>
+                                </li>--%>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="division_manager" role="tabpanel">
@@ -219,9 +219,9 @@
                                                                             <asp:BoundField DataField="ManagerApprove" HeaderText="Manager Approve" />
                                                                             <asp:BoundField DataField="GMApprove" HeaderText="GM Approve" />
                                                                             <asp:BoundField DataField="DeputyDirectorApprove" HeaderText="Deputy Director Approve" />
-                                                                            <asp:BoundField DataField="AdmManagerApprove" HeaderText="Adm. Manager Approve" />
+                                                                            <%--<asp:BoundField DataField="AdmManagerApprove" HeaderText="Adm. Manager Approve" />
                                                                             <asp:BoundField DataField="AdmGMApprove" HeaderText="Adm. GM Approve" />
-                                                                            <asp:BoundField DataField="ITManagerApprove" HeaderText="IT Manager Approve" />
+                                                                            <asp:BoundField DataField="ITManagerApprove" HeaderText="IT Manager Approve" />--%>
                                                                             <asp:BoundField DataField="DirectorApprove" HeaderText="Director Approve" />
                                                                             <asp:BoundField DataField="status_approve" HeaderText="Approval Status" />
                                                                             <asp:BoundField DataField="status" HeaderText="RF Status" />
@@ -300,11 +300,11 @@
                                                                             <asp:BoundField DataField="ManagerApprove" HeaderText="Manager Approve" />
                                                                             <asp:BoundField DataField="GMApprove" HeaderText="GM Approve" />
                                                                             <asp:BoundField DataField="DeputyDirectorApprove" HeaderText="Deputy Director Approve" />
-                                                                            <asp:BoundField DataField="AdmManagerApprove" HeaderText="Adm. Manager Approve" />
+                                                                            <%--<asp:BoundField DataField="AdmManagerApprove" HeaderText="Adm. Manager Approve" />
                                                                             <asp:BoundField DataField="AdmGMApprove" HeaderText="Adm. GM Approve" />
-                                                                            <asp:BoundField DataField="ITManagerApprove" HeaderText="IT Manager Approve" />
+                                                                            <asp:BoundField DataField="ITManagerApprove" HeaderText="IT Manager Approve" />--%>
                                                                             <asp:BoundField DataField="DirectorApprove" HeaderText="Director Approve" />
-                                                                            <asp:BoundField DataField="AdmDirectorApprove" HeaderText="Adm. Director Approve" />
+                                                                           <%-- <asp:BoundField DataField="AdmDirectorApprove" HeaderText="Adm. Director Approve" />--%>
                                                                             <asp:BoundField DataField="status_approve" HeaderText="Approval Status" />
                                                                             <asp:BoundField DataField="status" HeaderText="RF Status" />
                                                                             <asp:BoundField DataField="nama_branch" HeaderText="Location" />
@@ -382,9 +382,9 @@
                                                                             <asp:BoundField DataField="ManagerApprove" HeaderText="Manager Approve" />
                                                                             <asp:BoundField DataField="GMApprove" HeaderText="GM Approve" />
                                                                             <asp:BoundField DataField="DeputyDirectorApprove" HeaderText="Deputy Director Approve" />
-                                                                            <asp:BoundField DataField="AdmManagerApprove" HeaderText="Adm. Manager Approve" />
+                                                                            <%--<asp:BoundField DataField="AdmManagerApprove" HeaderText="Adm. Manager Approve" />
                                                                             <asp:BoundField DataField="AdmGMApprove" HeaderText="Adm. GM Approve" />
-                                                                            <asp:BoundField DataField="ITManagerApprove" HeaderText="IT Manager Approve" />
+                                                                            <asp:BoundField DataField="ITManagerApprove" HeaderText="IT Manager Approve" />--%>
                                                                             <asp:BoundField DataField="DirectorApprove" HeaderText="Director Approve" />
                                                                             <asp:BoundField DataField="status_approve" HeaderText="Approval Status" />
                                                                             <asp:BoundField DataField="status" HeaderText="RF Status" />
@@ -463,9 +463,9 @@
                                                                             <asp:BoundField DataField="ManagerApprove" HeaderText="Manager Approve" />
                                                                             <asp:BoundField DataField="GMApprove" HeaderText="GM Approve" />
                                                                             <asp:BoundField DataField="DeputyDirectorApprove" HeaderText="Deputy Director Approve" />
-                                                                            <asp:BoundField DataField="AdmManagerApprove" HeaderText="Adm. Manager Approve" />
+                                                                            <%--<asp:BoundField DataField="AdmManagerApprove" HeaderText="Adm. Manager Approve" />
                                                                             <asp:BoundField DataField="AdmGMApprove" HeaderText="Adm. GM Approve" />
-                                                                            <asp:BoundField DataField="ITManagerApprove" HeaderText="IT Manager Approve" />
+                                                                            <asp:BoundField DataField="ITManagerApprove" HeaderText="IT Manager Approve" />--%>
                                                                             <asp:BoundField DataField="DirectorApprove" HeaderText="Director Approve" />
                                                                             <asp:BoundField DataField="status_approve" HeaderText="Approval Status" />
                                                                             <asp:BoundField DataField="status" HeaderText="RF Status" />
@@ -515,7 +515,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="ga_section_head">
+                                <%--<div class="tab-pane fade" id="ga_section_head">
                                     <div class="p-t-15">
                                         <div class="row">
                                             <div class='col-sm-12'>
@@ -595,9 +595,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>--%>
 
-                                <div class="tab-pane fade" id="it_section_head">
+                                <%--<div class="tab-pane fade" id="it_section_head">
                                     <div class="p-t-15">
                                         <div class="row">
                                             <div class='col-sm-12'>
@@ -677,8 +677,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane fade" id="gm_adm">
+                                </div>--%>
+                                <%--<div class="tab-pane fade" id="gm_adm">
                                     <div class="p-t-15">
                                         <div class="row">
                                             <div class='col-sm-12'>
@@ -758,8 +758,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane fade" id="director_adm">
+                                </div>--%>
+                                <%--<div class="tab-pane fade" id="director_adm">
                                     <div class="p-t-15">
                                         <div class="row">
                                             <div class='col-sm-12'>
@@ -839,7 +839,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                     </div>

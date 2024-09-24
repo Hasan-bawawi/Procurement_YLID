@@ -80,10 +80,10 @@ namespace procurement_system
                         Session.Add("SectionRequester", (string)rdr["SectionRequester"]);
                         Session.Add("nik_requester", (string)rdr["nik_requester"]);
                         Session.Add("EmailRequester", (string)rdr["EmailRequester"]);
-                        Session.Add("AdmManagerApprove", (string)rdr["AdmManagerApprove"]);
-                        Session.Add("EmailAdmManagerApprove", (string)rdr["EmailAdmManagerApprove"]);
-                        Session.Add("AdmGMApprove", (string)rdr["AdmGMApprove"]);
-                        Session.Add("EmailAdmGMApprove", (string)rdr["EmailAdmGMApprove"]);
+                        //Session.Add("AdmManagerApprove", (string)rdr["AdmManagerApprove"]);
+                        //Session.Add("EmailAdmManagerApprove", (string)rdr["EmailAdmManagerApprove"]);
+                        //Session.Add("AdmGMApprove", (string)rdr["AdmGMApprove"]);
+                        //Session.Add("EmailAdmGMApprove", (string)rdr["EmailAdmGMApprove"]);
                         Session.Add("EmailManagerApprove", (string)rdr["EmailManagerApprove"]);
                         Session.Add("DivisionReq", (string)rdr["DivisionReq"].ToString());
                     }
@@ -525,7 +525,8 @@ namespace procurement_system
                                         }});
                                     ";
 
-
+                    // Register the script for partial postbacks
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
                 }
                 else
                 {
@@ -556,6 +557,8 @@ namespace procurement_system
                                             }}, 2000);
                                         }});
                                     ";
+                    // Register the script for partial postbacks
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
                 }
             }
             else
@@ -593,6 +596,8 @@ namespace procurement_system
                                             }}, 2000);
                                         }});
                                     ";
+                        // Register the script for partial postbacks
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
                     }
                     else if (lbDivision.Text.ToUpper() == "6471E2F5-8BBF-4EEC-991F-4B2F7A56A8E5" || lbDivision.Text.ToUpper() == "C42F75D0-F7AD-42B2-ACAD-5200199B813D" || lbDivision.Text.ToUpper() == "825B4273-6E9A-456A-81D5-8B710F50598E" || lbDivision.Text.ToUpper() == "238217DC-2872-4A00-8EBB-1F41A951D363")
                     {
@@ -623,6 +628,8 @@ namespace procurement_system
                                             }}, 2000);
                                         }});
                                     ";
+                        // Register the script for partial postbacks
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
                     }
                     else if (lbDivision.Text.ToUpper() == "2B4B4E32-3ED9-4C8E-B74C-5BDB8D0C7C9E")
                     {
@@ -653,6 +660,8 @@ namespace procurement_system
                                             }}, 2000);
                                         }});
                                     ";
+                        // Register the script for partial postbacks
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
                     }
                     else if (lbDivision.Text.ToUpper() == "555C16F8-EDD9-493E-9E1E-82C94CB87C90")
                     {
@@ -670,8 +679,8 @@ namespace procurement_system
                         sqlcomm.ExecuteNonQuery();
                         Con.Close();
                         UpdatePriceRF();
-                       // await SendEmailSendToManagerDivision();
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        await SendEmailSendToManagerDivision();
+                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
                         string script = $@"
                                         $(document).ready(function() {{
                                             // Show Toastr notification
@@ -683,6 +692,8 @@ namespace procurement_system
                                             }}, 2000);
                                         }});
                                     ";
+                        // Register the script for partial postbacks
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
                     }
                     else if (lbDivision.Text.ToUpper() == "6C1974F7-08CB-4BE0-804B-63278DB111C5")
                     {
@@ -713,6 +724,8 @@ namespace procurement_system
                                             }}, 2000);
                                         }});
                                     ";
+                        // Register the script for partial postbacks
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
                     }
                 }
                 else if (getGrandTotal >= 5000000)
@@ -746,6 +759,8 @@ namespace procurement_system
                                             }}, 2000);
                                         }});
                                     ";
+                        // Register the script for partial postbacks
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
                     }
                     else if (lbDivision.Text.ToUpper() == "6471E2F5-8BBF-4EEC-991F-4B2F7A56A8E5" || lbDivision.Text.ToUpper() == "C42F75D0-F7AD-42B2-ACAD-5200199B813D" || lbDivision.Text.ToUpper() == "825B4273-6E9A-456A-81D5-8B710F50598E" || lbDivision.Text.ToUpper() == "238217DC-2872-4A00-8EBB-1F41A951D363")
                     {
@@ -776,6 +791,8 @@ namespace procurement_system
                                             }}, 2000);
                                         }});
                                     ";
+                        // Register the script for partial postbacks
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
                     }
                     else if (lbDivision.Text.ToUpper() == "2B4B4E32-3ED9-4C8E-B74C-5BDB8D0C7C9E")
                     {
@@ -805,7 +822,9 @@ namespace procurement_system
                                                 window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
                                             }}, 2000);
                                         }});
-                                    ";  
+                                    ";
+                        // Register the script for partial postbacks
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
                     }
                     else if (lbDivision.Text.ToUpper() == "555C16F8-EDD9-493E-9E1E-82C94CB87C90")
                     {
@@ -824,7 +843,20 @@ namespace procurement_system
                         Con.Close();
                         UpdatePriceRF();
                         await SendEmailSendToManagerDivision();
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        string script = $@"
+                                        $(document).ready(function() {{
+                                            // Show Toastr notification
+                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                                            // Redirect after 2 seconds (2000 milliseconds)
+                                            setTimeout(function() {{
+                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                                            }}, 2000);
+                                        }});
+                                    ";
+                        // Register the script for partial postbacks
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
                     }
                     else if (lbDivision.Text.ToUpper() == "6C1974F7-08CB-4BE0-804B-63278DB111C5")
                     {
@@ -855,6 +887,8 @@ namespace procurement_system
                                             }}, 2000);
                                         }});
                                     ";
+                        // Register the script for partial postbacks
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
                     }
                 }
             }

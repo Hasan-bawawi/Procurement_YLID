@@ -248,6 +248,16 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <%--<div class='col-sm-6'>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">Catalog Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                        </div>
+                                                        <input runat="server" id="txtCatalogType" data-validate-length-range="5,15" type="text" class="form-control" placeholder="Catalog Type" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>--%>
                                             <div class='col-sm-6'>
                                                 <div class="form-group">
                                                     <div class="input-group">

@@ -49,22 +49,43 @@ namespace procurement_system
             if (!IsPostBack)
             {
                 GridTemporary();
-                GetApprover();
 
-                if (Session["Section"].ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40")
+                if (Session["Section"].ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" || Session["Section"].ToString().ToUpper() == "52591B16-4E97-4F3B-A48F-4807936E1052"
+                    || Session["Section"].ToString().ToUpper() == "0AEE271E-A132-4A2F-BC46-AAD99BBE7519" || Session["Section"].ToString().ToUpper() == "DCDA04FD-4920-4F6C-BAF8-77B377DE2FFF"
+                    || Session["Section"].ToString().ToUpper() == "E6A8EF10-5025-44C0-9CF1-7AB81CA4F523" || Session["Section"].ToString().ToUpper() == "3BEAD7B1-A9D4-4557-976F-DA2C6B489910"
+                    || Session["Section"].ToString().ToUpper() == "0BF510DE-9348-418C-9E26-735243E8C05F" || Session["Section"].ToString().ToUpper() == "09F99302-B5CA-468A-9508-F2F032DC090D")
                 {
                     ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("OPS"));
                     ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("IT"));
+                    GetApprover();
+                    //txtCatalogType.Value = "GA";
+                    
                 }
                 else if (Session["Section"].ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182")
                 {
                     ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("GA"));
                     ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("OPS"));
+                    GetApprover();
+                    //txtCatalogType.Value = "IT";
+                    
                 }
                 else
                 {
-                    ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("GA"));
-                    ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("IT"));
+                    if (Session["Division"].ToString().ToUpper() == "C999F3FD-F604-40A3-A300-A3B63FCF8B68" || Session["Division"].ToString().ToUpper() == "B094D3EB-0DEC-4066-8CB9-AB118F2B81D0"
+                        || Session["Division"].ToString().ToUpper() == "63900462-5119-42D4-98DB-B2728A34868A")
+                    {
+                        GetApproverSUBSRG();
+                        //txtCatalogType.Value = "OPS";
+                    }
+                    else
+                    {
+                        GetApprover();
+                        //txtCatalogType.Value = "OPS";
+                        ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("GA"));
+                        ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("IT"));
+                        
+                    }
+                    
                 }
             }
 
@@ -85,6 +106,50 @@ namespace procurement_system
             sqlcomm.Parameters.AddWithValue("@StatementType", "AddItemName");
             sqlcomm.Parameters.AddWithValue("@nama_branch", lblNamaBranch.Value);
             sqlcomm.Parameters.AddWithValue("@catalog_type", ddlCatalogType.SelectedItem.Text);
+
+            SqlDataReader dr;
+
+            try
+            {
+                ListItem newItem = new ListItem();
+                newItem.Text = "<Code-Category-Item-Merk-Type>";
+                newItem.Value = "00000000-0000-0000-0000-000000000000";
+                ddlItem.Items.Add(newItem);
+
+                Con.Open();
+                dr = sqlcomm.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    newItem = new ListItem();
+                    newItem.Text = dr["item_code"].ToString() + "-" + dr["Category"].ToString() + "-" + dr["Item"].ToString() + "-" + dr["ItemMerk"].ToString() + "-" + dr["tipe"].ToString();
+                    newItem.Value = dr["stok_code"].ToString();
+                    ddlItem.Items.Add(newItem);
+                }
+                dr.Close();
+            }
+            catch (Exception err)
+            {
+                //TODO
+            }
+            finally
+            {
+                Con.Close();
+            }
+        }
+
+        protected void GetItemsSUBSRG()
+        {
+            ddlItem.Items.Clear();
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            SqlConnection Con = new SqlConnection(path);
+
+            SqlCommand sqlcomm = new SqlCommand();
+            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+            sqlcomm.CommandType = CommandType.StoredProcedure;
+            sqlcomm.Connection = Con;
+            sqlcomm.Parameters.AddWithValue("@StatementType", "AddItemNameSUBSRG");
+            sqlcomm.Parameters.AddWithValue("@nama_branch", lblNamaBranch.Value);
 
             SqlDataReader dr;
 
@@ -150,14 +215,15 @@ namespace procurement_system
         protected void GetApprover()
         {
             ddlApprover.Items.Clear();
-            string path = ConfigurationManager.ConnectionStrings["dbpath_itadmin"].ConnectionString;
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
             SqlConnection Con = new SqlConnection(path);
 
             SqlCommand sqlcomm = new SqlCommand();
-            sqlcomm.CommandText = "sp_IT_STOCK_Employees";
+            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
             sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPurchaseApprover");
+            sqlcomm.Parameters.AddWithValue("@id_section", Session["Section"].ToString().ToUpper());
 
             SqlDataReader dr;
 
@@ -179,6 +245,54 @@ namespace procurement_system
                     ddlApprover.Items.Add(newItem);
                 }
                 dr.Close();
+            }
+            catch (Exception err)
+            {
+                string _ErrorMsg = err.Message;
+            }
+            finally
+            {
+                Con.Close();
+            }
+        }
+
+        protected void GetApproverSUBSRG()
+        {
+            ddlApprover.Items.Clear();
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            SqlConnection Con = new SqlConnection(path);
+
+            SqlCommand sqlcomm = new SqlCommand();
+            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+            sqlcomm.CommandType = CommandType.StoredProcedure;
+            sqlcomm.Connection = Con;
+            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPurchaseApproverSUBSRG");
+            sqlcomm.Parameters.AddWithValue("@id_division", Session["Division"].ToString().ToUpper());
+
+            SqlDataReader dr;
+
+            try
+            {
+                ListItem newItem = new ListItem();
+                newItem.Text = "Select Approver";
+                newItem.Value = "0";
+                ddlApprover.Items.Add(newItem);
+
+                Con.Open();
+                dr = sqlcomm.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    newItem = new ListItem();
+                    newItem.Text = dr["FulnameApprover"].ToString();
+                    newItem.Value = dr["NikApprover"].ToString();
+                    ddlApprover.Items.Add(newItem);
+                }
+                dr.Close();
+                newItem = new ListItem();
+                newItem.Text = "SURI ARBAD";
+                newItem.Value = "891048";
+                ddlApprover.Items.Add(newItem);
             }
             catch (Exception err)
             {
@@ -310,7 +424,7 @@ namespace procurement_system
                 ddlReqType.Enabled = false;
                 //ddlGMApprover.Enabled = false;
                 divSubmit.Visible = true;
-                ddlCatalogType.Enabled = false;
+                //ddlCatalogType.Enabled = false;
             }
 
             

@@ -221,7 +221,7 @@ namespace procurement_system
             TableRequisitionForm.DataBind();
 
             TableRequisitionForm.Columns[1].Visible = false;
-            TableRequisitionForm.Columns[15].Visible = false;
+            TableRequisitionForm.Columns[13].Visible = false;
 
             TableRequisitionForm.UseAccessibleHeader = true;
             TableRequisitionForm.HeaderRow.TableSection = TableRowSection.TableHeader;
@@ -254,7 +254,7 @@ namespace procurement_system
             TableRequisitionFormFilter.DataBind();
 
             TableRequisitionFormFilter.Columns[1].Visible = false;
-            TableRequisitionFormFilter.Columns[15].Visible = false;
+            TableRequisitionFormFilter.Columns[13].Visible = false;
 
             TableRequisitionFormFilter.UseAccessibleHeader = true;
             TableRequisitionFormFilter.HeaderRow.TableSection = TableRowSection.TableHeader;

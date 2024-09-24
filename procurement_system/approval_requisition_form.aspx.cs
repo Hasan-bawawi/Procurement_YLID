@@ -27,8 +27,8 @@ namespace procurement_system
                 GetDataTableRFNeedApproveDivisionGM();
                 GetDataTableApprovalHistoryDivisionGM();
 
-                GetDataTableRFNeedApproveAdminGM();
-                GetDataTableApprovalHistoryAdmGM();
+                //GetDataTableRFNeedApproveAdminGM();
+                //GetDataTableApprovalHistoryAdmGM();
 
 
                 GetDataTableRFNeedApproveDeputyDirector();
@@ -37,14 +37,14 @@ namespace procurement_system
                 GetDataTableRFNeedApproveDirector();
                 GetDataTableApprovalHistoryDirector();
 
-                GetDataTableRFNeedApproveGASectionHead();
-                GetDataTableApprovalHistoryGAHead();
+                //GetDataTableRFNeedApproveGASectionHead();
+                //GetDataTableApprovalHistoryGAHead();
 
-                GetDataTableRFNeedApproveITSectionHead();
-                GetDataTableApprovalHistoryITHead();
+                //GetDataTableRFNeedApproveITSectionHead();
+                //GetDataTableApprovalHistoryITHead();
 
-                GetDataTableRFNeedApproveAdminDirector();
-                GetDataTableApprovalHistoryAdmDirector();
+                //GetDataTableRFNeedApproveAdminDirector();
+                //GetDataTableApprovalHistoryAdmDirector();
             }
 
             if (Session["ActiveTab"] != null)
@@ -69,8 +69,8 @@ namespace procurement_system
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#division_gm\"]').tab('show');", true);
                 GetDataTableRFNeedApproveDivisionGM();
                 GetDataTableApprovalHistoryDivisionGM();
-                GetDataTableRFNeedApproveAdminGM();
-                GetDataTableApprovalHistoryAdmGM();
+                //GetDataTableRFNeedApproveAdminGM();
+                //GetDataTableApprovalHistoryAdmGM();
             }
             else if (Session["Position"].ToString().ToUpper() == "68DA0E68-522A-4AC1-81C7-F5BF26C19E30")
             {
@@ -84,24 +84,24 @@ namespace procurement_system
                 GetDataTableRFNeedApproveDirector();
                 GetDataTableApprovalHistoryDirector();
             }
-            else if (Session["Section"].ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" && (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F"))
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#ga_section_head\"]').tab('show');", true);
-                GetDataTableRFNeedApproveGASectionHead();
-                GetDataTableApprovalHistoryGAHead();
-            }
-            else if (Session["Section"].ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182" && (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F"))
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#it_section_head\"]').tab('show');", true);
-                GetDataTableRFNeedApproveITSectionHead();
-                GetDataTableApprovalHistoryITHead();
-            }
-            else if (Session["nik"].ToString().ToUpper() == "880713")
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#director_adm\"]').tab('show');", true);
-                GetDataTableRFNeedApproveAdminDirector();
-                GetDataTableApprovalHistoryAdmDirector();
-            }
+            //else if (Session["Section"].ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" && (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F"))
+            //{
+            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#ga_section_head\"]').tab('show');", true);
+            //    GetDataTableRFNeedApproveGASectionHead();
+            //    GetDataTableApprovalHistoryGAHead();
+            //}
+            //else if (Session["Section"].ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182" && (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F"))
+            //{
+            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#it_section_head\"]').tab('show');", true);
+            //    GetDataTableRFNeedApproveITSectionHead();
+            //    GetDataTableApprovalHistoryITHead();
+            //}
+            //else if (Session["nik"].ToString().ToUpper() == "880713")
+            //{
+            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#director_adm\"]').tab('show');", true);
+            //    GetDataTableRFNeedApproveAdminDirector();
+            //    GetDataTableApprovalHistoryAdmDirector();
+            //}
 
         }
 
@@ -155,7 +155,7 @@ namespace procurement_system
             TableRF_NeedApprovalManager.DataSource = dtb;
             TableRF_NeedApprovalManager.DataBind();
             TableRF_NeedApprovalManager.Columns[1].Visible = false;
-            TableRF_NeedApprovalManager.Columns[15].Visible = false;
+            TableRF_NeedApprovalManager.Columns[12].Visible = false;
             TableRF_NeedApprovalManager.UseAccessibleHeader = true;
             TableRF_NeedApprovalManager.HeaderRow.TableSection = TableRowSection.TableHeader;
             Con.Close();
@@ -238,7 +238,7 @@ namespace procurement_system
             TableDivisionGMApproval.DataSource = dtb;
             TableDivisionGMApproval.DataBind();
             TableDivisionGMApproval.Columns[1].Visible = false;
-            TableDivisionGMApproval.Columns[16].Visible = false;
+            TableDivisionGMApproval.Columns[12].Visible = false;
             TableDivisionGMApproval.UseAccessibleHeader = true;
             TableDivisionGMApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
             Con.Close();
@@ -321,7 +321,7 @@ namespace procurement_system
             TableDeputyDirectorApproval.DataSource = dtb;
             TableDeputyDirectorApproval.DataBind();
             TableDeputyDirectorApproval.Columns[1].Visible = false;
-            TableDeputyDirectorApproval.Columns[16].Visible = false;
+            TableDeputyDirectorApproval.Columns[12].Visible = false;
             TableDeputyDirectorApproval.UseAccessibleHeader = true;
             TableDeputyDirectorApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
             Con.Close();
@@ -404,7 +404,7 @@ namespace procurement_system
             TableDirectorApproval.DataSource = dtb;
             TableDirectorApproval.DataBind();
             TableDirectorApproval.Columns[1].Visible = false;
-            TableDirectorApproval.Columns[16].Visible = false;
+            TableDirectorApproval.Columns[12].Visible = false;
             TableDirectorApproval.UseAccessibleHeader = true;
             TableDirectorApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
             Con.Close();
@@ -468,336 +468,336 @@ namespace procurement_system
         #endregion
 
         #region ga_section_head
-        protected void GetDataTableRFNeedApproveGASectionHead()
-        {
-            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            SqlConnection Con = new SqlConnection(path);
-            Con.Open();
-            SqlCommand sqlcomm = new SqlCommand();
-            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-            sqlcomm.CommandType = CommandType.StoredProcedure;
-            sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewNeedApproveGASectionHead");
-            sqlcomm.Parameters.AddWithValue("@nik_adm_manager", hblNIK.Value.Trim());
-            DataTable dtb = new DataTable();
-            SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+        //protected void GetDataTableRFNeedApproveGASectionHead()
+        //{
+        //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //    SqlConnection Con = new SqlConnection(path);
+        //    Con.Open();
+        //    SqlCommand sqlcomm = new SqlCommand();
+        //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+        //    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //    sqlcomm.Connection = Con;
+        //    sqlcomm.Parameters.AddWithValue("@StatementType", "ViewNeedApproveGASectionHead");
+        //    sqlcomm.Parameters.AddWithValue("@nik_adm_manager", hblNIK.Value.Trim());
+        //    DataTable dtb = new DataTable();
+        //    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
-            sda.Fill(dtb);
-            ViewState["myViewState"] = dtb;
-            TableGASectionHeadApproval.DataSource = dtb;
-            TableGASectionHeadApproval.DataBind();
-            TableGASectionHeadApproval.Columns[1].Visible = false;
-            TableGASectionHeadApproval.Columns[16].Visible = false;
+        //    sda.Fill(dtb);
+        //    ViewState["myViewState"] = dtb;
+        //    TableGASectionHeadApproval.DataSource = dtb;
+        //    TableGASectionHeadApproval.DataBind();
+        //    TableGASectionHeadApproval.Columns[1].Visible = false;
+        //    TableGASectionHeadApproval.Columns[16].Visible = false;
 
-            TableGASectionHeadApproval.UseAccessibleHeader = true;
-            TableGASectionHeadApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
-            Con.Close();
+        //    TableGASectionHeadApproval.UseAccessibleHeader = true;
+        //    TableGASectionHeadApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
+        //    Con.Close();
 
-        }
+        //}
 
-        protected void GetDataTableApprovalHistoryGAHead()
-        {
-            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            SqlConnection Con = new SqlConnection(path);
-            Con.Open();
-            SqlCommand sqlcomm = new SqlCommand();
-            sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
-            sqlcomm.CommandType = CommandType.StoredProcedure;
-            sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewHistoryGAHeadApproval");
-            sqlcomm.Parameters.AddWithValue("@nik_approver", hblNIK.Value.Trim());
-            DataTable dtb = new DataTable();
-            SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+        //protected void GetDataTableApprovalHistoryGAHead()
+        //{
+        //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //    SqlConnection Con = new SqlConnection(path);
+        //    Con.Open();
+        //    SqlCommand sqlcomm = new SqlCommand();
+        //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
+        //    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //    sqlcomm.Connection = Con;
+        //    sqlcomm.Parameters.AddWithValue("@StatementType", "ViewHistoryGAHeadApproval");
+        //    sqlcomm.Parameters.AddWithValue("@nik_approver", hblNIK.Value.Trim());
+        //    DataTable dtb = new DataTable();
+        //    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
-            sda.Fill(dtb);
-            ViewState["myViewState"] = dtb;
-            TableHistoryGASectionHeadApproval.DataSource = dtb;
-            TableHistoryGASectionHeadApproval.DataBind();
-            TableHistoryGASectionHeadApproval.Columns[1].Visible = false;
-            TableHistoryGASectionHeadApproval.UseAccessibleHeader = true;
-            TableHistoryGASectionHeadApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
-            Con.Close();
+        //    sda.Fill(dtb);
+        //    ViewState["myViewState"] = dtb;
+        //    TableHistoryGASectionHeadApproval.DataSource = dtb;
+        //    TableHistoryGASectionHeadApproval.DataBind();
+        //    TableHistoryGASectionHeadApproval.Columns[1].Visible = false;
+        //    TableHistoryGASectionHeadApproval.UseAccessibleHeader = true;
+        //    TableHistoryGASectionHeadApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
+        //    Con.Close();
 
-        }
+        //}
 
-        protected void btnViewGASectionHead_Click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-            GridViewRow row = (GridViewRow)btn.NamingContainer;
-            GetDataTableRFNeedApproveGASectionHead();
-            if (row.Cells[3].Text == "")
-            {
-                Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + 0);
-            }
-            else
-            {
-                Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + (row.Cells[3].Text));
-            }
-        }
+        //protected void btnViewGASectionHead_Click(object sender, EventArgs e)
+        //{
+        //    LinkButton btn = (LinkButton)sender;
+        //    GridViewRow row = (GridViewRow)btn.NamingContainer;
+        //    GetDataTableRFNeedApproveGASectionHead();
+        //    if (row.Cells[3].Text == "")
+        //    {
+        //        Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + 0);
+        //    }
+        //    else
+        //    {
+        //        Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + (row.Cells[3].Text));
+        //    }
+        //}
 
-        protected void btnViewHistoryGASectionHead_Click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-            GridViewRow row = (GridViewRow)btn.NamingContainer;
-            GetDataTableRFNeedApproveGASectionHead();
-            if (row.Cells[2].Text == "")
-            {
-                Response.Redirect("detail_requisition_form.aspx?rf_no=" + 0);
-            }
-            else
-            {
-                Response.Redirect("detail_requisition_form.aspx?rf_no=" + (row.Cells[2].Text));
-            }
-        }
+        //protected void btnViewHistoryGASectionHead_Click(object sender, EventArgs e)
+        //{
+        //    LinkButton btn = (LinkButton)sender;
+        //    GridViewRow row = (GridViewRow)btn.NamingContainer;
+        //    GetDataTableRFNeedApproveGASectionHead();
+        //    if (row.Cells[2].Text == "")
+        //    {
+        //        Response.Redirect("detail_requisition_form.aspx?rf_no=" + 0);
+        //    }
+        //    else
+        //    {
+        //        Response.Redirect("detail_requisition_form.aspx?rf_no=" + (row.Cells[2].Text));
+        //    }
+        //}
         #endregion
 
         #region it_section_head
-        protected void GetDataTableRFNeedApproveITSectionHead()
-        {
-            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            SqlConnection Con = new SqlConnection(path);
-            Con.Open();
-            SqlCommand sqlcomm = new SqlCommand();
-            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-            sqlcomm.CommandType = CommandType.StoredProcedure;
-            sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewNeedApproveITSectionHead");
-            sqlcomm.Parameters.AddWithValue("@nik_it_manager", hblNIK.Value.Trim());
-            DataTable dtb = new DataTable();
-            SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+        //protected void GetDataTableRFNeedApproveITSectionHead()
+        //{
+        //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //    SqlConnection Con = new SqlConnection(path);
+        //    Con.Open();
+        //    SqlCommand sqlcomm = new SqlCommand();
+        //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+        //    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //    sqlcomm.Connection = Con;
+        //    sqlcomm.Parameters.AddWithValue("@StatementType", "ViewNeedApproveITSectionHead");
+        //    sqlcomm.Parameters.AddWithValue("@nik_it_manager", hblNIK.Value.Trim());
+        //    DataTable dtb = new DataTable();
+        //    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
-            sda.Fill(dtb);
-            ViewState["myViewState"] = dtb;
-            TableITSectionHeadApproval.DataSource = dtb;
-            TableITSectionHeadApproval.DataBind();
-            TableITSectionHeadApproval.Columns[1].Visible = false;
-            TableITSectionHeadApproval.Columns[16].Visible = false;
-            TableITSectionHeadApproval.UseAccessibleHeader = true;
-            TableITSectionHeadApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
-            Con.Close();
+        //    sda.Fill(dtb);
+        //    ViewState["myViewState"] = dtb;
+        //    TableITSectionHeadApproval.DataSource = dtb;
+        //    TableITSectionHeadApproval.DataBind();
+        //    TableITSectionHeadApproval.Columns[1].Visible = false;
+        //    TableITSectionHeadApproval.Columns[16].Visible = false;
+        //    TableITSectionHeadApproval.UseAccessibleHeader = true;
+        //    TableITSectionHeadApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
+        //    Con.Close();
 
-        }
+        //}
 
-        protected void GetDataTableApprovalHistoryITHead()
-        {
-            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            SqlConnection Con = new SqlConnection(path);
-            Con.Open();
-            SqlCommand sqlcomm = new SqlCommand();
-            sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
-            sqlcomm.CommandType = CommandType.StoredProcedure;
-            sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewHistoryITHeadApproval");
-            sqlcomm.Parameters.AddWithValue("@nik_approver", hblNIK.Value.Trim());
-            DataTable dtb = new DataTable();
-            SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+        //protected void GetDataTableApprovalHistoryITHead()
+        //{
+        //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //    SqlConnection Con = new SqlConnection(path);
+        //    Con.Open();
+        //    SqlCommand sqlcomm = new SqlCommand();
+        //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
+        //    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //    sqlcomm.Connection = Con;
+        //    sqlcomm.Parameters.AddWithValue("@StatementType", "ViewHistoryITHeadApproval");
+        //    sqlcomm.Parameters.AddWithValue("@nik_approver", hblNIK.Value.Trim());
+        //    DataTable dtb = new DataTable();
+        //    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
-            sda.Fill(dtb);
-            ViewState["myViewState"] = dtb;
-            TableHistoryITSectionHeadApproval.DataSource = dtb;
-            TableHistoryITSectionHeadApproval.DataBind();
-            TableHistoryITSectionHeadApproval.Columns[1].Visible = false;
-            TableHistoryITSectionHeadApproval.UseAccessibleHeader = true;
-            TableHistoryITSectionHeadApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
-            Con.Close();
+        //    sda.Fill(dtb);
+        //    ViewState["myViewState"] = dtb;
+        //    TableHistoryITSectionHeadApproval.DataSource = dtb;
+        //    TableHistoryITSectionHeadApproval.DataBind();
+        //    TableHistoryITSectionHeadApproval.Columns[1].Visible = false;
+        //    TableHistoryITSectionHeadApproval.UseAccessibleHeader = true;
+        //    TableHistoryITSectionHeadApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
+        //    Con.Close();
 
-        }
+        //}
 
-        protected void btnViewITSectionHead_Click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-            GridViewRow row = (GridViewRow)btn.NamingContainer;
-            GetDataTableRFNeedApproveITSectionHead();
-            if (row.Cells[3].Text == "")
-            {
-                Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + 0);
-            }
-            else
-            {
-                Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + (row.Cells[3].Text));
-            }
-        }
+        //protected void btnViewITSectionHead_Click(object sender, EventArgs e)
+        //{
+        //    LinkButton btn = (LinkButton)sender;
+        //    GridViewRow row = (GridViewRow)btn.NamingContainer;
+        //    GetDataTableRFNeedApproveITSectionHead();
+        //    if (row.Cells[3].Text == "")
+        //    {
+        //        Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + 0);
+        //    }
+        //    else
+        //    {
+        //        Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + (row.Cells[3].Text));
+        //    }
+        //}
 
-        protected void btnViewHistoryITSectionHead_Click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-            GridViewRow row = (GridViewRow)btn.NamingContainer;
-            GetDataTableRFNeedApproveITSectionHead();
-            if (row.Cells[2].Text == "")
-            {
-                Response.Redirect("detail_requisition_form.aspx?rf_no=" + 0);
-            }
-            else
-            {
-                Response.Redirect("detail_requisition_form.aspx?rf_no=" + (row.Cells[2].Text));
-            }
-        }
+        //protected void btnViewHistoryITSectionHead_Click(object sender, EventArgs e)
+        //{
+        //    LinkButton btn = (LinkButton)sender;
+        //    GridViewRow row = (GridViewRow)btn.NamingContainer;
+        //    GetDataTableRFNeedApproveITSectionHead();
+        //    if (row.Cells[2].Text == "")
+        //    {
+        //        Response.Redirect("detail_requisition_form.aspx?rf_no=" + 0);
+        //    }
+        //    else
+        //    {
+        //        Response.Redirect("detail_requisition_form.aspx?rf_no=" + (row.Cells[2].Text));
+        //    }
+        //}
         #endregion
 
         #region gm_adm
-        protected void GetDataTableRFNeedApproveAdminGM()
-        {
-            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            SqlConnection Con = new SqlConnection(path);
-            Con.Open();
-            SqlCommand sqlcomm = new SqlCommand();
-            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-            sqlcomm.CommandType = CommandType.StoredProcedure;
-            sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewNeedApproveAdminGM");
-            sqlcomm.Parameters.AddWithValue("@nik_adm_gm", hblNIK.Value.Trim());
-            DataTable dtb = new DataTable();
-            SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+        //protected void GetDataTableRFNeedApproveAdminGM()
+        //{
+        //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //    SqlConnection Con = new SqlConnection(path);
+        //    Con.Open();
+        //    SqlCommand sqlcomm = new SqlCommand();
+        //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+        //    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //    sqlcomm.Connection = Con;
+        //    sqlcomm.Parameters.AddWithValue("@StatementType", "ViewNeedApproveAdminGM");
+        //    sqlcomm.Parameters.AddWithValue("@nik_adm_gm", hblNIK.Value.Trim());
+        //    DataTable dtb = new DataTable();
+        //    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
-            sda.Fill(dtb);
-            ViewState["myViewState"] = dtb;
-            TableGMAdminApproval.DataSource = dtb;
-            TableGMAdminApproval.DataBind();
-            TableGMAdminApproval.Columns[1].Visible = false;
-            TableGMAdminApproval.Columns[16].Visible = false;
-            TableGMAdminApproval.UseAccessibleHeader = true;
-            TableGMAdminApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
-            Con.Close();
+        //    sda.Fill(dtb);
+        //    ViewState["myViewState"] = dtb;
+        //    TableGMAdminApproval.DataSource = dtb;
+        //    TableGMAdminApproval.DataBind();
+        //    TableGMAdminApproval.Columns[1].Visible = false;
+        //    TableGMAdminApproval.Columns[16].Visible = false;
+        //    TableGMAdminApproval.UseAccessibleHeader = true;
+        //    TableGMAdminApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
+        //    Con.Close();
 
-        }
+        //}
 
-        protected void GetDataTableApprovalHistoryAdmGM()
-        {
-            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            SqlConnection Con = new SqlConnection(path);
-            Con.Open();
-            SqlCommand sqlcomm = new SqlCommand();
-            sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
-            sqlcomm.CommandType = CommandType.StoredProcedure;
-            sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewHistoryAdmGMApproval");
-            sqlcomm.Parameters.AddWithValue("@nik_approver", hblNIK.Value.Trim());
-            DataTable dtb = new DataTable();
-            SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+        //protected void GetDataTableApprovalHistoryAdmGM()
+        //{
+        //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //    SqlConnection Con = new SqlConnection(path);
+        //    Con.Open();
+        //    SqlCommand sqlcomm = new SqlCommand();
+        //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
+        //    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //    sqlcomm.Connection = Con;
+        //    sqlcomm.Parameters.AddWithValue("@StatementType", "ViewHistoryAdmGMApproval");
+        //    sqlcomm.Parameters.AddWithValue("@nik_approver", hblNIK.Value.Trim());
+        //    DataTable dtb = new DataTable();
+        //    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
-            sda.Fill(dtb);
-            ViewState["myViewState"] = dtb;
-            TableHistoryGMAdminApproval.DataSource = dtb;
-            TableHistoryGMAdminApproval.DataBind();
-            TableHistoryGMAdminApproval.Columns[1].Visible = false;
-            TableHistoryGMAdminApproval.UseAccessibleHeader = true;
-            TableHistoryGMAdminApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
-            Con.Close();
+        //    sda.Fill(dtb);
+        //    ViewState["myViewState"] = dtb;
+        //    TableHistoryGMAdminApproval.DataSource = dtb;
+        //    TableHistoryGMAdminApproval.DataBind();
+        //    TableHistoryGMAdminApproval.Columns[1].Visible = false;
+        //    TableHistoryGMAdminApproval.UseAccessibleHeader = true;
+        //    TableHistoryGMAdminApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
+        //    Con.Close();
 
-        }
+        //}
 
-        protected void btnViewGMAdminApproval_Click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-            GridViewRow row = (GridViewRow)btn.NamingContainer;
-            GetDataTableRFNeedApproveAdminGM();
-            if (row.Cells[3].Text == "")
-            {
-                Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + 0);
-            }
-            else
-            {
-                Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + (row.Cells[3].Text));
-            }
-        }
+        //protected void btnViewGMAdminApproval_Click(object sender, EventArgs e)
+        //{
+        //    LinkButton btn = (LinkButton)sender;
+        //    GridViewRow row = (GridViewRow)btn.NamingContainer;
+        //    GetDataTableRFNeedApproveAdminGM();
+        //    if (row.Cells[3].Text == "")
+        //    {
+        //        Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + 0);
+        //    }
+        //    else
+        //    {
+        //        Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + (row.Cells[3].Text));
+        //    }
+        //}
 
-        protected void btnViewHistoryGMAdmin_Click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-            GridViewRow row = (GridViewRow)btn.NamingContainer;
-            GetDataTableRFNeedApproveAdminGM();
-            if (row.Cells[2].Text == "")
-            {
-                Response.Redirect("detail_requisition_form.aspx?rf_no=" + 0);
-            }
-            else
-            {
-                Response.Redirect("detail_requisition_form.aspx?rf_no=" + (row.Cells[2].Text));
-            }
-        }
+        //protected void btnViewHistoryGMAdmin_Click(object sender, EventArgs e)
+        //{
+        //    LinkButton btn = (LinkButton)sender;
+        //    GridViewRow row = (GridViewRow)btn.NamingContainer;
+        //    GetDataTableRFNeedApproveAdminGM();
+        //    if (row.Cells[2].Text == "")
+        //    {
+        //        Response.Redirect("detail_requisition_form.aspx?rf_no=" + 0);
+        //    }
+        //    else
+        //    {
+        //        Response.Redirect("detail_requisition_form.aspx?rf_no=" + (row.Cells[2].Text));
+        //    }
+        //}
         #endregion
 
         #region director_adm
-        protected void GetDataTableRFNeedApproveAdminDirector()
-        {
-            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            SqlConnection Con = new SqlConnection(path);
-            Con.Open();
-            SqlCommand sqlcomm = new SqlCommand();
-            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-            sqlcomm.CommandType = CommandType.StoredProcedure;
-            sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewNeedApproveAdminDirector");
-            sqlcomm.Parameters.AddWithValue("@nik_adm_director", hblNIK.Value.Trim());
-            DataTable dtb = new DataTable();
-            SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+        //protected void GetDataTableRFNeedApproveAdminDirector()
+        //{
+        //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //    SqlConnection Con = new SqlConnection(path);
+        //    Con.Open();
+        //    SqlCommand sqlcomm = new SqlCommand();
+        //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+        //    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //    sqlcomm.Connection = Con;
+        //    sqlcomm.Parameters.AddWithValue("@StatementType", "ViewNeedApproveAdminDirector");
+        //    sqlcomm.Parameters.AddWithValue("@nik_adm_director", hblNIK.Value.Trim());
+        //    DataTable dtb = new DataTable();
+        //    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
-            sda.Fill(dtb);
-            ViewState["myViewState"] = dtb;
-            TableDirectorAdminApproval.DataSource = dtb;
-            TableDirectorAdminApproval.DataBind();
-            TableDirectorAdminApproval.Columns[1].Visible = false;
-            TableDirectorAdminApproval.Columns[16].Visible = false;
-            TableDirectorAdminApproval.UseAccessibleHeader = true;
-            TableDirectorAdminApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
-            Con.Close();
+        //    sda.Fill(dtb);
+        //    ViewState["myViewState"] = dtb;
+        //    TableDirectorAdminApproval.DataSource = dtb;
+        //    TableDirectorAdminApproval.DataBind();
+        //    TableDirectorAdminApproval.Columns[1].Visible = false;
+        //    TableDirectorAdminApproval.Columns[16].Visible = false;
+        //    TableDirectorAdminApproval.UseAccessibleHeader = true;
+        //    TableDirectorAdminApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
+        //    Con.Close();
 
-        }
+        //}
 
-        protected void GetDataTableApprovalHistoryAdmDirector()
-        {
-            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            SqlConnection Con = new SqlConnection(path);
-            Con.Open();
-            SqlCommand sqlcomm = new SqlCommand();
-            sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
-            sqlcomm.CommandType = CommandType.StoredProcedure;
-            sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewHistoryAdmDirectorApproval");
-            sqlcomm.Parameters.AddWithValue("@nik_approver", hblNIK.Value.Trim());
-            DataTable dtb = new DataTable();
-            SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+        //protected void GetDataTableApprovalHistoryAdmDirector()
+        //{
+        //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //    SqlConnection Con = new SqlConnection(path);
+        //    Con.Open();
+        //    SqlCommand sqlcomm = new SqlCommand();
+        //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
+        //    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //    sqlcomm.Connection = Con;
+        //    sqlcomm.Parameters.AddWithValue("@StatementType", "ViewHistoryAdmDirectorApproval");
+        //    sqlcomm.Parameters.AddWithValue("@nik_approver", hblNIK.Value.Trim());
+        //    DataTable dtb = new DataTable();
+        //    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
-            sda.Fill(dtb);
-            ViewState["myViewState"] = dtb;
-            TableHistoryDirectorAdminApproval.DataSource = dtb;
-            TableHistoryDirectorAdminApproval.DataBind();
-            TableHistoryDirectorAdminApproval.Columns[1].Visible = false;
-            TableHistoryDirectorAdminApproval.UseAccessibleHeader = true;
-            TableHistoryDirectorAdminApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
-            Con.Close();
+        //    sda.Fill(dtb);
+        //    ViewState["myViewState"] = dtb;
+        //    TableHistoryDirectorAdminApproval.DataSource = dtb;
+        //    TableHistoryDirectorAdminApproval.DataBind();
+        //    TableHistoryDirectorAdminApproval.Columns[1].Visible = false;
+        //    TableHistoryDirectorAdminApproval.UseAccessibleHeader = true;
+        //    TableHistoryDirectorAdminApproval.HeaderRow.TableSection = TableRowSection.TableHeader;
+        //    Con.Close();
 
-        }
+        //}
 
-        protected void btnViewDirectorAdminApproval_Click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-            GridViewRow row = (GridViewRow)btn.NamingContainer;
-            GetDataTableRFNeedApproveAdminDirector();
-            if (row.Cells[3].Text == "")
-            {
-                Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + 0);
-            }
-            else
-            {
-                Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + (row.Cells[3].Text));
-            }
-        }
+        //protected void btnViewDirectorAdminApproval_Click(object sender, EventArgs e)
+        //{
+        //    LinkButton btn = (LinkButton)sender;
+        //    GridViewRow row = (GridViewRow)btn.NamingContainer;
+        //    GetDataTableRFNeedApproveAdminDirector();
+        //    if (row.Cells[3].Text == "")
+        //    {
+        //        Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + 0);
+        //    }
+        //    else
+        //    {
+        //        Response.Redirect("approval_requisition_form_view.aspx?rf_no=" + (row.Cells[3].Text));
+        //    }
+        //}
 
-        protected void btnViewHistoryDirectorAdmin_Click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-            GridViewRow row = (GridViewRow)btn.NamingContainer;
-            GetDataTableRFNeedApproveAdminDirector();
-            if (row.Cells[2].Text == "")
-            {
-                Response.Redirect("detail_requisition_form.aspx?rf_no=" + 0);
-            }
-            else
-            {
-                Response.Redirect("detail_requisition_form.aspx?rf_no=" + (row.Cells[2].Text));
-            }
-        }
+        //protected void btnViewHistoryDirectorAdmin_Click(object sender, EventArgs e)
+        //{
+        //    LinkButton btn = (LinkButton)sender;
+        //    GridViewRow row = (GridViewRow)btn.NamingContainer;
+        //    GetDataTableRFNeedApproveAdminDirector();
+        //    if (row.Cells[2].Text == "")
+        //    {
+        //        Response.Redirect("detail_requisition_form.aspx?rf_no=" + 0);
+        //    }
+        //    else
+        //    {
+        //        Response.Redirect("detail_requisition_form.aspx?rf_no=" + (row.Cells[2].Text));
+        //    }
+        //}
         #endregion
 
         #region DownloadForm

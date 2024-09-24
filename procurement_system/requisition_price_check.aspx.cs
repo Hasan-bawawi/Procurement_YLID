@@ -42,7 +42,7 @@ namespace procurement_system
             TableRequisitionFormPriceEstimated.DataBind();
 
             TableRequisitionFormPriceEstimated.Columns[1].Visible = false;
-            TableRequisitionFormPriceEstimated.Columns[16].Visible = false;
+            TableRequisitionFormPriceEstimated.Columns[11].Visible = false;
 
             TableRequisitionFormPriceEstimated.UseAccessibleHeader = true;
             TableRequisitionFormPriceEstimated.HeaderRow.TableSection = TableRowSection.TableHeader;
