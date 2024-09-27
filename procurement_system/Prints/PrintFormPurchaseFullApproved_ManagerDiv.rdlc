@@ -731,12 +731,11 @@
                 <Value />
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Center</TextAlign>
+              <TextAlign>Left</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
@@ -4265,18 +4264,18 @@
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="PROCUREMENT_DBDataSet_RF_ManagerApproved">
+    <DataSource Name="PROCUREMENT_DBDataSet_RF_FullApproved_ManagerDiv">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>09bfe28d-5903-4066-90de-f257e862aa3c</rd:DataSourceID>
+      <rd:DataSourceID>2e149e33-ea14-4a3d-bda3-ffaf6a01df51</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="DataSetFormPurchase">
       <Query>
-        <DataSourceName>PROCUREMENT_DBDataSet_RF_ManagerApproved</DataSourceName>
+        <DataSourceName>PROCUREMENT_DBDataSet_RF_FullApproved_ManagerDiv</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -4316,12 +4315,28 @@
           <DataField>GMApprove</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="DeputyDirectorApprove">
+          <DataField>DeputyDirectorApprove</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DirectorApprove">
+          <DataField>DirectorApprove</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="SignatureManagerDivision">
           <DataField>SignatureManagerDivision</DataField>
           <rd:TypeName>System.Byte[]</rd:TypeName>
         </Field>
-        <Field Name="SignatureGMAdmApprover">
-          <DataField>SignatureGMAdmApprover</DataField>
+        <Field Name="SignatureGMDivision">
+          <DataField>SignatureGMDivision</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+        <Field Name="SignatureDeputyDirector">
+          <DataField>SignatureDeputyDirector</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+        <Field Name="SignatureDirector">
+          <DataField>SignatureDirector</DataField>
           <rd:TypeName>System.Byte[]</rd:TypeName>
         </Field>
         <Field Name="stok_code">
@@ -4384,10 +4399,6 @@
           <DataField>nik_requester</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="nik_gm_approver">
-          <DataField>nik_gm_approver</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="price">
           <DataField>price</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -4410,12 +4421,12 @@
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>PROCUREMENT_DBDataSet_RF_ManagerApproved</rd:DataSetName>
-        <rd:SchemaPath>D:\MY WORK\MY PROJECT\SYSTEM INTERNAL YLID\PROCUREMENT SYSTEM\procurement_system\procurement_system\PROCUREMENT_DBDataSet_RF_ManagerApproved.xsd</rd:SchemaPath>
-        <rd:TableName>sp_PROCUREMENT_DB_Attachment_RF_ManagerApproved</rd:TableName>
+        <rd:DataSetName>PROCUREMENT_DBDataSet_RF_FullApproved_ManagerDiv</rd:DataSetName>
+        <rd:SchemaPath>D:\MY WORK\MY PROJECT\SYSTEM INTERNAL YLID\PROCUREMENT SYSTEM\procurement_system\procurement_system\PROCUREMENT_DBDataSet_RF_FullApproved_ManagerDiv.xsd</rd:SchemaPath>
+        <rd:TableName>sp_PROCUREMENT_DB_Attachment_RF_FullApproved_ManagerDiv</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>sp_PROCUREMENT_DB_Attachment_RF_ManagerApprovedTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterName>sp_PROCUREMENT_DB_Attachment_RF_FullApproved_ManagerDivTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

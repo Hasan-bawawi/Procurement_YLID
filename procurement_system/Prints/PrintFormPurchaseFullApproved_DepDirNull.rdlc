@@ -728,7 +728,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
+                <Value>=Fields!GMApprove.Value</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -1048,15 +1048,15 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
+                <Value>=Fields!DirectorApprove.Value</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Left</TextAlign>
+              <TextAlign>Center</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
@@ -4249,6 +4249,38 @@
           </Border>
         </Style>
       </Image>
+      <Image Name="ttd4">
+        <Source>Database</Source>
+        <Value>=First(Fields!SignatureGMDivision.Value, "DataSetFormPurchase")</Value>
+        <MIMEType>image/png</MIMEType>
+        <Sizing>Fit</Sizing>
+        <Top>6.81001in</Top>
+        <Left>2.55208in</Left>
+        <Height>0.39361in</Height>
+        <Width>0.65627in</Width>
+        <ZIndex>58</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
+      <Image Name="ttd6">
+        <Source>Database</Source>
+        <Value>=First(Fields!SignatureDirector.Value, "DataSetFormPurchase")</Value>
+        <MIMEType>image/png</MIMEType>
+        <Sizing>Fit</Sizing>
+        <Top>7.99182in</Top>
+        <Left>4.3854in</Left>
+        <Height>0.39361in</Height>
+        <Width>0.65627in</Width>
+        <ZIndex>59</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
     </ReportItems>
     <Height>10.39932in</Height>
     <Style />
@@ -4265,18 +4297,18 @@
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="PROCUREMENT_DBDataSet_RF_ManagerApproved">
+    <DataSource Name="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNull">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>09bfe28d-5903-4066-90de-f257e862aa3c</rd:DataSourceID>
+      <rd:DataSourceID>0fd77ff4-ebc8-48e1-9932-07de89c3dc5d</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="DataSetFormPurchase">
       <Query>
-        <DataSourceName>PROCUREMENT_DBDataSet_RF_ManagerApproved</DataSourceName>
+        <DataSourceName>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNull</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -4316,12 +4348,28 @@
           <DataField>GMApprove</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="DeputyDirectorApprove">
+          <DataField>DeputyDirectorApprove</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DirectorApprove">
+          <DataField>DirectorApprove</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="SignatureManagerDivision">
           <DataField>SignatureManagerDivision</DataField>
           <rd:TypeName>System.Byte[]</rd:TypeName>
         </Field>
-        <Field Name="SignatureGMAdmApprover">
-          <DataField>SignatureGMAdmApprover</DataField>
+        <Field Name="SignatureGMDivision">
+          <DataField>SignatureGMDivision</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+        <Field Name="SignatureDeputyDirector">
+          <DataField>SignatureDeputyDirector</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+        <Field Name="SignatureDirector">
+          <DataField>SignatureDirector</DataField>
           <rd:TypeName>System.Byte[]</rd:TypeName>
         </Field>
         <Field Name="stok_code">
@@ -4384,10 +4432,6 @@
           <DataField>nik_requester</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="nik_gm_approver">
-          <DataField>nik_gm_approver</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="price">
           <DataField>price</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -4410,12 +4454,12 @@
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>PROCUREMENT_DBDataSet_RF_ManagerApproved</rd:DataSetName>
-        <rd:SchemaPath>D:\MY WORK\MY PROJECT\SYSTEM INTERNAL YLID\PROCUREMENT SYSTEM\procurement_system\procurement_system\PROCUREMENT_DBDataSet_RF_ManagerApproved.xsd</rd:SchemaPath>
-        <rd:TableName>sp_PROCUREMENT_DB_Attachment_RF_ManagerApproved</rd:TableName>
+        <rd:DataSetName>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNull</rd:DataSetName>
+        <rd:SchemaPath>D:\MY WORK\MY PROJECT\SYSTEM INTERNAL YLID\PROCUREMENT SYSTEM\procurement_system\procurement_system\PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNull.xsd</rd:SchemaPath>
+        <rd:TableName>sp_PROCUREMENT_DB_Attachment_RF_FullApproved_DepDirNull</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>sp_PROCUREMENT_DB_Attachment_RF_ManagerApprovedTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterName>sp_PROCUREMENT_DB_Attachment_RF_FullApproved_DepDirNullTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
