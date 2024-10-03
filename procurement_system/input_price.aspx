@@ -311,6 +311,13 @@
                                 </div>
                             </div>
                             <div class='col-sm-8'></div>
+                            <div class='col-sm-4' id="divClearPrice" runat="server" visible="false">
+                                <button type="button" style="float: right;" onclick="<%=btnClearPrice.ClientID %>.click()" class="btn mb-1 buttonColor">
+                                    Clear Price
+                                <span class="btn-icon-right"><i class="fa fa-close"></i></span>
+                                </button>
+                                <asp:Button runat="server" Style="display: none;" ID="btnClearPrice" OnClick="btnClearPrice_Click"></asp:Button>
+                            </div>
                             <div class='col-sm-4' id="divCheck" runat="server">
                                 <button type="button" style="float: right;" onclick="<%=btnCheck.ClientID %>.click()" class="btn mb-1 buttonColor">
                                     Price Calculate

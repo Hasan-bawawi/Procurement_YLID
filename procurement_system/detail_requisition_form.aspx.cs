@@ -14626,10 +14626,41 @@ namespace procurement_system
                 else
                 {
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
-                    GetGMDivisionApproval();
-                    GetMGR_DivisionApproval();
-                    divManagerDivision.Visible = true;
-                    divGMDivision.Visible = false;
+                    if (hlbSection.Text.ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" || hlbSection.Text.ToString().ToUpper() == "52591B16-4E97-4F3B-A48F-4807936E1052"
+                    || hlbSection.Text.ToString().ToUpper() == "0AEE271E-A132-4A2F-BC46-AAD99BBE7519" || hlbSection.Text.ToString().ToUpper() == "DCDA04FD-4920-4F6C-BAF8-77B377DE2FFF"
+                    || hlbSection.Text.ToString().ToUpper() == "E6A8EF10-5025-44C0-9CF1-7AB81CA4F523" || hlbSection.Text.ToString().ToUpper() == "3BEAD7B1-A9D4-4557-976F-DA2C6B489910"
+                    || hlbSection.Text.ToString().ToUpper() == "0BF510DE-9348-418C-9E26-735243E8C05F" || hlbSection.Text.ToString().ToUpper() == "09F99302-B5CA-468A-9508-F2F032DC090D")
+                    {
+                        //GetGMDivisionApproval();
+                        GetMGR_DivisionApproval();
+                        divManagerDivision.Visible = true;
+                        divGMDivision.Visible = false;
+                    }
+                    else if (hlbSection.Text.ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182")
+                    {
+                        //GetGMDivisionApproval();
+                        GetMGR_DivisionApproval();
+                        divManagerDivision.Visible = true;
+                        divGMDivision.Visible = false;
+                    }
+                    else
+                    {
+                        if (lbDivision.Text.ToString().ToUpper() == "C999F3FD-F604-40A3-A300-A3B63FCF8B68" || lbDivision.Text.ToString().ToUpper() == "B094D3EB-0DEC-4066-8CB9-AB118F2B81D0"
+                            || lbDivision.Text.ToString().ToUpper() == "63900462-5119-42D4-98DB-B2728A34868A")
+                        {
+                            GetMGR_SUBSRG_DivisionApproval();
+                            //GetGMDivisionApproval();
+                            divManagerDivision.Visible = true;
+                            divGMDivision.Visible = false;
+                        }
+                        else
+                        {
+                            //GetGMDivisionApproval();
+                            GetMGR_DivisionApproval();
+                            divManagerDivision.Visible = true;
+                            divGMDivision.Visible = false;
+                        }
+                    }
                 }
             }
             else if (Session["status_approve"].ToString() == "Approved (Division Manager)")
@@ -14643,9 +14674,43 @@ namespace procurement_system
                 else
                 {
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
-                    GetGMDivisionApproval();
-                    divManagerDivision.Visible = false;
-                    divGMDivision.Visible = true;
+                    if (hlbSection.Text.ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" || hlbSection.Text.ToString().ToUpper() == "52591B16-4E97-4F3B-A48F-4807936E1052"
+                    || hlbSection.Text.ToString().ToUpper() == "0AEE271E-A132-4A2F-BC46-AAD99BBE7519" || hlbSection.Text.ToString().ToUpper() == "DCDA04FD-4920-4F6C-BAF8-77B377DE2FFF"
+                    || hlbSection.Text.ToString().ToUpper() == "E6A8EF10-5025-44C0-9CF1-7AB81CA4F523" || hlbSection.Text.ToString().ToUpper() == "3BEAD7B1-A9D4-4557-976F-DA2C6B489910"
+                    || hlbSection.Text.ToString().ToUpper() == "0BF510DE-9348-418C-9E26-735243E8C05F" || hlbSection.Text.ToString().ToUpper() == "09F99302-B5CA-468A-9508-F2F032DC090D")
+                    {
+                        GetGMDivisionApproval();
+                        divManagerDivision.Visible = false;
+                        divGMDivision.Visible = true;
+                    }
+                    else if (hlbSection.Text.ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182")
+                    {
+                        GetGMDivisionApproval();
+                        divManagerDivision.Visible = false;
+                        divGMDivision.Visible = true;
+                    }
+                    else
+                    {
+                        if (lbDivision.Text.ToString().ToUpper() == "C999F3FD-F604-40A3-A300-A3B63FCF8B68" || lbDivision.Text.ToString().ToUpper() == "B094D3EB-0DEC-4066-8CB9-AB118F2B81D0"
+                            || lbDivision.Text.ToString().ToUpper() == "63900462-5119-42D4-98DB-B2728A34868A")
+                        {
+                            GetGMDivisionApproval_SUBSRG();
+                            divManagerDivision.Visible = false;
+                            divGMDivision.Visible = true;
+                        }
+                        else
+                        {
+                            GetGMDivisionApproval();
+                            divManagerDivision.Visible = false;
+                            divGMDivision.Visible = true;
+                        }
+                    }
+
+
+
+                    //GetGMDivisionApproval();
+                    //divManagerDivision.Visible = false;
+                    //divGMDivision.Visible = true;
                 }
             }
             else
@@ -14666,8 +14731,9 @@ namespace procurement_system
             sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "GetGMDivision");
+            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPurchaseApproverGM");
             sqlcomm.Parameters.AddWithValue("@id_division", lbDivision.Text);
+            //sqlcomm.Parameters.AddWithValue("@id_section", hlbSection.Text);
 
             SqlDataReader dr;
 
@@ -14684,11 +14750,60 @@ namespace procurement_system
                 while (dr.Read())
                 {
                     newItem = new ListItem();
-                    newItem.Text = dr["fullname"].ToString();
-                    newItem.Value = dr["nik"].ToString();
+                    newItem.Text = dr["FulnameApprover"].ToString();
+                    newItem.Value = dr["NikApprover"].ToString();
                     ddlGMDivision.Items.Add(newItem);
                 }
                 dr.Close();
+            }
+            catch (Exception err)
+            {
+                //TODO
+            }
+            finally
+            {
+                Con.Close();
+            }
+        }
+
+        protected void GetGMDivisionApproval_SUBSRG()
+        {
+            ddlGMDivision.Items.Clear();
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            SqlConnection Con = new SqlConnection(path);
+
+            SqlCommand sqlcomm = new SqlCommand();
+            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+            sqlcomm.CommandType = CommandType.StoredProcedure;
+            sqlcomm.Connection = Con;
+            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPurchaseApproverGM_SUBSRG");
+            sqlcomm.Parameters.AddWithValue("@id_division", lbDivision.Text);
+            //sqlcomm.Parameters.AddWithValue("@id_section", hlbSection.Text);
+
+            SqlDataReader dr;
+
+            try
+            {
+                ListItem newItem = new ListItem();
+                newItem.Text = "";
+                newItem.Value = "00000000-0000-0000-0000-000000000000";
+                ddlGMDivision.Items.Add(newItem);
+
+                Con.Open();
+                dr = sqlcomm.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    newItem = new ListItem();
+                    newItem.Text = dr["FulnameApprover"].ToString();
+                    newItem.Value = dr["NikApprover"].ToString();
+                    ddlGMDivision.Items.Add(newItem);
+                }
+                dr.Close();
+                newItem = new ListItem();
+                newItem.Text = "DAMAYANTI ANITA DEWI S.H. M.PSI";
+                newItem.Value = "890556";
+                ddlGMDivision.Items.Add(newItem);
             }
             catch (Exception err)
             {
@@ -14710,8 +14825,8 @@ namespace procurement_system
             sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "GetManagerDivision");
-            sqlcomm.Parameters.AddWithValue("@id_division", lbDivision.Text);
+            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPurchaseApprover");
+            //sqlcomm.Parameters.AddWithValue("@id_division", lbDivisionReq.Text);
             sqlcomm.Parameters.AddWithValue("@id_section", hlbSection.Text);
 
             SqlDataReader dr;
@@ -14729,8 +14844,8 @@ namespace procurement_system
                 while (dr.Read())
                 {
                     newItem = new ListItem();
-                    newItem.Text = dr["fullname"].ToString();
-                    newItem.Value = dr["nik"].ToString();
+                    newItem.Text = dr["FulnameApprover"].ToString();
+                    newItem.Value = dr["NikApprover"].ToString();
                     ddlManagerDivision.Items.Add(newItem);
                 }
                 dr.Close();
@@ -14745,21 +14860,125 @@ namespace procurement_system
             }
         }
 
+        protected void GetMGR_SUBSRG_DivisionApproval()
+        {
+            ddlManagerDivision.Items.Clear();
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            SqlConnection Con = new SqlConnection(path);
+
+            SqlCommand sqlcomm = new SqlCommand();
+            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+            sqlcomm.CommandType = CommandType.StoredProcedure;
+            sqlcomm.Connection = Con;
+            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPurchaseApproverSUBSRG");
+            sqlcomm.Parameters.AddWithValue("@id_division", lbDivision.Text);
+            //sqlcomm.Parameters.AddWithValue("@id_section", hlbSection.Text);
+
+            SqlDataReader dr;
+
+            try
+            {
+                ListItem newItem = new ListItem();
+                newItem.Text = "";
+                newItem.Value = "00000000-0000-0000-0000-000000000000";
+                ddlManagerDivision.Items.Add(newItem);
+
+                Con.Open();
+                dr = sqlcomm.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    newItem = new ListItem();
+                    newItem.Text = dr["FulnameApprover"].ToString();
+                    newItem.Value = dr["NikApprover"].ToString();
+                    ddlManagerDivision.Items.Add(newItem);
+                }
+                dr.Close();
+                newItem = new ListItem();
+                newItem.Text = "SURI ARBAD";
+                newItem.Value = "891048";
+                ddlManagerDivision.Items.Add(newItem);
+            }
+            catch (Exception err)
+            {
+                //TODO
+            }
+            finally
+            {
+                Con.Close();
+            }
+        }
+
         protected void ddlManagerDivision_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lbNikMGRNew.Value = ddlManagerDivision.SelectedItem.Value;
+            string selectedNik = ddlManagerDivision.SelectedValue;
 
+            if (selectedNik != "0") // Pastikan bukan nilai default "<Select PIC>"
+            {
+                string selectedEmail = GetEmailByNik(selectedNik);
+
+                // Lakukan sesuatu dengan nilai email yang didapatkan
+                // Misalnya, tampilkan di label atau simpan ke variabel lain
+                lbEmailMGRNew.Value = selectedEmail;
+            }
         }
 
         protected void ddlGMDivision_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lbNikGMNew.Value = ddlGMDivision.SelectedItem.Value;
+            string selectedNik = ddlGMDivision.SelectedValue;
 
+            if (selectedNik != "0") // Pastikan bukan nilai default "<Select PIC>"
+            {
+                string selectedEmail = GetEmailByNik(selectedNik);
+
+                // Lakukan sesuatu dengan nilai email yang didapatkan
+                // Misalnya, tampilkan di label atau simpan ke variabel lain
+                lbEmailGMNew.Value = selectedEmail;
+            }
+        }
+
+        private string GetEmailByNik(string nik)
+        {
+            string email = string.Empty;
+
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            using (SqlConnection Con = new SqlConnection(path))
+            {
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Connection = Con;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "GetEmailByNik");
+                sqlcomm.Parameters.AddWithValue("@nik_approver", nik);
+
+                try
+                {
+                    Con.Open();
+                    SqlDataReader dr = sqlcomm.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        email = dr["email_karyawan"].ToString();
+                    }
+
+                    dr.Close();
+                }
+                catch (Exception err)
+                {
+                    //TODO: Handle the exception
+                }
+            }
+
+            return email;
         }
 
         protected async void btnUpdateApproval_Click(object sender, EventArgs e)
         {
             if (Session["status_approve"].ToString() == "Price Checked")
             {
-                if (ddlGMDivision.SelectedItem.Text != "" && ddlManagerDivision.SelectedItem.Text != "")
+                if (ddlManagerDivision.SelectedItem.Text != "")
                 {
                     string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
                     SqlConnection Con = new SqlConnection(path);
@@ -14996,7 +15215,7 @@ namespace procurement_system
         private async Task SendEmailSendToManagerDivision()
         {
             string body = this.PopulateBodyEmailSendToManagerDivision
-            (lbRequester.Text, lbRFNumberBreadcrumb.Text, "Price Checked", lbRequestDate.Text, lbApprovedBy.Text);
+            (lbRequester.Text, lbRFNumberBreadcrumb.Text, "Price Checked", lbRequestDate.Text, ddlManagerDivision.SelectedItem.Text);
 
             try
             {
@@ -15076,7 +15295,7 @@ namespace procurement_system
                                 contentType = "HTML",
                                 content = body
                             },
-                            //toRecipients = new[] { new { emailAddress = new { address = hlbEmailMgrApprover.Value } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = lbEmailMGRNew.Value } } },
                             //ccRecipients = new[] { new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }, new { emailAddress = new { address = hlbEmailRequester.Value } } },
                             toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
@@ -15232,7 +15451,7 @@ namespace procurement_system
                             },
                             toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                            //toRecipients = new[] { new { emailAddress = new { address = Session["EmailGMApprove"].ToString() } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = lbEmailGMNew.Value.ToString() } } },
                             //ccRecipients = new[] { new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }, 
                             //    new { emailAddress = new { address = Session["EmailRequester"].ToString() } },
                             //    new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },

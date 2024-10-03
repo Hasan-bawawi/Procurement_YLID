@@ -222,6 +222,24 @@ namespace procurement_system
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtGrandTotal;
 
         /// <summary>
+        /// divClearPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClearPrice;
+
+        /// <summary>
+        /// btnClearPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnClearPrice;
+
+        /// <summary>
         /// divCheck control.
         /// </summary>
         /// <remarks>

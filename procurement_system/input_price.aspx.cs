@@ -133,13 +133,15 @@ namespace procurement_system
 
                 int getAmount = Convert.ToInt32(amount);
                 total += getAmount;
+                price.Disabled = true;
             }
             decimal value;
             value = Convert.ToDecimal(total);
             txtGrandTotal.Value = value.ToString("#,##0.00");
-
+            
             divSubmit.Visible = true;
             divCheck.Visible = false;
+            divClearPrice.Visible = true;
         }
 
         #region Tables
@@ -984,5 +986,19 @@ namespace procurement_system
         }
         #endregion
 
+        protected void btnClearPrice_Click(object sender, EventArgs e)
+        {
+            foreach (GridViewRow grow in TableItemPurchase.Rows)
+            {
+                HtmlInputText price = (HtmlInputText)grow.FindControl("txtPrice");
+                txtGrandTotal.Value = "0";
+                price.Value = "0";
+                price.Disabled = false;
+            }
+
+            divSubmit.Visible = false;
+            divCheck.Visible = true;
+            divClearPrice.Visible = false;
+        }
     }
 }

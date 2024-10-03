@@ -308,6 +308,10 @@
     <asp:HiddenField ID="hlbNIKGMAdm" runat="server" />
     <asp:HiddenField ID="hlbManagerAdm" runat="server" />
     <asp:HiddenField ID="hlbGMAdm" runat="server" />
+    <asp:HiddenField ID="lbNikMGRNew" runat="server" />
+    <asp:HiddenField ID="lbEmailMGRNew" runat="server" />
+    <asp:HiddenField ID="lbNikGMNew" runat="server" />
+    <asp:HiddenField ID="lbEmailGMNew" runat="server" />
 
     <div class="container-fluid">
         <div class="row">

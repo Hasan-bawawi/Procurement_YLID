@@ -186,6 +186,42 @@ namespace procurement_system
         protected global::System.Web.UI.WebControls.HiddenField hlbGMAdm;
 
         /// <summary>
+        /// lbNikMGRNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField lbNikMGRNew;
+
+        /// <summary>
+        /// lbEmailMGRNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField lbEmailMGRNew;
+
+        /// <summary>
+        /// lbNikGMNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField lbNikGMNew;
+
+        /// <summary>
+        /// lbEmailGMNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField lbEmailGMNew;
+
+        /// <summary>
         /// divRFStatus control.
         /// </summary>
         /// <remarks>
