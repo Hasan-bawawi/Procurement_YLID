@@ -163,6 +163,7 @@ namespace procurement_system
             TablePurchaseOrder.Columns[18].Visible = false;
             TablePurchaseOrder.Columns[19].Visible = false;
             TablePurchaseOrder.Columns[20].Visible = false;
+            //TablePurchaseOrder.Columns[24].Visible = false;
 
             TablePurchaseOrder.UseAccessibleHeader = true;
             TablePurchaseOrder.HeaderRow.TableSection = TableRowSection.TableHeader;

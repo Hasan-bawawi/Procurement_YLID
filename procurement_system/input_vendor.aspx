@@ -361,10 +361,10 @@
                                                             <li id="gm" runat="server" class="StepProgress-item current"><strong>Div. GM</strong><asp:Label ID="lbDateGM" runat="server"></asp:Label></li>
                                                             <li id="deputy_director" runat="server" class="StepProgress-item current"><strong>Deputy Director</strong><asp:Label ID="lbDateDepDir" runat="server"></asp:Label></li>
                                                             <li id="director" runat="server" class="StepProgress-item current"><strong>Director</strong><asp:Label ID="lbDateDir" runat="server"></asp:Label></li>
-                                                            <li id="it_section_head" runat="server" class="StepProgress-item current"><strong>IT Head</strong><asp:Label ID="lbDateITHead" runat="server"></asp:Label></li>
+                                                            <%--<li id="it_section_head" runat="server" class="StepProgress-item current"><strong>IT Head</strong><asp:Label ID="lbDateITHead" runat="server"></asp:Label></li>
                                                             <li id="ga_section_head" runat="server" class="StepProgress-item current"><strong>GA Head</strong><asp:Label ID="lbDateGAHead" runat="server"></asp:Label></li>
                                                             <li id="admin_gm" runat="server" class="StepProgress-item current"><strong>Admin GM</strong><asp:Label ID="lbDateGMAdm" runat="server"></asp:Label></li>
-                                                            <li id="admin_director" runat="server" class="StepProgress-item current"><strong>Admin Director</strong><asp:Label ID="lbDateDirAdm" runat="server"></asp:Label></li>
+                                                            <li id="admin_director" runat="server" class="StepProgress-item current"><strong>Admin Director</strong><asp:Label ID="lbDateDirAdm" runat="server"></asp:Label></li>--%>
                                                             <li id="status_completed" runat="server" class="StepProgress-item current"><strong>Completed</strong><asp:Label ID="lbDateComplete" runat="server"></asp:Label></li>
                                                         </ul>
                                                     </div>

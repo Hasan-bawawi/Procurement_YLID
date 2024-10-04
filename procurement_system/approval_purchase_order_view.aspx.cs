@@ -1050,7 +1050,7 @@ namespace procurement_system
                         sqlcomm.ExecuteNonQuery();
                         //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
                         Con.Close();
-
+                        UpdateStatusPO();
                         foreach (GridViewRow grow in TableItemPO.Rows)
                         {
                             //Searching CheckBox("chkSelect") in an individual row of Grid  
@@ -1138,7 +1138,7 @@ namespace procurement_system
                         sqlcomm.ExecuteNonQuery();
                         //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
                         Con.Close();
-
+                        UpdateStatusPO();
                         foreach (GridViewRow grow in TableItemPO.Rows)
                         {
                             //Searching CheckBox("chkSelect") in an individual row of Grid  

@@ -137,7 +137,7 @@ namespace procurement_system
             }
             decimal value;
             value = Convert.ToDecimal(total);
-            txtGrandTotal.Value = value.ToString("#,##0.00");
+            txtGrandTotal.Value = value.ToString("#,##0");
             
             divSubmit.Visible = true;
             divCheck.Visible = false;

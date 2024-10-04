@@ -366,6 +366,7 @@
                                                             <asp:BoundField DataField="create_date" HeaderText="Creation Date" />
                                                             <asp:BoundField DataField="modifiedby" HeaderText="Modified by" />
                                                             <asp:BoundField DataField="modified_date" HeaderText="Modification Date" />
+                                                            <%--<asp:BoundField DataField="gr_no" HeaderText="gr_no" />--%>
                                                         </Columns>
                                                     </asp:GridView>
 

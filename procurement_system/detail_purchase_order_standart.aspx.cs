@@ -92,7 +92,6 @@ namespace procurement_system
                         Session.Add("email_po_checked_by", (string)(rdr.IsDBNull(34) ? null : rdr["email_po_checked_by"]));
                         Session.Add("email_authorized_by", (string)(rdr.IsDBNull(35) ? null : rdr["email_authorized_by"]));
                         Session.Add("email_po_checked_by_it", (string)(rdr.IsDBNull(36) ? null : rdr["email_po_checked_by_it"]));
-
                     }
                 }
                 sqlcomm.Dispose();
@@ -114,6 +113,16 @@ namespace procurement_system
             txtVAT.Value = Session["vat"].ToString();
             hlbIDVendor.Value = Session["id_vendor"].ToString();
 
+            //if (Session["gr_no"].ToString() != "" || Session["gr_no"].ToString() != "&nbsp;" || Session["gr_no"].ToString() != null)
+            //{
+            //    hlbGRNo.Value = Session["gr_no"].ToString();
+            //}
+            //else
+            //{
+            //    hlbGRNo.Value = "";
+            //}
+            
+
             if (!IsPostBack)
             {
                 GetTableItemPO();
@@ -134,17 +143,17 @@ namespace procurement_system
 
             vatAmount = vatValue * getTotal;
 
-            txtVatAmount.Value = vatAmount.ToString("#,##0.00");
+            txtVatAmount.Value = vatAmount.ToString("#,##0");
 
             decimal grandTotal = getTotal + vatAmount;
-            txtGrandTotal.Value = grandTotal.ToString("#,##0.00");
+            txtGrandTotal.Value = grandTotal.ToString("#,##0");
             int getGrandTotal = Convert.ToInt32(grandTotal);
             hlbGrandTotal.Value = getGrandTotal.ToString();
 
             // Display the total value
             decimal value;
             value = Convert.ToDecimal(total);
-            txtTotalAmount.Value = value.ToString("#,##0.00");
+            txtTotalAmount.Value = value.ToString("#,##0");
 
             #region BarStatus
             if (Session["approve_status"].ToString() == "PO Created")
@@ -369,6 +378,7 @@ namespace procurement_system
                     {
                         lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
                         GetDataGAHeadFullApproved();
+                        //GetDataGR();
                         ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string AppGADate = Session["tgl_approve_GAheadFullApproved"].ToString();
                         DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
@@ -379,6 +389,10 @@ namespace procurement_system
                         admin_director.Attributes.Add("style", "display:none");
                         po_onprocess.Attributes.Add("class", "StepProgress-item is-done");
                         good_receipt.Attributes.Add("class", "StepProgress-item is-done");
+                        //string GRDate = Session["tgl_gr"].ToString();
+                        //DateTime ParseDatetimeGRDate = DateTime.Parse(GRDate);
+                        //string GetGRDate = ParseDatetimeGRDate.ToString("dd MMMM yyyy");
+                        //lbDateGR.Text = GetGRDate + "&nbsp;-&nbsp;" + "Received by" + "&nbsp" + Session["received_by"].ToString();
                         status_completed.Attributes.Add("class", "StepProgress-item is-done");
                     }
                     // Price<= 1Jt IT Catalog
@@ -386,6 +400,7 @@ namespace procurement_system
                     {
                         lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
                         GetDataGAHeadFullApproved();
+                        //GetDataGR();
                         ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string AppGADate = Session["tgl_approve_GAheadFullApproved"].ToString();
                         DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
@@ -401,6 +416,10 @@ namespace procurement_system
                         admin_director.Attributes.Add("style", "display:none");
                         po_onprocess.Attributes.Add("class", "StepProgress-item is-done");
                         good_receipt.Attributes.Add("class", "StepProgress-item is-done");
+                        //string GRDate = Session["tgl_gr"].ToString();
+                        //DateTime ParseDatetimeGRDate = DateTime.Parse(GRDate);
+                        //string GetGRDate = ParseDatetimeGRDate.ToString("dd MMMM yyyy");
+                        //lbDateGR.Text = GetGRDate + "&nbsp;-&nbsp;" + "Received by" + "&nbsp" + Session["received_by"].ToString();
                         status_completed.Attributes.Add("class", "StepProgress-item is-done");
                     }
                     // Price beetwen 1Jt-20JT GA Catalog
@@ -408,6 +427,7 @@ namespace procurement_system
                     {
                         lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
                         GetDataGAHeadApproved();
+                        //GetDataGR();
                         ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string AppGADate = Session["tgl_approve_GAhead"].ToString();
                         DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
@@ -423,6 +443,10 @@ namespace procurement_system
                         admin_director.Attributes.Add("style", "display:none");
                         po_onprocess.Attributes.Add("class", "StepProgress-item is-done");
                         good_receipt.Attributes.Add("class", "StepProgress-item is-done");
+                        //string GRDate = Session["tgl_gr"].ToString();
+                        //DateTime ParseDatetimeGRDate = DateTime.Parse(GRDate);
+                        //string GetGRDate = ParseDatetimeGRDate.ToString("dd MMMM yyyy");
+                        //lbDateGR.Text = GetGRDate + "&nbsp;-&nbsp;" + "Received by" + "&nbsp" + Session["received_by"].ToString();
                         status_completed.Attributes.Add("class", "StepProgress-item is-done");
                     }
                     // Price beetwen 1Jt-20JT IT Catalog
@@ -430,6 +454,7 @@ namespace procurement_system
                     {
                         lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
                         GetDataGAHeadApproved();
+                        //GetDataGR();
                         ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string AppGADate = Session["tgl_approve_GAhead"].ToString();
                         DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
@@ -450,6 +475,10 @@ namespace procurement_system
                         admin_director.Attributes.Add("style", "display:none");
                         po_onprocess.Attributes.Add("class", "StepProgress-item is-done");
                         good_receipt.Attributes.Add("class", "StepProgress-item is-done");
+                        //string GRDate = Session["tgl_gr"].ToString();
+                        //DateTime ParseDatetimeGRDate = DateTime.Parse(GRDate);
+                        //string GetGRDate = ParseDatetimeGRDate.ToString("dd MMMM yyyy");
+                        //lbDateGR.Text = GetGRDate + "&nbsp;-&nbsp;" + "Received by" + "&nbsp" + Session["received_by"].ToString();
                         status_completed.Attributes.Add("class", "StepProgress-item is-done");
                     }
                     // Price >= 20Jt GA Catalog
@@ -457,6 +486,7 @@ namespace procurement_system
                     {
                         lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
                         GetDataGAHeadApproved();
+                        //GetDataGR();
                         ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string AppGADate = Session["tgl_approve_GAhead"].ToString();
                         DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
@@ -477,6 +507,10 @@ namespace procurement_system
                         lbDateDirAdm.Text = GetAppAdmDirDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["PresdirFullApproved"].ToString();
                         po_onprocess.Attributes.Add("class", "StepProgress-item is-done");
                         good_receipt.Attributes.Add("class", "StepProgress-item is-done");
+                        //string GRDate = Session["tgl_gr"].ToString();
+                        //DateTime ParseDatetimeGRDate = DateTime.Parse(GRDate);
+                        //string GetGRDate = ParseDatetimeGRDate.ToString("dd MMMM yyyy");
+                        //lbDateGR.Text = GetGRDate + "&nbsp;-&nbsp;" + "Received by" + "&nbsp" + Session["received_by"].ToString();
                         status_completed.Attributes.Add("class", "StepProgress-item is-done");
                     }
                     // Price >= 20Jt IT Catalog
@@ -484,6 +518,7 @@ namespace procurement_system
                     {
                         lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
                         GetDataGAHeadApproved();
+                        //GetDataGR();
                         ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
                         string AppGADate = Session["tgl_approve_GAhead"].ToString();
                         DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
@@ -509,6 +544,10 @@ namespace procurement_system
                         lbDateDirAdm.Text = GetAppAdmDirDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["PresdirFullApproved"].ToString();
                         po_onprocess.Attributes.Add("class", "StepProgress-item is-done");
                         good_receipt.Attributes.Add("class", "StepProgress-item is-done");
+                        //string GRDate = Session["tgl_gr"].ToString();
+                        //DateTime ParseDatetimeGRDate = DateTime.Parse(GRDate);
+                        //string GetGRDate = ParseDatetimeGRDate.ToString("dd MMMM yyyy");
+                        //lbDateGR.Text = GetGRDate + "&nbsp;-&nbsp;" + "Received by" + "&nbsp" + Session["received_by"].ToString();
                         status_completed.Attributes.Add("class", "StepProgress-item is-done");
                     }
                 }
@@ -917,6 +956,32 @@ namespace procurement_system
                 Session.Add("gr_no", (string)dr["gr_no"]);
                 Session.Add("create_date", (DateTime)dr["create_date"]);
                 Session.Add("createby", (string)dr["createby"]);
+            }
+
+        }
+
+        protected void GetDataGR()
+        {
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            SqlConnection Con = new SqlConnection(path);
+            Con.Open();
+            SqlCommand sqlcomm = new SqlCommand();
+            sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+            sqlcomm.CommandType = CommandType.StoredProcedure;
+
+            sqlcomm.Connection = Con;
+            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewStatusGR");
+            sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text);
+            sqlcomm.Parameters.AddWithValue("@gr_no", hlbGRNo.Value);
+
+            SqlDataReader dr = null;
+            dr = sqlcomm.ExecuteReader();
+
+            if (dr.Read())
+            {
+                Session.Add("GRCreated", (string)dr["GRCreated"]);
+                Session.Add("tgl_gr", (DateTime)dr["tgl_gr"]);
+                Session.Add("received_by", (string)dr["received_by"]);
             }
 
         }

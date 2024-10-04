@@ -306,7 +306,7 @@
                                         <div class="input-group-append">
                                             <span class="input-group-text">Grand Total (IDR)&nbsp;&nbsp;&nbsp;</span>
                                         </div>
-                                        <input runat="server" id="txtGrandTotal" data-validate-length-range="5,15" type="text" class="form-control" placeholder=".00" disabled>
+                                        <input runat="server" id="txtGrandTotal" data-validate-length-range="5,15" type="text" class="form-control" placeholder="0" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -411,7 +411,7 @@
 
                 // final formatting
                 if (blur === "blur") {
-                    input_val += ".00";
+                    input_val += "";
                 }
             }
 
