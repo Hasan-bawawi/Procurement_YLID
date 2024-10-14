@@ -816,6 +816,15 @@ namespace procurement_system
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl vendor_detail;
 
         /// <summary>
+        /// event_calender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl event_calender;
+
+        /// <summary>
         /// menu_orders control.
         /// </summary>
         /// <remarks>

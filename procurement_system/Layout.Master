@@ -462,6 +462,7 @@
                                         <li runat="server" id="vendor_detail"><a href="vendor_detail.aspx"><span class="nav-text">Vendor Detail</span></a></li>
                                     </ul>
                                 </li>
+                                <li runat="server" id="event_calender"><a href="event_calender.aspx"><span class="nav-text">Event Calender</span></a></li>
                             </ul>
                         </li>
                         <li runat="server" id="menu_orders">

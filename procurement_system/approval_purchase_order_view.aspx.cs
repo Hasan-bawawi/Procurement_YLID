@@ -1031,7 +1031,7 @@ namespace procurement_system
                 if (Session["approve_status"].ToString() == "PO Created")
                 {
                     //GA Catalog
-                    if (Session["po_checked_by_it"] is null)
+                    if (Session["po_checked_by_it"] is null && Session["po_approved_by"] is null && Session["authorized_by"] is null)
                     {
                         string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
                         SqlConnection Con = new SqlConnection(path);
@@ -1071,6 +1071,48 @@ namespace procurement_system
                         else
                         {
                             await SendEmailToPurchaseTim_FullApproval_Under1jt_GA();
+                        }
+                    }
+                    else if (Session["po_checked_by_it"] is null && Session["authorized_by"] is null)
+                    {
+                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        SqlConnection Con = new SqlConnection(path);
+                        Con.Open();
+                        SqlCommand sqlcomm = new SqlCommand();
+                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalPurchaseOrder";
+                        sqlcomm.CommandType = CommandType.StoredProcedure;
+                        sqlcomm.Connection = Con;
+                        sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
+                        sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                        sqlcomm.Parameters.AddWithValue("@level_approver", "Checked by GA Head");
+                        sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Checked by GA Head)");
+
+                        sqlcomm.ExecuteNonQuery();
+                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        Con.Close();
+
+                        foreach (GridViewRow grow in TableItemPO.Rows)
+                        {
+                            //Searching CheckBox("chkSelect") in an individual row of Grid  
+                            CheckBox chkdel = (CheckBox)grow.FindControl("ckSelectRemove");
+                            //If CheckBox is checked than delete the record with particular id  
+                            if (chkdel.Checked)
+                            {
+                                string item_code = grow.Cells[4].Text;
+                                DeleteSelectedItems(item_code);
+                            }
+                        }
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        {
+                            UpdateStatusRejectCancel();
+                            UpdateDetail_RFCancelReject();
+                            await SendEmailCancel();
+                        }
+                        else
+                        {
+                            await SendEmailToGMAdmin_ITHeadNull();
                         }
                     }
                     else

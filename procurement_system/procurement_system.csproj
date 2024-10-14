@@ -475,6 +475,7 @@
     <Content Include="EmailTempleteRFSendToITHead_ManagedDivApproved.html" />
     <Content Include="EmailTempleteRFSendToManagerDivision.html" />
     <Content Include="EmailTempleteSendRFToPurchasing.html" />
+    <Content Include="event_calender.aspx" />
     <Content Include="goods_catalog.aspx" />
     <Content Include="group_registration.aspx" />
     <Content Include="images\decline.png" />
@@ -15425,6 +15426,13 @@
     </Compile>
     <Compile Include="detail_requisition_form.aspx.designer.cs">
       <DependentUpon>detail_requisition_form.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="event_calender.aspx.cs">
+      <DependentUpon>event_calender.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="event_calender.aspx.designer.cs">
+      <DependentUpon>event_calender.aspx</DependentUpon>
     </Compile>
     <Compile Include="goods_catalog.aspx.cs">
       <DependentUpon>goods_catalog.aspx</DependentUpon>

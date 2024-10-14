@@ -384,6 +384,7 @@ namespace procurement_system
             menu_approval.Visible = false;
             app_rf.Visible = false;
             app_po.Visible = false;
+            vendor_detail.Visible = false;
 
             string vUserCode = vNIK;
 
@@ -426,6 +427,7 @@ namespace procurement_system
                     if (vDR["ModuleName"].ToString().Trim() == "menu_approval") { menu_approval.Visible = Convert.ToBoolean(vDR["RoleNavigation"]); }
                     if (vDR["ModuleName"].ToString().Trim() == "app_rf") { app_rf.Visible = Convert.ToBoolean(vDR["RoleNavigation"]); }
                     if (vDR["ModuleName"].ToString().Trim() == "app_po") { app_po.Visible = Convert.ToBoolean(vDR["RoleNavigation"]); }
+                    if (vDR["ModuleName"].ToString().Trim() == "event_calender") { event_calender.Visible = Convert.ToBoolean(vDR["RoleNavigation"]); }
                 }
             }
         }

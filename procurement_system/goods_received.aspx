@@ -562,7 +562,7 @@
                                                     </asp:GridView>
                                                 </div>
                                             </div>
-                                            <div class='col-sm-12'>
+                                            <div class='col-sm-12' hidden>
                                                 <div class="bootstrap-label">
                                                     <span id="badgePesanNotif" runat="server" class="label label-pill"></span>
                                                 </div>
