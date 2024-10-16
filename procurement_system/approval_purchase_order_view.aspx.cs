@@ -41,416 +41,428 @@ namespace procurement_system
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string po_no = Request.QueryString["po_no"];
-            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(path))
+            if (string.IsNullOrEmpty(Convert.ToString(Session["nik"])))
             {
-                SqlCommand sqlcomm = new SqlCommand();
-                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                sqlcomm.CommandType = CommandType.StoredProcedure;
-                sqlcomm.Connection = con;
-                sqlcomm.Parameters.AddWithValue("@StatementType", "ViewDetailPurchaseOrder");
-                sqlcomm.Parameters.AddWithValue("@po_no", po_no);
-                con.Open();
-                using (SqlDataReader rdr = sqlcomm.ExecuteReader())
+                Response.Redirect("login.aspx?url=" + Server.UrlEncode(Request.Url.AbsoluteUri));
+            }
+
+            if ((Session["GroupName"].ToString() == "PO Approval") || (Session["GroupName"].ToString() == "RF AND PO Approval"))
+            {
+                string po_no = Request.QueryString["po_no"];
+                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(path))
                 {
-                    while (rdr.Read())
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    sqlcomm.Connection = con;
+                    sqlcomm.Parameters.AddWithValue("@StatementType", "ViewDetailPurchaseOrder");
+                    sqlcomm.Parameters.AddWithValue("@po_no", po_no);
+                    con.Open();
+                    using (SqlDataReader rdr = sqlcomm.ExecuteReader())
                     {
-                        Session.Add("po_no", (string)rdr["po_no"]);
-                        Session.Add("rf_no", (string)rdr["rf_no"]);
-                        Session.Add("po_type", (string)rdr["po_type"]);
-                        Session.Add("vendor_name", (string)rdr["vendor_name"]);
-                        Session.Add("po_date", (DateTime)rdr["po_date"]);
-                        Session.Add("delivery_date", (DateTime)rdr["delivery_date"]);
-                        Session.Add("delivery_to", (string)rdr["delivery_to"]);
-                        Session.Add("item_code", (string)rdr["item_code"]);
-                        Session.Add("item_name", (string)rdr["item_name"]);
-                        Session.Add("price", (int)rdr["price"]);
-                        Session.Add("vat", (int)rdr["vat"]);
-                        Session.Add("amount", (int)rdr["amount"]);
-                        Session.Add("payment_term", (string)rdr["payment_term"]);
-                        Session.Add("remarks", (string)rdr["remarks"]);
-                        Session.Add("aset_status", (string)rdr["aset_status"]);
-                        Session.Add("po_created_by", (string)(rdr.IsDBNull(15) ? null : rdr["po_created_by"]));
-                        Session.Add("po_approved_by", (string)(rdr.IsDBNull(16) ? null : rdr["po_approved_by"]));
-                        Session.Add("po_checked_by", (string)(rdr.IsDBNull(17) ? null : rdr["po_checked_by"]));
-                        Session.Add("authorized_by", (string)(rdr.IsDBNull(18) ? null : rdr["authorized_by"]));
-                        Session.Add("po_checked_by_it", (string)(rdr.IsDBNull(19) ? null : rdr["po_checked_by_it"]));
-                        Session.Add("approve_status", (string)rdr["approve_status"]);
-                        Session.Add("po_status", (string)rdr["po_status"]);
-                        Session.Add("Dept", (string)rdr["Dept"]);
-                        Session.Add("create_date", (DateTime)rdr["create_date"]);
-                        Session.Add("modifiedby", (string)rdr["modifiedby"]);
-                        Session.Add("modified_date", (DateTime)rdr["modified_date"]);
-                        Session.Add("Requester", (string)rdr["Requester"]);
-                        Session.Add("quantity", (int)rdr["quantity"]);
-                        Session.Add("unit_name", (string)rdr["unit_name"]);
-                        Session.Add("id_vendor", (string)rdr["id_vendor"].ToString());
-                        Session.Add("other_condition", (string)(rdr.IsDBNull(31) ? null : rdr["other_condition"]));
-                        Session.Add("email_po_created_by", (string)(rdr.IsDBNull(32) ? null : rdr["email_po_created_by"]));
-                        Session.Add("email_po_approved_by", (string)(rdr.IsDBNull(33) ? null : rdr["email_po_approved_by"]));
-                        Session.Add("email_po_checked_by", (string)(rdr.IsDBNull(34) ? null : rdr["email_po_checked_by"]));
-                        Session.Add("email_authorized_by", (string)(rdr.IsDBNull(35) ? null : rdr["email_authorized_by"]));
-                        Session.Add("email_po_checked_by_it", (string)(rdr.IsDBNull(36) ? null : rdr["email_po_checked_by_it"]));
+                        while (rdr.Read())
+                        {
+                            Session.Add("po_no", (string)rdr["po_no"]);
+                            Session.Add("rf_no", (string)rdr["rf_no"]);
+                            Session.Add("po_type", (string)rdr["po_type"]);
+                            Session.Add("vendor_name", (string)rdr["vendor_name"]);
+                            Session.Add("po_date", (DateTime)rdr["po_date"]);
+                            Session.Add("delivery_date", (DateTime)rdr["delivery_date"]);
+                            Session.Add("delivery_to", (string)rdr["delivery_to"]);
+                            Session.Add("item_code", (string)rdr["item_code"]);
+                            Session.Add("item_name", (string)rdr["item_name"]);
+                            Session.Add("price", (int)rdr["price"]);
+                            Session.Add("vat", (int)rdr["vat"]);
+                            Session.Add("amount", (int)rdr["amount"]);
+                            Session.Add("payment_term", (string)rdr["payment_term"]);
+                            Session.Add("remarks", (string)rdr["remarks"]);
+                            Session.Add("aset_status", (string)rdr["aset_status"]);
+                            Session.Add("po_created_by", (string)(rdr.IsDBNull(15) ? null : rdr["po_created_by"]));
+                            Session.Add("po_approved_by", (string)(rdr.IsDBNull(16) ? null : rdr["po_approved_by"]));
+                            Session.Add("po_checked_by", (string)(rdr.IsDBNull(17) ? null : rdr["po_checked_by"]));
+                            Session.Add("authorized_by", (string)(rdr.IsDBNull(18) ? null : rdr["authorized_by"]));
+                            Session.Add("po_checked_by_it", (string)(rdr.IsDBNull(19) ? null : rdr["po_checked_by_it"]));
+                            Session.Add("approve_status", (string)rdr["approve_status"]);
+                            Session.Add("po_status", (string)rdr["po_status"]);
+                            Session.Add("Dept", (string)rdr["Dept"]);
+                            Session.Add("create_date", (DateTime)rdr["create_date"]);
+                            Session.Add("modifiedby", (string)rdr["modifiedby"]);
+                            Session.Add("modified_date", (DateTime)rdr["modified_date"]);
+                            Session.Add("Requester", (string)rdr["Requester"]);
+                            Session.Add("quantity", (int)rdr["quantity"]);
+                            Session.Add("unit_name", (string)rdr["unit_name"]);
+                            Session.Add("id_vendor", (string)rdr["id_vendor"].ToString());
+                            Session.Add("other_condition", (string)(rdr.IsDBNull(31) ? null : rdr["other_condition"]));
+                            Session.Add("email_po_created_by", (string)(rdr.IsDBNull(32) ? null : rdr["email_po_created_by"]));
+                            Session.Add("email_po_approved_by", (string)(rdr.IsDBNull(33) ? null : rdr["email_po_approved_by"]));
+                            Session.Add("email_po_checked_by", (string)(rdr.IsDBNull(34) ? null : rdr["email_po_checked_by"]));
+                            Session.Add("email_authorized_by", (string)(rdr.IsDBNull(35) ? null : rdr["email_authorized_by"]));
+                            Session.Add("email_po_checked_by_it", (string)(rdr.IsDBNull(36) ? null : rdr["email_po_checked_by_it"]));
+                        }
+                    }
+                    sqlcomm.Dispose();
+                    con.Close();
+                    con.Dispose();
+                }
+
+                lbPONumberBreadcrumb.Text = Session["po_no"].ToString();
+                lbPONumberHeader.Text = Session["po_no"].ToString();
+                string ReqDateFromDatabase = Session["po_date"].ToString();
+                DateTime ParseDatetime = DateTime.Parse(ReqDateFromDatabase);
+                string ReqDate = ParseDatetime.ToString("dd MMMM yyyy");
+                lbIssuedDate.Text = ReqDate;
+                lbRequester.Text = Session["Requester"].ToString() + " (" + Session["Dept"].ToString() + ")";
+                lbDeliveryDate.Text = Session["delivery_date"].ToString();
+                lbAssetType.Text = Session["aset_status"].ToString();
+                lbVendorName.Text = Session["vendor_name"].ToString();
+                lbPaymentTerms.Text = Session["payment_term"].ToString();
+                txtVAT.Value = Session["vat"].ToString();
+                hlbIDVendor.Value = Session["id_vendor"].ToString();
+
+                if (!IsPostBack)
+                {
+                    GetTableItemPO();
+                }
+
+                int total = 0;
+                foreach (GridViewRow grow in TableItemPO.Rows)
+                {
+                    HtmlInputText amount = (HtmlInputText)grow.FindControl("txtAmount");
+                    decimal parsedValue = decimal.Parse(amount.Value, NumberStyles.Currency);
+                    int getAmount = Convert.ToInt32(parsedValue);
+                    total += getAmount;
+                }
+                int vat = Convert.ToInt32(txtVAT.Value.ToString());
+                decimal vatValue = vat / 100m;
+                int getTotal = Convert.ToInt32(total);
+                decimal vatAmount;
+
+                vatAmount = vatValue * getTotal;
+
+                txtVatAmount.Value = vatAmount.ToString("#,##0.00");
+
+                decimal grandTotal = getTotal + vatAmount;
+                txtGrandTotal.Value = grandTotal.ToString("#,##0.00");
+                int getGrandTotal = Convert.ToInt32(grandTotal);
+                hlbGrandTotal.Value = getGrandTotal.ToString();
+
+                // Display the total value
+                decimal value;
+                value = Convert.ToDecimal(total);
+                txtTotalAmount.Value = value.ToString("#,##0.00");
+
+                #region BarStatus
+                if (Session["approve_status"].ToString() == "PO Created")
+                {
+                    // Price<= 1Jt GA Catalog
+                    if (Session["po_checked_by_it"] is null && Session["po_approved_by"] is null && Session["authorized_by"] is null)
+                    {
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("style", "display:none");
+                        admin_gm.Attributes.Add("style", "display:none");
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price<= 1Jt IT Catalog
+                    else if (Session["po_approved_by"] is null && Session["authorized_by"] is null)
+                    {
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        admin_gm.Attributes.Add("style", "display:none");
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price beetwen 1Jt-20JT GA Catalog
+                    else if (Session["po_checked_by_it"] is null && Session["authorized_by"] is null)
+                    {
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("style", "display:none");
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price beetwen 1Jt-20JT IT Catalog
+                    else if (Session["authorized_by"] is null)
+                    {
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price >= 20Jt GA Catalog
+                    else if (Session["po_checked_by_it"] is null)
+                    {
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("style", "display:none");
+                    }
+                    // Price >= 20Jt IT Catalog
+                    else
+                    {
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
                     }
                 }
-                sqlcomm.Dispose();
-                con.Close();
-                con.Dispose();
+                else if (Session["approve_status"].ToString() == "Approved (Checked by IT Head)")
+                {
+                    // Price<= 1Jt IT Catalog
+                    if (Session["po_approved_by"] is null && Session["authorized_by"] is null)
+                    {
+                        GetDataITHeadApproved();
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppDate = Session["tgl_approve_ithead"].ToString();
+                        DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
+                        string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
+                        lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
+                        admin_gm.Attributes.Add("style", "display:none");
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price beetwen 1Jt-20JT IT Catalog
+                    else if (Session["authorized_by"] is null)
+                    {
+                        GetDataITHeadApproved();
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppDate = Session["tgl_approve_ithead"].ToString();
+                        DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
+                        string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
+                        lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price >= 20Jt GA Catalog
+                    else
+                    {
+                        GetDataITHeadApproved();
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppDate = Session["tgl_approve_ithead"].ToString();
+                        DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
+                        string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
+                        lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
+                    }
+                }
+                else if (Session["approve_status"].ToString() == "Approved (Checked by GA Head)")
+                {
+                    // Price<= 1Jt GA Catalog
+                    if (Session["po_checked_by_it"] is null && Session["po_approved_by"] is null && Session["authorized_by"] is null)
+                    {
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("style", "display:none");
+                        admin_gm.Attributes.Add("style", "display:none");
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price<= 1Jt IT Catalog
+                    else if (Session["po_approved_by"] is null && Session["authorized_by"] is null)
+                    {
+                        GetDataITHeadApproved();
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppDate = Session["tgl_approve_ithead"].ToString();
+                        DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
+                        string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
+                        lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
+                        GetDataGAHeadApproved();
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppGADate = Session["tgl_approve_GAhead"].ToString();
+                        DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
+                        string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
+                        lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
+                        admin_gm.Attributes.Add("style", "display:none");
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price beetwen 1Jt-20JT GA Catalog
+                    else if (Session["po_checked_by_it"] is null && Session["authorized_by"] is null)
+                    {
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        GetDataGAHeadApproved();
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppGADate = Session["tgl_approve_GAhead"].ToString();
+                        DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
+                        string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
+                        lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
+                        it_section_head.Attributes.Add("style", "display:none");
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price beetwen 1Jt-20JT IT Catalog
+                    else if (Session["authorized_by"] is null)
+                    {
+                        GetDataITHeadApproved();
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppDate = Session["tgl_approve_ithead"].ToString();
+                        DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
+                        string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
+                        lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
+                        GetDataGAHeadApproved();
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppGADate = Session["tgl_approve_GAhead"].ToString();
+                        DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
+                        string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
+                        lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price >= 20Jt GA Catalog
+                    else if (Session["po_checked_by_it"] is null)
+                    {
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        GetDataGAHeadApproved();
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppGADate = Session["tgl_approve_GAhead"].ToString();
+                        DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
+                        string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
+                        lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
+                        it_section_head.Attributes.Add("style", "display:none");
+                    }
+                    // Price >= 20Jt IT Catalog
+                    else
+                    {
+                        GetDataITHeadApproved();
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppDate = Session["tgl_approve_ithead"].ToString();
+                        DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
+                        string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
+                        lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
+                        GetDataGAHeadApproved();
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppGADate = Session["tgl_approve_GAhead"].ToString();
+                        DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
+                        string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
+                        lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
+                    }
+                }
+                else if (Session["approve_status"].ToString() == "Approved (Admin GM)")
+                {
+                    if (Session["po_checked_by_it"] is null)
+                    {
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        GetDataGAHeadApproved();
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppGADate = Session["tgl_approve_GAhead"].ToString();
+                        DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
+                        string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
+                        lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
+                        it_section_head.Attributes.Add("style", "display:none");
+                        GetDataGMAdminApproved();
+                        admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppGMAdmDate = Session["tgl_approve_GMAdmin"].ToString();
+                        DateTime ParseDatetimeAppGMAdmDate = DateTime.Parse(AppGMAdmDate);
+                        string GetAppGMAdmDate = ParseDatetimeAppGMAdmDate.ToString("dd MMMM yyyy");
+                        lbDateGMAdm.Text = GetAppGMAdmDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GMAdminApprover"].ToString();
+                    }
+                    else
+                    {
+                        GetDataITHeadApproved();
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppDate = Session["tgl_approve_ithead"].ToString();
+                        DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
+                        string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
+                        lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
+                        GetDataGAHeadApproved();
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppGADate = Session["tgl_approve_GAhead"].ToString();
+                        DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
+                        string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
+                        lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
+                        GetDataGMAdminApproved();
+                        admin_gm.Attributes.Add("class", "StepProgress-item is-done");
+                        string AppGMAdmDate = Session["tgl_approve_GMAdmin"].ToString();
+                        DateTime ParseDatetimeAppGMAdmDate = DateTime.Parse(AppGMAdmDate);
+                        string GetAppGMAdmDate = ParseDatetimeAppGMAdmDate.ToString("dd MMMM yyyy");
+                        lbDateGMAdm.Text = GetAppGMAdmDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GMAdminApprover"].ToString();
+                    }
+                }
+                else if (Session["approve_status"].ToString() == "CANCEL")
+                {
+                    // Price<= 1Jt GA Catalog
+                    if (Session["po_checked_by_it"] is null && Session["po_approved_by"] is null && Session["authorized_by"] is null)
+                    {
+                        po_created.Attributes.Add("class", "StepProgress-item is-reject");
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
+                        admin_director.Attributes.Add("class", "StepProgress-item is-reject");
+                        po_onprocess.Attributes.Add("class", "StepProgress-item is-reject");
+                        good_receipt.Attributes.Add("class", "StepProgress-item is-reject");
+                        status_completed.Attributes.Add("class", "StepProgress-item is-reject");
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("style", "display:none");
+                        admin_gm.Attributes.Add("style", "display:none");
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price<= 1Jt IT Catalog
+                    else if (Session["po_approved_by"] is null && Session["authorized_by"] is null)
+                    {
+                        po_created.Attributes.Add("class", "StepProgress-item is-reject");
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
+                        admin_director.Attributes.Add("class", "StepProgress-item is-reject");
+                        po_onprocess.Attributes.Add("class", "StepProgress-item is-reject");
+                        good_receipt.Attributes.Add("class", "StepProgress-item is-reject");
+                        status_completed.Attributes.Add("class", "StepProgress-item is-reject");
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        admin_gm.Attributes.Add("style", "display:none");
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price beetwen 1Jt-20JT GA Catalog
+                    else if (Session["po_checked_by_it"] is null && Session["authorized_by"] is null)
+                    {
+                        po_created.Attributes.Add("class", "StepProgress-item is-reject");
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
+                        admin_director.Attributes.Add("class", "StepProgress-item is-reject");
+                        po_onprocess.Attributes.Add("class", "StepProgress-item is-reject");
+                        good_receipt.Attributes.Add("class", "StepProgress-item is-reject");
+                        status_completed.Attributes.Add("class", "StepProgress-item is-reject");
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("style", "display:none");
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price beetwen 1Jt-20JT IT Catalog
+                    else if (Session["authorized_by"] is null)
+                    {
+                        po_created.Attributes.Add("class", "StepProgress-item is-reject");
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
+                        admin_director.Attributes.Add("class", "StepProgress-item is-reject");
+                        po_onprocess.Attributes.Add("class", "StepProgress-item is-reject");
+                        good_receipt.Attributes.Add("class", "StepProgress-item is-reject");
+                        status_completed.Attributes.Add("class", "StepProgress-item is-reject");
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        admin_director.Attributes.Add("style", "display:none");
+                    }
+                    // Price >= 20Jt GA Catalog
+                    else if (Session["po_checked_by_it"] is null)
+                    {
+                        po_created.Attributes.Add("class", "StepProgress-item is-reject");
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
+                        admin_director.Attributes.Add("class", "StepProgress-item is-reject");
+                        po_onprocess.Attributes.Add("class", "StepProgress-item is-reject");
+                        good_receipt.Attributes.Add("class", "StepProgress-item is-reject");
+                        status_completed.Attributes.Add("class", "StepProgress-item is-reject");
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                        it_section_head.Attributes.Add("style", "display:none");
+                    }
+                    // Price >= 20Jt GA Catalog
+                    else
+                    {
+                        po_created.Attributes.Add("class", "StepProgress-item is-reject");
+                        it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
+                        admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
+                        admin_director.Attributes.Add("class", "StepProgress-item is-reject");
+                        po_onprocess.Attributes.Add("class", "StepProgress-item is-reject");
+                        good_receipt.Attributes.Add("class", "StepProgress-item is-reject");
+                        status_completed.Attributes.Add("class", "StepProgress-item is-reject");
+                        lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
+                    }
+                }
+
+                #endregion
             }
-
-            lbPONumberBreadcrumb.Text = Session["po_no"].ToString();
-            lbPONumberHeader.Text = Session["po_no"].ToString();
-            string ReqDateFromDatabase = Session["po_date"].ToString();
-            DateTime ParseDatetime = DateTime.Parse(ReqDateFromDatabase);
-            string ReqDate = ParseDatetime.ToString("dd MMMM yyyy");
-            lbIssuedDate.Text = ReqDate;
-            lbRequester.Text = Session["Requester"].ToString() + " (" + Session["Dept"].ToString() + ")";
-            lbDeliveryDate.Text = Session["delivery_date"].ToString();
-            lbAssetType.Text = Session["aset_status"].ToString();
-            lbVendorName.Text = Session["vendor_name"].ToString();
-            lbPaymentTerms.Text = Session["payment_term"].ToString();
-            txtVAT.Value = Session["vat"].ToString();
-            hlbIDVendor.Value = Session["id_vendor"].ToString();
-
-            if (!IsPostBack)
+            else
             {
-                GetTableItemPO();
+                Response.Write("<script>alert('Access Denied!!, PO Approver Only!'),window.location.href = 'login.aspx';</script>");
             }
-
-            int total = 0;
-            foreach (GridViewRow grow in TableItemPO.Rows)
-            {
-                HtmlInputText amount = (HtmlInputText)grow.FindControl("txtAmount");
-                decimal parsedValue = decimal.Parse(amount.Value, NumberStyles.Currency);
-                int getAmount = Convert.ToInt32(parsedValue);
-                total += getAmount;
-            }
-            int vat = Convert.ToInt32(txtVAT.Value.ToString());
-            decimal vatValue = vat / 100m;
-            int getTotal = Convert.ToInt32(total);
-            decimal vatAmount;
-
-            vatAmount = vatValue * getTotal;
-
-            txtVatAmount.Value = vatAmount.ToString("#,##0.00");
-
-            decimal grandTotal = getTotal + vatAmount;
-            txtGrandTotal.Value = grandTotal.ToString("#,##0.00");
-            int getGrandTotal = Convert.ToInt32(grandTotal);
-            hlbGrandTotal.Value = getGrandTotal.ToString();
-
-            // Display the total value
-            decimal value;
-            value = Convert.ToDecimal(total);
-            txtTotalAmount.Value = value.ToString("#,##0.00");
-
-            #region BarStatus
-            if (Session["approve_status"].ToString() == "PO Created")
-            {
-                // Price<= 1Jt GA Catalog
-                if (Session["po_checked_by_it"] is null && Session["po_approved_by"] is null && Session["authorized_by"] is null)
-                {
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("style", "display:none");
-                    admin_gm.Attributes.Add("style", "display:none");
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price<= 1Jt IT Catalog
-                else if (Session["po_approved_by"] is null && Session["authorized_by"] is null)
-                {
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    admin_gm.Attributes.Add("style", "display:none");
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price beetwen 1Jt-20JT GA Catalog
-                else if (Session["po_checked_by_it"] is null && Session["authorized_by"] is null)
-                {
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("style", "display:none");
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price beetwen 1Jt-20JT IT Catalog
-                else if (Session["authorized_by"] is null)
-                {
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price >= 20Jt GA Catalog
-                else if (Session["po_checked_by_it"] is null)
-                {
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("style", "display:none");
-                }
-                // Price >= 20Jt IT Catalog
-                else
-                {
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                }
-            }
-            else if (Session["approve_status"].ToString() == "Approved (Checked by IT Head)")
-            {
-                // Price<= 1Jt IT Catalog
-                if (Session["po_approved_by"] is null && Session["authorized_by"] is null)
-                {
-                    GetDataITHeadApproved();
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppDate = Session["tgl_approve_ithead"].ToString();
-                    DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
-                    string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
-                    lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
-                    admin_gm.Attributes.Add("style", "display:none");
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price beetwen 1Jt-20JT IT Catalog
-                else if (Session["authorized_by"] is null)
-                {
-                    GetDataITHeadApproved();
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppDate = Session["tgl_approve_ithead"].ToString();
-                    DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
-                    string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
-                    lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price >= 20Jt GA Catalog
-                else
-                {
-                    GetDataITHeadApproved();
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppDate = Session["tgl_approve_ithead"].ToString();
-                    DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
-                    string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
-                    lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
-                }
-            }
-            else if (Session["approve_status"].ToString() == "Approved (Checked by GA Head)")
-            {
-                // Price<= 1Jt GA Catalog
-                if (Session["po_checked_by_it"] is null && Session["po_approved_by"] is null && Session["authorized_by"] is null)
-                {
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("style", "display:none");
-                    admin_gm.Attributes.Add("style", "display:none");
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price<= 1Jt IT Catalog
-                else if (Session["po_approved_by"] is null && Session["authorized_by"] is null)
-                {
-                    GetDataITHeadApproved();
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppDate = Session["tgl_approve_ithead"].ToString();
-                    DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
-                    string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
-                    lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
-                    GetDataGAHeadApproved();
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppGADate = Session["tgl_approve_GAhead"].ToString();
-                    DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
-                    string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
-                    lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
-                    admin_gm.Attributes.Add("style", "display:none");
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price beetwen 1Jt-20JT GA Catalog
-                else if (Session["po_checked_by_it"] is null && Session["authorized_by"] is null)
-                {
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    GetDataGAHeadApproved();
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppGADate = Session["tgl_approve_GAhead"].ToString();
-                    DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
-                    string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
-                    lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
-                    it_section_head.Attributes.Add("style", "display:none");
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price beetwen 1Jt-20JT IT Catalog
-                else if (Session["authorized_by"] is null)
-                {
-                    GetDataITHeadApproved();
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppDate = Session["tgl_approve_ithead"].ToString();
-                    DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
-                    string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
-                    lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
-                    GetDataGAHeadApproved();
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppGADate = Session["tgl_approve_GAhead"].ToString();
-                    DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
-                    string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
-                    lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price >= 20Jt GA Catalog
-                else if (Session["po_checked_by_it"] is null)
-                {
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    GetDataGAHeadApproved();
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppGADate = Session["tgl_approve_GAhead"].ToString();
-                    DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
-                    string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
-                    lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
-                    it_section_head.Attributes.Add("style", "display:none");
-                }
-                // Price >= 20Jt IT Catalog
-                else
-                {
-                    GetDataITHeadApproved();
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppDate = Session["tgl_approve_ithead"].ToString();
-                    DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
-                    string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
-                    lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
-                    GetDataGAHeadApproved();
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppGADate = Session["tgl_approve_GAhead"].ToString();
-                    DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
-                    string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
-                    lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
-                }
-            }
-            else if (Session["approve_status"].ToString() == "Approved (Admin GM)")
-            {
-                if (Session["po_checked_by_it"] is null)
-                {
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    GetDataGAHeadApproved();
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppGADate = Session["tgl_approve_GAhead"].ToString();
-                    DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
-                    string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
-                    lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
-                    it_section_head.Attributes.Add("style", "display:none");
-                    GetDataGMAdminApproved();
-                    admin_gm.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppGMAdmDate = Session["tgl_approve_GMAdmin"].ToString();
-                    DateTime ParseDatetimeAppGMAdmDate = DateTime.Parse(AppGMAdmDate);
-                    string GetAppGMAdmDate = ParseDatetimeAppGMAdmDate.ToString("dd MMMM yyyy");
-                    lbDateGMAdm.Text = GetAppGMAdmDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GMAdminApprover"].ToString();
-                }
-                else
-                {
-                    GetDataITHeadApproved();
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppDate = Session["tgl_approve_ithead"].ToString();
-                    DateTime ParseDatetimeAppDate = DateTime.Parse(AppDate);
-                    string GetAppDate = ParseDatetimeAppDate.ToString("dd MMMM yyyy");
-                    lbDateITHead.Text = GetAppDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["ITHeadApprover"].ToString();
-                    GetDataGAHeadApproved();
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppGADate = Session["tgl_approve_GAhead"].ToString();
-                    DateTime ParseDatetimeAppGADate = DateTime.Parse(AppGADate);
-                    string GetAppGADate = ParseDatetimeAppGADate.ToString("dd MMMM yyyy");
-                    lbDateGAHead.Text = GetAppGADate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GAHeadApprover"].ToString();
-                    GetDataGMAdminApproved();
-                    admin_gm.Attributes.Add("class", "StepProgress-item is-done");
-                    string AppGMAdmDate = Session["tgl_approve_GMAdmin"].ToString();
-                    DateTime ParseDatetimeAppGMAdmDate = DateTime.Parse(AppGMAdmDate);
-                    string GetAppGMAdmDate = ParseDatetimeAppGMAdmDate.ToString("dd MMMM yyyy");
-                    lbDateGMAdm.Text = GetAppGMAdmDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GMAdminApprover"].ToString();
-                }
-            }
-            else if (Session["approve_status"].ToString() == "CANCEL")
-            {
-                // Price<= 1Jt GA Catalog
-                if (Session["po_checked_by_it"] is null && Session["po_approved_by"] is null && Session["authorized_by"] is null)
-                {
-                    po_created.Attributes.Add("class", "StepProgress-item is-reject");
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
-                    admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
-                    admin_director.Attributes.Add("class", "StepProgress-item is-reject");
-                    po_onprocess.Attributes.Add("class", "StepProgress-item is-reject");
-                    good_receipt.Attributes.Add("class", "StepProgress-item is-reject");
-                    status_completed.Attributes.Add("class", "StepProgress-item is-reject");
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("style", "display:none");
-                    admin_gm.Attributes.Add("style", "display:none");
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price<= 1Jt IT Catalog
-                else if (Session["po_approved_by"] is null && Session["authorized_by"] is null)
-                {
-                    po_created.Attributes.Add("class", "StepProgress-item is-reject");
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
-                    admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
-                    admin_director.Attributes.Add("class", "StepProgress-item is-reject");
-                    po_onprocess.Attributes.Add("class", "StepProgress-item is-reject");
-                    good_receipt.Attributes.Add("class", "StepProgress-item is-reject");
-                    status_completed.Attributes.Add("class", "StepProgress-item is-reject");
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    admin_gm.Attributes.Add("style", "display:none");
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price beetwen 1Jt-20JT GA Catalog
-                else if (Session["po_checked_by_it"] is null && Session["authorized_by"] is null)
-                {
-                    po_created.Attributes.Add("class", "StepProgress-item is-reject");
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
-                    admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
-                    admin_director.Attributes.Add("class", "StepProgress-item is-reject");
-                    po_onprocess.Attributes.Add("class", "StepProgress-item is-reject");
-                    good_receipt.Attributes.Add("class", "StepProgress-item is-reject");
-                    status_completed.Attributes.Add("class", "StepProgress-item is-reject");
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("style", "display:none");
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price beetwen 1Jt-20JT IT Catalog
-                else if (Session["authorized_by"] is null)
-                {
-                    po_created.Attributes.Add("class", "StepProgress-item is-reject");
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
-                    admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
-                    admin_director.Attributes.Add("class", "StepProgress-item is-reject");
-                    po_onprocess.Attributes.Add("class", "StepProgress-item is-reject");
-                    good_receipt.Attributes.Add("class", "StepProgress-item is-reject");
-                    status_completed.Attributes.Add("class", "StepProgress-item is-reject");
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    admin_director.Attributes.Add("style", "display:none");
-                }
-                // Price >= 20Jt GA Catalog
-                else if (Session["po_checked_by_it"] is null)
-                {
-                    po_created.Attributes.Add("class", "StepProgress-item is-reject");
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
-                    admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
-                    admin_director.Attributes.Add("class", "StepProgress-item is-reject");
-                    po_onprocess.Attributes.Add("class", "StepProgress-item is-reject");
-                    good_receipt.Attributes.Add("class", "StepProgress-item is-reject");
-                    status_completed.Attributes.Add("class", "StepProgress-item is-reject");
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                    it_section_head.Attributes.Add("style", "display:none");
-                }
-                // Price >= 20Jt GA Catalog
-                else
-                {
-                    po_created.Attributes.Add("class", "StepProgress-item is-reject");
-                    it_section_head.Attributes.Add("class", "StepProgress-item is-reject");
-                    ga_section_head.Attributes.Add("class", "StepProgress-item is-reject");
-                    admin_gm.Attributes.Add("class", "StepProgress-item is-reject");
-                    admin_director.Attributes.Add("class", "StepProgress-item is-reject");
-                    po_onprocess.Attributes.Add("class", "StepProgress-item is-reject");
-                    good_receipt.Attributes.Add("class", "StepProgress-item is-reject");
-                    status_completed.Attributes.Add("class", "StepProgress-item is-reject");
-                    lbDateCreatePO.Text = ReqDate + "&nbsp;-&nbsp;" + "Created by" + "&nbsp" + Session["po_created_by"].ToString();
-                }
-            }
-
-            #endregion
         }
 
         protected void GetTableItemPO()
@@ -1650,7 +1662,7 @@ namespace procurement_system
         private void GenerateAndDisplayBarcode()
         {
             // Generate barcode
-            string baseUrl = "https://172.19.160.3:8585/ylid-procurement/detail_purchase_order_standart.aspx"; // URL tujuan untuk QR code
+            string baseUrl = "https://172.19.160.3:8585/ylid-purchasing/document_validation.aspx"; // URL tujuan untuk QR code
             string id = lbPONumberHeader.Text; // Nilai ID yang akan digunakan dalam URL
 
             // Membuat URL dengan parameter

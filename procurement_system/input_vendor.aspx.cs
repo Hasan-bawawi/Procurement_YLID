@@ -7380,7 +7380,7 @@ namespace procurement_system
         private void GenerateAndDisplayBarcode()
         {
             // Generate barcode
-            string baseUrl = "https://172.19.160.3:8585/ylid-procurement/detail_requisition_form.aspx"; // URL tujuan untuk QR code
+            string baseUrl = "https://172.19.160.3:8585/ylid-purchasing/document_validation.aspx"; // URL tujuan untuk QR code
             string id = lbRFNumberBreadcrumb.Text; // Nilai ID yang akan digunakan dalam URL
 
             // Membuat URL dengan parameter

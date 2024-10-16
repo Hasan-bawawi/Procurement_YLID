@@ -17,19 +17,31 @@ namespace procurement_system
             hblNIK.Text = Session["nik"].ToString();
             lblNamaBranch.Text = Session["Location"].ToString();
 
-            if (!Page.IsPostBack)
+            if (string.IsNullOrEmpty(Convert.ToString(Session["nik"])))
             {
-                GetDataTotalPOIssued();
-                lbTotalPOIssued.Text = Session["TotalPO"].ToString();
+                Response.Redirect("login.aspx?url=" + Server.UrlEncode(Request.Url.AbsoluteUri));
+            }
 
-                GetDataTotalPONotYetApproved();
-                lbTotalPONotYetApproved.Text = Session["TotalPONotYetApproved"].ToString();
+            if (Session["GroupName"].ToString() == "Admin Purchasing")
+            {
+                if (!Page.IsPostBack)
+                {
+                    GetDataTotalPOIssued();
+                    lbTotalPOIssued.Text = Session["TotalPO"].ToString();
 
-                GetDataPOApproachingDeliveryDate();
-                lbTotalPOApproachingDeliveryDate.Text = Session["POApproachingDeliveryDate"].ToString();
+                    GetDataTotalPONotYetApproved();
+                    lbTotalPONotYetApproved.Text = Session["TotalPONotYetApproved"].ToString();
 
-                GetDataPOLateDeliveryDate();
-                lbTotalLatePODeliveryDate.Text = Session["POLateDeliveryDate"].ToString();
+                    GetDataPOApproachingDeliveryDate();
+                    lbTotalPOApproachingDeliveryDate.Text = Session["POApproachingDeliveryDate"].ToString();
+
+                    GetDataPOLateDeliveryDate();
+                    lbTotalLatePODeliveryDate.Text = Session["POLateDeliveryDate"].ToString();
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('Access Denied!!, Purchasing Team Only!'),window.location.href = 'login.aspx';</script>");
             }
         }
 

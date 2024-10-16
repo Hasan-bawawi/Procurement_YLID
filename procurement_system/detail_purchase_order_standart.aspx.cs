@@ -41,6 +41,11 @@ namespace procurement_system
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["nik"])))
+            {
+                Response.Redirect("login.aspx?url=" + Server.UrlEncode(Request.Url.AbsoluteUri));
+            }
+
             string po_no = Request.QueryString["po_no"];
             string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
             using (SqlConnection con = new SqlConnection(path))

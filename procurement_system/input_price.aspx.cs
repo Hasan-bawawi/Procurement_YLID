@@ -36,85 +36,99 @@ namespace procurement_system
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string id = Request.QueryString["rf_no"];
-            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(path))
+            if (string.IsNullOrEmpty(Convert.ToString(Session["nik"])))
             {
-                SqlCommand sqlcomm = new SqlCommand();
-                sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                sqlcomm.CommandType = CommandType.StoredProcedure;
-                sqlcomm.Connection = con;
-                sqlcomm.Parameters.AddWithValue("@StatementType", "ViewDetailRF");
-                sqlcomm.Parameters.AddWithValue("@rf_no", id);
-                con.Open();
-                using (SqlDataReader rdr = sqlcomm.ExecuteReader())
-                {
-                    while (rdr.Read())
-                    {
-                        Session.Add("catalog_type", (string)rdr["catalog_type"]);
-                        Session.Add("rf_no", (string)rdr["rf_no"]);
-                        Session.Add("id", (string)rdr["id"].ToString());
-                        Session.Add("Requester", (string)rdr["Requester"]);
-                        Session.Add("ManagerApprove", (string)rdr["ManagerApprove"]);
-                        //Session.Add("GMApprove", (string)rdr["GMApprove"]);
-                        Session.Add("stok_code", (string)rdr["stok_code"]);
-                        Session.Add("item_code", (string)rdr["item_code"]);
-                        Session.Add("item_name", (string)rdr["item_name"]);
-                        Session.Add("merk_name", (string)rdr["merk_name"]);
-                        Session.Add("tipe", (string)rdr["tipe"]);
-                        Session.Add("quantity", (int)rdr["quantity"]);
-                        Session.Add("unit_name", (string)rdr["unit_name"]);
-                        Session.Add("request_date", (DateTime)rdr["request_date"]);
-                        Session.Add("remaks", (string)rdr["remaks"]);
-                        Session.Add("status", (string)rdr["status"]);
-                        Session.Add("type_request", (string)rdr["type_request"]);
-                        Session.Add("status_approve", (string)rdr["status_approve"]);
-                        Session.Add("description", (string)rdr["description"]);
-                        //Session.Add("nik_approver", (string)rdr["nik_approver"]);
-                        //Session.Add("nik_requester", (string)rdr["nik_requester"]);
-                        //Session.Add("nik_gm_approver", (string)rdr["nik_gm_approver"]);
-                        Session.Add("id_vendor", (string)rdr["id_vendor"].ToString());
-                        //Session.Add("id_unit", (string)rdr["id_unit"].ToString());
-                        Session.Add("nama_branch", (string)rdr["nama_branch"]);
-                        Session.Add("DivisionRequester", (string)rdr["DivisionRequester"].ToString());
-                        Session.Add("SectionRequester", (string)rdr["SectionRequester"]);
-                        Session.Add("nik_requester", (string)rdr["nik_requester"]);
-                        Session.Add("EmailRequester", (string)rdr["EmailRequester"]);
-                        //Session.Add("AdmManagerApprove", (string)rdr["AdmManagerApprove"]);
-                        //Session.Add("EmailAdmManagerApprove", (string)rdr["EmailAdmManagerApprove"]);
-                        //Session.Add("AdmGMApprove", (string)rdr["AdmGMApprove"]);
-                        //Session.Add("EmailAdmGMApprove", (string)rdr["EmailAdmGMApprove"]);
-                        Session.Add("EmailManagerApprove", (string)rdr["EmailManagerApprove"]);
-                        Session.Add("DivisionReq", (string)rdr["DivisionReq"].ToString());
-                    }
-                }
-                sqlcomm.Dispose();
-                con.Close();
-                con.Dispose();
+                Response.Redirect("login.aspx?url=" + Server.UrlEncode(Request.Url.AbsoluteUri));
             }
-            lbRFNumberBreadcrumb.Text = Session["rf_no"].ToString();
-            lbRFNumberHeader.Text = Session["rf_no"].ToString();
-            string ReqDateFromDatabase = Session["request_date"].ToString();
-            DateTime ParseDatetime = DateTime.Parse(ReqDateFromDatabase);
-            string ReqDate = ParseDatetime.ToString("dd MMMM yyyy");
-            lbRequestDate.Text = ReqDate;
-            lbDivision.Text = Session["DivisionRequester"].ToString();
-            lbDivisionReq.Text = Session["DivisionReq"].ToString();
-            lbSection.Text = Session["SectionRequester"].ToString();
-            lbRequester.Text = Session["Requester"].ToString();
-            lbApprovedBy.Value = Session["ManagerApprove"].ToString();
-            //lbAcknowledgeBy.Text = Session["GMApprove"].ToString();
-            lbLocation.Text = Session["nama_branch"].ToString();
-            hlbEmailRequester.Value = Session["EmailRequester"].ToString();
-            //hlbEmailAdmGM.Value = Session["EmailAdmGMApprove"].ToString();
-            //hlbAdmManager.Value = Session["AdmManagerApprove"].ToString();
-            //hlbEmailAdmManager.Value = Session["EmailAdmManagerApprove"].ToString();
-            hlbEmailMgrApprover.Value = Session["EmailManagerApprove"].ToString();
 
-            if (!IsPostBack)
+            if (Session["GroupName"].ToString() == "Admin Purchasing")
             {
-                BindDataTableItemRF();
+                string id = Request.QueryString["rf_no"];
+                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(path))
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    sqlcomm.Connection = con;
+                    sqlcomm.Parameters.AddWithValue("@StatementType", "ViewDetailRF");
+                    sqlcomm.Parameters.AddWithValue("@rf_no", id);
+                    con.Open();
+                    using (SqlDataReader rdr = sqlcomm.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            Session.Add("catalog_type", (string)rdr["catalog_type"]);
+                            Session.Add("rf_no", (string)rdr["rf_no"]);
+                            Session.Add("id", (string)rdr["id"].ToString());
+                            Session.Add("Requester", (string)rdr["Requester"]);
+                            Session.Add("ManagerApprove", (string)rdr["ManagerApprove"]);
+                            //Session.Add("GMApprove", (string)rdr["GMApprove"]);
+                            Session.Add("stok_code", (string)rdr["stok_code"]);
+                            Session.Add("item_code", (string)rdr["item_code"]);
+                            Session.Add("item_name", (string)rdr["item_name"]);
+                            Session.Add("merk_name", (string)rdr["merk_name"]);
+                            Session.Add("tipe", (string)rdr["tipe"]);
+                            Session.Add("quantity", (int)rdr["quantity"]);
+                            Session.Add("unit_name", (string)rdr["unit_name"]);
+                            Session.Add("request_date", (DateTime)rdr["request_date"]);
+                            Session.Add("remaks", (string)rdr["remaks"]);
+                            Session.Add("status", (string)rdr["status"]);
+                            Session.Add("type_request", (string)rdr["type_request"]);
+                            Session.Add("status_approve", (string)rdr["status_approve"]);
+                            Session.Add("description", (string)rdr["description"]);
+                            //Session.Add("nik_approver", (string)rdr["nik_approver"]);
+                            //Session.Add("nik_requester", (string)rdr["nik_requester"]);
+                            //Session.Add("nik_gm_approver", (string)rdr["nik_gm_approver"]);
+                            Session.Add("id_vendor", (string)rdr["id_vendor"].ToString());
+                            //Session.Add("id_unit", (string)rdr["id_unit"].ToString());
+                            Session.Add("nama_branch", (string)rdr["nama_branch"]);
+                            Session.Add("DivisionRequester", (string)rdr["DivisionRequester"].ToString());
+                            Session.Add("SectionRequester", (string)rdr["SectionRequester"]);
+                            Session.Add("nik_requester", (string)rdr["nik_requester"]);
+                            Session.Add("EmailRequester", (string)rdr["EmailRequester"]);
+                            //Session.Add("AdmManagerApprove", (string)rdr["AdmManagerApprove"]);
+                            //Session.Add("EmailAdmManagerApprove", (string)rdr["EmailAdmManagerApprove"]);
+                            //Session.Add("AdmGMApprove", (string)rdr["AdmGMApprove"]);
+                            //Session.Add("EmailAdmGMApprove", (string)rdr["EmailAdmGMApprove"]);
+                            Session.Add("EmailManagerApprove", (string)rdr["EmailManagerApprove"]);
+                            Session.Add("DivisionReq", (string)rdr["DivisionReq"].ToString());
+                        }
+                    }
+                    sqlcomm.Dispose();
+                    con.Close();
+                    con.Dispose();
+                }
+                lbRFNumberBreadcrumb.Text = Session["rf_no"].ToString();
+                lbRFNumberHeader.Text = Session["rf_no"].ToString();
+                string ReqDateFromDatabase = Session["request_date"].ToString();
+                DateTime ParseDatetime = DateTime.Parse(ReqDateFromDatabase);
+                string ReqDate = ParseDatetime.ToString("dd MMMM yyyy");
+                lbRequestDate.Text = ReqDate;
+                lbDivision.Text = Session["DivisionRequester"].ToString();
+                lbDivisionReq.Text = Session["DivisionReq"].ToString();
+                lbSection.Text = Session["SectionRequester"].ToString();
+                lbRequester.Text = Session["Requester"].ToString();
+                lbApprovedBy.Value = Session["ManagerApprove"].ToString();
+                //lbAcknowledgeBy.Text = Session["GMApprove"].ToString();
+                lbLocation.Text = Session["nama_branch"].ToString();
+                hlbEmailRequester.Value = Session["EmailRequester"].ToString();
+                //hlbEmailAdmGM.Value = Session["EmailAdmGMApprove"].ToString();
+                //hlbAdmManager.Value = Session["AdmManagerApprove"].ToString();
+                //hlbEmailAdmManager.Value = Session["EmailAdmManagerApprove"].ToString();
+                hlbEmailMgrApprover.Value = Session["EmailManagerApprove"].ToString();
+
+                if (!IsPostBack)
+                {
+                    BindDataTableItemRF();
+                }
             }
+            else
+            {
+                Response.Write("<script>alert('Access Denied!!, Purchasing Team Only!'),window.location.href = 'login.aspx';</script>");
+            }
+            
+            
         }
 
         protected void btnCheck_Click(object sender, EventArgs e)
@@ -902,7 +916,7 @@ namespace procurement_system
         private void GenerateAndDisplayBarcode()
         {
             // Generate barcode
-            string baseUrl = "https://172.19.160.3:8585/ylid-procurement/detail_requisition_form.aspx"; // URL tujuan untuk QR code
+            string baseUrl = "https://172.19.160.3:8585/ylid-purchasing/document_validation.aspx"; // URL tujuan untuk QR code
             string id = lbRFNumberHeader.Text; // Nilai ID yang akan digunakan dalam URL
 
             // Membuat URL dengan parameter

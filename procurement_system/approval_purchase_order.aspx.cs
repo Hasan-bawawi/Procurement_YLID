@@ -20,45 +20,59 @@ namespace procurement_system
             hblNIK.Value = Session["nik"].ToString();
             lblEmail.Text = Session["email_karyawan"].ToString();
 
-            if (!IsPostBack)
+            if (string.IsNullOrEmpty(Convert.ToString(Session["nik"])))
             {
-                GetDataTablePONeedApproveITSectionHead();
-                GetDataTablePONeedApproveGASectionHead();
-                GetDataTablePONeedApproveAdminGM();
-                GetDataTablePONeedApproveDirector();
+                Response.Redirect("login.aspx?url=" + Server.UrlEncode(Request.Url.AbsoluteUri));
             }
 
-            if (Session["ActiveTab"] != null)
+            if ((Session["GroupName"].ToString() == "PO Approval") || (Session["GroupName"].ToString() == "RF AND PO Approval"))
             {
-                string activeTab = Session["ActiveTab"].ToString();
+                if (!IsPostBack)
+                {
+                    GetDataTablePONeedApproveITSectionHead();
+                    GetDataTablePONeedApproveGASectionHead();
+                    GetDataTablePONeedApproveAdminGM();
+                    GetDataTablePONeedApproveDirector();
+                }
 
-                // Aktifkan tab sesuai dengan nilai yang disimpan di sesi
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#" + activeTab + "\"]').tab('show');", true);
+                if (Session["ActiveTab"] != null)
+                {
+                    string activeTab = Session["ActiveTab"].ToString();
 
-                // Hapus nilai sesi setelah menggunakannya
-                Session.Remove("ActiveTab");
-            }
+                    // Aktifkan tab sesuai dengan nilai yang disimpan di sesi
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#" + activeTab + "\"]').tab('show');", true);
 
-            if (Session["Section"].ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182" && (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F"))
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#it_section_head\"]').tab('show');", true);
-                GetDataTablePONeedApproveITSectionHead();
-            }
-            else if (Session["Section"].ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" && (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F"))
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#ga_section_head\"]').tab('show');", true);
-                GetDataTablePONeedApproveGASectionHead();
-            }
-            else if (Session["Section"].ToString().ToUpper() == "3BEAD7B1-A9D4-4557-976F-DA2C6B489910" && (Session["Position"].ToString().ToUpper() == "ACB2C17C-B3C6-468B-BD6B-835E56B2344D" || Session["Position"].ToString().ToUpper() == "527B62E2-A5B4-43FA-8AA4-9E55FC7341A4"))
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#gm_adm\"]').tab('show');", true);
-                GetDataTablePONeedApproveAdminGM();
+                    // Hapus nilai sesi setelah menggunakannya
+                    Session.Remove("ActiveTab");
+                }
+
+                if (Session["Section"].ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182" && (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F"))
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#it_section_head\"]').tab('show');", true);
+                    GetDataTablePONeedApproveITSectionHead();
+                }
+                else if (Session["Section"].ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" && (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F"))
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#ga_section_head\"]').tab('show');", true);
+                    GetDataTablePONeedApproveGASectionHead();
+                }
+                else if (Session["Section"].ToString().ToUpper() == "3BEAD7B1-A9D4-4557-976F-DA2C6B489910" && (Session["Position"].ToString().ToUpper() == "ACB2C17C-B3C6-468B-BD6B-835E56B2344D" || Session["Position"].ToString().ToUpper() == "527B62E2-A5B4-43FA-8AA4-9E55FC7341A4"))
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#gm_adm\"]').tab('show');", true);
+                    GetDataTablePONeedApproveAdminGM();
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#director\"]').tab('show');", true);
+                    GetDataTablePONeedApproveDirector();
+                }
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#director\"]').tab('show');", true);
-                GetDataTablePONeedApproveDirector();
+                Response.Write("<script>alert('Access Denied!!, PO Approver Only!'),window.location.href = 'login.aspx';</script>");
             }
+
+            
         }
 
         #region it_section_head

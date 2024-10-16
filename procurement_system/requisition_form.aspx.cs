@@ -18,12 +18,17 @@ namespace procurement_system
             hblNIK.Text = Session["nik"].ToString();
             lblNamaBranch.Text = Session["Location"].ToString();
 
+            if (string.IsNullOrEmpty(Convert.ToString(Session["nik"])))
+            {
+                Response.Redirect("login.aspx?url=" + Server.UrlEncode(Request.Url.AbsoluteUri));
+            }
+
             if (!Page.IsPostBack)
             {
                 Branch();
                 GetTableRF();
 
-                if (hblNIK.Text.ToString() == "891011" || hblNIK.Text.ToString() == "891163")
+                if (Session["GroupName"].ToString() == "Admin Purchasing")
                 {
                     divFilter.Visible = true;
                     divTableAdmin.Visible = true;

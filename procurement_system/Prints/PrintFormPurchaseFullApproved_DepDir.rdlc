@@ -4219,7 +4219,7 @@
       </Textbox>
       <Image Name="ttd2">
         <Source>External</Source>
-        <Value>="file:///D:/WebFolder-ProcurementSystem/ylid-procurement/Barcode/RF/barcode_rf.png"</Value>
+        <Value>="file:///D:/WebFolder-PurchasingSystem/ylid-purchasing/Barcode/RF/barcode_rf.png"</Value>
         <MIMEType>image/png</MIMEType>
         <Sizing>Fit</Sizing>
         <Top>8.78252in</Top>

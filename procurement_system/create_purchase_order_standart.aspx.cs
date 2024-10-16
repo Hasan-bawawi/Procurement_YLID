@@ -36,15 +36,26 @@ namespace procurement_system
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string id = Request.QueryString["rf_no"];
-            lblRFNumber.Text = id;
-            if (!IsPostBack)
+            if (string.IsNullOrEmpty(Convert.ToString(Session["nik"])))
             {
-                GridTemporary();
-                //GetSection();
-                BindDataTableItemRF();
+                Response.Redirect("login.aspx?url=" + Server.UrlEncode(Request.Url.AbsoluteUri));
             }
-            
+
+            if (Session["GroupName"].ToString() == "Admin Purchasing")
+            {
+                string id = Request.QueryString["rf_no"];
+                lblRFNumber.Text = id;
+                if (!IsPostBack)
+                {
+                    GridTemporary();
+                    //GetSection();
+                    BindDataTableItemRF();
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('Access Denied!!, Purchasing Team Only!'),window.location.href = 'login.aspx';</script>");
+            }
         }
 
         protected void BindDataTableItemRF()
@@ -2180,7 +2191,7 @@ namespace procurement_system
         private void GenerateAndDisplayBarcode()
         {
             // Generate barcode
-            string baseUrl = "https://172.19.160.3:8585/ylid-procurement/detail_purchase_order_standart.aspx"; // URL tujuan untuk QR code
+            string baseUrl = "https://172.19.160.3:8585/ylid-purchasing/document_validation.aspx"; // URL tujuan untuk QR code
             string id = txtPONumber.Value; // Nilai ID yang akan digunakan dalam URL
 
             // Membuat URL dengan parameter

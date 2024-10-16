@@ -19,90 +19,100 @@ namespace procurement_system
             hblNIK.Value = Session["nik"].ToString();
             lblEmail.Text = Session["email_karyawan"].ToString();
 
-            if (!IsPostBack)
+            if (string.IsNullOrEmpty(Convert.ToString(Session["nik"])))
             {
-                GetDataTableRFNeedApproveManager();
-                GetDataTableApprovalHistory();
-
-                GetDataTableRFNeedApproveDivisionGM();
-                GetDataTableApprovalHistoryDivisionGM();
-
-                //GetDataTableRFNeedApproveAdminGM();
-                //GetDataTableApprovalHistoryAdmGM();
-
-
-                GetDataTableRFNeedApproveDeputyDirector();
-                GetDataTableApprovalHistoryDeputyDirector();
-
-                GetDataTableRFNeedApproveDirector();
-                GetDataTableApprovalHistoryDirector();
-
-                //GetDataTableRFNeedApproveGASectionHead();
-                //GetDataTableApprovalHistoryGAHead();
-
-                //GetDataTableRFNeedApproveITSectionHead();
-                //GetDataTableApprovalHistoryITHead();
-
-                //GetDataTableRFNeedApproveAdminDirector();
-                //GetDataTableApprovalHistoryAdmDirector();
+                Response.Redirect("login.aspx?url=" + Server.UrlEncode(Request.Url.AbsoluteUri));
             }
 
-            if (Session["ActiveTab"] != null)
+            if ((Session["GroupName"].ToString() == "RF Approval") || (Session["GroupName"].ToString() == "RF AND PO Approval"))
             {
-                string activeTab = Session["ActiveTab"].ToString();
+                if (!IsPostBack)
+                {
+                    GetDataTableRFNeedApproveManager();
+                    GetDataTableApprovalHistory();
 
-                // Aktifkan tab sesuai dengan nilai yang disimpan di sesi
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#" + activeTab + "\"]').tab('show');", true);
+                    GetDataTableRFNeedApproveDivisionGM();
+                    GetDataTableApprovalHistoryDivisionGM();
 
-                // Hapus nilai sesi setelah menggunakannya
-                Session.Remove("ActiveTab");
-            }
+                    //GetDataTableRFNeedApproveAdminGM();
+                    //GetDataTableApprovalHistoryAdmGM();
 
-            if (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F" || Session["Position"].ToString().ToUpper() == "FFA62916-E17C-4A34-9351-0A8CF78224EA")
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#division_manager\"]').tab('show');", true);
-                GetDataTableRFNeedApproveManager();
-                GetDataTableApprovalHistory();
-            }
-            else if (Session["Position"].ToString().ToUpper() == "ACB2C17C-B3C6-468B-BD6B-835E56B2344D" || Session["Position"].ToString().ToUpper() == "EE3A6202-001E-447B-9C29-594CF57FA7EC" || Session["Position"].ToString().ToUpper() == "527B62E2-A5B4-43FA-8AA4-9E55FC7341A4")
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#division_gm\"]').tab('show');", true);
-                GetDataTableRFNeedApproveDivisionGM();
-                GetDataTableApprovalHistoryDivisionGM();
-                //GetDataTableRFNeedApproveAdminGM();
-                //GetDataTableApprovalHistoryAdmGM();
-            }
-            else if (Session["Position"].ToString().ToUpper() == "68DA0E68-522A-4AC1-81C7-F5BF26C19E30")
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#deputy_director\"]').tab('show');", true);
-                GetDataTableRFNeedApproveDeputyDirector();
-                GetDataTableApprovalHistoryDeputyDirector();
-            }
-            else if (Session["Position"].ToString().ToUpper() == "6EAFBFBE-0BA1-4018-91D5-CC6B64F87326")
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#director\"]').tab('show');", true);
-                GetDataTableRFNeedApproveDirector();
-                GetDataTableApprovalHistoryDirector();
-            }
-            //else if (Session["Section"].ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" && (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F"))
-            //{
-            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#ga_section_head\"]').tab('show');", true);
-            //    GetDataTableRFNeedApproveGASectionHead();
-            //    GetDataTableApprovalHistoryGAHead();
-            //}
-            //else if (Session["Section"].ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182" && (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F"))
-            //{
-            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#it_section_head\"]').tab('show');", true);
-            //    GetDataTableRFNeedApproveITSectionHead();
-            //    GetDataTableApprovalHistoryITHead();
-            //}
-            //else if (Session["nik"].ToString().ToUpper() == "880713")
-            //{
-            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#director_adm\"]').tab('show');", true);
-            //    GetDataTableRFNeedApproveAdminDirector();
-            //    GetDataTableApprovalHistoryAdmDirector();
-            //}
+                    GetDataTableRFNeedApproveDeputyDirector();
+                    GetDataTableApprovalHistoryDeputyDirector();
 
+                    GetDataTableRFNeedApproveDirector();
+                    GetDataTableApprovalHistoryDirector();
+
+                    //GetDataTableRFNeedApproveGASectionHead();
+                    //GetDataTableApprovalHistoryGAHead();
+
+                    //GetDataTableRFNeedApproveITSectionHead();
+                    //GetDataTableApprovalHistoryITHead();
+
+                    //GetDataTableRFNeedApproveAdminDirector();
+                    //GetDataTableApprovalHistoryAdmDirector();
+                }
+
+                if (Session["ActiveTab"] != null)
+                {
+                    string activeTab = Session["ActiveTab"].ToString();
+
+                    // Aktifkan tab sesuai dengan nilai yang disimpan di sesi
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#" + activeTab + "\"]').tab('show');", true);
+
+                    // Hapus nilai sesi setelah menggunakannya
+                    Session.Remove("ActiveTab");
+                }
+
+                if (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F" || Session["Position"].ToString().ToUpper() == "FFA62916-E17C-4A34-9351-0A8CF78224EA")
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#division_manager\"]').tab('show');", true);
+                    GetDataTableRFNeedApproveManager();
+                    GetDataTableApprovalHistory();
+                }
+                else if (Session["Position"].ToString().ToUpper() == "ACB2C17C-B3C6-468B-BD6B-835E56B2344D" || Session["Position"].ToString().ToUpper() == "EE3A6202-001E-447B-9C29-594CF57FA7EC" || Session["Position"].ToString().ToUpper() == "527B62E2-A5B4-43FA-8AA4-9E55FC7341A4")
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#division_gm\"]').tab('show');", true);
+                    GetDataTableRFNeedApproveDivisionGM();
+                    GetDataTableApprovalHistoryDivisionGM();
+                    //GetDataTableRFNeedApproveAdminGM();
+                    //GetDataTableApprovalHistoryAdmGM();
+                }
+                else if (Session["Position"].ToString().ToUpper() == "68DA0E68-522A-4AC1-81C7-F5BF26C19E30")
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#deputy_director\"]').tab('show');", true);
+                    GetDataTableRFNeedApproveDeputyDirector();
+                    GetDataTableApprovalHistoryDeputyDirector();
+                }
+                else if (Session["Position"].ToString().ToUpper() == "6EAFBFBE-0BA1-4018-91D5-CC6B64F87326")
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#director\"]').tab('show');", true);
+                    GetDataTableRFNeedApproveDirector();
+                    GetDataTableApprovalHistoryDirector();
+                }
+                //else if (Session["Section"].ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" && (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F"))
+                //{
+                //    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#ga_section_head\"]').tab('show');", true);
+                //    GetDataTableRFNeedApproveGASectionHead();
+                //    GetDataTableApprovalHistoryGAHead();
+                //}
+                //else if (Session["Section"].ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182" && (Session["Position"].ToString().ToUpper() == "35F3B9DB-254A-461B-800C-4497D12EBB10" || Session["Position"].ToString().ToUpper() == "135898D3-5B3F-4D71-8A4B-29C6262AC96F"))
+                //{
+                //    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#it_section_head\"]').tab('show');", true);
+                //    GetDataTableRFNeedApproveITSectionHead();
+                //    GetDataTableApprovalHistoryITHead();
+                //}
+                //else if (Session["nik"].ToString().ToUpper() == "880713")
+                //{
+                //    ScriptManager.RegisterStartupScript(this, this.GetType(), "SetActiveTab", "$('.nav-link[href=\"#director_adm\"]').tab('show');", true);
+                //    GetDataTableRFNeedApproveAdminDirector();
+                //    GetDataTableApprovalHistoryAdmDirector();
+                //}
+            }
+            else
+            {
+                Response.Write("<script>alert('Access Denied!!, RF Approver Only!'),window.location.href = 'login.aspx';</script>");
+            }
         }
 
         protected void BindDataTableItemRF()

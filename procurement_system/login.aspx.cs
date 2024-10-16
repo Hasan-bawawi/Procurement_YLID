@@ -119,7 +119,7 @@ namespace procurement_system
                 Session.Add("Section", (string)dr["Section"].ToString());
                 Session.Add("Division", (string)dr["Division"].ToString());
                 Session.Add("Location", (string)dr["Location"]);
-                //Session.Add("GroupName", (string)dr["GroupName"].ToString());
+                Session.Add("GroupName", (string)dr["GroupName"].ToString());
                 Session.Add("Employees", (Guid)dr["Employees"]);
                 Session.Add("email_karyawan", (string)dr["email_karyawan"]);
 
@@ -145,10 +145,13 @@ namespace procurement_system
                     bool isexists = CheckUser(txtusername.Value, txtpassword.Value, 1);
                     if (isexists)
                     {
-                        txtFullname.InnerText = Session["username_AD"].ToString();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "SuccessLogin();", true);
-                        string _vFullname = txtFullname.InnerText;
-                        string script = $@"
+                        string ReturnUrl = Convert.ToString(Request.QueryString["url"]);
+                        if (!string.IsNullOrEmpty(ReturnUrl))
+                        {
+                            txtFullname.InnerText = Session["username_AD"].ToString();
+                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "SuccessLogin();", true);
+                            string _vFullname = txtFullname.InnerText;
+                            string script = $@"
                                 $(document).ready(function() {{
                                     // Show Toastr notification
                                     toastr.success('Welcome' + ' ' + '{_vFullname}', 'Login Success');
@@ -160,9 +163,31 @@ namespace procurement_system
                                 }});
                             ";
 
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                        //Response.Redirect("Home.aspx");
+                            // Register the script for partial postbacks
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                            Response.Redirect(ReturnUrl);
+                        }
+                        else
+                        {
+                            txtFullname.InnerText = Session["username_AD"].ToString();
+                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "SuccessLogin();", true);
+                            string _vFullname = txtFullname.InnerText;
+                            string script = $@"
+                                $(document).ready(function() {{
+                                    // Show Toastr notification
+                                    toastr.success('Welcome' + ' ' + '{_vFullname}', 'Login Success');
+
+                                    // Redirect after 2 seconds (2000 milliseconds)
+                                    setTimeout(function() {{
+                                        window.location.href = 'index.aspx'; // replace with your target URL
+                                    }}, 2000);
+                                }});
+                            ";
+
+                            // Register the script for partial postbacks
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                        }
+                            
 
                     }
                     else
@@ -178,10 +203,13 @@ namespace procurement_system
                     bool isexists = CheckUser(txtusername.Value, txtpassword.Value, 0);
                     if (isexists)
                     {
-                        txtFullname.InnerText = Session["username_AD"].ToString();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "SuccessLogin();", true);
-                        string _vFullname = txtFullname.InnerText;
-                        string script = $@"
+                        string ReturnUrl = Convert.ToString(Request.QueryString["url"]);
+                        if (!string.IsNullOrEmpty(ReturnUrl))
+                        {
+                            txtFullname.InnerText = Session["username_AD"].ToString();
+                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "SuccessLogin();", true);
+                            string _vFullname = txtFullname.InnerText;
+                            string script = $@"
                                 $(document).ready(function() {{
                                     // Show Toastr notification
                                     toastr.success('Welcome' + ' ' + '{_vFullname}', 'Login Success');
@@ -193,9 +221,31 @@ namespace procurement_system
                                 }});
                             ";
 
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                        //Response.Redirect("Home.aspx");
+                            // Register the script for partial postbacks
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                            Response.Redirect(ReturnUrl);
+                        }
+                        else
+                        {
+                            txtFullname.InnerText = Session["username_AD"].ToString();
+                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "SuccessLogin();", true);
+                            string _vFullname = txtFullname.InnerText;
+                            string script = $@"
+                                $(document).ready(function() {{
+                                    // Show Toastr notification
+                                    toastr.success('Welcome' + ' ' + '{_vFullname}', 'Login Success');
+
+                                    // Redirect after 2 seconds (2000 milliseconds)
+                                    setTimeout(function() {{
+                                        window.location.href = 'index.aspx'; // replace with your target URL
+                                    }}, 2000);
+                                }});
+                            ";
+
+                            // Register the script for partial postbacks
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                        }
+                            
                     }
                     else
                     {

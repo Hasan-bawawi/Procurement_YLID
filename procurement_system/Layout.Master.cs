@@ -1343,5 +1343,21 @@ namespace procurement_system
         {
 
         }
+
+        override protected void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+            if (Context.Session != null)
+            {
+                if (Session.IsNewSession)
+                {
+                    string szCookieHeader = Request.Headers["Cookie"];
+                    if ((null != szCookieHeader) && (szCookieHeader.IndexOf("ASP.NET_SessionId") >= 0))
+                    {
+                        Response.Redirect("expired_page.aspx?url=" + Request.Url.AbsoluteUri.ToString());
+                    }
+                }
+            }
+        }
     }
 }

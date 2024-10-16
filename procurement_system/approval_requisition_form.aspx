@@ -162,7 +162,7 @@
     <asp:HiddenField ID="hlbManagerAdm" runat="server" />
     <asp:HiddenField ID="hlbGMAdm" runat="server" />
     <asp:HiddenField ID="hlbPosition" runat="server" />
-
+    <asp:HiddenField ID="hlbGroupName" runat="server" />
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
