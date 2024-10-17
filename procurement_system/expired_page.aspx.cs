@@ -15,9 +15,9 @@ namespace procurement_system
 
             //string _pageName = _url.Substring(57, _url.Length - 57); //test
 
-            //string _pageName = _url.Substring(42, _url.Length - 42); //live
+            string _pageName = _url.Substring(42, _url.Length - 42); //live
 
-            string _pageName = _url.Substring(24, _url.Length - 24); //dev
+            //string _pageName = _url.Substring(24, _url.Length - 24); //dev
             lblUrl.Value = _pageName;
         }
 

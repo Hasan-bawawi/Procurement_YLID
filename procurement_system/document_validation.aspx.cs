@@ -24,12 +24,27 @@ namespace procurement_system
                 DetailDocumentRF();
                 DetailDocumentPO();
 
-                string _url = Request.QueryString["id"];
+                //string _url = Request.QueryString["id"];
                 //int start = url.LastIndexOf('=');
                 //int length = url.Length - url.LastIndexOf('=');
-                string _pageName = _url.Substring(0, 7);
 
-                if (_pageName=="YLID-PO")
+                string _pageName_RF = hlbRFNo.Value;
+                string _pageName_PO = hlbPONo.Value;
+
+                if (_pageName_RF != null && _pageName_RF != "" && _pageName_RF != "&nbsp;")
+                {
+                    txtDocNo.Value = Session["rf_no"].ToString();
+                    txtCreateby.Value = Session["Requester"].ToString();
+                    txtDocDate.Value = Session["request_date"].ToString();
+                }
+                else
+                {
+                    txtDocNo.Value = Session["po_no"].ToString();
+                    txtCreateby.Value = Session["po_created_by"].ToString();
+                    txtDocDate.Value = Session["po_date"].ToString();
+                }
+
+                if (_pageName_PO != null && _pageName_PO != "" && _pageName_PO != "&nbsp;")
                 {
                     txtDocNo.Value = Session["po_no"].ToString();
                     txtCreateby.Value = Session["po_created_by"].ToString();
@@ -41,13 +56,14 @@ namespace procurement_system
                     txtCreateby.Value = Session["Requester"].ToString();
                     txtDocDate.Value = Session["request_date"].ToString();
                 }
-                
+
             }
         }
 
         protected void DetailDocumentRF()
         {
-            string id = Request.QueryString["id"];
+            string id = Request.QueryString["rf_no"];
+            hlbRFNo.Value = id;
             string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
 
             using (SqlConnection con = new SqlConnection(path))
@@ -113,7 +129,8 @@ namespace procurement_system
 
         protected void DetailDocumentPO()
         {
-            string id = Request.QueryString["id"];
+            string id = Request.QueryString["po_no"];
+            hlbPONo.Value = id;
             string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
 
             using (SqlConnection con = new SqlConnection(path))
@@ -353,10 +370,7 @@ namespace procurement_system
 
         protected void btnCekDoc_Click(object sender, EventArgs e)
         {
-            string _url = Request.QueryString["id"];
-            //int start = url.LastIndexOf('=');
-            //int length = url.Length - url.LastIndexOf('=');
-            string _pageName = _url.Substring(0, 7);
+            string _pageName = txtDocNo.Value.Substring(0, 7);
 
             if (_pageName == "YLID-PO")
             {

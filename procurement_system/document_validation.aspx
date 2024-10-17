@@ -103,6 +103,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:HiddenField ID="hlbRFNo" runat="server" />
+        <asp:HiddenField ID="hlbPONo" runat="server" />
         <div hidden="hidden">
             <asp:ScriptManager ID="ScriptManager1" runat="server">
             </asp:ScriptManager>
