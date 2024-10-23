@@ -216,7 +216,7 @@
                                             <div class='col-sm-12'>
                                                 <div class="table-responsive">
                                                     <asp:GridView ID="TablePurchaseOrder" runat="server" CssClass="table table-striped row-border order-column table-bordered zero-configuration text-nowrap grid" AutoGenerateColumns="False" Style="width: 100%"
-                                                        ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found">
+                                                        ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found" OnRowDataBound="TablePurchaseOrder_RowDataBound">
                                                         <HeaderStyle BackColor="#06183d" ForeColor="White" />
                                                         <Columns>
                                                             <asp:TemplateField HeaderText="Create">
@@ -249,6 +249,7 @@
                                                             <asp:BoundField DataField="create_date" HeaderText="Creation Date" />
                                                             <asp:BoundField DataField="modifiedby" HeaderText="Modified by" />
                                                             <asp:BoundField DataField="modified_date" HeaderText="Modification Date" />
+                                                            <asp:BoundField DataField="DayToDelivery" HeaderText="DayToDelivery" />
                                                         </Columns>
                                                     </asp:GridView>
                                                 </div>

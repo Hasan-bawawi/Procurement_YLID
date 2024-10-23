@@ -53,6 +53,7 @@ namespace procurement_system
             TablePurchaseOrder.Columns[18].Visible = false;
             TablePurchaseOrder.Columns[19].Visible = false;
             TablePurchaseOrder.Columns[20].Visible = false;
+            //TablePurchaseOrder.Columns[24].Visible = false;
 
             TablePurchaseOrder.UseAccessibleHeader = true;
             TablePurchaseOrder.HeaderRow.TableSection = TableRowSection.TableHeader;
@@ -658,5 +659,39 @@ namespace procurement_system
 
         }
         #endregion
+
+        protected void TablePurchaseOrder_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Int32 _VDaytoDelivery;
+                _VDaytoDelivery = Convert.ToInt32(e.Row.Cells[24].Text.ToString());
+                if (_VDaytoDelivery < 0)
+                {
+                    e.Row.Cells[2].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[3].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[4].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[5].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[6].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[7].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[8].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[9].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[10].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[11].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[12].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[13].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[14].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[15].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[16].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[17].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[18].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[19].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[20].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[21].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[22].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[23].ForeColor = System.Drawing.Color.Red;
+                }
+            }
+        }
     }
 }
