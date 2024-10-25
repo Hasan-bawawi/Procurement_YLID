@@ -2141,33 +2141,45 @@ namespace procurement_system
                 {
                     if (Session["approve_status"].ToString() == "PO Created")
                     {
-                        toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailIT = Session["email_po_checked_by_it"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (Checked by IT Head)")
                     {
-                        toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailIT = Session["email_po_checked_by_it"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (Checked by GA Head)")
                     {
-                        toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailIT = Session["email_po_checked_by_it"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                 }
                 else
                 {
                     if (Session["approve_status"].ToString() == "PO Created")
                     {
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (Checked by GA Head)")
                     {
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                 }
             }
@@ -2177,48 +2189,69 @@ namespace procurement_system
                 {
                     if (Session["approve_status"].ToString() == "PO Created")
                     {
-                        toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailIT = Session["email_po_checked_by_it"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (Checked by IT Head)")
                     {
-                        toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailIT = Session["email_po_checked_by_it"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (Checked by GA Head)")
                     {
-                        toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailIT = Session["email_po_checked_by_it"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        toEmailGM = Session["email_po_approved_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (GM Admin)")
                     {
-                        toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailIT = Session["email_po_checked_by_it"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        toEmailGM = Session["email_po_approved_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                 }
                 else
                 {
                     if (Session["approve_status"].ToString() == "PO Created")
                     {
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailGA = Session["email_po_checked_by_it"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (Checked by GA Head)")
                     {
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        toEmailGM = Session["email_po_approved_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (GM Admin)")
                     {
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        toEmailGM = Session["email_po_approved_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                 }
             }
@@ -2228,65 +2261,97 @@ namespace procurement_system
                 {
                     if (Session["approve_status"].ToString() == "PO Created")
                     {
-                        toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailIT = Session["email_po_checked_by_it"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (Checked by IT Head)")
                     {
-                        toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailIT = Session["email_po_checked_by_it"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (Checked by GA Head)")
                     {
-                        toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailIT = Session["email_po_checked_by_it"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        toEmailGM = Session["email_po_approved_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (GM Admin)")
                     {
-                        toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
-                        toEmailDirector = "widhi.kusuma@id.yusen-logistics.com";//Session["email_authorized_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
+                        //toEmailDirector = "widhi.kusuma@id.yusen-logistics.com";//Session["email_authorized_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailIT = Session["email_po_checked_by_it"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        toEmailGM = Session["email_po_approved_by"].ToString();
+                        toEmailDirector = Session["email_authorized_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (Presdir / Director)")
                     {
-                        toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
-                        toEmailDirector = "widhi.kusuma@id.yusen-logistics.com";//Session["email_authorized_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailIT = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by_it"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
+                        //toEmailDirector = "widhi.kusuma@id.yusen-logistics.com";//Session["email_authorized_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailIT = Session["email_po_checked_by_it"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        toEmailGM = Session["email_po_approved_by"].ToString();
+                        toEmailDirector = Session["email_authorized_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                 }
                 else
                 {
                     if (Session["approve_status"].ToString() == "PO Created")
                     {
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (Checked by GA Head)")
                     {
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        toEmailGM = Session["email_po_approved_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (GM Admin)")
                     {
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
-                        toEmailDirector = "widhi.kusuma@id.yusen-logistics.com";//Session["email_authorized_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
+                        //toEmailDirector = "widhi.kusuma@id.yusen-logistics.com";//Session["email_authorized_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        toEmailGM = Session["email_po_approved_by"].ToString();
+                        toEmailDirector = Session["email_authorized_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                     else if (Session["approve_status"].ToString() == "Approved (Presdir / Director)")
                     {
-                        toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
-                        toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
-                        toEmailDirector = "widhi.kusuma@id.yusen-logistics.com";//Session["email_authorized_by"].ToString();
-                        ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        //toEmailGA = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_checked_by"].ToString();
+                        //toEmailGM = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_approved_by"].ToString();
+                        //toEmailDirector = "widhi.kusuma@id.yusen-logistics.com";//Session["email_authorized_by"].ToString();
+                        //ccEmailPOCreate = "widhi.kusuma@id.yusen-logistics.com";//Session["email_po_created_by"].ToString();
+                        toEmailGA = Session["email_po_checked_by"].ToString();
+                        toEmailGM = Session["email_po_approved_by"].ToString();
+                        toEmailDirector = Session["email_authorized_by"].ToString();
+                        ccEmailPOCreate = Session["email_po_created_by"].ToString();
                     }
                 }
             }
@@ -2321,7 +2386,7 @@ namespace procurement_system
                 {
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-                    
+
                     // Create email content with HTML body
                     var emailBody = new
                     {

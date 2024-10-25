@@ -162,9 +162,9 @@
                         <!-- Nav tabs -->
                         <div class="default-tab">
                             <ul class="nav nav-tabs mb-3" role="tablist">
-                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#it_section_head">IT Section Head</a>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#it_section_head">IT Head</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#ga_section_head">GA Section Head</a>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#ga_section_head">GA Head</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#gm_adm">Administration GM</a>
                                 </li>
@@ -177,7 +177,7 @@
                                         <div class="row">
                                             <div class='col-sm-12'>
                                                 <fieldset class="scheduler-border">
-                                                    <legend class="scheduler-border">List of Requisition Form (RF) - Need IT Section Head Approved</legend>
+                                                    <legend class="scheduler-border">List of Requisition Form (RF) - Need IT Head Approved</legend>
                                                     <div class="control-group">
                                                         <div class="row">
                                                             <div class='col-sm-12'>
@@ -260,7 +260,7 @@
                                         <div class="row">
                                             <div class='col-sm-12'>
                                                 <fieldset class="scheduler-border">
-                                                    <legend class="scheduler-border">List of Requisition Form (RF) - Need GA Section Head Approved</legend>
+                                                    <legend class="scheduler-border">List of Requisition Form (RF) - Need GA Head Approved</legend>
                                                     <div class="control-group">
                                                         <div class="row">
                                                             <div class='col-sm-12'>

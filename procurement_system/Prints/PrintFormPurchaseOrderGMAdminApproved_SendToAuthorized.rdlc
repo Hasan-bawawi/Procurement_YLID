@@ -1029,7 +1029,7 @@
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
-                                <Format>'Rp' #,0.00;('Rp' #,0.00)</Format>
+                                <Format>'Rp' #,0;('Rp' #,0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1068,7 +1068,7 @@
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
-                                <Format>'Rp' #,0.00;('Rp' #,0.00)</Format>
+                                <Format>'Rp' #,0;('Rp' #,0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -2854,7 +2854,7 @@
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
                   <FontWeight>Bold</FontWeight>
-                  <Format>'Rp' #,0.00;('Rp' #,0.00)</Format>
+                  <Format>'Rp' #,0;('Rp' #,0)</Format>
                   <TextDecoration>None</TextDecoration>
                   <Color>#000000</Color>
                 </Style>
@@ -2895,7 +2895,7 @@
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
                   <FontWeight>Bold</FontWeight>
-                  <Format>'Rp' #,0.00;('Rp' #,0.00)</Format>
+                  <Format>'Rp' #,0;('Rp' #,0)</Format>
                   <TextDecoration>None</TextDecoration>
                   <Color>#000000</Color>
                 </Style>
@@ -2936,7 +2936,7 @@
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
                   <FontWeight>Bold</FontWeight>
-                  <Format>'Rp' #,0.00;('Rp' #,0.00)</Format>
+                  <Format>'Rp' #,0;('Rp' #,0)</Format>
                   <TextDecoration>None</TextDecoration>
                   <Color>#000000</Color>
                 </Style>
@@ -4125,7 +4125,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>GM Admin</Value>
+                <Value>GM Head</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -4161,7 +4161,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>GA Manager</Value>
+                <Value>GA Head</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -4197,7 +4197,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Purchasing Manager</Value>
+                <Value>Purchasing</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -4661,7 +4661,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>IT Manager</Value>
+                <Value>IT Head</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>

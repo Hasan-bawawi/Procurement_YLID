@@ -172,9 +172,9 @@
                         <!-- Nav tabs -->
                         <div class="default-tab">
                             <ul class="nav nav-tabs mb-3" role="tablist">
-                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#division_manager">Division Manager</a>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#division_manager">Manager</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#division_gm">Division GM</a>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#division_gm">General Manager</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#deputy_director">Deputy Director</a>
                                 </li>
@@ -195,7 +195,7 @@
                                         <div class="row">
                                             <div class='col-sm-12'>
                                                 <fieldset class="scheduler-border">
-                                                    <legend class="scheduler-border">List of Requisition Form (RF) - Need Division Manager Approved</legend>
+                                                    <legend class="scheduler-border">List of Requisition Form (RF) - Need Manager Approved</legend>
                                                     <div class="control-group">
                                                         <div class="row">
                                                             <div class='col-sm-12'>
@@ -276,7 +276,7 @@
                                         <div class="row">
                                             <div class='col-sm-12'>
                                                 <fieldset class="scheduler-border">
-                                                    <legend class="scheduler-border">List of Requisition Form (RF) - Need Division GM Approved</legend>
+                                                    <legend class="scheduler-border">List of Requisition Form (RF) - Need General Manager Approved</legend>
                                                     <div class="control-group">
                                                         <div class="row">
                                                             <div class='col-sm-12'>

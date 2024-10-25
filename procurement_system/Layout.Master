@@ -217,7 +217,7 @@
                                                 <asp:LinkButton runat="server" OnClick="TabManagerDivision_Click">
                                                     <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
                                                     <div class="notification-content">
-                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved division manager</i></h6>
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved manager</i></h6>
                                                         <span class="notification-text">
                                                             <asp:Panel ID="PanelViewRFNeedApproveManagerDivisionNotif" runat="server"></asp:Panel>
                                                         </span>
@@ -228,7 +228,7 @@
                                                 <asp:LinkButton runat="server" OnClick="TabGMDivision_Click">
                                                     <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
                                                     <div class="notification-content">
-                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved division gm</i></h6>
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved general manager</i></h6>
                                                         <span class="notification-text">
                                                             <asp:Panel ID="PanelViewRFNeedApproveGMDivisionNotif" runat="server"></asp:Panel>
                                                         </span>
@@ -250,7 +250,7 @@
                                                 <asp:LinkButton runat="server" OnClick="TabDivisionDirector_Click">
                                                     <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
                                                     <div class="notification-content">
-                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved division director</i></h6>
+                                                        <h6 class="notification-heading">Requisition Form (RF)-<i>need approved director</i></h6>
                                                         <span class="notification-text">
                                                             <asp:Panel ID="PanelViewRFNeedApproveDivisionDirectorNotif" runat="server"></asp:Panel>
                                                         </span>
@@ -328,7 +328,7 @@
                                                 <asp:LinkButton runat="server" OnClick="TabGMAdminPO_Click">
                                                     <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="fa fa-file-text"></i></span>
                                                     <div class="notification-content">
-                                                        <h6 class="notification-heading">Purchase Order (PO)-<i>need approved GM Admin</i></h6>
+                                                        <h6 class="notification-heading">Purchase Order (PO)-<i>need approved general manager</i></h6>
                                                         <span class="notification-text">
                                                             <asp:Panel ID="PanelViewPONeedApproveGMAdminNotif" runat="server"></asp:Panel>
                                                         </span>

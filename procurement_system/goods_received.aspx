@@ -546,12 +546,12 @@
                                                             <asp:BoundField DataField="unit_name" HeaderText="UOM" />
                                                             <asp:TemplateField HeaderText="Price">
                                                                 <ItemTemplate>
-                                                                    <input type="text" class="input-group-text" runat="server" value='<%# string.Format("{0:#,#.00}", Convert.ToDecimal(Eval("price"))) %>' name="txtPrice" id="txtPrice" data-type="currency" disabled />
+                                                                    <input type="text" class="input-group-text" runat="server" value='<%# string.Format("{0:#,#}", Convert.ToDecimal(Eval("price"))) %>' name="txtPrice" id="txtPrice" data-type="currency" disabled />
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="Amount">
                                                                 <ItemTemplate>
-                                                                    <input type="text" class="input-group-text" runat="server" value='<%# string.Format("{0:#,#.00}", Convert.ToDecimal(Eval("amount"))) %>' name="txtAmount" id="txtAmount" data-type="currency" disabled />
+                                                                    <input type="text" class="input-group-text" runat="server" value='<%# string.Format("{0:#,#}", Convert.ToDecimal(Eval("amount"))) %>' name="txtAmount" id="txtAmount" data-type="currency" disabled />
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="Qty Received">

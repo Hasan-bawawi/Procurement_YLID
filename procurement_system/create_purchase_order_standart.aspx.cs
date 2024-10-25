@@ -245,8 +245,9 @@ namespace procurement_system
 
             TableRequesitionItem.Columns[2].Visible = false;
             TableRequesitionItem.Columns[20].Visible = false;
-            //TableRequesitionItem.Columns[22].Visible = false;
+            TableRequesitionItem.Columns[22].Visible = false;
             TableRequesitionItem.Columns[23].Visible = false;
+            TableRequesitionItem.Columns[18].Visible = false;
 
             TableRequesitionItem.UseAccessibleHeader = true;
             TableRequesitionItem.HeaderRow.TableSection = TableRowSection.TableHeader;
@@ -338,7 +339,7 @@ namespace procurement_system
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Submit Failed, Please select Delivery date!');", true);
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlNewPO').modal();", true);
             }
-            else if (txtDeliveryTo.Value == "")
+            else if (ddlDeliveryTo.SelectedItem.Text == "")
             {
                 //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "SelectDeliveryTo();", true);
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Submit Failed, Please enter Delivery Location!');", true);
@@ -431,7 +432,7 @@ namespace procurement_system
                                         sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
                                         sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
                                         sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", txtDeliveryTo.Value);
+                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
                                         sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
                                         HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
                                         decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
@@ -481,7 +482,7 @@ namespace procurement_system
                                         sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
                                         sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
                                         sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", txtDeliveryTo.Value);
+                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
                                         sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
                                         HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
                                         decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
@@ -538,7 +539,7 @@ namespace procurement_system
                                         sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
                                         sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
                                         sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", txtDeliveryTo.Value);
+                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
                                         sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
                                         HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
                                         decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
@@ -588,7 +589,7 @@ namespace procurement_system
                                         sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
                                         sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
                                         sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", txtDeliveryTo.Value);
+                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
                                         sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
                                         HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
                                         decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
@@ -644,7 +645,7 @@ namespace procurement_system
                                         sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
                                         sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
                                         sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", txtDeliveryTo.Value);
+                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
                                         sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
                                         HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
                                         decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
@@ -694,7 +695,7 @@ namespace procurement_system
                                         sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
                                         sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
                                         sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", txtDeliveryTo.Value);
+                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
                                         sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
                                         HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
                                         decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
@@ -777,7 +778,7 @@ namespace procurement_system
                                         sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
                                         sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
                                         sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", txtDeliveryTo.Value);
+                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
                                         sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
                                         HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
                                         decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
@@ -827,7 +828,7 @@ namespace procurement_system
                                         sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
                                         sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
                                         sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", txtDeliveryTo.Value);
+                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
                                         sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
                                         HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
                                         decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
@@ -884,7 +885,7 @@ namespace procurement_system
                                         sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
                                         sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
                                         sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", txtDeliveryTo.Value);
+                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
                                         sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
                                         HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
                                         decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
@@ -934,7 +935,7 @@ namespace procurement_system
                                         sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
                                         sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
                                         sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", txtDeliveryTo.Value);
+                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
                                         sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
                                         HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
                                         decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
@@ -990,7 +991,7 @@ namespace procurement_system
                                         sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
                                         sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
                                         sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", txtDeliveryTo.Value);
+                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
                                         sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
                                         HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
                                         decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
@@ -1040,7 +1041,7 @@ namespace procurement_system
                                         sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
                                         sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
                                         sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", txtDeliveryTo.Value);
+                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
                                         sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
                                         HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
                                         decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
@@ -1423,17 +1424,17 @@ namespace procurement_system
 
             vatAmount = vatValue * getTotal;
 
-            txtVatAmount.Value = vatAmount.ToString("#,##0.00");
+            txtVatAmount.Value = vatAmount.ToString("#,##0");
 
             decimal grandTotal = getTotal + vatAmount;
-            txtGrandTotal.Value = grandTotal.ToString("#,##0.00");
+            txtGrandTotal.Value = grandTotal.ToString("#,##0");
             int getGrandTotal = Convert.ToInt32(grandTotal);
             hlbGrandTotal.Value = getGrandTotal.ToString();
 
             // Display the total value
             decimal value;
             Decimal.TryParse(total.ToString(), out value);
-            txtTotalAmount.Value = value.ToString("#,##0.00");
+            txtTotalAmount.Value = value.ToString("#,##0");
         }
 
         protected void txtVAT_TextChanged(object sender, EventArgs e)
@@ -1455,17 +1456,17 @@ namespace procurement_system
 
             vatAmount = vatValue * getTotal;
 
-            txtVatAmount.Value = vatAmount.ToString("#,##0.00");
+            txtVatAmount.Value = vatAmount.ToString("#,##0");
 
             decimal grandTotal = getTotal + vatAmount;
-            txtGrandTotal.Value = grandTotal.ToString("#,##0.00");
+            txtGrandTotal.Value = grandTotal.ToString("#,##0");
             int getGrandTotal = Convert.ToInt32(grandTotal);
             hlbGrandTotal.Value = getGrandTotal.ToString();
 
             // Display the total value
             decimal value;
             Decimal.TryParse(total.ToString(), out value);
-            txtTotalAmount.Value = value.ToString("#,##0.00");
+            txtTotalAmount.Value = value.ToString("#,##0");
         }
 
         #region PONumber
@@ -1730,10 +1731,10 @@ namespace procurement_system
                                     contentType = "HTML",
                                     content = body
                                 },
-                                //toRecipients = new[] { new { emailAddress = new { address = _emailITMgr } } },
-                                //ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
-                                toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                                ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                                toRecipients = new[] { new { emailAddress = new { address = _emailITMgr } } },
+                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
+                                //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                                //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 attachments = new[] { attachment }.Concat(attachments1).ToArray()
                             },
                             saveToSentItems = true
@@ -1834,10 +1835,10 @@ namespace procurement_system
                                     contentType = "HTML",
                                     content = body
                                 },
-                                //toRecipients = new[] { new { emailAddress = new { address = _emailITMgr } } },
-                                //ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
-                                toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                                ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                                toRecipients = new[] { new { emailAddress = new { address = _emailITMgr } } },
+                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
+                                //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                                //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 attachments = new[] { attachment }
                             },
                             saveToSentItems = true
@@ -2025,10 +2026,10 @@ namespace procurement_system
                                     contentType = "HTML",
                                     content = body
                                 },
-                                //toRecipients = new[] { new { emailAddress = new { address = _emailGAMgr } } },
-                                //ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
-                                toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                                ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                                toRecipients = new[] { new { emailAddress = new { address = _emailGAMgr } } },
+                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
+                                //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                                //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 attachments = new[] { attachment }.Concat(attachments1).ToArray()
 
                             },
@@ -2129,10 +2130,10 @@ namespace procurement_system
                                     contentType = "HTML",
                                     content = body
                                 },
-                                //toRecipients = new[] { new { emailAddress = new { address = _emailGAMgr } } },
-                                //ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
-                                toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                                ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                                toRecipients = new[] { new { emailAddress = new { address = _emailGAMgr } } },
+                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
+                                //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                                //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 attachments = new[] { attachment }
                             },
                             saveToSentItems = true
@@ -2364,7 +2365,7 @@ namespace procurement_system
                 }
                 txtAddress.Value = Session["address"].ToString();
                 txtPaymentTerms.Value = Session["t_o_p"].ToString() + " " + "days after invoice received";
-                txtDeliveryTo.Value = "PT. Yusen Logistics Indonesia\r\nTemas Building Lantai 3A\r\nJl. Yos Sudarso Kav.33,Sunter Jaya\r\nJakarta Utara 14350, Indonesia";
+                //txtDeliveryTo.Value = "PT. Yusen Logistics Indonesia\r\nTemas Building Lantai 3A\r\nJl. Yos Sudarso Kav.33,Sunter Jaya\r\nJakarta Utara 14350, Indonesia";
                 
             }
             else
@@ -2398,7 +2399,7 @@ namespace procurement_system
                             // Get the File Size In Byte
                             double filesize = postfiles.ContentLength;
 
-                            if (filesize < (2048576))
+                            if (filesize < (5242880))
                             {
                                 fileuploadcount++;
                                 string serverfolder = string.Empty;
@@ -2431,7 +2432,7 @@ namespace procurement_system
                             }
                             else
                             {
-                                lbErrorUploadNotif.InnerText += "[" + postfiles.FileName + "]- File not uploaded; size is greater than 2MB. Your File Size is " + (filesize / (1024 * 1034)) + " MB";
+                                lbErrorUploadNotif.InnerText += "[" + postfiles.FileName + "]- File not uploaded; size is greater than 5MB. Your File Size is " + (filesize / (1024 * 1034)) + " MB";
                                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedMaxSize();", true);
                             }
                         }
@@ -2459,6 +2460,11 @@ namespace procurement_system
         private bool IsValidFileType(string fileType, string[] allowedExtensions)
         {
             return Array.Exists(allowedExtensions, ext => ext.Equals(fileType, StringComparison.OrdinalIgnoreCase));
+        }
+
+        protected void ddlDeliveryTo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -307,7 +307,8 @@
                                                             <asp:BoundField DataField="remaks" HeaderText="Remark" />
                                                             <asp:BoundField DataField="quantity" HeaderText="Qty" />
                                                             <asp:BoundField DataField="unit_name" HeaderText="UOM" />
-                                                            <asp:BoundField DataField="price" HeaderText="Price" />
+                                                            <%--<asp:BoundField DataField="price" HeaderText="Price" />--%>
+                                                            <asp:BoundField DataField="price" HeaderText="Price" DataFormatString="{0:N0}" HtmlEncode="False" />
                                                             <asp:BoundField DataField="vendor_name" HeaderText="Vendor" />
                                                             <asp:BoundField DataField="id_vendor" HeaderText="id_vendor" />
                                                             <asp:BoundField DataField="no_po" HeaderText="PO Number" />
@@ -427,7 +428,15 @@
                                                         <div class="input-group-append">
                                                             <span class="input-group-text">Delivery to&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                         </div>
-                                                        <textarea class="form-control h-150px" rows="3" id="txtDeliveryTo" runat="server"></textarea>
+                                                        <%--<textarea class="form-control h-150px" rows="3" id="txtDeliveryTo" runat="server"></textarea>--%>
+                                                        <asp:DropDownList ID="ddlDeliveryTo" class="custom-select mr-sm-2" AppendDataBoundItems="true"
+                                                            runat="server" OnSelectedIndexChanged="ddlDeliveryTo_SelectedIndexChanged" ValidateRequestMode="Enabled">
+                                                            <asp:ListItem Text="PT Yusen Logistics Indonesia, Temas Building Lantai 3A, Jl. Yos Sudarso Kav.33, Sunter Jaya, Jakarta Utara 14350, Indonesia" Value="1"></asp:ListItem>
+                                                            <asp:ListItem Text="PT Yusen Logistics Indonesia, Soewarna Business Park Blok A, Lot 1-2 Soekarno-Hatta Airport, Pajang, Benda, Tengerang, Banten 15126, Indonesia" Value="2"></asp:ListItem>
+                                                            <asp:ListItem Text="PT Yusen Logistics Indonesia, Kawasan Industri MM2100 Blok EE-4, Desa Danau Indah, Cikarang Barat, Bekasi 17520, Indonesia" Value="3"></asp:ListItem>
+                                                            <asp:ListItem Text="PT Yusen Logistics Indonesia, Ruko Permata Juanda, West Wing Super B/8-8A, Jl. Raya Juanda, Sedatiagung - Sedati, Sidoarjo 61253,  Indonesia" Value="4"></asp:ListItem>
+                                                            <asp:ListItem Text="PT Yusen Logistics Indonesia, HSBC Building 4th Floor Suite 408, Jl. Gajah Mada No. 135, Pekunden, Semarang 50134,  Indonesia" Value="5"></asp:ListItem>
+                                                        </asp:DropDownList>
                                                     </div>
                                                 </div>
                                             </div>
@@ -478,12 +487,12 @@
                                                             <asp:BoundField DataField="UOM" HeaderText="UOM" />
                                                             <asp:TemplateField HeaderText="Price">
                                                                 <ItemTemplate>
-                                                                    <input type="text" class="input-group-text" runat="server" value='<%# string.Format("{0:#,#.00}", Convert.ToDecimal(Eval("Price"))) %>' name="txtPrice" id="txtPrice" data-type="currency" disabled />
+                                                                    <input type="text" class="input-group-text" runat="server" value='<%# string.Format("{0:#,#}", Convert.ToDecimal(Eval("Price"))) %>' name="txtPrice" id="txtPrice" data-type="currency" disabled />
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="Amount">
                                                                 <ItemTemplate>
-                                                                    <input type="text" class="input-group-text" runat="server" value='<%# string.Format("{0:#,#.00}", Convert.ToDecimal(Eval("Amount"))) %>' name="txtAmount" id="txtAmount" data-type="currency" disabled />
+                                                                    <input type="text" class="input-group-text" runat="server" value='<%# string.Format("{0:#,#}", Convert.ToDecimal(Eval("Amount"))) %>' name="txtAmount" id="txtAmount" data-type="currency" disabled />
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="Action">
@@ -620,10 +629,12 @@
                                                         <asp:BoundField DataField="status_approve" HeaderText="Approval Status" />
                                                         <asp:BoundField DataField="nama_branch" HeaderText="Location" />
                                                         <asp:BoundField DataField="price" HeaderText="Price" />
+                                                        <%--<asp:BoundField DataField="price" HeaderText="Price" DataFormatString="{0:N0}" HtmlEncode="False" />--%>
                                                         <asp:BoundField DataField="Vendor" HeaderText="Vendor" />
                                                         <asp:BoundField DataField="id_vendor" HeaderText="id_vendor" />
                                                         <asp:BoundField DataField="no_po" HeaderText="no_po" />
                                                         <asp:BoundField DataField="amount" HeaderText="amount" />
+                                                        <%--<asp:BoundField DataField="amount" HeaderText="Amount" DataFormatString="{0:N0}" HtmlEncode="False" />--%>
                                                         <asp:BoundField DataField="catalog_type" HeaderText="catalog_type" />
                                                     </Columns>
                                                 </asp:GridView>

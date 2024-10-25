@@ -607,11 +607,13 @@
                                                         <asp:BoundField DataField="type_request" HeaderText="Request Type" />
                                                         <asp:BoundField DataField="status_approve" HeaderText="Approval Status" />
                                                         <asp:BoundField DataField="nama_branch" HeaderText="Location" />
-                                                        <asp:BoundField DataField="price" HeaderText="Price" />
+                                                        <%--<asp:BoundField DataField="price" HeaderText="Price" />--%>
+                                                        <asp:BoundField DataField="price" HeaderText="Price" DataFormatString="{0:N0}" HtmlEncode="False" />
                                                         <asp:BoundField DataField="Vendor" HeaderText="Vendor" />
                                                         <asp:BoundField DataField="id_vendor" HeaderText="id_vendor" />
                                                         <asp:BoundField DataField="no_po" HeaderText="no_po" />
-                                                        <asp:BoundField DataField="amount" HeaderText="amount" />
+                                                        <%--<asp:BoundField DataField="amount" HeaderText="amount" />--%>
+                                                        <asp:BoundField DataField="amount" HeaderText="Amount" DataFormatString="{0:N0}" HtmlEncode="False" />
                                                         <asp:BoundField DataField="catalog_type" HeaderText="catalog_type" />
                                                     </Columns>
                                                 </asp:GridView>

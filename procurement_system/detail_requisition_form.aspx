@@ -330,8 +330,8 @@
                                                         <ul class="StepProgress">
                                                             <li id="rf_created" runat="server" class="StepProgress-item is-done"><strong>RF Created</strong><asp:Label ID="lbDateCreateRF" runat="server"></asp:Label></li>
                                                             <li id="price_estimated" runat="server" class="StepProgress-item current"><strong>Price Check</strong><asp:Label ID="lbDatePriceEstimate" runat="server"></asp:Label></li>
-                                                            <li id="manager" runat="server" class="StepProgress-item current"><strong>Div. Manager</strong><asp:Label ID="lbDateMgr" runat="server"></asp:Label></li>
-                                                            <li id="gm" runat="server" class="StepProgress-item current"><strong>Div. GM</strong><asp:Label ID="lbDateGM" runat="server"></asp:Label></li>
+                                                            <li id="manager" runat="server" class="StepProgress-item current"><strong>Manager</strong><asp:Label ID="lbDateMgr" runat="server"></asp:Label></li>
+                                                            <li id="gm" runat="server" class="StepProgress-item current"><strong>General Manager</strong><asp:Label ID="lbDateGM" runat="server"></asp:Label></li>
                                                             <li id="deputy_director" runat="server" class="StepProgress-item current"><strong>Deputy Director</strong><asp:Label ID="lbDateDepDir" runat="server"></asp:Label></li>
                                                             <li id="director" runat="server" class="StepProgress-item current"><strong>Director</strong><asp:Label ID="lbDateDir" runat="server"></asp:Label></li>
                                                             <%--<li id="it_section_head" runat="server" class="StepProgress-item current"><strong>IT Head</strong><asp:Label ID="lbDateITHead" runat="server"></asp:Label></li>
@@ -616,7 +616,7 @@
                     <div class="x_content">
                         <div class="row">
                             <div class='col-sm-12' id="divManagerDivision" runat="server">
-                                Manager Division
+                                Manager
 				            <div class="form-group">
                                 <div class='input-group'>
                                     <asp:DropDownList ID="ddlManagerDivision" class="selectpicker form-control" data-show-subtext="true" data-live-search="true" AppendDataBoundItems="true" AutoPostBack="false"
@@ -627,7 +627,7 @@
                             </div>
                             </div>
                             <div class='col-sm-12' id="divGMDivision" runat="server">
-                                GM Division
+                                General Manager
                                 <div class="form-group">
                                     <div class='input-group'>
                                         <asp:DropDownList ID="ddlGMDivision" class="selectpicker form-control" data-show-subtext="true" data-live-search="true" AppendDataBoundItems="true" AutoPostBack="false"
