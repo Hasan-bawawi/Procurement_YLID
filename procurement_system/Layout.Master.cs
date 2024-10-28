@@ -385,6 +385,7 @@ namespace procurement_system
             app_rf.Visible = false;
             app_po.Visible = false;
             vendor_detail.Visible = false;
+            event_calender.Visible = false;
 
             string vUserCode = vNIK;
 
