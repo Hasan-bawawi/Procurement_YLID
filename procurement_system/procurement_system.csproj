@@ -476,6 +476,7 @@
     <Content Include="EmailTempleteRFSendToITHead_ManagedDivApproved.html" />
     <Content Include="EmailTempleteRFSendToManagerDivision.html" />
     <Content Include="EmailTempleteSendRFToPurchasing.html" />
+    <Content Include="error_page.aspx" />
     <Content Include="event_calender.aspx" />
     <Content Include="expired_page.aspx" />
     <Content Include="goods_catalog.aspx" />
@@ -19912,6 +19913,13 @@
     </Compile>
     <Compile Include="document_validation.aspx.designer.cs">
       <DependentUpon>document_validation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="error_page.aspx.cs">
+      <DependentUpon>error_page.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="error_page.aspx.designer.cs">
+      <DependentUpon>error_page.aspx</DependentUpon>
     </Compile>
     <Compile Include="event_calender.aspx.cs">
       <DependentUpon>event_calender.aspx</DependentUpon>
