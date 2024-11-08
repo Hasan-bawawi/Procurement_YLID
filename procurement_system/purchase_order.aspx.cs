@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -441,6 +443,50 @@ namespace procurement_system
             else
             {
                 Response.Redirect("detail_purchase_order_standart.aspx?po_no=" + (row.Cells[3].Text));
+            }
+        }
+
+        protected void btnGenerateExcell_Click(object sender, EventArgs e)
+        {
+            string _vPath = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            SqlConnection _vSQLCon = new SqlConnection(_vPath);
+            SqlCommand _vSQLComm = new SqlCommand();
+
+            _vSQLCon.Open();
+            _vSQLComm.Connection = _vSQLCon;
+            _vSQLComm.CommandType = CommandType.StoredProcedure;
+            _vSQLComm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+
+            _vSQLComm.Parameters.AddWithValue("@StatementType", "GenerateExcell");
+            _vSQLComm.Parameters.AddWithValue("@po_no", txtPONo.Value);
+            _vSQLComm.Parameters.AddWithValue("@date_from", txtDate1.Value);
+            _vSQLComm.Parameters.AddWithValue("@date_to", txtDate2.Value);
+            _vSQLComm.Parameters.AddWithValue("@status", ddlStatus.SelectedItem.Text);
+
+            SqlDataAdapter sda = new SqlDataAdapter(_vSQLComm);
+            using (DataTable dt = new DataTable())
+            {
+                sda.Fill(dt);
+                string _vDate1 = txtDate1.Value.ToString().Replace("/", "").Replace(":", "").Replace(" ", "");
+                string _vDate2 = txtDate2.Value.ToString().Replace("/", "").Replace(":", "").Replace(" ", "");
+
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(dt, "Report PO");
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.Charset = "";
+                    Response.ClearContent();
+                    Response.AppendHeader("content-disposition", "attachment; filename=" + "Report PO " + "(" + _vDate1 + "-" + _vDate2 + ")" + ".xlsx");
+                    Response.ContentType = "application/excel";
+                    using (MemoryStream MyMemoryStream = new MemoryStream())
+                    {
+                        wb.SaveAs(MyMemoryStream);
+                        MyMemoryStream.WriteTo(Response.OutputStream);
+                        Response.Flush();
+                        Response.End();
+                    }
+                }
             }
         }
     }

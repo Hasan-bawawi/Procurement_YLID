@@ -330,6 +330,12 @@
                                     <div class="control-group">
                                         <div class="row">
                                             <div class='col-sm-12'>
+                                                <button type="button" style="float: right;" class="btn buttonColor" onclick="<%=btnGenerateExcell.ClientID %>.click()">
+                                                    Generate Excell <span class="btn-icon-right"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span>
+                                                </button>
+                                                <asp:Button runat="server" Style="display: none;" ID="btnGenerateExcell" OnClick="btnGenerateExcell_Click"></asp:Button>
+                                            </div>
+                                            <div class='col-sm-12'>
                                                 <br />
                                                 <div class="table-responsive">
                                                     <asp:GridView ID="TablePurchaseOrder" runat="server" CssClass="table table-striped row-border order-column table-bordered zero-configuration text-nowrap grid" AutoGenerateColumns="False" Style="width: 100%"
