@@ -355,7 +355,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class='col-sm-6'>
+                                            <%--<div class='col-sm-6'>
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <div class="input-group-append">
@@ -364,12 +364,12 @@
                                                         <textarea class="form-control h-150px" rows="2" id="txtDescription" runat="server" required="required"></textarea>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>--%>
                                             <div class='col-sm-6'>
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text">Remarks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                            <span class="input-group-text">Remarks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                         </div>
                                                         <textarea class="form-control h-150px" rows="2" id="txtRemaks" runat="server" required="required"></textarea>
                                                     </div>
@@ -401,7 +401,7 @@
                                                             <asp:BoundField DataField="kode_barang" HeaderText="Code Item" />
                                                             <asp:BoundField DataField="nama_barang" HeaderText="Item" />
                                                             <asp:BoundField DataField="merk" HeaderText="Merk" />
-                                                            <asp:BoundField DataField="description" HeaderText="Description" />
+                                                            <%--<asp:BoundField DataField="description" HeaderText="Description" />--%>
                                                             <asp:BoundField DataField="jumlah_beli" HeaderText="Quantity" />
                                                             <asp:BoundField DataField="tanggal_beli" HeaderText="Request Date" />
                                                             <asp:BoundField DataField="remaks" HeaderText="Remarks" />

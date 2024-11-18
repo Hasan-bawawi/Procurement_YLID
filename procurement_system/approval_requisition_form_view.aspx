@@ -477,7 +477,7 @@
                                                             <asp:BoundField DataField="item_code" HeaderText="Code Item" />
                                                             <asp:BoundField DataField="item_name" HeaderText="Item" />
                                                             <asp:BoundField DataField="merk_name" HeaderText="Merk" />
-                                                            <asp:BoundField DataField="description" HeaderText="Description" />
+                                                            <%--<asp:BoundField DataField="description" HeaderText="Description" />--%>
                                                             <asp:BoundField DataField="quantity" HeaderText="Quantity" />
                                                             <asp:BoundField DataField="remaks" HeaderText="Remarks" />
                                                             <asp:TemplateField HeaderText="Delete Selected Items">

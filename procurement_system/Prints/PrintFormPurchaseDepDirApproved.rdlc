@@ -1471,7 +1471,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Item Name</Value>
+                              <Value>Category</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -1506,7 +1506,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Description / Specification</Value>
+                              <Value>Description</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -1686,7 +1686,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!item_name.Value</Value>
+                              <Value>=Fields!category_name.Value</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -1728,51 +1728,14 @@
                               </Style>
                             </TextRun>
                             <TextRun>
-                              <Value>Description</Value>
-                              <Style>
-                                <FontFamily>Calibri</FontFamily>
-                                <FontSize>8pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
-                              </Style>
-                            </TextRun>
-                            <TextRun>
-                              <Value>    :  </Value>
+                              <Value>=Fields!item_name.Value</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                             <TextRun>
-                              <Value>=Fields!description.Value</Value>
-                              <Style>
-                                <FontFamily>Calibri</FontFamily>
-                                <FontSize>8pt</FontSize>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Left</TextAlign>
-                          </Style>
-                        </Paragraph>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value xml:space="preserve"> </Value>
-                              <Style>
-                                <FontFamily>Calibri</FontFamily>
-                                <FontSize>8pt</FontSize>
-                              </Style>
-                            </TextRun>
-                            <TextRun>
-                              <Value>Specification</Value>
-                              <Style>
-                                <FontFamily>Calibri</FontFamily>
-                                <FontSize>8pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
-                              </Style>
-                            </TextRun>
-                            <TextRun>
-                              <Value> :  </Value>
+                              <Value>-</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -4297,18 +4260,18 @@
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="PROCUREMENT_DBDataSet_RF_DepDirApproved">
+    <DataSource Name="PROCUREMENT_DBDataSet_RF_DepDirApprovedNew">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>a141ad07-18ef-464d-9162-bea5628ed65e</rd:DataSourceID>
+      <rd:DataSourceID>a0fd83f7-ace3-4ff7-a74d-400de44d0d10</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="DataSetFormPurchase">
       <Query>
-        <DataSourceName>PROCUREMENT_DBDataSet_RF_DepDirApproved</DataSourceName>
+        <DataSourceName>PROCUREMENT_DBDataSet_RF_DepDirApprovedNew</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -4452,10 +4415,14 @@
           <DataField>nama_branch</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="category_name">
+          <DataField>category_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>PROCUREMENT_DBDataSet_RF_DepDirApproved</rd:DataSetName>
-        <rd:SchemaPath>D:\MY WORK\MY PROJECT\SYSTEM INTERNAL YLID\PROCUREMENT SYSTEM\procurement_system\procurement_system\PROCUREMENT_DBDataSet_RF_DepDirApproved.xsd</rd:SchemaPath>
+        <rd:DataSetName>PROCUREMENT_DBDataSet_RF_DepDirApprovedNew</rd:DataSetName>
+        <rd:SchemaPath>D:\MY WORK\MY PROJECT\SYSTEM INTERNAL YLID\PROCUREMENT SYSTEM\procurement_system\procurement_system\PROCUREMENT_DBDataSet_RF_DepDirApprovedNew.xsd</rd:SchemaPath>
         <rd:TableName>sp_PROCUREMENT_DB_Attachment_RF_DepDirApproved</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

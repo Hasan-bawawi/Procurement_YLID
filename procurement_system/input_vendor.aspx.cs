@@ -59,7 +59,7 @@ namespace procurement_system
                         Session.Add("status", (string)rdr["status"]);
                         Session.Add("type_request", (string)rdr["type_request"]);
                         Session.Add("status_approve", (string)rdr["status_approve"]);
-                        Session.Add("description", (string)rdr["description"]);
+                        //Session.Add("description", (string)rdr["description"]);
                         Session.Add("id_vendor", (string)rdr["id_vendor"].ToString());
                         Session.Add("nama_branch", (string)rdr["nama_branch"]);
                         Session.Add("DivisionRequester", (string)rdr["DivisionRequester"].ToString());

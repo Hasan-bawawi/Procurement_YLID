@@ -19989,6 +19989,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSetFormPurchase.xsd</DependentUpon>
     </Compile>
+    <Compile Include="PROCUREMENT_DBDataSetFormPurchaseCreateNew.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSetFormPurchaseCreateNew.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PROCUREMENT_DBDataSetFormPurchaseDeputyDirectorApproved.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -20013,6 +20018,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSetFormPurchaseManagerApproved.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSetFormPurchaseNew.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSetFormPurchaseNew.xsd</DependentUpon>
     </Compile>
     <Compile Include="PROCUREMENT_DBDataSetFormPurchaseOrderCreatedGANew.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -20114,6 +20124,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSetGMAdminApproved_SendToDirectorAdm_IT.xsd</DependentUpon>
     </Compile>
+    <Compile Include="PROCUREMENT_DBDataSetInputPriceNew.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSetInputPriceNew.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PROCUREMENT_DBDataSetITHeadApproved_SendGAHead_DirNotNull.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -20179,30 +20194,65 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSetRF_FullApproved_IT.xsd</DependentUpon>
     </Compile>
+    <Compile Include="PROCUREMENT_DBDataSetRF_FullApproved_ManagerDiv.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSetRF_FullApproved_ManagerDiv.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSetRF_ManagerApproved.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSetRF_ManagerApproved.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PROCUREMENT_DBDataSet_RF_DepDirApproved.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSet_RF_DepDirApproved.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_RF_DepDirApprovedNew.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_DepDirApprovedNew.xsd</DependentUpon>
     </Compile>
     <Compile Include="PROCUREMENT_DBDataSet_RF_FullApproved.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved.xsd</DependentUpon>
     </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_RF_FullApprovedNew.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApprovedNew.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDir.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_DepDir.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNew.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNew.xsd</DependentUpon>
     </Compile>
     <Compile Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNull.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNull.xsd</DependentUpon>
     </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNullNew.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNullNew.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv_New.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv_New.xsd</DependentUpon>
     </Compile>
     <Compile Include="PROCUREMENT_DBDataSet_RF_FullApproved_ManagerDiv.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -20214,10 +20264,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDeputyDirector.xsd</DependentUpon>
     </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDeputyDirectorNew.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDeputyDirectorNew.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDivDirector.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDivDirector.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDivDirectorNew.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDivDirectorNew.xsd</DependentUpon>
     </Compile>
     <Compile Include="PROCUREMENT_DBDataSet_RF_ManagerApproved.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -22228,6 +22288,17 @@
     <Content Include="PROCUREMENT_DBDataSetFormPurchaseDeputyDirectorApproved.xsc">
       <DependentUpon>PROCUREMENT_DBDataSetFormPurchaseDeputyDirectorApproved.xsd</DependentUpon>
     </Content>
+    <Content Include="PROCUREMENT_DBDataSetFormPurchaseCreateNew.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSetFormPurchaseCreateNew.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSetFormPurchaseCreateNew.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSetFormPurchaseCreateNew.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSetFormPurchaseCreateNew.xss">
+      <DependentUpon>PROCUREMENT_DBDataSetFormPurchaseCreateNew.xsd</DependentUpon>
+    </Content>
     <None Include="PROCUREMENT_DBDataSetFormPurchaseDeputyDirectorApproved.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PROCUREMENT_DBDataSetFormPurchaseDeputyDirectorApproved.Designer.cs</LastGenOutput>
@@ -22279,6 +22350,17 @@
     </Content>
     <Content Include="PROCUREMENT_DBDataSetFormPurchaseOrderCreatedGANew.xsc">
       <DependentUpon>PROCUREMENT_DBDataSetFormPurchaseOrderCreatedGANew.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSetFormPurchaseNew.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSetFormPurchaseNew.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSetFormPurchaseNew.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSetFormPurchaseNew.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSetFormPurchaseNew.xss">
+      <DependentUpon>PROCUREMENT_DBDataSetFormPurchaseNew.xsd</DependentUpon>
     </Content>
     <None Include="PROCUREMENT_DBDataSetFormPurchaseOrderCreatedGANew.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -22497,6 +22579,17 @@
     <Content Include="PROCUREMENT_DBDataSetGMAdminApproved_SendToDirectorAdm_IT.xss">
       <DependentUpon>PROCUREMENT_DBDataSetGMAdminApproved_SendToDirectorAdm_IT.xsd</DependentUpon>
     </Content>
+    <Content Include="PROCUREMENT_DBDataSetInputPriceNew.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSetInputPriceNew.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSetInputPriceNew.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSetInputPriceNew.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSetInputPriceNew.xss">
+      <DependentUpon>PROCUREMENT_DBDataSetInputPriceNew.xsd</DependentUpon>
+    </Content>
     <None Include="PROCUREMENT_DBDataSetITHeadApproved_SendGAHead_DirNotNull.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PROCUREMENT_DBDataSetITHeadApproved_SendGAHead_DirNotNull.Designer.cs</LastGenOutput>
@@ -22652,6 +22745,28 @@
     <Content Include="PROCUREMENT_DBDataSet_RF_DepDirApproved.xsc">
       <DependentUpon>PROCUREMENT_DBDataSet_RF_DepDirApproved.xsd</DependentUpon>
     </Content>
+    <Content Include="PROCUREMENT_DBDataSetRF_FullApproved_ManagerDiv.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSetRF_FullApproved_ManagerDiv.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSetRF_FullApproved_ManagerDiv.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSetRF_FullApproved_ManagerDiv.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSetRF_FullApproved_ManagerDiv.xss">
+      <DependentUpon>PROCUREMENT_DBDataSetRF_FullApproved_ManagerDiv.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSetRF_ManagerApproved.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSetRF_ManagerApproved.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSetRF_ManagerApproved.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSetRF_ManagerApproved.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSetRF_ManagerApproved.xss">
+      <DependentUpon>PROCUREMENT_DBDataSetRF_ManagerApproved.xsd</DependentUpon>
+    </Content>
     <None Include="PROCUREMENT_DBDataSet_RF_DepDirApproved.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PROCUREMENT_DBDataSet_RF_DepDirApproved.Designer.cs</LastGenOutput>
@@ -22663,6 +22778,17 @@
     <Content Include="PROCUREMENT_DBDataSet_RF_FullApproved.xsc">
       <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved.xsd</DependentUpon>
     </Content>
+    <Content Include="PROCUREMENT_DBDataSet_RF_DepDirApprovedNew.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_DepDirApprovedNew.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_RF_DepDirApprovedNew.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_RF_DepDirApprovedNew.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_RF_DepDirApprovedNew.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_DepDirApprovedNew.xsd</DependentUpon>
+    </Content>
     <None Include="PROCUREMENT_DBDataSet_RF_FullApproved.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PROCUREMENT_DBDataSet_RF_FullApproved.Designer.cs</LastGenOutput>
@@ -22670,6 +22796,17 @@
     </None>
     <Content Include="PROCUREMENT_DBDataSet_RF_FullApproved.xss">
       <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_RF_FullApprovedNew.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApprovedNew.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_RF_FullApprovedNew.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_RF_FullApprovedNew.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_RF_FullApprovedNew.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApprovedNew.xsd</DependentUpon>
     </Content>
     <None Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDir.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -22682,6 +22819,17 @@
     <Content Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNull.xsc">
       <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNull.xsd</DependentUpon>
     </Content>
+    <Content Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNew.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNew.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNew.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNew.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNew.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNew.xsd</DependentUpon>
+    </Content>
     <None Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNull.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNull.Designer.cs</LastGenOutput>
@@ -22690,6 +22838,17 @@
     <Content Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNull.xss">
       <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNull.xsd</DependentUpon>
     </Content>
+    <Content Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNullNew.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNullNew.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNullNew.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNullNew.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNullNew.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_DepDirNullNew.xsd</DependentUpon>
+    </Content>
     <None Include="PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv.Designer.cs</LastGenOutput>
@@ -22697,6 +22856,17 @@
     </None>
     <Content Include="PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv.xss">
       <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv_New.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv_New.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv_New.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv_New.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv_New.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_FullApproved_GMDiv_New.xsd</DependentUpon>
     </Content>
     <None Include="PROCUREMENT_DBDataSet_RF_FullApproved_ManagerDiv.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -22720,6 +22890,17 @@
     <Content Include="PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDeputyDirector.xss">
       <DependentUpon>PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDeputyDirector.xsd</DependentUpon>
     </Content>
+    <Content Include="PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDeputyDirectorNew.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDeputyDirectorNew.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDeputyDirectorNew.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDeputyDirectorNew.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDeputyDirectorNew.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDeputyDirectorNew.xsd</DependentUpon>
+    </Content>
     <None Include="PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDivDirector.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDivDirector.Designer.cs</LastGenOutput>
@@ -22730,6 +22911,17 @@
     </Content>
     <Content Include="PROCUREMENT_DBDataSet_RF_ManagerApproved.xsc">
       <DependentUpon>PROCUREMENT_DBDataSet_RF_ManagerApproved.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDivDirectorNew.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDivDirectorNew.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDivDirectorNew.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDivDirectorNew.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDivDirectorNew.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_GMDivisionApproved_SendToDivDirectorNew.xsd</DependentUpon>
     </Content>
     <None Include="PROCUREMENT_DBDataSet_RF_ManagerApproved.xsd">
       <Generator>MSDataSetGenerator</Generator>

@@ -248,6 +248,7 @@ namespace procurement_system
             TableRequesitionItem.Columns[22].Visible = false;
             TableRequesitionItem.Columns[23].Visible = false;
             TableRequesitionItem.Columns[18].Visible = false;
+            TableRequesitionItem.Columns[9].Visible = false;
 
             TableRequesitionItem.UseAccessibleHeader = true;
             TableRequesitionItem.HeaderRow.TableSection = TableRowSection.TableHeader;

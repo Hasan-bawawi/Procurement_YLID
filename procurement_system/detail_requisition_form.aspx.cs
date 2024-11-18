@@ -85,7 +85,7 @@ namespace procurement_system
                         Session.Add("status", (string)rdr["status"]);
                         Session.Add("type_request", (string)rdr["type_request"]);
                         Session.Add("status_approve", (string)rdr["status_approve"]);
-                        Session.Add("description", (string)rdr["description"]);
+                        //Session.Add("description", (string)rdr["description"]);
                         Session.Add("id_vendor", (string)rdr["id_vendor"].ToString());
                         Session.Add("nama_branch", (string)rdr["nama_branch"]);
                         Session.Add("DivisionRequester", (string)rdr["DivisionRequester"].ToString());
@@ -14513,7 +14513,7 @@ namespace procurement_system
             sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
             sqlcomm.Parameters.AddWithValue("@type_request", Session["type_request"].ToString());
             sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
-            sqlcomm.Parameters.AddWithValue("@description", txtDescription.Value.ToString());
+            //sqlcomm.Parameters.AddWithValue("@description", txtDescription.Value.ToString());
             //sqlcomm.Parameters.AddWithValue("@nik_approver", hlbNIKApprover.Value);
             sqlcomm.Parameters.AddWithValue("@nama_branch", lbLocation.Text.Trim());
             //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", "890556");

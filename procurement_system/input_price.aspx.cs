@@ -76,9 +76,9 @@ namespace procurement_system
                             Session.Add("status", (string)rdr["status"]);
                             Session.Add("type_request", (string)rdr["type_request"]);
                             Session.Add("status_approve", (string)rdr["status_approve"]);
-                            Session.Add("description", (string)rdr["description"]);
+                            //Session.Add("description", (string)rdr["description"]);
                             //Session.Add("nik_approver", (string)rdr["nik_approver"]);
-                            //Session.Add("nik_requester", (string)rdr["nik_requester"]);
+                            //Session.Add("nik_requester", (string)rdr["nik_requester"]); 
                             //Session.Add("nik_gm_approver", (string)rdr["nik_gm_approver"]);
                             Session.Add("id_vendor", (string)rdr["id_vendor"].ToString());
                             //Session.Add("id_unit", (string)rdr["id_unit"].ToString());
@@ -142,7 +142,7 @@ namespace procurement_system
                 decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
                 int getprice = Convert.ToInt32(parsedValue);
 
-                qty = Convert.ToInt32(grow.Cells[7].Text.ToString());
+                qty = Convert.ToInt32(grow.Cells[6].Text.ToString());
                 amount = getprice * qty;
 
                 int getAmount = Convert.ToInt32(amount);
