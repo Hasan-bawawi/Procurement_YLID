@@ -11268,7 +11268,7 @@ namespace procurement_system
                 TableItemPurchase.DataSource = dtb;
                 TableItemPurchase.DataBind();
 
-                TableItemPurchase.Columns[9].Visible = false;
+                TableItemPurchase.Columns[8].Visible = false;
                 TableItemPurchase.Columns[1].Visible = false;
 
                 TableItemPurchase.UseAccessibleHeader = true;
