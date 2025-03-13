@@ -278,6 +278,7 @@ namespace procurement_system
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            divBtnGenerateExcell.Visible = true;
             GetDataPurchaseOrder();
         }
 

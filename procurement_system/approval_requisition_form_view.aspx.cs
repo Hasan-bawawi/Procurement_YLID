@@ -49,7 +49,7 @@ namespace procurement_system
                 Response.Redirect("login.aspx?url=" + Server.UrlEncode(Request.Url.AbsoluteUri));
             }
 
-            if ((Session["GroupName"].ToString() == "RF Approval") || (Session["GroupName"].ToString() == "RF AND PO Approval"))
+            if ((Session["GroupName"].ToString() == "RF Approval") || (Session["GroupName"].ToString() == "RF AND PO Approval") || (Session["GroupName"].ToString() == "Super Admin"))
             {
                 string id = Request.QueryString["rf_no"];
                 string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;

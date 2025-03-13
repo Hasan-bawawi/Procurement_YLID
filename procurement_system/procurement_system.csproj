@@ -29,10 +29,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>..\..\XMLDocumentationFile\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\procurement_system.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -19970,6 +19971,11 @@
     <Compile Include="item.aspx.designer.cs">
       <DependentUpon>item.aspx</DependentUpon>
     </Compile>
+    <Compile Include="IT_STOCK_DBDataSettest.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IT_STOCK_DBDataSettest.xsd</DependentUpon>
+    </Compile>
     <Compile Include="merk.aspx.cs">
       <DependentUpon>merk.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -21001,6 +21007,17 @@
     <Content Include="OtherThemes\quixlab\plugins\typeahedjs\dist\nba.json" />
     <Content Include="OtherThemes\quixlab\plugins\typeahedjs\dist\nfl.json" />
     <Content Include="OtherThemes\quixlab\plugins\typeahedjs\dist\nhl.json" />
+    <Content Include="IT_STOCK_DBDataSettest.xsc">
+      <DependentUpon>IT_STOCK_DBDataSettest.xsd</DependentUpon>
+    </Content>
+    <None Include="IT_STOCK_DBDataSettest.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>IT_STOCK_DBDataSettest.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="IT_STOCK_DBDataSettest.xss">
+      <DependentUpon>IT_STOCK_DBDataSettest.xsd</DependentUpon>
+    </Content>
     <None Include="packages.config" />
     <Content Include="plugins\block-ui\blockUI.jquery.json" />
     <Content Include="plugins\block-ui\bower.json" />
@@ -22993,6 +23010,7 @@
     <EmbeddedResource Include="Prints\PrintFormPurchaseOrderCreated_SendITManager.rdlc" />
     <EmbeddedResource Include="Prints\PrintFormPurchaseRejectCancel.rdlc" />
     <EmbeddedResource Include="Prints\PrintFormPurchase.rdlc" />
+    <EmbeddedResource Include="Prints\test.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

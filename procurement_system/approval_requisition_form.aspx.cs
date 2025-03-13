@@ -24,7 +24,7 @@ namespace procurement_system
                 Response.Redirect("login.aspx?url=" + Server.UrlEncode(Request.Url.AbsoluteUri));
             }
 
-            if ((Session["GroupName"].ToString() == "RF Approval") || (Session["GroupName"].ToString() == "RF AND PO Approval"))
+            if ((Session["GroupName"].ToString() == "RF Approval") || (Session["GroupName"].ToString() == "RF AND PO Approval") || (Session["GroupName"].ToString() == "Super Admin"))
             {
                 if (!IsPostBack)
                 {

@@ -329,7 +329,7 @@
                                     <legend class="scheduler-border">List of Purchase Order (PO)</legend>
                                     <div class="control-group">
                                         <div class="row">
-                                            <div class='col-sm-12'>
+                                            <div class='col-sm-12' id="divBtnGenerateExcell" runat="server" visible="false">
                                                 <button type="button" style="float: right;" class="btn buttonColor" onclick="<%=btnGenerateExcell.ClientID %>.click()">
                                                     Generate Excell <span class="btn-icon-right"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span>
                                                 </button>
