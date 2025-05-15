@@ -24,7 +24,7 @@ namespace procurement_system
                 Response.Redirect("login.aspx?url=" + Server.UrlEncode(Request.Url.AbsoluteUri));
             }
 
-            if (Session["GroupName"].ToString() == "Admin Purchasing")
+            if (Session["GroupName"].ToString() == "Admin Purchasing" || Session["GroupName"].ToString() == "Super Admin")
             {
                 if (!Page.IsPostBack)
                 {

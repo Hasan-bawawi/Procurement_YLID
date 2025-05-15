@@ -1529,19 +1529,6 @@ namespace procurement_system
 
         protected void SaveNumbering(SqlConnection connection, SqlTransaction transaction)
         {
-            //string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            //SqlConnection Con = new SqlConnection(path);
-            //Con.Open();
-            //SqlCommand sqlcomm = new SqlCommand();
-            //sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-            //sqlcomm.CommandType = CommandType.StoredProcedure;
-            //sqlcomm.Connection = Con;
-            //sqlcomm.Parameters.AddWithValue("@StatementType", "SaveNumbering");
-            //sqlcomm.Parameters.AddWithValue("@years", DateTime.Now.Year);
-            //sqlcomm.Parameters.AddWithValue("@id", Session["id"].ToString());
-
-            //sqlcomm.ExecuteNonQuery();
-            //Con.Close();
             string SP = "sp_PROCUREMENT_DB_PurchaseOrder";
             using (SqlCommand sqlcomm = new SqlCommand(SP, connection, transaction))
             {
