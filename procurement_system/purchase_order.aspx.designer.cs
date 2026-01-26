@@ -150,24 +150,6 @@ namespace procurement_system
         protected global::System.Web.UI.WebControls.Button btnSubmit;
 
         /// <summary>
-        /// divBtnGenerateExcell control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divBtnGenerateExcell;
-
-        /// <summary>
-        /// btnGenerateExcell control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGenerateExcell;
-
-        /// <summary>
         /// TablePurchaseOrder control.
         /// </summary>
         /// <remarks>
@@ -177,22 +159,13 @@ namespace procurement_system
         protected global::System.Web.UI.WebControls.GridView TablePurchaseOrder;
 
         /// <summary>
-        /// txtRFNumber control.
+        /// btnCloseModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtRFNumber;
-
-        /// <summary>
-        /// btnSearchRFNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearchRFNumber;
+        protected global::System.Web.UI.WebControls.Button btnCloseModal;
 
         /// <summary>
         /// TableRFNumber control.
@@ -202,15 +175,6 @@ namespace procurement_system
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView TableRFNumber;
-
-        /// <summary>
-        /// btnCloseModal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCloseModal;
 
         /// <summary>
         /// btnCloseModalViewDetailPODashboard control.

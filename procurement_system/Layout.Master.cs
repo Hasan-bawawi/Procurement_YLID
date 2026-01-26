@@ -95,7 +95,7 @@ namespace procurement_system
 
             //View Total Notif:
             if (lbNIK.Text== "891011" || lbNIK.Text == "891163")
-            {
+                {
                 int notif = Convert.ToInt32(lblnotifEstimatePriceRF.Text) + Convert.ToInt32(lblnotifNeedCreatePO.Text) + Convert.ToInt32(lblnotifNeedApproveManagerDivisionRF.Text);
                 lblnotif.Text = notif.ToString();
                 lblShowTotalNotif.Text = notif.ToString();

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.Identity.Client;
+using Microsoft.Reporting.WebForms;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -7,19 +11,16 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Microsoft.Identity.Client;
-using Microsoft.Reporting.WebForms;
-using Newtonsoft.Json;
 using ZXing;
-using System.Threading.Tasks;
-using System.Text;
 
 namespace procurement_system
 {
@@ -64,7 +65,7 @@ namespace procurement_system
                         while (rdr.Read())
                         {
                             Session.Add("po_no", (string)rdr["po_no"]);
-                            Session.Add("rf_no", (string)rdr["rf_no"]);
+                            Session.Add("rf_no", rdr["rf_no"] == DBNull.Value ? null : rdr["rf_no"].ToString());
                             Session.Add("po_type", (string)rdr["po_type"]);
                             Session.Add("vendor_name", (string)rdr["vendor_name"]);
                             Session.Add("po_date", (DateTime)rdr["po_date"]);
@@ -1553,7 +1554,8 @@ namespace procurement_system
             sqlcomm.Connection = Con;
             sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateStatusRejectCancel");
             sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
-            sqlcomm.Parameters.AddWithValue("@rf_no", Session["rf_no"].ToString());
+            sqlcomm.Parameters.AddWithValue("@rf_no",Session["rf_no"] == null ? (object)DBNull.Value : Session["rf_no"].ToString());
+            //sqlcomm.Parameters.AddWithValue("@rf_no", Session["rf_no"].ToString());
             sqlcomm.Parameters.AddWithValue("@status", ddlApproval.SelectedItem.Text.ToString());
 
             sqlcomm.ExecuteNonQuery();
@@ -1562,8 +1564,15 @@ namespace procurement_system
 
         protected void UpdateDetail_RFCancelReject()
         {
+
+
+
             foreach (GridViewRow row in TableItemPO.Rows)
             {
+
+                string rfNo = row.Cells[2].Text.Trim();
+
+
                 string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
                 SqlConnection Con = new SqlConnection(path);
                 Con.Open();
@@ -1573,8 +1582,8 @@ namespace procurement_system
                 sqlcomm.Connection = Con;
                 sqlcomm.Parameters.AddWithValue("@StatementType", "CancelDetailRF");
                 sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[4].Text.ToString());
-                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[2].Text.ToString());
-
+                //sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[2].Text.ToString());
+                sqlcomm.Parameters.AddWithValue("@rf_no",string.IsNullOrEmpty(rfNo) || rfNo == "&nbsp;"? (object)DBNull.Value: rfNo);
                 sqlcomm.ExecuteNonQuery();
                 sqlcomm.Dispose();
                 Con.Close();
@@ -1797,7 +1806,7 @@ namespace procurement_system
             string toEmailDirector = string.Empty;
             string ccEmailPOCreate = string.Empty;
 
-            if (grandtotal < 1000000)
+            if (grandtotal <= 1000000)
             {
                 if (hlbCatalog.Value == "IT")
                 {
@@ -1845,7 +1854,7 @@ namespace procurement_system
                     }
                 }
             }
-            else if (grandtotal > 1000000 && grandtotal < 20000000)
+            else if (grandtotal > 1000000 && grandtotal <= 25000000)
             {
                 if (hlbCatalog.Value == "IT")
                 {
@@ -1917,7 +1926,7 @@ namespace procurement_system
                     }
                 }
             }
-            else if (grandtotal > 20000000)
+            else if (grandtotal > 25000000)
             {
                 if (hlbCatalog.Value == "IT")
                 {

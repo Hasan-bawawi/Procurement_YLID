@@ -9484,7 +9484,8 @@ namespace procurement_system
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = Session["EmailGMApprove"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
-                                new { emailAddress = new { address = Session["EmailRequester"].ToString() } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } },
+                            new { emailAddress = new { address = Session["EmailRequester"].ToString() } },
                                 new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },
                             attachments = new[] { attachment }
                         },
@@ -9640,9 +9641,8 @@ namespace procurement_system
                             //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
-                            ccRecipients = new[] { new { emailAddress = new { address = Session["EmailRequester"].ToString() } },
-                                new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } },
-                                new { emailAddress = new { address = Session["EmailGMApprove"].ToString() } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }/*, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } }*/},
+                            ccRecipients = new[] { new { emailAddress = new { address = Session["EmailRequester"].ToString() } },new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } },new { emailAddress = new { address = Session["EmailGMApprove"].ToString() } } },
                             attachments = new[] { attachment }
                         },
                         saveToSentItems = true
@@ -14438,11 +14438,10 @@ namespace procurement_system
                                 contentType = "HTML",
                                 content = body
                             },
-                            toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                            ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                            //toRecipients = new[] { new { emailAddress = new { address = Session["EmailRequester"].ToString() } } },
-                            //ccRecipients = new[] { new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }, 
-                            //    new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            toRecipients = new[] { new { emailAddress = new { address = Session["EmailRequester"].ToString() } } },
+                            ccRecipients = new[] { new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }, new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },
                             attachments = new[] { attachment }
                         },
                         saveToSentItems = true
@@ -14819,49 +14818,49 @@ namespace procurement_system
                 //Division Manager Approval
                 if (Session["status_approve"].ToString() == "Price Checked")
                 {
-                    if (Session["GMApprove"] is null)
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
-                        sqlcomm.Parameters.AddWithValue("@level_approver", "Division Manager");
-                        sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Fully Approved)");
+                    //if (Session["GMApprove"] is null)
+                    //{
+                    //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                    //    SqlConnection Con = new SqlConnection(path);
+                    //    Con.Open();
+                    //    SqlCommand sqlcomm = new SqlCommand();
+                    //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
+                    //    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    //    sqlcomm.Connection = Con;
+                    //    sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
+                    //    sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                    //    sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                    //    sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                    //    sqlcomm.Parameters.AddWithValue("@level_approver", "Division Manager");
+                    //    sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Fully Approved)");
 
-                        sqlcomm.ExecuteNonQuery();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        Con.Close();
+                    //    sqlcomm.ExecuteNonQuery();
+                    //    //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                    //    Con.Close();
 
-                        foreach (GridViewRow grow in TableItemPurchase.Rows)
-                        {
-                            //Searching CheckBox("chkSelect") in an individual row of Grid  
-                            CheckBox chkdel = (CheckBox)grow.FindControl("ckSelectRemove");
-                            //If CheckBox is checked than delete the record with particular id  
-                            if (chkdel.Checked)
-                            {
-                                string item_code = grow.Cells[2].Text;
-                                DeleteSelectedItems(item_code);
-                            }
-                        }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
-                        {
-                            UpdateStatusRejectCancel();
-                            await SendEmailRejectCancel();
-                        }
-                        else
-                        {
-                            await SendEmailFullApproved_ManagerDiv();
-                        }
-                    }
-                    else
-                    {
+                    //    foreach (GridViewRow grow in TableItemPurchase.Rows)
+                    //    {
+                    //        //Searching CheckBox("chkSelect") in an individual row of Grid  
+                    //        CheckBox chkdel = (CheckBox)grow.FindControl("ckSelectRemove");
+                    //        //If CheckBox is checked than delete the record with particular id  
+                    //        if (chkdel.Checked)
+                    //        {
+                    //            string item_code = grow.Cells[2].Text;
+                    //            DeleteSelectedItems(item_code);
+                    //        }
+                    //    }
+                    //    if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                    //    {
+                    //        UpdateStatusRejectCancel();
+                    //        await SendEmailRejectCancel();
+                    //    }
+                    //    else
+                    //    {
+                    //        await SendEmailFullApproved_ManagerDiv();
+                    //    }
+                    //}
+                    //else
+                    //{
                         string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
                         SqlConnection Con = new SqlConnection(path);
                         Con.Open();
@@ -14900,7 +14899,7 @@ namespace procurement_system
                         {
                             await SendEmailToGMApprover();
                         }
-                    }
+                    //}
                 }
                 //Division GM Approval
                 else if (Session["status_approve"].ToString() == "Approved (Division Manager)")

@@ -186,6 +186,42 @@ namespace procurement_system
         protected global::System.Web.UI.WebControls.HiddenField hlbOK;
 
         /// <summary>
+        /// hfDetailRF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfDetailRF;
+
+        /// <summary>
+        /// hfAttachmentPath control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfAttachmentPath;
+
+        /// <summary>
+        /// hfFormData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfFormData;
+
+        /// <summary>
+        /// btnSubItemsatuan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubItemsatuan;
+
+        /// <summary>
         /// divListItemRF control.
         /// </summary>
         /// <remarks>
@@ -202,6 +238,15 @@ namespace procurement_system
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRFNumber;
+
+        /// <summary>
+        /// btnSubmitAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmitAll;
 
         /// <summary>
         /// TableDetailsRF control.
@@ -319,15 +364,6 @@ namespace procurement_system
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divItemPO;
-
-        /// <summary>
-        /// btnAddItem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddItem;
 
         /// <summary>
         /// TableItemPO control.

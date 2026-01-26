@@ -115,6 +115,28 @@
             border-width: 0 3px 3px 0;
             transform: rotate(45deg);
         }
+
+         .action-cell {
+             display: flex;
+             justify-content: center;   
+             align-items: center;       
+             height: 100%;
+         }
+
+                .dataTables_filter input {
+            border: 3px solid darkblue !important;
+            background-color: #f0f8ff !important;
+            padding: 6px 10px !important;
+            font-weight: bold !important;
+            height:20px;
+        }
+            
+        /* Tambahan efek saat fokus */
+        .dataTables_filter input:focus {
+            outline: none;
+            border-color: midnightblue !important; /* biru terang */
+            box-shadow: 0 0 5px rgba(0,123,255,0.5);
+        }
     </style>
 
 
@@ -237,17 +259,132 @@
                 allowOutsideClick: false
             });
         }
-    </script>
 
-    <script type="text/javascript">
-        function DeleteSuccess() {
-            swal('Delete Success!', 'Item successfully deleted', 'success');
+
+        function validateRow(btn) {
+            debugger
+
+            var ddlItem = document.getElementById('<%= ddlItem.ClientID %>');
+            var txtJumlahBeli = document.getElementById('<%= txtJumlahBeli.ClientID %>');
+            var txtRemaks = document.getElementById('<%= txtRemaks.ClientID %>');
+
+            var isValid = true;
+
+
+            [ddlItem, txtJumlahBeli, txtRemaks].forEach(function (input) {
+                if (input) input.style.border = "";
+            });
+
+            // Validasi dropdown Item
+            if (!ddlItem || ddlItem.value.trim() === "" || ddlItem.value === "00000000-0000-0000-0000-000000000000") {
+                $('#' + ddlItem.id).parent().find('.dropdown-toggle').css('border', '2px solid red');
+                isValid = false;
+            }
+
+            // Validasi Quantity
+            if (!txtJumlahBeli || txtJumlahBeli.value.trim() === "" || parseFloat(txtJumlahBeli.value) <= 0) {
+                txtJumlahBeli.style.border = "2px solid red";
+                isValid = false;
+            }
+
+            // Validasi Remarks
+            if (!txtRemaks || txtRemaks.value.trim() === "") {
+                txtRemaks.style.border = "2px solid red";
+                isValid = false;
+            }
+
+            //if (!isValid) {
+            //    swal('Validation Failed', 'Please fill all required fields: Item, Quantity, and Remarks.', 'error');
+            //}
+
+            return isValid;
         }
     </script>
 
     <script type="text/javascript">
+        //function DeleteSuccess() {
+        //   swal('Delete Success!', 'Item successfully deleted', 'success');
+
+        //}
+        function DeleteSuccess() {
+            var rf_no = document.getElementById('<%= lbRFNumberHeader.ClientID %>').innerText;
+                swal("Delete Success!", "Item successfully deleted", "success");
+                setTimeout(function () {
+                    window.location.href = 'detail_requisition_form.aspx?rf_no=' + encodeURIComponent(rf_no);
+                }, 2000);
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        //function AddItemsSuccess() {
+        //    swal('Save Success!', 'Item successfully Submited', 'success');
+        //    //swal({
+        //    //    title: 'Save Success!',
+        //    //    text: 'Item successfully Added',
+        //    //    icon: 'success'
+        //    //}).then(() => {
+        //    //    location.reload(); // atau window.location.href = 'somepage.aspx';
+        //    //});
+        //}
         function AddItemsSuccess() {
-            swal('Save Success!', 'Item successfully Submited', 'success');
+            var rf_no = document.getElementById('<%= lbRFNumberHeader.ClientID %>').innerText;
+            swal("Save Success!", "Item successfully Added", "success");
+            setTimeout(function () {
+                window.location.href = 'detail_requisition_form.aspx?rf_no=' + encodeURIComponent(rf_no);
+            }, 2000);
+        }
+    </script>
+     <script type="text/javascript">
+            //function UpdateItemsSuccess() {
+            //    swal('Update Success!', 'Item successfully Update', 'success');
+
+            //    //swal({
+            //    //    title: 'Update Success!',
+            //    //    text: 'Item successfully Updated',
+            //    //    icon: 'success'
+            //    //}).then(() => {
+            //    //    location.reload(); // atau window.location.href = 'somepage.aspx';
+            //    //});
+            // }
+         function UpdateItemsSuccess() {
+             var rf_no = document.getElementById('<%= lbRFNumberHeader.ClientID %>').innerText;
+             swal("Update Success!", "Item successfully updated", "success");
+             setTimeout(function () {
+                 window.location.href = 'detail_requisition_form.aspx?rf_no=' + encodeURIComponent(rf_no);
+             }, 2000);
+         }
+
+
+
+     </script>
+    <script type="text/javascript">
+        function confirmDelete(linkButton) {
+
+            var href = linkButton.getAttribute("href");
+            var match = href.match(/__doPostBack\('([^']+)'/);
+            if (match && match.length > 1) {
+                var postBackTarget = match[1];
+                console.log("PostBack Target:", postBackTarget);
+            }
+            swal({
+
+                title: 'Are you sure?',
+                text: "Do you want to remove selected record?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, remove it!',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#d33',
+                showCloseButton: true,
+
+            }, function (willDelete) {
+                if (willDelete) {
+                    __doPostBack(postBackTarget, '');
+                }
+            });
+
+            return false;
         }
     </script>
     <style>
@@ -275,7 +412,7 @@
         <ol class="breadcrumb">
             <li><a href="javascript:void(0)"><i class="fa-solid fa-cart-arrow-down"></i>&nbsp;Orders</a></li>
             <li class="active">&nbsp;&nbsp;<i class="fa fa-caret-right"></i></li>
-            <li><a href="javascript:void(0)">&nbsp;Requisition Form (RF)</a></li>
+            <li><a href="requisition_form.aspx">&nbsp;Requisition Form (RF)</a></li>
             <li class="active">&nbsp;&nbsp;<i class="fa fa-caret-right"></i></li>
             <li class="active">&nbsp;&nbsp;Detail Requisition Form (RF) - 
             <asp:Label runat="server" ID="lbRFNumberBreadcrumb"></asp:Label></li>
@@ -312,6 +449,9 @@
     <asp:HiddenField ID="lbEmailMGRNew" runat="server" />
     <asp:HiddenField ID="lbNikGMNew" runat="server" />
     <asp:HiddenField ID="lbEmailGMNew" runat="server" />
+    <asp:HiddenField ID="hlbNIKApprover" runat ="server" />
+    <asp:HiddenField ID="hlbiddet" runat="server" />
+    <asp:HiddenField ID="hlbsendpur" runat="server" />
 
     <div class="container-fluid">
         <div class="row">
@@ -481,7 +621,8 @@
                                             <div class='col-sm-12'>
                                                 <div class="table-responsive">
                                                     <asp:GridView ID="TableItemPurchase" runat="server" CssClass="table table-bordered table-striped verticle-middle" AutoGenerateColumns="False" Style="width: 100%"
-                                                        ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found" OnRowCommand="TableItemPurchase_RowCommand" OnRowDataBound="TableItemPurchase_RowDataBound" OnSelectedIndexChanged="TableItemPurchase_SelectedIndexChanged">
+                                                        ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found" OnRowCommand="TableItemPurchase_RowCommand" OnRowDataBound="TableItemPurchase_RowDataBound" OnSelectedIndexChanged="TableItemPurchase_SelectedIndexChanged"
+                                                        DataKeyNames="id">
                                                         <Columns>
                                                             <asp:TemplateField HeaderText="No.">
                                                                 <ItemTemplate>
@@ -498,7 +639,12 @@
                                                             <asp:BoundField DataField="remaks" HeaderText="Remarks" />
                                                             <asp:TemplateField HeaderText="Action">
                                                                 <ItemTemplate>
-                                                                    <asp:LinkButton runat="server" ID="btnRemove" CommandName="Hapus" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnRemove_Click" ToolTip="Remove"><i class="fa fa-trash"></i></asp:LinkButton>
+                                                                    <div Class="action-cell">
+                                                                     
+                                                                    <asp:LinkButton runat="server" ID="btnEdit" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn btn-sm btn-primary " OnClick="btnEdit_Click" ToolTip="Edit"><i class="fa fa-pencil"></i></asp:LinkButton>
+                                                                    <asp:LinkButton runat="server" ID="btnRemove" CommandName="Hapus" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn btn-sm btn-danger ml-2 <%--buttonColorGridview--%>" OnClick="btnRemove_Click" OnClientClick="return confirmDelete(this);" ToolTip="Remove"><i class="fa fa-trash"></i></asp:LinkButton>
+
+                                                                    </div>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                         </Columns>
@@ -506,9 +652,9 @@
                                                 </div>
                                             </div>
                                             <div class='col-sm-12' id="divCancelRF" runat="server">
-                                                <button type="button" onclick="<%=btnCancelRF.ClientID %>.click()" class="btn mb-1 buttonColor">
+                                                <button type="button" onclick="<%=btnCancelRF.ClientID %>.click()" class="btn btn-danger mb-1 <%--buttonColor--%>">
                                                     Cancel RF
-                                                <span class="btn-icon-right"><i class="fa-solid fa-remove"></i></span>
+                                                <span class="btn-icon-right"><i class="fa-solid  fa-remove"></i></span>
                                                 </button>
                                                 <asp:Button runat="server" Style="display: none;" ID="btnCancelRF" OnClick="btnCancelRF_Click" OnClientClick="ShowLoading()"></asp:Button>
                                             </div>
@@ -585,11 +731,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" onclick="<%=btnUpdate.ClientID %>.click()" class="btn mb-1 buttonColor">
+                    <button type="button" onclick="<%=btnUpdate.ClientID %>.click()" class="btn buttonColor">
                         Update
 			        <span class="btn-icon-right"><i class="fa fa-refresh"></i></span>
                     </button>
-                    <asp:Button runat="server" Style="display: none;" ID="btnUpdate" OnClick="btnUpdate_Click"></asp:Button>
+                    <asp:Button runat="server" Style="display: none;" ID="btnUpdate" OnClick="btnUpdate_Click" OnClientClick="return validateRow(this);"></asp:Button>
                     <button type="button" class="btn buttonColor" data-dismiss="modal">
                         Close
 			        <span class="btn-icon-right"><i class="fa fa-remove"></i></span>

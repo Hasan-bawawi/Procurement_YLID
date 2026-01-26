@@ -60,6 +60,28 @@
                 background-color: #06183d;
                 color: white;
             }
+
+            .action-cell {
+            display: flex;
+            justify-content: center;   
+            align-items: center;       
+            height: 100%;
+        }
+
+                   .dataTables_filter input {
+            border: 3px solid darkblue !important;
+            background-color: #f0f8ff !important;
+            padding: 6px 10px !important;
+            font-weight: bold !important;
+            height:20px;
+        }
+            
+        /* Tambahan efek saat fokus */
+        .dataTables_filter input:focus {
+            outline: none;
+            border-color: midnightblue !important; /* biru terang */
+            box-shadow: 0 0 5px rgba(0,123,255,0.5);
+        }
     </style>
     <script type="text/javascript">
         function ShowLoading() {
@@ -71,7 +93,158 @@
                 allowOutsideClick: false
             });
         }
+
+
+        function validchek(btn) {
+
+            debugger;
+            var isValid = true;
+
+            var dropdowns = document.querySelectorAll("select[id*='ddlVendor']");
+
+            dropdowns.forEach(function (dropdown) {
+
+
+                dropdown.style.border = "";
+                var btnVisual = dropdown.closest("td").querySelector(".bootstrap-select button");
+                if (btnVisual) btnVisual.style.border = "";
+
+                // cek valid
+                if (dropdown.value === "" || dropdown.value === "00000000-0000-0000-0000-000000000000") {
+                    dropdown.style.border = "3px solid red";
+                    isValid = false;
+
+                    var btnVisualEmp = dropdown.closest("td").querySelector(".bootstrap-select button");
+                    if (btnVisualEmp) btnVisualEmp.style.border = "3px solid red";
+                }
+            });
+
+            if (isValid) {
+                ShowLoading();
+            }
+
+            return isValid;
+        }
+
+
+
+        function validateRow(btn) {
+            debugger
+          
+                var ddlItem = document.getElementById('<%= ddlItem.ClientID %>');
+                var txtJumlahBeli = document.getElementById('<%= txtJumlahBeli.ClientID %>');
+                var txtRemaks = document.getElementById('<%= txtRemaks.ClientID %>');
+
+                var isValid = true;
+
+                
+                [ddlItem, txtJumlahBeli, txtRemaks].forEach(function (input) {
+                    if (input) input.style.border = "";
+                });
+
+                // Validasi dropdown Item
+                if (!ddlItem || ddlItem.value.trim() === "" || ddlItem.value === "00000000-0000-0000-0000-000000000000") {
+                    $('#' + ddlItem.id).parent().find('.dropdown-toggle').css('border', '2px solid red');
+                    isValid = false;
+                }
+
+                // Validasi Quantity
+                if (!txtJumlahBeli || txtJumlahBeli.value.trim() === "" || parseFloat(txtJumlahBeli.value) <= 0) {
+                    txtJumlahBeli.style.border = "2px solid red";
+                    isValid = false;
+                }
+
+                // Validasi Remarks
+                if (!txtRemaks || txtRemaks.value.trim() === "") {
+                    txtRemaks.style.border = "2px solid red";
+                    isValid = false;
+                }
+
+                //if (!isValid) {
+                //    swal('Validation Failed', 'Please fill all required fields: Item, Quantity, and Remarks.', 'error');
+                //}
+
+                return isValid;
+        }
+
     </script>
+ <script type="text/javascript">
+<%--function DeleteSuccess() {
+             /*swal('Delete Success!', 'Item successfully deleted', 'success');*/
+
+             swal({
+                 title: 'Delete Success!',
+                 text: 'Item successfully deleted',
+                 icon: 'success',
+                 timer: 2000,
+                 showConfirmButton: false
+             },
+                 function redirect() {
+                     var rf_no = document.getElementById('<%= lbRFNumberHeader.ClientID %>').innerText;
+                      window.location.href = 'input_price.aspx?rf_no=' + encodeURIComponent(rf_no);
+                  });
+
+         }--%>
+     function DeleteSuccess() {
+         var rf_no = document.getElementById('<%= lbRFNumberHeader.ClientID %>').innerText;
+         swal("Delete Success!", "Item successfully deleted", "success");
+         setTimeout(function () {
+             window.location.href = 'input_price.aspx?rf_no=' + encodeURIComponent(rf_no);
+         }, 2000);
+     }
+ </script>
+
+ <script type="text/javascript">
+     <%-- function AddItemsSuccess() {
+
+        /* swal('Save Success!', 'Item successfully Submited', 'success');*/
+         swal({
+             title: 'Save Success!',
+             text: 'Item successfully Added',
+             icon: 'success',
+             timer: 2000,
+             showConfirmButton: false
+         },
+             function redirect() {
+                 var rf_no = document.getElementById('<%= lbRFNumberHeader.ClientID %>').innerText;
+                   window.location.href = 'input_price.aspx?rf_no=' + encodeURIComponent(rf_no);
+         });
+
+     }--%>
+     function AddItemsSuccess() {
+         var rf_no = document.getElementById('<%= lbRFNumberHeader.ClientID %>').innerText;
+         swal("Save Success!", "Item successfully Added", "success");
+              setTimeout(function () {
+                  window.location.href = 'input_price.aspx?rf_no=' + encodeURIComponent(rf_no);
+              }, 2000);
+          }
+ </script>
+  <script type="text/javascript">
+<%--      function UpdateItemsSuccess() {
+          swal({
+              title: 'Update Success!',
+              text: 'Item successfully updated',
+              icon: 'success',
+              timer: 2000,
+              showConfirmButton: false
+          },
+              function redirect() {
+                  var rf_no = document.getElementById('<%= lbRFNumberHeader.ClientID %>').innerText;
+            window.location.href = 'input_price.aspx?rf_no=' + encodeURIComponent(rf_no);
+        });
+      }--%>
+
+      function UpdateItemsSuccess() {
+          var rf_no = document.getElementById('<%= lbRFNumberHeader.ClientID %>').innerText;
+          swal("Update Success!", "Item successfully updated", "success");
+          setTimeout(function () {
+              window.location.href = 'input_price.aspx?rf_no=' + encodeURIComponent(rf_no);
+          }, 2000);
+      }
+
+    
+
+  </script>
     <script type="text/javascript" src="vendors/date/JS/jquery-1.10.2.min.js"></script>
 
     <script src="plugins/tables/js/datatable/dataTables.fixedColumns.min.js"></script>
@@ -101,7 +274,7 @@
         }
     </script>
     <link href="vendors/sweetalert.css" rel="stylesheet" />
-    <script type="text/javascript">
+<%--    <script type="text/javascript">
         function FuncDelete() {
             swal({
                 title: 'Remove Success',
@@ -132,17 +305,35 @@
                 }
             );
         }
-    </script>
+    </script>--%>
     <script type="text/javascript">  
 
-        function DeleteConfirm() {
-            var Ans = confirm("Do you want to remove selected record?");
-            if (Ans) {
-                return true;
+        function confirmDelete(linkButton) {
+
+            var href = linkButton.getAttribute("href");
+            var match = href.match(/__doPostBack\('([^']+)'/);
+            if (match && match.length > 1) {
+                var postBackTarget = match[1];
+                console.log("PostBack Target:", postBackTarget);
             }
-            else {
-                return false;
-            }
+            swal({
+
+                title: 'Are you sure?',
+                text: "Do you want to remove selected record?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, remove it!',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#d33',
+                showCloseButton: true,
+
+            }, function (willDelete) {
+                if (willDelete) {
+                    __doPostBack(postBackTarget, '');
+                }
+            });
+
+            return false;
         }
     </script>
     <script type="text/javascript">
@@ -155,6 +346,16 @@
             swal('Send Failed!', 'Check Email!', 'error');
         }
     </script>
+    <script type="text/javascript">
+        function ErrorSubmit() {
+            swal('Submit Failed!', 'Grant total cannot be 0 ', 'error');
+        }
+    </script>
+        <script type="text/javascript">
+            function ErrorSubmit_() {
+                swal('Submit Failed!', 'Details cannot empty ', 'error');
+            }
+        </script>
     <style>
         .page-head {
             background-color: #06183d; /* Change this to your desired background color */
@@ -196,6 +397,10 @@
     <asp:HiddenField ID="hlbAdmGM" runat="server" />
     <asp:HiddenField ID="hlbEmailAdmGM" runat="server" />
     <asp:HiddenField ID="hlbEmailMgrApprover" runat="server" />
+    <asp:HiddenField ID="hlbiddet" runat="server" />
+    <asp:HiddenField ID="lbCatalogType" runat="server" />
+    <asp:HiddenField ID="hlbNIKApprover" runat="server" />
+
     <div hidden="hidden">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
@@ -266,10 +471,18 @@
                                     <legend class="scheduler-border"><i class="fa fa-pencil-square-o"></i><span class="nav-text">Request Details</span></legend>
                                     <div class="control-group">
                                         <div class="row">
+
+<%--                                           <div class='col-sm-12' id="divBtnAddCart" runat="server">
+                                                <button type="button" style="float: right;" onclick="<%=btnAddItem.ClientID %>.click()" class="btn mb-1 buttonColor">
+                                                    Add Item
+									                <span class="btn-icon-right"><i class="fa-solid fa-cart-plus"></i></span>
+                                                </button>
+                                                <asp:Button runat="server" Style="display: none;" ID="btnAddItem" OnClick="btnAddItem_Click"></asp:Button>
+                                            </div>--%>
                                             <div class='col-sm-12'>
                                                 <div class="table-responsive">
                                                     <asp:GridView ID="TableItemPurchase" runat="server" CssClass="table table-bordered table-striped verticle-middle" AutoGenerateColumns="False" Style="width: 100%"
-                                                        ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found" OnRowCommand="TableItemPurchase_RowCommand" OnRowDataBound="TableItemPurchase_RowDataBound" OnSelectedIndexChanged="TableItemPurchase_SelectedIndexChanged">
+                                                        ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found" OnRowCommand="TableItemPurchase_RowCommand" OnRowDataBound="TableItemPurchase_RowDataBound" OnSelectedIndexChanged="TableItemPurchase_SelectedIndexChanged" DataKeyNames="id">
                                                         <HeaderStyle BackColor="#06183d" ForeColor="White" HorizontalAlign="Center" />
                                                         <Columns>
                                                             <asp:TemplateField HeaderText="No.">
@@ -277,6 +490,15 @@
                                                                     <%# Container.DataItemIndex + 1 %>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
+
+<%--                                                           <asp:TemplateField HeaderText ="Action">
+                                                           <ItemTemplate>
+                                                               <div Class="action-cell">
+                                                                 <asp:LinkButton runat="server" ID="btnEdit" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn btn-sm btn-primary ml-2" OnClick="btnEdit_Click" ToolTip="Edit"><i class="fa fa-pencil"></i></asp:LinkButton>
+                                                                 <asp:LinkButton runat="server" ID="btnRemove" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn btn-sm btn-danger ml-2" OnClick="btnRemove_Click" OnClientClick="return confirmDelete(this);" ToolTip="Remove"><i class="fa fa-trash"></i></asp:LinkButton>
+                                                               </div>
+                                                           </ItemTemplate>
+                                                            </asp:TemplateField>--%>
                                                             <asp:BoundField DataField="id" HeaderText="id" />
                                                             <asp:BoundField DataField="stok_code" HeaderText="Code Stock" />
                                                             <asp:BoundField DataField="item_code" HeaderText="Code Item" />
@@ -285,9 +507,38 @@
                                                             <%--<asp:BoundField DataField="description" HeaderText="Description" />--%>
                                                             <asp:BoundField DataField="quantity" HeaderText="Quantity" />
                                                             <asp:BoundField DataField="remaks" HeaderText="Remarks" />
+<%--                                                            <asp:TemplateField HeaderText="@ Price Input">
+                                                                <ItemTemplate>
+                                                                    <input type="text" class="input-group-text" runat="server" value='<%# string.Format("{0:#,#}", Convert.ToDecimal(Eval("price"))) %>' name="txtPrice" id="txtPrice" data-qty='<%# Eval("quantity") %>' data-type="currency" placeholder="enter price per @" />
+                                                                </ItemTemplate>
+                                                            </asp:TemplateField>--%>
+                                                             <asp:TemplateField HeaderText="Vendor">
+                                                                <ItemTemplate>
+                                                                    <asp:DropDownList class="input-group-text" ID="ddlVendor" data-width="80%" data-show-subtext="true" data-live-search="true" AppendDataBoundItems="true" AutoPostBack="false" runat="server" OnSelectedIndexChanged="ddlVendor_SelectedIndexChanged">
+                                                                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                                                                    </asp:DropDownList>
+                                                                </ItemTemplate>
+                                                             </asp:TemplateField>
+                                                             <asp:TemplateField HeaderText="@ Previous Price Input">
+                                                                <ItemTemplate>
+                                                                    <input type="text" 
+                                                                           name="txtPrevPrice" id="txtPrevPrice"
+                                                                           class="input-priceprev form-control"
+                                                                           runat="server"
+                                                                           value=""
+                                                                           data-quantity='<%# Eval("quantity") %>' 
+                                                                           placeholder="enter price per @" />
+                                                                </ItemTemplate>
+                                                            </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="@ Price Input">
                                                                 <ItemTemplate>
-                                                                    <input type="text" class="input-group-text" runat="server" value='<%# string.Format("{0:#,#}", Convert.ToDecimal(Eval("price"))) %>' name="txtPrice" id="txtPrice" data-type="currency" placeholder="enter price per @" />
+                                                                    <input type="text" 
+                                                                           name="txtPrice" id="txtPrice"
+                                                                           class="input-price form-control"
+                                                                           runat="server"
+                                                                           value=""
+                                                                           data-quantity='<%# Eval("quantity") %>' 
+                                                                           placeholder="enter price per @" />
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
 
@@ -306,31 +557,37 @@
                                         <div class="input-group-append">
                                             <span class="input-group-text">Grand Total (IDR)&nbsp;&nbsp;&nbsp;</span>
                                         </div>
-                                        <input runat="server" id="txtGrandTotal" data-validate-length-range="5,15" type="text" class="form-control" placeholder="0" disabled>
+                                        <input runat="server" id="txtGrandTotal" data-validate-length-range="5,15" type="text" class="form-control" placeholder="0" value="0" readonly>
+                                        <button type="button" class="btn btn-sm btn-danger ml-2" onclick="clearEstimasi();"> Clear <i class="fa-solid  fa-refresh"></i></button>
                                     </div>
                                 </div>
                             </div>
                             <div class='col-sm-8'></div>
-                            <div class='col-sm-4' id="divClearPrice" runat="server" visible="false">
-                                <button type="button" style="float: right;" onclick="<%=btnClearPrice.ClientID %>.click()" class="btn mb-1 buttonColor">
+                           <%-- <div class='col-sm-4' id="divClearPrice" runat="server" visible="true">--%>
+<%--                                <button type="button" style="float: right;" class="btn btn-danger mb-1">
                                     Clear Price
                                 <span class="btn-icon-right"><i class="fa fa-close"></i></span>
-                                </button>
-                                <asp:Button runat="server" Style="display: none;" ID="btnClearPrice" OnClick="btnClearPrice_Click"></asp:Button>
-                            </div>
-                            <div class='col-sm-4' id="divCheck" runat="server">
+                                </button>--%>
+                                <%--<asp:Button runat="server" Style="display: none;" ID="btnClearPrice" OnClick="btnClearPrice_Click"></asp:Button>--%>
+                                <%--onclick="<%=btnClearPrice.ClientID %>.click()" --%>
+                                <%--<asp:Button ID="btnClearEstimasi" runat="server" Text="Clear Estimasi" CssClass="btn btn-danger" OnClientClick="clearEstimasi(); return false;" />--%>
+
+                            <%--</div>--%>
+<%--                            <div class='col-sm-4' id="divCheck" runat="server">
                                 <button type="button" style="float: right;" onclick="<%=btnCheck.ClientID %>.click()" class="btn mb-1 buttonColor">
                                     Price Calculate
                                 <span class="btn-icon-right"><i class="fa fa-calculator"></i></span>
                                 </button>
                                 <asp:Button runat="server" Style="display: none;" ID="btnCheck" OnClick="btnCheck_Click"></asp:Button>
-                            </div>
-                            <div class='col-sm-12' id="divSubmit" runat="server" visible="false">
+                            </div>--%>
+                            <div class='col-sm-12' id="divSubmit" runat="server" visible="true">
                                 <button type="button" style="float: right;" onclick="<%=btnSubmit.ClientID %>.click()" class="btn mb-1 buttonColor">
                                     Submit
                                 <span class="btn-icon-right"><i class="fa fa-save"></i></span>
                                 </button>
-                                <asp:Button runat="server" Style="display: none;" ID="btnSubmit" OnClick="btnSubmit_Click" OnClientClick="ShowLoading()"></asp:Button>
+                               
+<%--                                OnClick="btnSubmit_Click" OnClientClick="ShowLoading()"--%>
+                                <asp:Button runat="server" Style="display: none;" ID="btnSubmit" OnClick="btnSubmit_Click" OnClientClick="return validchek(this)" ></asp:Button>
                             </div>
 
                         </div>
@@ -340,45 +597,124 @@
         </div>
     </div>
 
+
+     <div class="modal fade bs-example-modal-lg" id="mdlListItems" tabindex="-1" role="dialog" aria-hidden="true">
+     <div class="modal-dialog modal-dialog-centered">
+         <div class="modal-content">
+
+             <div class="modal-header">
+                 <h4 class="modal-title" id="myModalLabel12">List of Goods Catalog</h4>
+                 <button type="button" class="close" data-dismiss="modal">
+                     <span aria-hidden="true">×</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+                 <div class="x_content">
+                     <div class="row">
+                         <div class='col-sm-12'>
+                             Items
+		            <div class="form-group">
+                                 <div class='input-group'>
+                                     <asp:DropDownList ID="ddlItem" class="selectpicker form-control" data-show-subtext="true" data-live-search="true" AppendDataBoundItems="true" AutoPostBack="true"
+                                         runat="server" OnSelectedIndexChanged="ddlItem_SelectedIndexChanged">
+                                         <asp:ListItem Text="" Value=""></asp:ListItem>
+                                     </asp:DropDownList>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class='col-sm-12'>
+                             Qty
+		            <div class="form-group">
+                                 <div class='input-group'>
+                                     <input runat="server" id="txtJumlahBeli" data-validate-length-range="5,15" type="number" class="form-control" placeholder="Quantity" onkeypress="return isNumberKey(event)">
+                                 </div>
+                             </div>
+                         </div>
+                         <div class='col-sm-12'>
+                             Remarks
+		            <div class="form-group">
+                                 <div class='input-group'>
+                                     <textarea class="form-control h-150px" rows="2" id="txtRemaks" runat="server"></textarea>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" onclick="<%=btnUpdate.ClientID %>.click()" class="btn buttonColor">
+                     Update
+                  <span class="btn-icon-right"><i class="fa fa-refresh"></i></span>
+                 </button>
+                 <asp:Button runat="server" Style="display: none;" ID="btnUpdate" OnClick="btnUpdate_Click" OnClientClick="return validateRow(this);"></asp:Button>
+                 <button type="button" class="btn buttonColor" data-dismiss="modal">
+                     Close
+                  <span class="btn-icon-right"><i class="fa fa-remove"></i></span>
+                 </button>
+             </div>
+         </div>
+     </div>
+ </div>
+
     <script type="text/javascript">
-        $("input[data-type='currency']").on({
-            keyup: function () {
+
+        $(document).ready(function () {
+
+            $(document).on("keyup blur", ".input-priceprev", function () {
                 formatCurrency($(this));
-            },
-            blur: function () {
-                formatCurrency($(this), "blur");
+            });
+
+
+            $(document).on("keyup blur", ".input-price", function () {
+                formatCurrency($(this)); 
+                calculateGrandTotal();
+            });
+
+            function calculateGrandTotal() {
+                var grandTotal = 0;
+
+                $(".input-price").each(function () {
+                    var priceText = $(this).val().replace(/,/g, "");
+                    var price = parseFloat(priceText) || 0;
+                    var qty = parseFloat($(this).data("quantity")) || 0;
+
+                    grandTotal += (price * qty);
+                });
+
+                $("#<%= txtGrandTotal.ClientID %>").val(grandTotal.toLocaleString('en-US'));
+
             }
+
         });
 
 
+        function clearEstimasi() {
+            $(".input-price").each(function () {
+                $(this).val("");
+            });
+
+            $("#<%= txtGrandTotal.ClientID %>").val("0");
+        }
+
+      
         function formatNumber(n) {
-            // format number 1000000 to 1,234,567
             return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         }
 
 
         function formatCurrency(input, blur) {
-            // appends $ to value, validates decimal side
-            // and puts cursor back in right position.
 
-            // get input value
             var input_val = input.val();
 
-            // don't validate empty input
             if (input_val === "") { return; }
 
-            // original length
             var original_len = input_val.length;
 
-            // initial caret position 
             var caret_pos = input.prop("selectionStart");
 
-            // check for decimal
             if (input_val.indexOf(".") >= 0) {
 
-                // get position of first decimal
-                // this prevents multiple decimals from
-                // being entered
+            
                 var decimal_pos = input_val.indexOf(".");
 
                 // split number by decimal point
@@ -403,9 +739,7 @@
                 input_val = "" + left_side + "." + right_side;
 
             } else {
-                // no decimal entered
-                // add commas to number
-                // remove all non-digits
+              
                 input_val = formatNumber(input_val);
                 input_val = "" + input_val;
 

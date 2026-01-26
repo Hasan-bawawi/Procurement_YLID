@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
@@ -9389,6 +9390,7 @@ namespace procurement_system
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+
             foreach (GridViewRow grow in TableDetailsRF.Rows)
             {
                 DropDownList dlList = (DropDownList)grow.FindControl("ddlVendor");
@@ -9401,7 +9403,35 @@ namespace procurement_system
             }
             string id = Request.QueryString["rf_no"];
             Response.Redirect("create_purchase_order_standart.aspx?rf_no=" + id);
+
         }
+
+
+        //baru 
+        //protected void btnGenerate_Click(object sender, EventArgs e)
+        //{
+
+        //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //    SqlConnection Con = new SqlConnection(path);
+        //    Con.Open();
+        //    SqlCommand sqlcomm = new SqlCommand();
+        //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+        //    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //    sqlcomm.Connection = Con;
+        //    sqlcomm.Parameters.AddWithValue("@StatementType", "GenerateRFtoPO");
+        //    sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberHeader.Text);
+           
+        //    sqlcomm.ExecuteNonQuery();
+
+        //    sqlcomm.Dispose();
+        //    Con.Close();
+        //    Con.Dispose();
+
+        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+
+        //}
+
+
 
         protected void ddlVendor_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -60,6 +60,21 @@
                 background-color: #06183d;
                 color: white;
             }
+
+                   .dataTables_filter input {
+            border: 3px solid darkblue !important;
+            background-color: #f0f8ff !important;
+            padding: 6px 10px !important;
+            font-weight: bold !important;
+            height:20px;
+        }
+            
+        /* Tambahan efek saat fokus */
+        .dataTables_filter input:focus {
+            outline: none;
+            border-color: midnightblue !important; /* biru terang */
+            box-shadow: 0 0 5px rgba(0,123,255,0.5);
+        }
     </style>
     <link href="vendors/sweetalert.css" rel="stylesheet" />
     <script type="text/javascript">
@@ -93,12 +108,37 @@
                 }
             );
         }
+
     </script>
+    
+    <script type="text/javascript">
+
+        function Errorresp(msg) {
+            swal({
+                title: 'Failed',
+                text: msg,
+                timer: '2000',
+                type: 'error',
+                showConfirmButton: false,
+                html: true,
+
+            });
+
+            //},
+            //    function redirect() {
+            //        window.location.href = 'create_requisition_form.aspx';
+            //    }
+            //);
+        }
+    </script>
+    
+
     <script type="text/javascript">
         function SelectCategory() {
             swal('Save Failed!', 'Please select category name!', 'error');
         }
     </script>
+    
     <script type="text/javascript">
         function ShowLoading() {
             swal({
@@ -269,7 +309,7 @@
                                                             <asp:ListItem Enabled="true" Text="Select Catalog Type" Value="-1"></asp:ListItem>
                                                             <asp:ListItem Text="GA" Value="1"></asp:ListItem>
                                                             <asp:ListItem Text="IT" Value="2"></asp:ListItem>
-                                                            <asp:ListItem Text="OPS" Value="3"></asp:ListItem>
+                                                           <%-- <asp:ListItem Text="OPS" Value="3"></asp:ListItem>--%>
                                                         </asp:DropDownList>
                                                     </div>
                                                 </div>

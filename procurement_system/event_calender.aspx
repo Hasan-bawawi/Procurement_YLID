@@ -49,9 +49,22 @@
             $(".datepicker1").datepicker({ format: 'mm/yyyy', viewMode: "months", minViewMode: "months", autoclose: true, todayBtn: 'linked' })
         });
     </script>
-    <script>
+<%--    <script>
         $(document).ready(function () {
             $(".datepicker2").datepicker({ format: 'mm/dd/yyyy', autoclose: true, todayBtn: 'linked' })
+        });
+    </script>--%>
+    <script>
+        function initDatePicker() {
+            $('.datepicker2').datepicker('destroy').datepicker({
+                format: 'mm/dd/yyyy',
+                autoclose: true,
+                todayBtn: 'linked'
+            });
+        }
+
+        $('#mdlAddEvent').on('shown.bs.modal', function () {
+            initDatePicker();
         });
     </script>
 
@@ -112,6 +125,20 @@
                 background-color: #06183d;
                 color: white;
             }
+               .dataTables_filter input {
+       border: 3px solid darkblue !important;
+       background-color: #f0f8ff !important;
+       padding: 6px 10px !important;
+       font-weight: bold !important;
+       height:20px;
+   }
+       
+   /* Tambahan efek saat fokus */
+   .dataTables_filter input:focus {
+       outline: none;
+       border-color: midnightblue !important; /* biru terang */
+       box-shadow: 0 0 5px rgba(0,123,255,0.5);
+   }
     </style>
     <script type="text/javascript">
         function ShowLoading() {
@@ -145,7 +172,7 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="card custom-card-body">
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row">                                   
                             <div class='col-sm-12'>
                                 <fieldset class="scheduler-border">
                                     <legend class="scheduler-border">Create New & Filter Event</legend>
@@ -160,11 +187,16 @@
                                                     </button>
                                                     <asp:Button runat="server" Style="display: none;" ID="btnCheck" OnClick="btnCheck_Click"></asp:Button>
                                                 </div>
-                                                <button type="button" onclick="<%=btnAddNew.ClientID %>.click()" class="btn buttonColor">
+                                                <button type="button" onclick="<%=btnAddNew.ClientID %>.click()" class="btn buttonColor ml-2">
                                                     Add
                                                         <span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                                                 </button>
                                                 <asp:Button runat="server" Style="display: none;" ID="btnAddNew" OnClick="btnAddNew_Click"></asp:Button>
+                                              <button type="button" class="btn buttonColor ml-2" onclick="handelsync()">
+                                                  Sync
+							                    <span class="btn-icon-right"><i class="fas fa-sync"></i></span>
+                                               </button>
+                                               <asp:Button runat="server" Style="display: none;" ID="btnsync" OnClick="btnsync_Click"></asp:Button>                                              
                                             </div>
                                         </div>
                                     </div>
@@ -273,4 +305,18 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+
+        async function handelsync() {
+
+            
+            ShowLoading();
+            __doPostBack('<%= btnsync.UniqueID %>', '');
+
+        }
+
+    </script>
+
+
 </asp:Content>

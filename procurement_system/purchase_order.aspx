@@ -37,6 +37,25 @@
                 background-color: #06183d;
                 color: white;
             }
+
+            .modal-xxl {
+                max-width: 50% !important;
+            }
+
+       .dataTables_filter input {
+            border: 3px solid darkblue !important;
+            background-color: #f0f8ff !important;
+            padding: 6px 10px !important;
+            font-weight: bold !important;
+            height:20px;
+        }
+            
+        /* Tambahan efek saat fokus */
+        .dataTables_filter input:focus {
+            outline: none;
+            border-color: midnightblue !important; /* biru terang */
+            box-shadow: 0 0 5px rgba(0,123,255,0.5);
+        }
     </style>
     <script type="text/javascript" src="vendors/date/JS/jquery-1.10.2.min.js"></script>
     <script src="plugins/tables/js/datatable/dataTables.fixedColumns.min.js"></script>
@@ -50,21 +69,6 @@
     <script>
         $(document).ready(function () {
             $(".datepicker1").bootstrapMaterialDatePicker({ format: 'MM/DD/YYYY', time: false, clearButton: true, autoclose: true, nowButton: true, nowText: 'Today', okText: 'Submit' })
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".grid").DataTable(
-                {
-                    scrollY: "400px",
-                    scrollX: true,
-                    scrollCollapse: true,
-                    paging: true
-                    //fixedColumns: {
-                    //	left: 2
-                    //}
-
-                });
         });
     </script>
     <script type="text/javascript">
@@ -104,6 +108,64 @@
             swal('Submit Failed!', 'Please select item first', 'error');
         }
     </script>
+    <script>
+        $(document).ready(function () {
+            // Inisialisasi DataTable untuk GridView ASP.NET
+            $('#<%= TableRFNumber.ClientID %>').DataTable({
+            paging: true,
+            searching: true,
+            info: true,
+            responsive: true
+        });
+        });
+    </script>
+
+<script>
+    function initModalDT() {
+        var table = $('#<%= TablePODetail.ClientID %>');
+
+
+         if ($.fn.DataTable.isDataTable(table)) {
+             table.DataTable().destroy();
+         }
+
+         table.DataTable({
+             scrollY: "400px",
+             scrollX: true,
+             scrollCollapse: true,
+             paging: true
+         });
+
+
+         console.log("Modal DataTable initialized");
+     }
+
+    $('#mdlViewDetail').on('shown.bs.modal', function () {
+        initModalDT();
+    });
+</script>
+<script>
+  
+    function initMainDT() {
+        var table = $('#<%= TablePurchaseOrder.ClientID %>');
+
+        if ($.fn.DataTable.isDataTable(table)) {
+            table.DataTable().destroy();
+        }
+
+        table.DataTable({
+            scrollY: "400px",
+            scrollX: true,
+            scrollCollapse: true,
+            paging: true
+        });
+
+        console.log("Main DataTable initialized");
+    }
+
+
+</script>
+
     <style>
         .page-head {
             background-color: #06183d; /* Change this to your desired background color */
@@ -259,7 +321,7 @@
                                         <div class="row">
                                             <div class='col-sm-12'>
                                                 <div class="btn-group" role="group">
-                                                    <button type="button" class="btn mb-1 buttonColor dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">PO Create</button>
+                                                   <button type="button" class="btn mb-1 buttonColor dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">PO Create</button>
                                                     <div class="dropdown-menu">
                                                         <asp:LinkButton class="dropdown-item" runat="server" OnClick="btnNewPOStandart_Click">PO Standart</asp:LinkButton>
                                                         <asp:LinkButton class="dropdown-item" runat="server" OnClick="btnNewPOManual_Click">PO Manual</asp:LinkButton>
@@ -329,16 +391,16 @@
                                     <legend class="scheduler-border">List of Purchase Order (PO)</legend>
                                     <div class="control-group">
                                         <div class="row">
-                                            <div class='col-sm-12' id="divBtnGenerateExcell" runat="server" visible="false">
+<%--                                            <div class='col-sm-12' id="divBtnGenerateExcell" runat="server" visible="false">
                                                 <button type="button" style="float: right;" class="btn buttonColor" onclick="<%=btnGenerateExcell.ClientID %>.click()">
                                                     Generate Excell <span class="btn-icon-right"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span>
                                                 </button>
                                                 <asp:Button runat="server" Style="display: none;" ID="btnGenerateExcell" OnClick="btnGenerateExcell_Click"></asp:Button>
-                                            </div>
+                                            </div>--%>
                                             <div class='col-sm-12'>
                                                 <br />
                                                 <div class="table-responsive">
-                                                    <asp:GridView ID="TablePurchaseOrder" runat="server" CssClass="table table-striped row-border order-column table-bordered zero-configuration text-nowrap grid" AutoGenerateColumns="False" Style="width: 100%"
+                                                    <asp:GridView ID="TablePurchaseOrder" runat="server" CssClass="table table-striped table-bordered text-nowrap grid-main" AutoGenerateColumns="False" Style="width: 100%"
                                                         ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found" OnRowCommand="TablePurchaseOrder_RowCommand" OnRowDataBound="TablePurchaseOrder_RowDataBound" OnSelectedIndexChanged="TablePurchaseOrder_SelectedIndexChanged">
                                                         <HeaderStyle BackColor="#06183d" ForeColor="White" />
                                                         <Columns>
@@ -394,39 +456,41 @@
 	Modal Select RF Number
     ***********************************-->
     <div class="modal fade bs-example-modal-lg" id="mdlSelectRFNumber" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-xxl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel1">Find RF Number</h4>
+                    <h4 class="modal-title" id="myModalLabel1">List RF Number</h4>
+                    <button type="button" onclick="<%=btnCloseModal.ClientID %>.click()" class="close"><span>×</span></button>
+                     <asp:Button runat="server" Style="display: none;" ID="btnCloseModal" OnClick="btnCloseModal_Click"></asp:Button>
                 </div>
                 <div class="modal-body">
                     <div class="x_content">
                         <div class="row">
-                            <div class='col-sm-12'>
-                                &nbsp;
-						<div class="input-group">
-                            <input id="txtRFNumber" runat="server" data-validate-length-range="5,15" type="text" class="form-control input-rounded" placeholder="Enter RF Number">
-                            <div class="input-group-append">
+                            <%--<div class='col-sm-12'>
+                                &nbsp;--%>
+						<%--<div class="input-group">--%>
+                           <%-- <input id="txtRFNumber" runat="server" data-validate-length-range="5,15" type="text" class="form-control input-rounded" placeholder="Enter RF Number">--%>
+<%--                            <div class="input-group-append">
                                 <button type="button" class="btn buttonColor" onclick="<%=btnSearchRFNumber.ClientID %>.click()">
                                     <i class="fa fa-search"></i>
                                 </button>
                                 <asp:Button runat="server" Style="display: none;" ID="btnSearchRFNumber" OnClick="btnSearchRFNumber_Click"></asp:Button>
-                            </div>
-                        </div>
-                            </div>
-                            <div class='col-sm-12'>
+                            </div>--%>
+                      <%--  </div>--%>
+                            <%--</div>--%>
+<%--                            <div class='col-sm-12'>
                                 <br />
-                            </div>
+                            </div>--%>
                             <div class='col-sm-12'>
                                 <fieldset class="scheduler-border">
                                     <legend class="scheduler-border">Select RF Number</legend>
-                                    <div style="margin-left: 10px; height: 150px; overflow: auto;">
+                                   <div style="margin-left: 10px; max-height: 70vh; overflow-y: auto;">
                                         <div class="table-responsive">
                                             <asp:GridView ID="TableRFNumber" runat="server" CssClass="table table-striped row-border order-column table-bordered nowrap" AutoGenerateColumns="False" Style="width: 100%"
                                                 ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found">
                                                 <HeaderStyle BackColor="#06183d" ForeColor="White" />
                                                 <Columns>
-                                                    <asp:HyperLinkField DataTextField="rf_no" DataNavigateUrlFields="rf_no" DataNavigateUrlFormatString="~/input_vendor.aspx?rf_no={0}"
+                                                    <asp:HyperLinkField DataTextField="rf_no" DataNavigateUrlFields="rf_no" DataNavigateUrlFormatString="~/create_purchase_order_standart.aspx?rf_no={0}"
                                                         HeaderText="RF Number" ItemStyle-Width="150" />
                                                 </Columns>
                                             </asp:GridView>
@@ -437,13 +501,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+<%--                <div class="modal-footer">
                     <button type="button" onclick="<%=btnCloseModal.ClientID %>.click()" class="btn mb-1 buttonColor">
                         Close <span class="btn-icon-right">
                             <i class="fa fa-close"></i></span>
                     </button>
                     <asp:Button runat="server" Style="display: none;" ID="btnCloseModal" OnClick="btnCloseModal_Click"></asp:Button>
-                </div>
+                </div>--%>
             </div>
         </div>
     </div>
@@ -470,7 +534,7 @@ Modal View Detail
                                         <div class='col-sm-12' id="divTablePODetail" runat="server">
                                             <br />
                                             <div class="table-responsive">
-                                                <asp:GridView ID="TablePODetail" runat="server" CssClass="table table-striped row-border order-column table-bordered zero-configuration text-nowrap grid" AutoGenerateColumns="False" Style="width: 100%"
+                                                <asp:GridView ID="TablePODetail" runat="server" CssClass="table table-striped table-bordered text-nowrap grid-modal" AutoGenerateColumns="False" Style="width: 100%"
                                                     ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found">
                                                     <HeaderStyle BackColor="#06183d" ForeColor="White" />
                                                     <Columns>

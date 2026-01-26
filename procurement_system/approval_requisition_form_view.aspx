@@ -115,6 +115,21 @@
             border-width: 0 3px 3px 0;
             transform: rotate(45deg);
         }
+
+               .dataTables_filter input {
+            border: 3px solid darkblue !important;
+            background-color: #f0f8ff !important;
+            padding: 6px 10px !important;
+            font-weight: bold !important;
+            height:20px;
+        }
+            
+        /* Tambahan efek saat fokus */
+        .dataTables_filter input:focus {
+            outline: none;
+            border-color: midnightblue !important; /* biru terang */
+            box-shadow: 0 0 5px rgba(0,123,255,0.5);
+        }
     </style>
 
 
@@ -525,7 +540,7 @@
                             <div class='col-sm-12'>
                                 <button type="button" style="float: right;" onclick="<%=btnSubmit.ClientID %>.click()" class="btn mb-1 buttonColor">
                                     Submit
-                                                <span class="btn-icon-right"><i class="fa fa-save"></i></span>
+                                <span class="btn-icon-right"><i class="fa fa-save"></i></span>
                                 </button>
                                 <asp:Button runat="server" Style="display: none;" ID="btnSubmit" OnClick="btnSubmit_Click" OnClientClick="ShowLoading()"></asp:Button>
                             </div>

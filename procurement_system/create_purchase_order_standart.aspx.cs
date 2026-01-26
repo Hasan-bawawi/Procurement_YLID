@@ -1,26 +1,29 @@
-﻿using Microsoft.Reporting.WebForms;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.Graph.Models.ExternalConnectors;
+using Microsoft.Identity.Client;
+using Microsoft.Reporting.WebForms;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Mail;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Newtonsoft.Json;
-using Microsoft.Identity.Client;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Text;
-using System.Drawing;
 using ZXing;
 
 namespace procurement_system
@@ -47,9 +50,12 @@ namespace procurement_system
                 lblRFNumber.Text = id;
                 if (!IsPostBack)
                 {
-                    GridTemporary();
+                    //GridTemporary();
                     //GetSection();
+                    BindDetailitemRF();
                     BindDataTableItemRF();
+                    
+
                 }
             }
             else
@@ -68,7 +74,7 @@ namespace procurement_system
             sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewDetailRF");
+            sqlcomm.Parameters.AddWithValue("@StatementType", /*"ViewDetailRF"*/ "ViewDetailRFNew");
             sqlcomm.Parameters.AddWithValue("@rf_no", id);
             DataTable dtb = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -78,19 +84,355 @@ namespace procurement_system
             TableDetailsRF.DataSource = dtb;
             TableDetailsRF.DataBind();
 
-            TableDetailsRF.Columns[8].Visible = false;
-            TableDetailsRF.Columns[10].Visible = false;
-            TableDetailsRF.Columns[11].Visible = false;
-            TableDetailsRF.Columns[12].Visible = false;
-            TableDetailsRF.Columns[13].Visible = false;
-            TableDetailsRF.Columns[14].Visible = false;
-            TableDetailsRF.Columns[15].Visible = false;
-
+            //TableDetailsRF.Columns[8].Visible = false;
+            //TableDetailsRF.Columns[10].Visible = false;
+            //TableDetailsRF.Columns[11].Visible = false;
+            //TableDetailsRF.Columns[12].Visible = false;
+            //TableDetailsRF.Columns[13].Visible = false;
+            //TableDetailsRF.Columns[14].Visible = false;
+            //TableDetailsRF.Columns[15].Visible = false;
+            hlbCatalog.Value = TableDetailsRF.Rows[0].Cells[3].Text;
+            txtOIDReqDept.Value = TableDetailsRF.DataKeys[0]["IDDivisionRequester"].ToString();
+            txtReqBy.Value = TableDetailsRF.Rows[0].Cells[4].Text.ToString();
             TableDetailsRF.UseAccessibleHeader = true;
             TableDetailsRF.HeaderRow.TableSection = TableRowSection.TableHeader;
 
             Con.Close();
         }
+
+        protected void BindDetailitemRF()
+        {
+            string id = Request.QueryString["rf_no"];
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            using (SqlConnection Con = new SqlConnection(path))
+            {
+                SqlCommand sqlcomm = new SqlCommand("sp_PROCUREMENT_DB_Purchase", Con);
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "DetailitemRF");
+                sqlcomm.Parameters.AddWithValue("@rf_no", id);
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable dtb = new DataTable();
+                sda.Fill(dtb);
+
+                //ViewState["myViewState"] = dtb;
+                //TableDetailsRF.DataSource = dtb;
+                //TableDetailsRF.DataBind();
+
+                // Convert ke JSON
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(dtb);
+                hfDetailRF.Value = json;
+            }
+        }
+
+        protected async void btnSubItemsatuan_Click(object sender, EventArgs e)
+        {
+            string jsonData = hfFormData.Value;
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var formData = serializer.Deserialize<Dictionary<string, string>>(jsonData);
+            
+            
+            int rowIndex = Convert.ToInt32(formData["RowIndex"]);
+            string Catalog = TableDetailsRF.Rows[rowIndex].Cells[3].Text.ToString();
+            //string remark = /*TableDetailsRF.DataKeys[rowIndex]["Remark"].ToString();*/ formData["remarks"];
+            string iddivision = TableDetailsRF.DataKeys[rowIndex]["IDDivisionRequester"].ToString();
+            string deliveryTo = formData["DeliveryTo"];
+            string deliveryDate = formData["DeliveryDate"];
+            string vat = formData["Vat"];
+            string assetType = formData["AssetType"];
+            string paymentTerm = formData["PaymentTerm"];
+            string otherCondition = formData["OtherCondition"];
+            string id_vendor = formData["IDVendor"];
+            string deliveryselect = formData["Deliveryselect"].Trim();
+            hfAttachmentPath.Value = formData["FilePath"];
+
+            //return;
+
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            using (SqlConnection Con = new SqlConnection(path))
+            {
+                Con.Open();
+                SqlTransaction transaction = Con.BeginTransaction();
+
+                try
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    sqlcomm.Connection = Con;
+                    sqlcomm.Transaction = transaction;
+
+                    sqlcomm.Parameters.AddWithValue("@StatementType", "SavesatuanPO");
+                    sqlcomm.Parameters.AddWithValue("@delivery_to", deliveryTo);
+                    sqlcomm.Parameters.AddWithValue("@delivery_date", deliveryDate);
+                    sqlcomm.Parameters.AddWithValue("@vat", vat);
+                    sqlcomm.Parameters.AddWithValue("@aset_status", assetType);
+                    sqlcomm.Parameters.AddWithValue("@payment_term", paymentTerm);
+                    sqlcomm.Parameters.AddWithValue("@other_condition", otherCondition);
+                    //sqlcomm.Parameters.AddWithValue("@remarks", remark);
+                    sqlcomm.Parameters.AddWithValue("@rf_no", lblRFNumber.Text);
+                    sqlcomm.Parameters.AddWithValue("@id_vendor", id_vendor);
+                    sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                    sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                    sqlcomm.Parameters.AddWithValue("@catalog_type", Catalog);
+                    sqlcomm.Parameters.AddWithValue("@status", "PO Created");
+                    sqlcomm.Parameters.AddWithValue("@deliveryselect", deliveryselect);
+                    //sqlcomm.Parameters.AddWithValue("@attachment_path", hfAttachmentPath.Value);
+                    sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                    sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                    sqlcomm.Parameters.AddWithValue("@requesting_dept", iddivision);
+                    //sqlcomm.ExecuteNonQuery();
+
+
+                    object result = sqlcomm.ExecuteScalar();
+                    transaction.Commit();                   
+                    string newPONumber = result != null ? result.ToString() : "";
+                    
+                    txtPONumber.Value = newPONumber;
+                    txtReqBy.Value = TableDetailsRF.Rows[rowIndex].Cells[4].Text.ToString();
+                    txtReqDept.Value = TableDetailsRF.Rows[rowIndex].Cells[5].Text.ToString(); ;
+                    DateTime currentDateTime = DateTime.Now;
+                    txtIssuedDate.Value = currentDateTime.ToString();
+ 
+                    string oldFilePath = Server.MapPath("~/"+hfAttachmentPath.Value);
+
+                    if (File.Exists(oldFilePath))
+                    {
+                        //string folderPath = Path.GetDirectoryName(oldFilePath);
+                        //string ext = Path.GetExtension(oldFilePath);
+                        //string newFilePath = Path.Combine(folderPath, "AttachmentPO-"+ newPONumber + ext);
+                        string newFileName = /*"AttachmentPO-"+ newPONumber + ext;*/ Path.GetFileName(oldFilePath);
+
+                        //if (File.Exists(newFilePath))
+                        //    File.Delete(newFilePath);
+
+                        //File.Move(oldFilePath, newFilePath);
+                        hfAttachmentPath.Value = newFileName;
+                    }
+
+                    if (Catalog == "IT")
+                    {
+
+                        await SendEmailToManagerIT("satuan",newPONumber, hfAttachmentPath.Value);
+
+                    }
+                    else
+                    {
+                        await SendEmailToManagerGA("satuan", newPONumber, hfAttachmentPath.Value);
+
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+
+            }
+
+        }
+
+
+
+        protected async void btnSubmitAll_Click(object sender, EventArgs e)
+        {
+
+            string jsonData = hfFormData.Value;
+            if (string.IsNullOrEmpty(jsonData)) return;
+
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var dataList = serializer.Deserialize<List<FormPOData>>(jsonData);
+
+
+            DataTable tvp = new DataTable();
+            tvp.Columns.Add("IdVendor", typeof(Guid));
+            tvp.Columns.Add("Vendor", typeof(string));
+            tvp.Columns.Add("RFnum", typeof(string));
+            tvp.Columns.Add("DeliverySelect", typeof(string));
+            tvp.Columns.Add("DeliverToArea", typeof(string));
+            tvp.Columns.Add("DeliveryDate", typeof(DateTime));
+            tvp.Columns.Add("Vat", typeof(decimal));
+            tvp.Columns.Add("PaymentTerm", typeof(string));
+            tvp.Columns.Add("AssetType", typeof(string));
+            tvp.Columns.Add("OtherCondition", typeof(string));
+            //tvp.Columns.Add("FileName", typeof(string));
+            //tvp.Columns.Add("OldNameFile", typeof(string));
+            tvp.Columns.Add("AttachmentPath", typeof(string));
+            tvp.Columns.Add("Catalog", typeof(string));
+
+
+            //return;
+
+            foreach (var item in dataList)
+            {
+                tvp.Rows.Add(
+                    Guid.Parse(item.idVendor),
+                    item.vendor ?? "",                    
+                    lblRFNumber.Text,
+                    item.deliveryoptn.Trim() ?? "",
+                    item.deliverToarea ?? "",
+                    string.IsNullOrEmpty(item.deliveryDate) ? (object)DBNull.Value : DateTime.Parse(item.deliveryDate),
+                    string.IsNullOrEmpty(item.vat) ? 0 : Convert.ToDecimal(item.vat),
+                    item.paymentTerm ?? "",
+                    item.assetType ?? "",
+                    item.otherCondition ?? "",
+                    //item.filename ?? "",
+                    //item.oldnamefile ?? "",
+                    item.filename ?? "",
+                    hlbCatalog.Value.ToString()
+                );
+            }
+
+            //return;
+
+            try
+            {
+                
+                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(path))
+                {
+                   
+                    using (SqlCommand cmd = new SqlCommand("sp_PROCUREMENT_DB_GenerateALLPO", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        var tvpParam = cmd.Parameters.AddWithValue("@POData", tvp);
+                        tvpParam.SqlDbType = SqlDbType.Structured;
+                        tvpParam.TypeName = "dbo.FormPODataType"; //nama type tvp di database
+
+
+                        cmd.Parameters.AddWithValue("@CreateBy", Session["nik"] ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+
+
+                        await con.OpenAsync();
+         
+                        using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                        {
+                            List<(string PONumber, string Catalog, string AttachmentPath)> poResults = new List<(string, string, string)>();
+
+                            while (await reader.ReadAsync())
+                            {
+                                string poNumber = reader["PONumber"].ToString();
+                                string catalog = reader["Catalog"].ToString();
+                                string attachment = reader["AttachmentPath"].ToString();
+                                poResults.Add((poNumber, catalog, attachment));
+                            }
+
+                            if (poResults.Count == 0)
+                            {
+                                ScriptManager.RegisterStartupScript(this, GetType(), "swal",
+                                    "swal('Warning', 'No records returned from database.', 'warning');", true);
+                                return;
+                            }
+
+
+                            int totalPO = poResults.Count;
+                            int successCount = 0;
+
+                            // === Kirim email berdasarkan Catalog ===
+                            foreach (var po in poResults)
+                            {
+
+                                try
+                                {
+
+                                if (po.Catalog.Equals("IT", StringComparison.OrdinalIgnoreCase))
+                                {   
+                                    DateTime CurrunteDate = DateTime.Now;
+                                    txtIssuedDate.Value = CurrunteDate.ToString();
+
+                                        string oldFilePath = Server.MapPath("~/" + po.AttachmentPath);
+
+                                    if (File.Exists(oldFilePath))
+                                    {
+                                        
+                                        string newFileName = Path.GetFileName(oldFilePath);
+                                        hfAttachmentPath.Value = newFileName;
+                                    }
+
+                                    await SendEmailToManagerIT("all",po.PONumber,hfAttachmentPath.Value);
+                                        successCount++;
+                                    }
+                                else if  (po.Catalog.Equals("GA", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    DateTime CurrunteDate = DateTime.Now;
+                                    txtIssuedDate.Value = CurrunteDate.ToString();
+
+                                    string oldFilePath = Server.MapPath("~/" + po.AttachmentPath);
+
+                                    if (File.Exists(oldFilePath))
+                                    {
+                                        string newFileName = Path.GetFileName(oldFilePath);
+                                        hfAttachmentPath.Value = newFileName;
+                                    }
+                                    await SendEmailToManagerGA("all", po.PONumber, hfAttachmentPath.Value);
+                                    successCount++;
+                                }
+
+                                }
+                                catch
+                                {
+                                    continue;
+                                }
+
+                            }
+
+                            //string swalMessage = $"swal('Success', 'Data successfully created po = {totalPO} submitted and emails sent = {successCount}', 'success');";
+                            //ScriptManager.RegisterStartupScript(this, GetType(), "swal", swalMessage, true);
+                            string swalMessage = $@"
+                                swal('Success', 'Data successfully created po = {totalPO} submitted and emails sent = {successCount}', 'success');
+                                setTimeout(function() {{
+                                    window.location.href = 'purchase_order.aspx';
+                                }}, 2000);";
+
+                            ScriptManager.RegisterStartupScript(this, GetType(), "swalSuccessAll", swalMessage, true);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message.Replace("'", "\\'");
+                //ScriptManager.RegisterStartupScript(this, GetType(), "swal", $"swal('Error', 'Submit failed: {message}', 'error');", true);
+                string rf = lblRFNumber.Text;
+
+                string script = $@"
+                swal({{
+                    title: 'Error',
+                    text: 'Submit failed: {message}',
+                    type: 'error'
+                }}, function() {{
+                    window.location.href = 'create_purchase_order_standart.aspx?rf_no={rf}';
+                }});";
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "swal", script, true);
+
+
+            }
+
+        }
+
+        public class FormPOData
+        {
+            public string idVendor { get; set; }
+            public string vendor { get; set; }
+            public string deliveryTo { get; set; }
+            public string deliveryoptn { get; set; }
+            public string deliverToarea { get; set; }
+            public string deliveryDate { get; set; }
+            public string vat { get; set; }
+            public string paymentTerm { get; set; }
+            public string assetType { get; set; }
+            public string otherCondition { get; set; }
+            public string filename { get; set; }
+            public string oldnamefile { get; set; }
+            public string attachmentPath { get; set; }
+
+        }
+
+
 
         //protected void GetSection()
         //{
@@ -371,6 +713,8 @@ namespace procurement_system
             }
             else
             {
+
+
                 string path_db = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(path_db))
                 {
@@ -378,705 +722,802 @@ namespace procurement_system
                     SqlTransaction transaction = con.BeginTransaction();
                     try
                     {
-                        GetPONumber();
-                        var CurentYear = DateTime.Now.Year;
 
-                        if (CurentYear != (int)Session["years"])
+                        if (hlbCatalog.Value  == "IT")
                         {
-                            SaveNumbering(con, transaction);
-                            GetPONumberNew();
+                            SqlCommand sqlcomm = new SqlCommand();
+                            sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                            sqlcomm.CommandType = CommandType.StoredProcedure;
+                            sqlcomm.Connection = con;
+                            sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT");
+                            //sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                            //sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                            //sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                            //sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                            //sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                            //sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                            //HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                            //decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                            //int getprice = Convert.ToInt32(parsedValue);
+                            //sqlcomm.Parameters.AddWithValue("@price", getprice);
+                            //sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                            //HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                            //decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                            //int getAmount = Convert.ToInt32(parsedAmount);
+                            //sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                            //sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                            //sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                            //sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                            //sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                            //sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                            //sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                            //sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                            //sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                            //sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
 
-                            hlbYearsNew.Value = DateTime.Now.Year.ToString();
-                            hlblast_numberNew.Value = Session["last_numberNew"].ToString();
-                            int _LastNumber = Convert.ToInt32(hlblast_numberNew.Value);
-                            int _getNumberUrut = _LastNumber + 1;
+                            sqlcomm.ExecuteNonQuery();
+                            //CheckUploadDocument();
+                            sqlcomm.Dispose();
+                            con.Close();
+                            con.Dispose();
 
-                            if (_getNumberUrut < 10)
-                            {
-                                txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + "000" + _getNumberUrut;
-                            }
-                            else if (_getNumberUrut > 9 && _getNumberUrut < 99)
-                            {
-                                txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + "00" + _getNumberUrut;
-                            }
-                            else if (_getNumberUrut > 99 && _getNumberUrut < 999)
-                            {
-                                txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + "0" + _getNumberUrut;
-                            }
-                            else if (_getNumberUrut > 999)
-                            {
-                                txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + _getNumberUrut;
-                            }
+                            //await SendEmailToManagerIT();
 
-                            Int32 grandtotal;
-                            grandtotal = Convert.ToInt32(hlbGrandTotal.Value);
-
-                            if (grandtotal < 1000000)
-                            {
-                                SaveMasterPO_under_1JT();
-                                UpdateNoPO_RF();
-
-                                if (hlbCatalog.Value == "IT")
-                                {
-                                    foreach (GridViewRow row in TableItemPO.Rows)
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT");
-                                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
-                                        HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
-                                        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                                        int getprice = Convert.ToInt32(parsedValue);
-                                        sqlcomm.Parameters.AddWithValue("@price", getprice);
-                                        sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
-                                        HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
-                                        decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
-                                        int getAmount = Convert.ToInt32(parsedAmount);
-                                        sqlcomm.Parameters.AddWithValue("@amount", getAmount);
-                                        sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
-                                        sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
-                                        sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
-                                        sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
-                                        sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
-                                        sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
-
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                                        sqlcomm.Dispose();
-                                        Con.Close();
-                                        Con.Dispose();
-                                    }
-                                    await SendEmailToManagerIT();
-                                }
-                                else
-                                {
-                                    foreach (GridViewRow row in TableItemPO.Rows)
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderGA");
-                                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
-                                        HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
-                                        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                                        int getprice = Convert.ToInt32(parsedValue);
-                                        sqlcomm.Parameters.AddWithValue("@price", getprice);
-                                        sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
-                                        HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
-                                        decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
-                                        int getAmount = Convert.ToInt32(parsedAmount);
-                                        sqlcomm.Parameters.AddWithValue("@amount", getAmount);
-                                        sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
-                                        sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
-                                        sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
-                                        sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
-                                        sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
-                                        sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
-
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                                        sqlcomm.Dispose();
-                                        Con.Close();
-                                        Con.Dispose();
-                                    }
-                                    await SendEmailToManagerGA();
-                                }
-
-                            }
-                            else if (grandtotal > 1000000 && grandtotal < 20000000)
-                            {
-                                SaveMasterPO_beetwen_1JT_20JT();
-                                UpdateNoPO_RF();
-
-                                if (hlbCatalog.Value == "IT")
-                                {
-                                    foreach (GridViewRow row in TableItemPO.Rows)
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT_Up1JT_Under20JT");
-                                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
-                                        HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
-                                        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                                        int getprice = Convert.ToInt32(parsedValue);
-                                        sqlcomm.Parameters.AddWithValue("@price", getprice);
-                                        sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
-                                        HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
-                                        decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
-                                        int getAmount = Convert.ToInt32(parsedAmount);
-                                        sqlcomm.Parameters.AddWithValue("@amount", getAmount);
-                                        sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
-                                        sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
-                                        sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
-                                        sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
-                                        sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
-                                        sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
-
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                                        sqlcomm.Dispose();
-                                        Con.Close();
-                                        Con.Dispose();
-                                    }
-                                    await SendEmailToManagerIT();
-                                }
-                                else
-                                {
-                                    foreach (GridViewRow row in TableItemPO.Rows)
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderGA_Up1JT_Under20JT");
-                                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
-                                        HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
-                                        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                                        int getprice = Convert.ToInt32(parsedValue);
-                                        sqlcomm.Parameters.AddWithValue("@price", getprice);
-                                        sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
-                                        HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
-                                        decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
-                                        int getAmount = Convert.ToInt32(parsedAmount);
-                                        sqlcomm.Parameters.AddWithValue("@amount", getAmount);
-                                        sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
-                                        sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
-                                        sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
-                                        sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
-                                        sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
-                                        sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
-
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                                        sqlcomm.Dispose();
-                                        Con.Close();
-                                        Con.Dispose();
-                                    }
-                                    await SendEmailToManagerGA();
-                                }
-                            }
-                            else if (grandtotal > 20000000)
-                            {
-                                SaveMasterPO_Up20JT();
-                                UpdateNoPO_RF();
-
-                                if (hlbCatalog.Value == "IT")
-                                {
-                                    foreach (GridViewRow row in TableItemPO.Rows)
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT_Up20JT");
-                                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
-                                        HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
-                                        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                                        int getprice = Convert.ToInt32(parsedValue);
-                                        sqlcomm.Parameters.AddWithValue("@price", getprice);
-                                        sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
-                                        HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
-                                        decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
-                                        int getAmount = Convert.ToInt32(parsedAmount);
-                                        sqlcomm.Parameters.AddWithValue("@amount", getAmount);
-                                        sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
-                                        sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
-                                        sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
-                                        sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
-                                        sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
-                                        sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
-
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                                        sqlcomm.Dispose();
-                                        Con.Close();
-                                        Con.Dispose();
-                                    }
-                                    await SendEmailToManagerIT();
-                                }
-                                else
-                                {
-                                    foreach (GridViewRow row in TableItemPO.Rows)
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderGA_Up20JT");
-                                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
-                                        HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
-                                        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                                        int getprice = Convert.ToInt32(parsedValue);
-                                        sqlcomm.Parameters.AddWithValue("@price", getprice);
-                                        sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
-                                        HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
-                                        decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
-                                        int getAmount = Convert.ToInt32(parsedAmount);
-                                        sqlcomm.Parameters.AddWithValue("@amount", getAmount);
-                                        sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
-                                        sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
-                                        sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
-                                        sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
-                                        sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
-                                        sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
-
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                                        sqlcomm.Dispose();
-                                        Con.Close();
-                                        Con.Dispose();
-                                    }
-                                    await SendEmailToManagerGA();
-                                }
-                            }
                         }
                         else
                         {
-                            UpdateNumbering(con, transaction);
-                            //GetPONumberNew();
-                            //hlblast_numberNew.Value = Session["last_number"].ToString();
-                            int _LastNumber = (Convert.ToInt32(hlblast_numberNew.Value) + 1);
-                            if (_LastNumber < 10)
-                            {
-                                txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + "000" + _LastNumber;
-                            }
-                            else if (_LastNumber > 9 && _LastNumber < 99)
-                            {
-                                txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + "00" + _LastNumber;
-                            }
-                            else if (_LastNumber > 99 && _LastNumber < 999)
-                            {
-                                txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + "0" + _LastNumber;
-                            }
-                            else if (_LastNumber > 999)
-                            {
-                                txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + _LastNumber;
-                            }
 
-                            Int32 grandtotal;
-                            grandtotal = Convert.ToInt32(hlbGrandTotal.Value);
+                            //SqlCommand sqlcomm = new SqlCommand();
+                            //sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                            //sqlcomm.CommandType = CommandType.StoredProcedure;
+                            //sqlcomm.Connection = con;
+                            //sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT");
+                            //sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                            //sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                            //sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                            //sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                            //sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                            //sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                            //HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                            //decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                            //int getprice = Convert.ToInt32(parsedValue);
+                            //sqlcomm.Parameters.AddWithValue("@price", getprice);
+                            //sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                            //HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                            //decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                            //int getAmount = Convert.ToInt32(parsedAmount);
+                            //sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                            //sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                            //sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                            //sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                            //sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                            //sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                            //sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                            //sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                            //sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                            //sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
 
-                            if (grandtotal < 1000000)
-                            {
-                                SaveMasterPO_under_1JT();
-                                UpdateNoPO_RF();
 
-                                if (hlbCatalog.Value == "IT")
-                                {
-                                    foreach (GridViewRow row in TableItemPO.Rows)
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT");
-                                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
-                                        HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
-                                        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                                        int getprice = Convert.ToInt32(parsedValue);
-                                        sqlcomm.Parameters.AddWithValue("@price", getprice);
-                                        sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
-                                        HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
-                                        decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
-                                        int getAmount = Convert.ToInt32(parsedAmount);
-                                        sqlcomm.Parameters.AddWithValue("@amount", getAmount);
-                                        sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
-                                        sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
-                                        sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
-                                        sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
-                                        sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
-                                        sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
 
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                                        sqlcomm.Dispose();
-                                        Con.Close();
-                                        Con.Dispose();
-                                    }
-                                    await SendEmailToManagerIT();
-                                }
-                                else
-                                {
-                                    foreach (GridViewRow row in TableItemPO.Rows)
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderGA");
-                                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
-                                        HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
-                                        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                                        int getprice = Convert.ToInt32(parsedValue);
-                                        sqlcomm.Parameters.AddWithValue("@price", getprice);
-                                        sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
-                                        HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
-                                        decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
-                                        int getAmount = Convert.ToInt32(parsedAmount);
-                                        sqlcomm.Parameters.AddWithValue("@amount", getAmount);
-                                        sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
-                                        sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
-                                        sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
-                                        sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
-                                        sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
-                                        sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
-
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                                        sqlcomm.Dispose();
-                                        Con.Close();
-                                        Con.Dispose();
-                                    }
-                                    await SendEmailToManagerGA();
-                                }
-
-                            }
-                            else if (grandtotal > 1000000 && grandtotal < 20000000)
-                            {
-                                SaveMasterPO_beetwen_1JT_20JT();
-                                UpdateNoPO_RF();
-
-                                if (hlbCatalog.Value == "IT")
-                                {
-                                    foreach (GridViewRow row in TableItemPO.Rows)
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT_Up1JT_Under20JT");
-                                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
-                                        HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
-                                        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                                        int getprice = Convert.ToInt32(parsedValue);
-                                        sqlcomm.Parameters.AddWithValue("@price", getprice);
-                                        sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
-                                        HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
-                                        decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
-                                        int getAmount = Convert.ToInt32(parsedAmount);
-                                        sqlcomm.Parameters.AddWithValue("@amount", getAmount);
-                                        sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
-                                        sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
-                                        sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
-                                        sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
-                                        sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
-                                        sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
-
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                                        sqlcomm.Dispose();
-                                        Con.Close();
-                                        Con.Dispose();
-                                    }
-                                    await SendEmailToManagerIT();
-                                }
-                                else
-                                {
-                                    foreach (GridViewRow row in TableItemPO.Rows)
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderGA_Up1JT_Under20JT");
-                                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
-                                        HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
-                                        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                                        int getprice = Convert.ToInt32(parsedValue);
-                                        sqlcomm.Parameters.AddWithValue("@price", getprice);
-                                        sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
-                                        HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
-                                        decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
-                                        int getAmount = Convert.ToInt32(parsedAmount);
-                                        sqlcomm.Parameters.AddWithValue("@amount", getAmount);
-                                        sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
-                                        sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
-                                        sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
-                                        sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
-                                        sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
-                                        sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
-
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                                        sqlcomm.Dispose();
-                                        Con.Close();
-                                        Con.Dispose();
-                                    }
-                                    await SendEmailToManagerGA();
-                                }
-                            }
-                            else if (grandtotal > 20000000)
-                            {
-                                SaveMasterPO_Up20JT();
-                                UpdateNoPO_RF();
-
-                                if (hlbCatalog.Value == "IT")
-                                {
-                                    foreach (GridViewRow row in TableItemPO.Rows)
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT_Up20JT");
-                                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
-                                        HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
-                                        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                                        int getprice = Convert.ToInt32(parsedValue);
-                                        sqlcomm.Parameters.AddWithValue("@price", getprice);
-                                        sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
-                                        HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
-                                        decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
-                                        int getAmount = Convert.ToInt32(parsedAmount);
-                                        sqlcomm.Parameters.AddWithValue("@amount", getAmount);
-                                        sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
-                                        sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
-                                        sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
-                                        sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
-                                        sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
-                                        sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
-
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                                        sqlcomm.Dispose();
-                                        Con.Close();
-                                        Con.Dispose();
-                                    }
-                                    await SendEmailToManagerIT();
-                                }
-                                else
-                                {
-                                    foreach (GridViewRow row in TableItemPO.Rows)
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderGA_Up20JT");
-                                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
-                                        HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
-                                        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                                        int getprice = Convert.ToInt32(parsedValue);
-                                        sqlcomm.Parameters.AddWithValue("@price", getprice);
-                                        sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
-                                        HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
-                                        decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
-                                        int getAmount = Convert.ToInt32(parsedAmount);
-                                        sqlcomm.Parameters.AddWithValue("@amount", getAmount);
-                                        sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
-                                        sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
-                                        sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
-                                        sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
-                                        sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
-                                        sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
-                                        sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
-
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                                        sqlcomm.Dispose();
-                                        Con.Close();
-                                        Con.Dispose();
-                                    }
-                                    await SendEmailToManagerGA();
-                                }
-                            }
+                            //sqlcomm.Dispose();
+                            //con.Close();
+                            //con.Dispose();
+                            //await SendEmailToManagerGA();
                         }
+
+                        #region
+
+
+                        //GetPONumber();
+                        //var CurentYear = DateTime.Now.Year;
+
+                        //if (CurentYear != (int)Session["years"])
+                        //{
+                        //    SaveNumbering(con, transaction);
+                        //    GetPONumberNew();
+
+                        //    hlbYearsNew.Value = DateTime.Now.Year.ToString();
+                        //    hlblast_numberNew.Value = Session["last_numberNew"].ToString();
+                        //    int _LastNumber = Convert.ToInt32(hlblast_numberNew.Value);
+                        //    int _getNumberUrut = _LastNumber + 1;
+
+                        //    if (_getNumberUrut < 10)
+                        //    {
+                        //        txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + "000" + _getNumberUrut;
+                        //    }
+                        //    else if (_getNumberUrut > 9 && _getNumberUrut < 99)
+                        //    {
+                        //        txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + "00" + _getNumberUrut;
+                        //    }
+                        //    else if (_getNumberUrut > 99 && _getNumberUrut < 999)
+                        //    {
+                        //        txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + "0" + _getNumberUrut;
+                        //    }
+                        //    else if (_getNumberUrut > 999)
+                        //    {
+                        //        txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + _getNumberUrut;
+                        //    }
+
+                        //    Int32 grandtotal;
+                        //    grandtotal = Convert.ToInt32(hlbGrandTotal.Value);
+
+                        //    if (grandtotal < 1000000)
+                        //    {
+                        //        SaveMasterPO_under_1JT();
+                        //        UpdateNoPO_RF();
+
+                        //        if (hlbCatalog.Value == "IT")
+                        //        {
+                        //            foreach (GridViewRow row in TableItemPO.Rows)
+                        //            {
+                        //                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //                SqlConnection Con = new SqlConnection(path);
+                        //                Con.Open();
+                        //                SqlCommand sqlcomm = new SqlCommand();
+                        //                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                        //                sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //                sqlcomm.Connection = Con;
+                        //                sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT");
+                        //                sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                        //                HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                        //                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                        //                int getprice = Convert.ToInt32(parsedValue);
+                        //                sqlcomm.Parameters.AddWithValue("@price", getprice);
+                        //                sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                        //                HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                        //                decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                        //                int getAmount = Convert.ToInt32(parsedAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                        //                sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                        //                sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                        //                sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
+
+                        //                sqlcomm.ExecuteNonQuery();
+                        //                CheckUploadDocument();
+                        //                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //                sqlcomm.Dispose();
+                        //                Con.Close();
+                        //                Con.Dispose();
+                        //            }
+                        //            await SendEmailToManagerIT();
+                        //        }
+                        //        else
+                        //        {
+                        //            foreach (GridViewRow row in TableItemPO.Rows)
+                        //            {
+                        //                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //                SqlConnection Con = new SqlConnection(path);
+                        //                Con.Open();
+                        //                SqlCommand sqlcomm = new SqlCommand();
+                        //                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                        //                sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //                sqlcomm.Connection = Con;
+                        //                sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderGA");
+                        //                sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                        //                HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                        //                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                        //                int getprice = Convert.ToInt32(parsedValue);
+                        //                sqlcomm.Parameters.AddWithValue("@price", getprice);
+                        //                sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                        //                HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                        //                decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                        //                int getAmount = Convert.ToInt32(parsedAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                        //                sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                        //                sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                        //                sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
+
+                        //                sqlcomm.ExecuteNonQuery();
+                        //                CheckUploadDocument();
+                        //                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //                sqlcomm.Dispose();
+                        //                Con.Close();
+                        //                Con.Dispose();
+                        //            }
+                        //            await SendEmailToManagerGA();
+                        //        }
+
+                        //    }
+                        //    else if (grandtotal > 1000000 && grandtotal < 20000000)
+                        //    {
+                        //        SaveMasterPO_beetwen_1JT_20JT();
+                        //        UpdateNoPO_RF();
+
+                        //        if (hlbCatalog.Value == "IT")
+                        //        {
+                        //            foreach (GridViewRow row in TableItemPO.Rows)
+                        //            {
+                        //                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //                SqlConnection Con = new SqlConnection(path);
+                        //                Con.Open();
+                        //                SqlCommand sqlcomm = new SqlCommand();
+                        //                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                        //                sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //                sqlcomm.Connection = Con;
+                        //                sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT_Up1JT_Under20JT");
+                        //                sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                        //                HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                        //                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                        //                int getprice = Convert.ToInt32(parsedValue);
+                        //                sqlcomm.Parameters.AddWithValue("@price", getprice);
+                        //                sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                        //                HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                        //                decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                        //                int getAmount = Convert.ToInt32(parsedAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                        //                sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                        //                sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                        //                sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
+
+                        //                sqlcomm.ExecuteNonQuery();
+                        //                CheckUploadDocument();
+                        //                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //                sqlcomm.Dispose();
+                        //                Con.Close();
+                        //                Con.Dispose();
+                        //            }
+                        //            await SendEmailToManagerIT();
+                        //        }
+                        //        else
+                        //        {
+                        //            foreach (GridViewRow row in TableItemPO.Rows)
+                        //            {
+                        //                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //                SqlConnection Con = new SqlConnection(path);
+                        //                Con.Open();
+                        //                SqlCommand sqlcomm = new SqlCommand();
+                        //                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                        //                sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //                sqlcomm.Connection = Con;
+                        //                sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderGA_Up1JT_Under20JT");
+                        //                sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                        //                HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                        //                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                        //                int getprice = Convert.ToInt32(parsedValue);
+                        //                sqlcomm.Parameters.AddWithValue("@price", getprice);
+                        //                sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                        //                HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                        //                decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                        //                int getAmount = Convert.ToInt32(parsedAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                        //                sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                        //                sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                        //                sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
+
+                        //                sqlcomm.ExecuteNonQuery();
+                        //                CheckUploadDocument();
+                        //                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //                sqlcomm.Dispose();
+                        //                Con.Close();
+                        //                Con.Dispose();
+                        //            }
+                        //            await SendEmailToManagerGA();
+                        //        }
+                        //    }
+                        //    else if (grandtotal > 20000000)
+                        //    {
+                        //        SaveMasterPO_Up20JT();
+                        //        UpdateNoPO_RF();
+
+                        //        if (hlbCatalog.Value == "IT")
+                        //        {
+                        //            foreach (GridViewRow row in TableItemPO.Rows)
+                        //            {
+                        //                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //                SqlConnection Con = new SqlConnection(path);
+                        //                Con.Open();
+                        //                SqlCommand sqlcomm = new SqlCommand();
+                        //                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                        //                sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //                sqlcomm.Connection = Con;
+                        //                sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT_Up20JT");
+                        //                sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                        //                HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                        //                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                        //                int getprice = Convert.ToInt32(parsedValue);
+                        //                sqlcomm.Parameters.AddWithValue("@price", getprice);
+                        //                sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                        //                HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                        //                decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                        //                int getAmount = Convert.ToInt32(parsedAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                        //                sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                        //                sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                        //                sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
+
+                        //                sqlcomm.ExecuteNonQuery();
+                        //                CheckUploadDocument();
+                        //                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //                sqlcomm.Dispose();
+                        //                Con.Close();
+                        //                Con.Dispose();
+                        //            }
+                        //            await SendEmailToManagerIT();
+                        //        }
+                        //        else
+                        //        {
+                        //            foreach (GridViewRow row in TableItemPO.Rows)
+                        //            {
+                        //                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //                SqlConnection Con = new SqlConnection(path);
+                        //                Con.Open();
+                        //                SqlCommand sqlcomm = new SqlCommand();
+                        //                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                        //                sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //                sqlcomm.Connection = Con;
+                        //                sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderGA_Up20JT");
+                        //                sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                        //                HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                        //                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                        //                int getprice = Convert.ToInt32(parsedValue);
+                        //                sqlcomm.Parameters.AddWithValue("@price", getprice);
+                        //                sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                        //                HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                        //                decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                        //                int getAmount = Convert.ToInt32(parsedAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                        //                sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                        //                sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                        //                sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
+
+                        //                sqlcomm.ExecuteNonQuery();
+                        //                CheckUploadDocument();
+                        //                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //                sqlcomm.Dispose();
+                        //                Con.Close();
+                        //                Con.Dispose();
+                        //            }
+                        //            await SendEmailToManagerGA();
+                        //        }
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    UpdateNumbering(con, transaction);
+                        //    //GetPONumberNew();
+                        //    //hlblast_numberNew.Value = Session["last_number"].ToString();
+                        //    int _LastNumber = (Convert.ToInt32(hlblast_numberNew.Value) + 1);
+                        //    if (_LastNumber < 10)
+                        //    {
+                        //        txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + "000" + _LastNumber;
+                        //    }
+                        //    else if (_LastNumber > 9 && _LastNumber < 99)
+                        //    {
+                        //        txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + "00" + _LastNumber;
+                        //    }
+                        //    else if (_LastNumber > 99 && _LastNumber < 999)
+                        //    {
+                        //        txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + "0" + _LastNumber;
+                        //    }
+                        //    else if (_LastNumber > 999)
+                        //    {
+                        //        txtPONumber.Value = "YLID-PO-" + CurentYear + "-" + _LastNumber;
+                        //    }
+
+                        //    Int32 grandtotal;
+                        //    grandtotal = Convert.ToInt32(hlbGrandTotal.Value);
+
+                        //    //LOGIC BARU 
+
+                        //    if (grandtotal < 1000000)
+                        //    {
+                        //        SaveMasterPO_under_1JT();
+                        //        UpdateNoPO_RF();
+
+                        //        if (hlbCatalog.Value == "IT")
+                        //        {
+                        //            foreach (GridViewRow row in TableItemPO.Rows)
+                        //            {
+                        //                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //                SqlConnection Con = new SqlConnection(path);
+                        //                Con.Open();
+                        //                SqlCommand sqlcomm = new SqlCommand();
+                        //                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                        //                sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //                sqlcomm.Connection = Con;
+                        //                sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT");
+                        //                sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                        //                HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                        //                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                        //                int getprice = Convert.ToInt32(parsedValue);
+                        //                sqlcomm.Parameters.AddWithValue("@price", getprice);
+                        //                sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                        //                HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                        //                decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                        //                int getAmount = Convert.ToInt32(parsedAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                        //                sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                        //                sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                        //                sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
+
+                        //                sqlcomm.ExecuteNonQuery();
+                        //                CheckUploadDocument();
+                        //                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //                sqlcomm.Dispose();
+                        //                Con.Close();
+                        //                Con.Dispose();
+                        //            }
+                        //            await SendEmailToManagerIT();
+                        //        }
+                        //        else
+                        //        {
+                        //            foreach (GridViewRow row in TableItemPO.Rows)
+                        //            {
+                        //                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //                SqlConnection Con = new SqlConnection(path);
+                        //                Con.Open();
+                        //                SqlCommand sqlcomm = new SqlCommand();
+                        //                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                        //                sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //                sqlcomm.Connection = Con;
+                        //                sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderGA");
+                        //                sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                        //                HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                        //                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                        //                int getprice = Convert.ToInt32(parsedValue);
+                        //                sqlcomm.Parameters.AddWithValue("@price", getprice);
+                        //                sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                        //                HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                        //                decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                        //                int getAmount = Convert.ToInt32(parsedAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                        //                sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                        //                sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                        //                sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
+
+                        //                sqlcomm.ExecuteNonQuery();
+                        //                CheckUploadDocument();
+                        //                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //                sqlcomm.Dispose();
+                        //                Con.Close();
+                        //                Con.Dispose();
+                        //            }
+                        //            await SendEmailToManagerGA();
+                        //        }
+
+                        //    }
+                        //    else if (grandtotal > 1000000 && grandtotal < 20000000)
+                        //    {
+                        //        SaveMasterPO_beetwen_1JT_20JT();
+                        //        UpdateNoPO_RF();
+
+                        //        if (hlbCatalog.Value == "IT")
+                        //        {
+                        //            foreach (GridViewRow row in TableItemPO.Rows)
+                        //            {
+                        //                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //                SqlConnection Con = new SqlConnection(path);
+                        //                Con.Open();
+                        //                SqlCommand sqlcomm = new SqlCommand();
+                        //                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                        //                sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //                sqlcomm.Connection = Con;
+                        //                sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT_Up1JT_Under20JT");
+                        //                sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                        //                HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                        //                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                        //                int getprice = Convert.ToInt32(parsedValue);
+                        //                sqlcomm.Parameters.AddWithValue("@price", getprice);
+                        //                sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                        //                HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                        //                decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                        //                int getAmount = Convert.ToInt32(parsedAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                        //                sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                        //                sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                        //                sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
+
+                        //                sqlcomm.ExecuteNonQuery();
+                        //                CheckUploadDocument();
+                        //                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //                sqlcomm.Dispose();
+                        //                Con.Close();
+                        //                Con.Dispose();
+                        //            }
+                        //            await SendEmailToManagerIT();
+                        //        }
+                        //        else
+                        //        {
+                        //            foreach (GridViewRow row in TableItemPO.Rows)
+                        //            {
+                        //                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //                SqlConnection Con = new SqlConnection(path);
+                        //                Con.Open();
+                        //                SqlCommand sqlcomm = new SqlCommand();
+                        //                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                        //                sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //                sqlcomm.Connection = Con;
+                        //                sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderGA_Up1JT_Under20JT");
+                        //                sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                        //                HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                        //                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                        //                int getprice = Convert.ToInt32(parsedValue);
+                        //                sqlcomm.Parameters.AddWithValue("@price", getprice);
+                        //                sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                        //                HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                        //                decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                        //                int getAmount = Convert.ToInt32(parsedAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                        //                sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                        //                sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                        //                sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
+
+                        //                sqlcomm.ExecuteNonQuery();
+                        //                CheckUploadDocument();
+                        //                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //                sqlcomm.Dispose();
+                        //                Con.Close();
+                        //                Con.Dispose();
+                        //            }
+                        //            await SendEmailToManagerGA();
+                        //        }
+                        //    }
+                        //    else if (grandtotal > 20000000)
+                        //    {
+                        //        SaveMasterPO_Up20JT();
+                        //        UpdateNoPO_RF();
+
+                        //        if (hlbCatalog.Value == "IT")
+                        //        {
+                        //            foreach (GridViewRow row in TableItemPO.Rows)
+                        //            {
+                        //                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //                SqlConnection Con = new SqlConnection(path);
+                        //                Con.Open();
+                        //                SqlCommand sqlcomm = new SqlCommand();
+                        //                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                        //                sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //                sqlcomm.Connection = Con;
+                        //                sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderIT_Up20JT");
+                        //                sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                        //                HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                        //                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                        //                int getprice = Convert.ToInt32(parsedValue);
+                        //                sqlcomm.Parameters.AddWithValue("@price", getprice);
+                        //                sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                        //                HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                        //                decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                        //                int getAmount = Convert.ToInt32(parsedAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                        //                sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                        //                sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                        //                sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
+
+                        //                sqlcomm.ExecuteNonQuery();
+                        //                CheckUploadDocument();
+                        //                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //                sqlcomm.Dispose();
+                        //                Con.Close();
+                        //                Con.Dispose();
+                        //            }
+                        //            await SendEmailToManagerIT();
+                        //        }
+                        //        else
+                        //        {
+                        //            foreach (GridViewRow row in TableItemPO.Rows)
+                        //            {
+                        //                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //                SqlConnection Con = new SqlConnection(path);
+                        //                Con.Open();
+                        //                SqlCommand sqlcomm = new SqlCommand();
+                        //                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                        //                sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //                sqlcomm.Connection = Con;
+                        //                sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseOrderGA_Up20JT");
+                        //                sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[1].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@id_vendor", hlbIDVendor.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@po_date", txtIssuedDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_date", txtDeliveryDate.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@delivery_to", ddlDeliveryTo.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[3].Text.ToString());
+                        //                HtmlInputText price = (HtmlInputText)row.FindControl("txtPrice");
+                        //                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                        //                int getprice = Convert.ToInt32(parsedValue);
+                        //                sqlcomm.Parameters.AddWithValue("@price", getprice);
+                        //                sqlcomm.Parameters.AddWithValue("@vat", Convert.ToInt32(txtVAT.Text.ToString()));
+                        //                HtmlInputText amount = (HtmlInputText)row.FindControl("txtAmount");
+                        //                decimal parsedAmount = decimal.Parse(amount.Value, NumberStyles.Currency);
+                        //                int getAmount = Convert.ToInt32(parsedAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@amount", getAmount);
+                        //                sqlcomm.Parameters.AddWithValue("@payment_term", txtPaymentTerms.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@remarks", row.Cells[5].Text.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@aset_status", ddlAssetStatus.SelectedItem.Text);
+                        //                sqlcomm.Parameters.AddWithValue("@po_created_by", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
+                        //                sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
+                        //                sqlcomm.Parameters.AddWithValue("@po_type", "PO Standart");
+                        //                sqlcomm.Parameters.AddWithValue("@requesting_dept", txtOIDReqDept.Value);
+                        //                sqlcomm.Parameters.AddWithValue("@create_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modifiedby", Session["nik"].ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+                        //                sqlcomm.Parameters.AddWithValue("@other_condition", txtOtherCondition.Value);
+
+                        //                sqlcomm.ExecuteNonQuery();
+                        //                CheckUploadDocument();
+                        //                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //                sqlcomm.Dispose();
+                        //                Con.Close();
+                        //                Con.Dispose();
+                        //            }
+                        //            await SendEmailToManagerGA();
+                        //        }
+                        //    }
+                        //}
+                        #endregion
 
                         transaction.Commit();
                         con.Close();
@@ -1603,10 +2044,10 @@ namespace procurement_system
             return body;
         }
 
-        private async Task SendEmailToManagerIT()
+        private async Task SendEmailToManagerIT(string btn,string pono,string attcment)
         {
             string body = this.PopulateBodySendToManagerIT
-            ("DUDY SETIADI", txtPONumber.Value, txtIssuedDate.Value, txtReqBy.Value, Session["fullname"].ToString(), "PO Created");
+            ("DUDY SETIADI", /*txtPONumber.Value*/ pono, txtIssuedDate.Value, txtReqBy.Value, Session["fullname"].ToString(), "PO Created");
 
             try
             {
@@ -1629,7 +2070,7 @@ namespace procurement_system
                 {
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-                    if (FileUploadEDocs.HasFiles)
+                    if (/*hfAttachmentPath.Value*/attcment != "" || /*hfAttachmentPath.Value*/ attcment != null)
                     {
                         // Read HTML content from file
                         string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
@@ -1638,7 +2079,7 @@ namespace procurement_system
                         SqlCommand sqlcomm = new SqlCommand();
                         sqlcomm.CommandText = "sp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager";
                         sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        sqlcomm.Parameters.AddWithValue("@po_no", /*txtPONumber.Value*/pono);
 
                         sqlcomm.Connection = Con;
                         DataTable dtb = new DataTable();
@@ -1653,21 +2094,24 @@ namespace procurement_system
                         PurchaseOrederCreated.LocalReport.DataSources.Add(new ReportDataSource("DataSetFormPurchaseOrderCreated", dtb));
                         PurchaseOrederCreated.LocalReport.Refresh();
 
-                        string FileName = txtPONumber.Value.Trim() + ".pdf";
+                        string FileName = /*txtPONumber.Value.Trim() */ pono.Trim() + ".pdf";
                         string extension;
                         string encoding;
                         string mimeType;
                         string[] streams;
                         Warning[] warnings;
+                        
                         Byte[] mybytes = PurchaseOrederCreated.LocalReport.Render("PDF", null,
                                       out extension, out encoding,
                                       out mimeType, out streams, out warnings);
+
                         using (FileStream fs = File.Create(Server.MapPath("~/Prints/" + FileName)))
                         {
                             fs.Write(mybytes, 0, mybytes.Length);
                         }
 
                         var attachmentBytes = File.ReadAllBytes(Server.MapPath("~/Prints/" + FileName));
+                        
                         var attachmentBase64 = Convert.ToBase64String(attachmentBytes);
 
                         var attachment = new FileAttachment
@@ -1677,48 +2121,67 @@ namespace procurement_system
                             ContentBytes = attachmentBase64
                         };
 
-                        string _vPONo = txtPONumber.Value.Trim();
-                        string folderPath = Server.MapPath("~/eDocs_Files/PO/" + _vPONo + "/" ); // Specify the path to your folder
-
-                        // Get all files in the folder
-                        string[] fileNames = Directory.GetFiles(folderPath);
-
+                     
                         List<FileAttachment> attachments1 = new List<FileAttachment>();
 
-                        foreach (string filePath in fileNames)
+                        string FiletpathNew = Server.MapPath("~/eDocs_Files/PO/" + /*hfAttachmentPath.Value*/ attcment);
+
+                        if (File.Exists(FiletpathNew))
                         {
-                            // Extract the file name
-                            string fileName = Path.GetFileName(filePath);
 
-                            // Read the file into a byte array
-                            byte[] attachBytes = File.ReadAllBytes(filePath);
+                            byte[] attachBytes = File.ReadAllBytes(FiletpathNew);
 
-                            // Convert the byte array to Base64
                             string attachBase64 = Convert.ToBase64String(attachBytes);
 
-                            // Create the file attachment object
+
                             var attach = new FileAttachment
                             {
                                 Type = "#microsoft.graph.fileAttachment",
-                                Name = fileName,
+                                Name = Path.GetFileName(FiletpathNew),
                                 ContentBytes = attachBase64
                             };
 
-                            // Add the attachment to the list
                             attachments1.Add(attach);
+
                         }
+
+                       
+                        //foreach (string filePath in fileNames)
+                        //{
+                        //    // Extract the file name
+                        //    string fileName = Path.GetFileName(filePath);
+
+                        //    // Read the file into a byte array
+                        //    byte[] attachBytes = File.ReadAllBytes(filePath);
+
+                        //    // Convert the byte array to Base64
+                        //    string attachBase64 = Convert.ToBase64String(attachBytes);
+
+                        //    // Create the file attachment object
+                        //    var attach = new FileAttachment
+                        //    {
+                        //        Type = "#microsoft.graph.fileAttachment",
+                        //        Name = fileName,
+                        //        ContentBytes = attachBase64
+                        //    };
+
+                        //    // Add the attachment to the list
+                        //    attachments1.Add(attach);
+                        //}
                         
                         // Create email content with HTML body
                         var emailBody = new
                         {
                             message = new
                             {
-                                subject = "PURCHASE ORDER FORM : " + txtPONumber.Value,
+                                subject = "PURCHASE ORDER FORM : " + /*txtPONumber.Value*/ pono,
                                 body = new
                                 {
                                     contentType = "HTML",
                                     content = body
                                 },
+                                //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                                //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                                 toRecipients = new[] { new { emailAddress = new { address = _emailITMgr } } },
                                 ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
                                 //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
@@ -1741,26 +2204,49 @@ namespace procurement_system
                         if (response.IsSuccessStatusCode)
                         {
                             // Assuming 'FuncSave()' and 'FailedSend()' are JavaScript functions on the client side
-                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                            string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);                                                  
+                            if (btn == "satuan")
+                            {
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'purchase_order.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
+                                string Message = $@"
+                                setTimeout(function() {{
+                                SelectSucsess('{HttpUtility.JavaScriptStringEncode(lblRFNumber.Text)}');}});";
 
-                            // Register the script for partial postbacks
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "showErrorWithModal", Message, true);
+                                return;
+
+                            }
+                            //else
+                            //{
+                            //    string script = $@"
+                            //            $(document).ready(function() {{
+                            //                // Show Toastr notification
+                            //                toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                            //                // Redirect after 2 seconds (2000 milliseconds)
+                            //                setTimeout(function() {{
+                            //                    window.location.href = 'purchase_order.aspx'; // replace with your target URL
+                            //                }}, 2000);
+                            //            }});
+                            //        ";
+
+                            //    // Register the script for partial postbacks
+                            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+
+
+                            //}
+
+
                         }
                         else
                         {
-                            Response.Write(responseContent.ToString());
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedSend();", true);
+                            if (btn == "satuan")
+                            {
+                                Response.Write(responseContent.ToString());
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedSend();", true);
+                                return;
+                            }              
+
                         }
                     }
                     else
@@ -1772,7 +2258,7 @@ namespace procurement_system
                         SqlCommand sqlcomm = new SqlCommand();
                         sqlcomm.CommandText = "sp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager";
                         sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        sqlcomm.Parameters.AddWithValue("@po_no", /*txtPONumber.Value*/pono);
 
                         sqlcomm.Connection = Con;
                         DataTable dtb = new DataTable();
@@ -1787,7 +2273,7 @@ namespace procurement_system
                         PurchaseOrederCreated.LocalReport.DataSources.Add(new ReportDataSource("DataSetFormPurchaseOrderCreated", dtb));
                         PurchaseOrederCreated.LocalReport.Refresh();
 
-                        string FileName = txtPONumber.Value.Trim() + ".pdf";
+                        string FileName = /*txtPONumber.Value.Trim()*/ attcment.Trim() + ".pdf";
                         string extension;
                         string encoding;
                         string mimeType;
@@ -1817,12 +2303,14 @@ namespace procurement_system
                         {
                             message = new
                             {
-                                subject = "PURCHASE ORDER FORM : " + txtPONumber.Value,
+                                subject = "PURCHASE ORDER FORM : " + /*txtPONumber.Value*/pono,
                                 body = new
                                 {
                                     contentType = "HTML",
                                     content = body
                                 },
+                                //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                                //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                                 toRecipients = new[] { new { emailAddress = new { address = _emailITMgr } } },
                                 ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
                                 //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
@@ -1846,25 +2334,48 @@ namespace procurement_system
                         {
                             // Assuming 'FuncSave()' and 'FailedSend()' are JavaScript functions on the client side
                             //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                            string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'purchase_order.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
+                            if (btn == "satuan")
+                            {
 
-                            // Register the script for partial postbacks
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                                string Message = $@"
+                                setTimeout(function() {{
+                                SelectSucsess('{HttpUtility.JavaScriptStringEncode(lblRFNumber.Text)}');}});";
+
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "showErrorWithModal", Message, true);
+                                return;
+
+                            }
+                            //else
+                            //{
+                            //    string script = $@"
+                            //            $(document).ready(function() {{
+                            //                // Show Toastr notification
+                            //                toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                            //                // Redirect after 2 seconds (2000 milliseconds)
+                            //                setTimeout(function() {{
+                            //                    window.location.href = 'purchase_order.aspx'; // replace with your target URL
+                            //                }}, 2000);
+                            //            }});
+                            //        ";
+
+                            //    // Register the script for partial postbacks
+                            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+
+                            //}
+
                         }
                         else
                         {
-                            Response.Write(responseContent.ToString());
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedSend();", true);
+                            if (btn == "satuan")
+                            {
+
+                                Response.Write(responseContent.ToString());
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedSend();", true);
+                                return;
+
+                            }
                         }
                     }
                     
@@ -1872,9 +2383,14 @@ namespace procurement_system
             }
             catch (Exception ex)
             {
+                if (btn == "satuan")
+                {
+                    Response.Write(ex.ToString());
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedSend();", true);
+                    return; 
+                }
                 // Handle exceptions
-                Response.Write(ex.ToString());
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedSend();", true);
+               
             }
         }
         #endregion
@@ -1898,10 +2414,10 @@ namespace procurement_system
             return body;
         }
 
-        private async Task SendEmailToManagerGA()
+        private async Task SendEmailToManagerGA(string btn, string pono, string attcment)
         {
             string body = this.PopulateBodySendToManagerGA
-            ("SURI ARBAD", txtPONumber.Value, txtIssuedDate.Value, txtReqBy.Value, Session["fullname"].ToString(), "PO Created");
+            ("SURI ARBAD", /*txtPONumber.Value*/ pono, txtIssuedDate.Value, txtReqBy.Value, Session["fullname"].ToString(), "PO Created");
 
             try
             {
@@ -1924,7 +2440,7 @@ namespace procurement_system
                 {
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-                    if (FileUploadEDocs.HasFiles)
+                    if (/*hfAttachmentPath.Value*/ attcment != "" || /*hfAttachmentPath.Value*/ attcment != null)
                     {
                         // Read HTML content from file
                         string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
@@ -1933,7 +2449,7 @@ namespace procurement_system
                         SqlCommand sqlcomm = new SqlCommand();
                         sqlcomm.CommandText = "sp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendGAManager";
                         sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        sqlcomm.Parameters.AddWithValue("@po_no", /*txtPONumber.Value*/ pono);
 
                         sqlcomm.Connection = Con;
                         DataTable dtb = new DataTable();
@@ -1948,7 +2464,7 @@ namespace procurement_system
                         PurchaseOrederCreated.LocalReport.DataSources.Add(new ReportDataSource("DataSetFormPurchaseOrderCreated", dtb));
                         PurchaseOrederCreated.LocalReport.Refresh();
 
-                        string FileName = txtPONumber.Value.Trim() + ".pdf";
+                        string FileName = /*txtPONumber.Value.Trim()*/pono.Trim() + ".pdf";
                         string extension;
                         string encoding;
                         string mimeType;
@@ -1972,43 +2488,34 @@ namespace procurement_system
                             ContentBytes = attachmentBase64
                         };
 
-                        string _vPONo = txtPONumber.Value.Trim();
-                        string folderPath = Server.MapPath("~/eDocs_Files/PO/" + _vPONo + "/"); // Specify the path to your folder
-
-                        // Get all files in the folder
-                        string[] fileNames = Directory.GetFiles(folderPath);
-
                         List<FileAttachment> attachments1 = new List<FileAttachment>();
 
-                        foreach (string filePath in fileNames)
+                        string FiletpathNew = Server.MapPath("~/eDocs_Files/PO/" + /*hfAttachmentPath.Value*/ attcment);
+
+                        if (File.Exists(FiletpathNew))
                         {
-                            // Extract the file name
-                            string fileName = Path.GetFileName(filePath);
 
-                            // Read the file into a byte array
-                            byte[] attachBytes = File.ReadAllBytes(filePath);
+                            byte[] attachBytes = File.ReadAllBytes(FiletpathNew);
 
-                            // Convert the byte array to Base64
                             string attachBase64 = Convert.ToBase64String(attachBytes);
 
-                            // Create the file attachment object
+
                             var attach = new FileAttachment
                             {
                                 Type = "#microsoft.graph.fileAttachment",
-                                Name = fileName,
+                                Name = Path.GetFileName(FiletpathNew),
                                 ContentBytes = attachBase64
                             };
 
-                            // Add the attachment to the list
                             attachments1.Add(attach);
-                        }
 
+                        }
                         // Create email content with HTML body
                         var emailBody = new
                         {
                             message = new
                             {
-                                subject = "PURCHASE ORDER FORM : " + txtPONumber.Value,
+                                subject = "PURCHASE ORDER FORM : " + /*txtPONumber.Value*/pono,
                                 body = new
                                 {
                                     contentType = "HTML",
@@ -2038,25 +2545,48 @@ namespace procurement_system
                         {
                             // Assuming 'FuncSave()' and 'FailedSend()' are JavaScript functions on the client side
                             //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                            string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'purchase_order.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
 
-                            // Register the script for partial postbacks
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                            if (btn == "satuan")
+                            {
+
+                                string Message = $@"
+                                setTimeout(function() {{
+                                SelectSucsess('{HttpUtility.JavaScriptStringEncode(lblRFNumber.Text)}');}});";
+
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "showErrorWithModal", Message, true);
+
+                                return;
+                            }
+                            //else
+                            //{
+                            //    string script = $@"
+                            //            $(document).ready(function() {{
+                            //                // Show Toastr notification
+                            //                toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                            //                // Redirect after 2 seconds (2000 milliseconds)
+                            //                setTimeout(function() {{
+                            //                    window.location.href = 'purchase_order.aspx'; // replace with your target URL
+                            //                }}, 2000);
+                            //            }});
+                            //        ";
+
+                            //    // Register the script for partial postbacks
+                            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+
+                            //}
+
                         }
                         else
                         {
-                            Response.Write(responseContent.ToString());
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedSend();", true);
+                            if (btn == "satuan")
+                            {
+                                Response.Write(responseContent.ToString());
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedSend();", true);
+                                return;
+                            }
+                            
                         }
                     }
                     else
@@ -2068,7 +2598,7 @@ namespace procurement_system
                         SqlCommand sqlcomm = new SqlCommand();
                         sqlcomm.CommandText = "sp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendGAManager";
                         sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Parameters.AddWithValue("@po_no", txtPONumber.Value);
+                        sqlcomm.Parameters.AddWithValue("@po_no", /*txtPONumber.Value*/pono);
 
                         sqlcomm.Connection = Con;
                         DataTable dtb = new DataTable();
@@ -2083,7 +2613,7 @@ namespace procurement_system
                         PurchaseOrederCreated.LocalReport.DataSources.Add(new ReportDataSource("DataSetFormPurchaseOrderCreated", dtb));
                         PurchaseOrederCreated.LocalReport.Refresh();
 
-                        string FileName = txtPONumber.Value.Trim() + ".pdf";
+                        string FileName = /*txtPONumber.Value.Trim()*/ pono.Trim() + ".pdf";
                         string extension;
                         string encoding;
                         string mimeType;
@@ -2112,7 +2642,7 @@ namespace procurement_system
                         {
                             message = new
                             {
-                                subject = "PURCHASE ORDER FORM : " + txtPONumber.Value,
+                                subject = "PURCHASE ORDER FORM : " + /*txtPONumber.Value*/ pono,
                                 body = new
                                 {
                                     contentType = "HTML",
@@ -2141,25 +2671,48 @@ namespace procurement_system
                         {
                             // Assuming 'FuncSave()' and 'FailedSend()' are JavaScript functions on the client side
                             //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                            string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'purchase_order.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
+                            if (btn == "satuan")
+                            {
 
-                            // Register the script for partial postbacks
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                                string Message = $@"
+                                setTimeout(function() {{
+                                SelectSucsess('{HttpUtility.JavaScriptStringEncode(lblRFNumber.Text)}');}});";
+
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "showErrorWithModal", Message, true);
+
+                                return;
+
+                            }
+                            //else
+                            //{
+                            //    string script = $@"
+                            //            $(document).ready(function() {{
+                            //                // Show Toastr notification
+                            //                toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                            //                // Redirect after 2 seconds (2000 milliseconds)
+                            //                setTimeout(function() {{
+                            //                    window.location.href = 'purchase_order.aspx'; // replace with your target URL
+                            //                }}, 2000);
+                            //            }});
+                            //        ";
+
+                            //    // Register the script for partial postbacks
+                            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+
+                            //}
                         }
                         else
-                        {
-                            Response.Write(responseContent.ToString());
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedSend();", true);
+                        {   
+                            
+                            if (btn == "satuan")
+                            {
+                                Response.Write(responseContent.ToString());
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedSend();", true);
+                                return;
+                            }
+                           
                         }
                     }
                         
@@ -2167,9 +2720,13 @@ namespace procurement_system
             }
             catch (Exception ex)
             {
-                // Handle exceptions
-                Response.Write(ex.ToString());
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedSend();", true);
+                if (btn == "satuan")
+                {
+                    // Handle exceptions
+                    Response.Write(ex.ToString());
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FailedSend();", true);
+                    return;
+                }
             }
         }
         #endregion
@@ -2271,6 +2828,16 @@ namespace procurement_system
 
         protected void TableDetailsRF_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                string vendorName = DataBinder.Eval(e.Row.DataItem, "vendor_name")?.ToString();
+                string idVendor = DataBinder.Eval(e.Row.DataItem, "id_vendor")?.ToString();
+
+                e.Row.Attributes["data-vendor"] = vendorName;
+                e.Row.Attributes["data-idvendor"] = idVendor;
+
+            }
             //if (e.Row.RowType == DataControlRowType.DataRow)
             //{
             //    Int32 qty;
@@ -2362,6 +2929,9 @@ namespace procurement_system
             }
 
         }
+
+
+
 
         protected void CheckUploadDocument()
         {

@@ -62,7 +62,7 @@ namespace procurement_system
                     while (rdr.Read())
                     {
                         Session.Add("po_no", (string)rdr["po_no"]);
-                        Session.Add("rf_no", (string)rdr["rf_no"]);
+                        Session.Add("rf_no", rdr["rf_no"] == DBNull.Value ? null : rdr["rf_no"].ToString());
                         Session.Add("po_type", (string)rdr["po_type"]);
                         Session.Add("vendor_name", (string)rdr["vendor_name"]);
                         Session.Add("po_date", (DateTime)rdr["po_date"]);
@@ -97,6 +97,7 @@ namespace procurement_system
                         Session.Add("email_po_checked_by", (string)(rdr.IsDBNull(34) ? null : rdr["email_po_checked_by"]));
                         Session.Add("email_authorized_by", (string)(rdr.IsDBNull(35) ? null : rdr["email_authorized_by"]));
                         Session.Add("email_po_checked_by_it", (string)(rdr.IsDBNull(36) ? null : rdr["email_po_checked_by_it"]));
+                        Session.Add("Requester", (string)rdr["Requester"]);
                     }
                 }
                 sqlcomm.Dispose();
@@ -2135,7 +2136,8 @@ namespace procurement_system
             string toEmailDirector = string.Empty;
             string ccEmailPOCreate = string.Empty;
 
-            if (grandtotal < 1000000)
+
+            if (grandtotal <= 1000000)
             {
                 if (hlbCatalog.Value == "IT")
                 {
@@ -2183,7 +2185,7 @@ namespace procurement_system
                     }
                 }
             }
-            else if (grandtotal > 1000000 && grandtotal < 20000000)
+            else if (grandtotal > 1000000 && grandtotal <= 25000000)
             {
                 if (hlbCatalog.Value == "IT")
                 {
@@ -2255,7 +2257,7 @@ namespace procurement_system
                     }
                 }
             }
-            else if (grandtotal > 20000000)
+            else if (grandtotal > 25000000)
             {
                 if (hlbCatalog.Value == "IT")
                 {
@@ -2398,8 +2400,8 @@ namespace procurement_system
                                 contentType = "HTML",
                                 content = body
                             },
-                            //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                            //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                             toRecipients = toRecipients.ToArray(),
                             ccRecipients = ccRecipients.ToArray(),
 
@@ -2474,7 +2476,12 @@ namespace procurement_system
 
         protected async void btnCancelForm_Click(object sender, EventArgs e)
         {
-            UpdateDetail_RF();
+          
+            if (Session["po_type"].ToString() == "PO Standart")
+            {
+                UpdateDetail_RF();
+            }
+
             string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
             SqlConnection Con = new SqlConnection(path);
             Con.Open();
@@ -2484,7 +2491,10 @@ namespace procurement_system
             sqlcomm.Connection = Con;
             sqlcomm.Parameters.AddWithValue("@StatementType", "CancelPO");
             sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text);
-            sqlcomm.Parameters.AddWithValue("@rf_no", Session["rf_no"].ToString());
+            //sqlcomm.Parameters.AddWithValue("@rf_no", Session["rf_no"].ToString());
+            sqlcomm.Parameters.AddWithValue("@rf_no",Session["rf_no"] == null ? (object)DBNull.Value : Session["rf_no"].ToString());
+            sqlcomm.Parameters.AddWithValue("@po_type", Session["po_type"].ToString());
+
 
             sqlcomm.ExecuteNonQuery();
 

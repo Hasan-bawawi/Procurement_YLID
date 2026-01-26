@@ -8,6 +8,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+
+
+
 
 namespace procurement_system
 {
@@ -88,12 +94,102 @@ namespace procurement_system
 
         protected void btnAddNew_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlAddEvent').modal();", true);
+
+            ScriptManager.RegisterStartupScript(
+                    Page, Page.GetType(),
+                    "modal",
+                    "$('#mdlAddEvent').modal(); initDatePicker();",
+                    true
+            );
+        
+
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlAddEvent').modal();", true);
             //GetCheck();
             btnSubmit.Visible = true;
             btnUpdate.Visible = false;
         }
 
+        private async Task syncHoliday ()
+        {
+            try
+            {
+                string apiUrl = "https://api-harilibur.vercel.app/api";
+
+                using (var client = new HttpClient())
+                {
+                    var json = await client.GetStringAsync(apiUrl).ConfigureAwait(false);
+                    JArray data = JArray.Parse(json);
+
+                    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(path))
+                    {
+                        con.Open();
+
+                        foreach (var item in data)
+                        {
+                            bool isHoliday = item["is_national_holiday"].Value<bool>();
+                            if (!isHoliday) continue;
+
+                            DateTime holidayDate = DateTime.Parse(item["holiday_date"].ToString());
+                            string holidayName = item["holiday_name"].ToString();
+
+                            using (SqlCommand sqlcomm = new SqlCommand("sp_PROCUREMENT_DB_MasterEventCalender", con))
+                            {
+                                sqlcomm.CommandType = CommandType.StoredProcedure;
+
+                                sqlcomm.Parameters.AddWithValue("@StatementType", "Savesync");
+                                sqlcomm.Parameters.AddWithValue("@EventDate", holidayDate); // ✅ holiday_date
+                                sqlcomm.Parameters.AddWithValue("@EventRemark", holidayName); // ✅ holiday_name
+                                sqlcomm.Parameters.AddWithValue("@User", Session["nik"].ToString());
+                                sqlcomm.Parameters.AddWithValue("@Active", true);
+
+                                sqlcomm.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+
+                //ScriptManager.RegisterStartupScript(this, GetType(), "alert", "alert('Sync data libur nasional selesai!');", true);
+                string script = $@"
+                                $(document).ready(function() {{
+                                // Show Toastr notification
+                                toastr.success('Sync data national holiday sucess', 'Success');
+
+                                // Redirect after 2 seconds (2000 milliseconds)
+                                setTimeout(function() {{
+                                    window.location.href = 'event_calender.aspx'; // replace with your target URL
+                                }}, 2000);
+                            }});
+                        ";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+            }
+            catch (Exception ex)
+            {
+                string script = $@"
+                            $(document).ready(function() {{
+                                // Show Toastr notification
+                                toastr.error({ex.Message}, 'Error');
+
+                                // Redirect after 2 seconds (2000 milliseconds)
+                                setTimeout(function() {{
+                                    window.location.href = 'event_calender.aspx'; // replace with your target URL
+                                }}, 2000);
+                            }});
+                        ";
+
+                // Register the script for partial postbacks
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+
+                //ScriptManager.RegisterStartupScript(this, GetType(), "alert", $"alert('Error: {ex.Message}');", true);
+            }
+        }
+
+
+        protected void btnsync_Click(object sender, EventArgs e)
+        {
+            //ScriptManager.RegisterStartupScript(this, GetType(), "alert", "alert('btnsync_Click terpanggil!');", true);
+            syncHoliday().GetAwaiter().GetResult();
+        }
         protected void btnEdit_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;

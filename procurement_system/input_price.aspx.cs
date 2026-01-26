@@ -1,29 +1,34 @@
-﻿using Microsoft.Reporting.WebForms;
+﻿using DocumentFormat.OpenXml.Math;
+using Microsoft.Graph;
+using Microsoft.Graph.Models;
+using Microsoft.Identity.Client;
+using Microsoft.Reporting.WebForms;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Mail;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Web.Configuration;
-using System.Threading.Tasks;
-using Microsoft.Identity.Client;
-using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Text;
-using Microsoft.Graph.Models;
-using Microsoft.Graph;
-using System.Drawing;
 using ZXing;
+using DocumentFormat.OpenXml.Spreadsheet;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+using DocumentFormat.OpenXml.Office2021.Excel.NamedSheetViews;
+
 
 namespace procurement_system
 {
@@ -54,10 +59,17 @@ namespace procurement_system
                     sqlcomm.Parameters.AddWithValue("@StatementType", "ViewDetailRF");
                     sqlcomm.Parameters.AddWithValue("@rf_no", id);
                     con.Open();
+
+                    int rowCount = 0;
+
                     using (SqlDataReader rdr = sqlcomm.ExecuteReader())
                     {
+                       
+
                         while (rdr.Read())
                         {
+
+                            rowCount++;
                             Session.Add("catalog_type", (string)rdr["catalog_type"]);
                             Session.Add("rf_no", (string)rdr["rf_no"]);
                             Session.Add("id", (string)rdr["id"].ToString());
@@ -77,7 +89,7 @@ namespace procurement_system
                             Session.Add("type_request", (string)rdr["type_request"]);
                             Session.Add("status_approve", (string)rdr["status_approve"]);
                             //Session.Add("description", (string)rdr["description"]);
-                            //Session.Add("nik_approver", (string)rdr["nik_approver"]);
+                            Session.Add("nik_approver", (string)rdr["nik_approverhead"]);
                             //Session.Add("nik_requester", (string)rdr["nik_requester"]); 
                             //Session.Add("nik_gm_approver", (string)rdr["nik_gm_approver"]);
                             Session.Add("id_vendor", (string)rdr["id_vendor"].ToString());
@@ -95,6 +107,8 @@ namespace procurement_system
                             Session.Add("DivisionReq", (string)rdr["DivisionReq"].ToString());
                         }
                     }
+
+                    Session["RowCountDetail"] = rowCount;
                     sqlcomm.Dispose();
                     con.Close();
                     con.Dispose();
@@ -113,6 +127,8 @@ namespace procurement_system
                 //lbAcknowledgeBy.Text = Session["GMApprove"].ToString();
                 lbLocation.Text = Session["nama_branch"].ToString();
                 hlbEmailRequester.Value = Session["EmailRequester"].ToString();
+                lbCatalogType.Value = Session["catalog_type"].ToString();
+                hlbNIKApprover.Value = Session["nik_approver"].ToString();
                 //hlbEmailAdmGM.Value = Session["EmailAdmGMApprove"].ToString();
                 //hlbAdmManager.Value = Session["AdmManagerApprove"].ToString();
                 //hlbEmailAdmManager.Value = Session["EmailAdmManagerApprove"].ToString();
@@ -121,6 +137,7 @@ namespace procurement_system
                 if (!IsPostBack)
                 {
                     BindDataTableItemRF();
+                    GetVendorData();
                 }
             }
             else
@@ -131,32 +148,32 @@ namespace procurement_system
             
         }
 
-        protected void btnCheck_Click(object sender, EventArgs e)
-        {
-            int total = 0;
-            foreach (GridViewRow grow in TableItemPurchase.Rows)
-            {
-                Int32 qty;
-                Int32 amount;
-                HtmlInputText price = (HtmlInputText)grow.FindControl("txtPrice");
-                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
-                int getprice = Convert.ToInt32(parsedValue);
+        //protected void btnCheck_Click(object sender, EventArgs e)
+        //{
+        //    int total = 0;
+        //    foreach (GridViewRow grow in TableItemPurchase.Rows)
+        //    {
+        //        Int32 qty;
+        //        Int32 amount;
+        //        HtmlInputText price = (HtmlInputText)grow.FindControl("txtPrice");
+        //        decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+        //        int getprice = Convert.ToInt32(parsedValue);
 
-                qty = Convert.ToInt32(grow.Cells[6].Text.ToString());
-                amount = getprice * qty;
+        //        qty = Convert.ToInt32(grow.Cells[6].Text.ToString());
+        //        amount = getprice * qty;
 
-                int getAmount = Convert.ToInt32(amount);
-                total += getAmount;
-                price.Disabled = true;
-            }
-            decimal value;
-            value = Convert.ToDecimal(total);
-            txtGrandTotal.Value = value.ToString("#,##0");
+        //        int getAmount = Convert.ToInt32(amount);
+        //        total += getAmount;
+        //        price.Disabled = true;
+        //    }
+        //    decimal value;
+        //    value = Convert.ToDecimal(total);
+        //    txtGrandTotal.Value = value.ToString("#,##0");
             
-            divSubmit.Visible = true;
-            divCheck.Visible = false;
-            divClearPrice.Visible = true;
-        }
+        //    divSubmit.Visible = true;
+        //    //divCheck.Visible = false;
+        //    //divClearPrice.Visible = true;
+        //}
 
         #region Tables
         protected void BindDataTableItemRF()
@@ -185,6 +202,8 @@ namespace procurement_system
             TableItemPurchase.UseAccessibleHeader = true;
             TableItemPurchase.HeaderRow.TableSection = TableRowSection.TableHeader;
 
+            
+
             Con.Close();
 
         }
@@ -204,6 +223,66 @@ namespace procurement_system
 
         }
         #endregion
+
+        protected void GetVendorData()
+        {
+            foreach (GridViewRow grow in TableItemPurchase.Rows)
+            {
+                DropDownList ddlList = (DropDownList)grow.FindControl("ddlVendor");
+                ddlList.Items.Clear();
+                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                SqlConnection Con = new SqlConnection(path);
+
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.CommandText = "sp_PROCUREMENT_DB_Vendor";
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Connection = Con;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "AddVendor");
+
+                SqlDataReader dr;
+
+                try
+                {
+                    System.Web.UI.WebControls.ListItem newItem = new System.Web.UI.WebControls.ListItem();
+                    newItem.Text = "--- SELECT A VENDOR ---";
+                    newItem.Value = "00000000-0000-0000-0000-000000000000";
+                    ddlList.Items.Add(newItem);
+
+                    Con.Open();
+                    dr = sqlcomm.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        newItem = new System.Web.UI.WebControls.ListItem();
+                        newItem.Text = dr["vendor_name"].ToString();
+                        newItem.Value = dr["id"].ToString();
+                        ddlList.Items.Add(newItem);
+                    }
+                    dr.Close();
+                }
+                catch (Exception err)
+                {
+                    //TODO
+                }
+                finally
+                {
+                    sqlcomm.Dispose();
+                    Con.Close();
+                    Con.Dispose();
+                }
+            }
+
+        }
+
+
+        protected void ddlVendor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
 
         #region SendEmail
         public class FileAttachment
@@ -314,8 +393,7 @@ namespace procurement_system
                                 content = body
                             },
                             toRecipients = new[] { new { emailAddress = new { address = hlbEmailMgrApprover.Value } } },
-                            ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
-                                new { emailAddress = new { address = hlbEmailRequester.Value } } },
+                            ccRecipients = new[] { /*new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },*/new { emailAddress = new { address = hlbEmailRequester.Value } } },
                             //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             attachments = new[] { attachment }
@@ -437,7 +515,7 @@ namespace procurement_system
         #endregion
 
         #region Submit
-        protected void submitrow(int getprice, string item_code)
+        protected void submitrow(int getprice, string item_code, int getprevprice,string vendor)
         {
             string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
             SqlConnection Con = new SqlConnection(path);
@@ -450,6 +528,9 @@ namespace procurement_system
             sqlcomm.Parameters.AddWithValue("@price", getprice);
             sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberHeader.Text);
             sqlcomm.Parameters.AddWithValue("@item_code", item_code);
+            sqlcomm.Parameters.AddWithValue("@Previousprice", getprevprice);
+            sqlcomm.Parameters.AddWithValue("@id_vendor",vendor);
+
 
             sqlcomm.ExecuteNonQuery();
 
@@ -463,41 +544,72 @@ namespace procurement_system
             foreach (GridViewRow grow in TableItemPurchase.Rows)
             {
                 HtmlInputText price = (HtmlInputText)grow.FindControl("txtPrice");
-                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.Currency);
+                HtmlInputText prevprice = (HtmlInputText)grow.FindControl("txtPrevPrice");
+
+                decimal parsedValue = decimal.Parse(price.Value, NumberStyles.AllowThousands, CultureInfo.InvariantCulture);
+                decimal parsedValue2 = decimal.Parse(prevprice.Value, NumberStyles.AllowThousands, CultureInfo.InvariantCulture);
+
                 int getprice = Convert.ToInt32(parsedValue);
+                int getprevprice = Convert.ToInt32(parsedValue2);
+               
                 string item_code = grow.Cells[3].Text;
-                submitrow(getprice, item_code);
+                
+                DropDownList dlList = (DropDownList)grow.FindControl("ddlVendor");
+                string selectedvalue = dlList.SelectedItem.Value;
+              
+
+                submitrow(getprice, item_code,getprevprice,selectedvalue);
             }
         }
 
         protected async void btnSubmit_Click(object sender, EventArgs e)
         {
-            divSubmit.Visible = false;
-            divCheck.Visible = true;
+            //divSubmit.Visible = false;
+            //divCheck.Visible = true;
+            //decimal parsedValue = decimal.Parse(txtGrandTotal.Value, NumberStyles.Currency);
 
-            if (lbLocation.Text.ToUpper() == "YLID-SUB" || lbLocation.Text.ToUpper() == "YLID-SRG")
+            //int getGrandTotal = Convert.ToInt32(parsedValue);
+
+            decimal parsedValue = decimal.Parse(txtGrandTotal.Value, NumberStyles.AllowThousands, CultureInfo.InvariantCulture);
+
+            int getGrandTotal = Convert.ToInt32(parsedValue);
+
+            int rowCount = 0;
+
+            if (Session["RowCountDetail"] != null) rowCount = Convert.ToInt32(Session["RowCountDetail"]);
+
+
+            if (rowCount == 0)
             {
-                decimal parsedValue = decimal.Parse(txtGrandTotal.Value, NumberStyles.Currency);
-                int getGrandTotal = Convert.ToInt32(parsedValue);
-                if (getGrandTotal <= 1000000)
-                {
-                    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                    SqlConnection Con = new SqlConnection(path);
-                    Con.Open();
-                    SqlCommand sqlcomm = new SqlCommand();
-                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                    sqlcomm.CommandType = CommandType.StoredProcedure;
-                    sqlcomm.Connection = Con;
-                    sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Under1Juta_SUB_SRG");
-                    sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                    sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "ErrorSubmit_();", true);
 
-                    sqlcomm.ExecuteNonQuery();
-                    Con.Close();
-                    UpdatePriceRF();
-                    await SendEmailSendToManagerDivision();
-                    //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                    string script = $@"
+            }
+            else if (getGrandTotal == 0)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "ErrorSubmit();", true);
+
+            } else  if (lbLocation.Text.ToUpper() == "YLID-SUB" || lbLocation.Text.ToUpper() == "YLID-SRG")
+            {
+
+                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                SqlConnection Con = new SqlConnection(path);
+                Con.Open();
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Connection = Con;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFEstimatednewSP");
+                sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                sqlcomm.Parameters.AddWithValue("@Price", getGrandTotal);
+
+                sqlcomm.ExecuteNonQuery();
+                Con.Close();
+
+                UpdatePriceRF();
+                await SendEmailSendToManagerDivision();
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                string script = $@"
                                         $(document).ready(function() {{
                                             // Show Toastr notification
                                             toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
@@ -509,100 +621,132 @@ namespace procurement_system
                                         }});
                                     ";
 
-                    // Register the script for partial postbacks
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                }
-                else if (getGrandTotal >= 1000000 && getGrandTotal <= 5000000)
-                {
-                    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                    SqlConnection Con = new SqlConnection(path);
-                    Con.Open();
-                    SqlCommand sqlcomm = new SqlCommand();
-                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                    sqlcomm.CommandType = CommandType.StoredProcedure;
-                    sqlcomm.Connection = Con;
-                    sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper1Juta_SUB_SRG");
-                    sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                    sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                // Register the script for partial postbacks
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
 
-                    sqlcomm.ExecuteNonQuery();
-                    Con.Close();
-                    UpdatePriceRF();
-                    await SendEmailSendToManagerDivision();
-                    //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                    string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                #region oldcode
+                //if (getGrandTotal <= 1000000)
+                //{
+                //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //    SqlConnection Con = new SqlConnection(path);
+                //    Con.Open();
+                //    SqlCommand sqlcomm = new SqlCommand();
+                //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //    sqlcomm.CommandType = CommandType.StoredProcedure;
+                //    sqlcomm.Connection = Con;
+                //    sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Under1Juta_SUB_SRG");
+                //    sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //    sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
+                //    sqlcomm.ExecuteNonQuery();
+                //    Con.Close();
+                //    UpdatePriceRF();
+                //    await SendEmailSendToManagerDivision();
+                //    //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //    string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                    // Register the script for partial postbacks
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                }
-                else
-                {
-                    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                    SqlConnection Con = new SqlConnection(path);
-                    Con.Open();
-                    SqlCommand sqlcomm = new SqlCommand();
-                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                    sqlcomm.CommandType = CommandType.StoredProcedure;
-                    sqlcomm.Connection = Con;
-                    sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper5Juta_SUB_SRG");
-                    sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                    sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
 
-                    sqlcomm.ExecuteNonQuery();
-                    Con.Close();
-                    UpdatePriceRF();
-                    await SendEmailSendToManagerDivision();
-                    // Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                    string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                //    // Register the script for partial postbacks
+                //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //}
+                //else if (getGrandTotal >= 1000000 && getGrandTotal <= 5000000)
+                //{
+                //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //    SqlConnection Con = new SqlConnection(path);
+                //    Con.Open();
+                //    SqlCommand sqlcomm = new SqlCommand();
+                //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //    sqlcomm.CommandType = CommandType.StoredProcedure;
+                //    sqlcomm.Connection = Con;
+                //    sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper1Juta_SUB_SRG");
+                //    sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //    sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
-                    // Register the script for partial postbacks
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                }
+                //    sqlcomm.ExecuteNonQuery();
+                //    Con.Close();
+                //    UpdatePriceRF();
+                //    await SendEmailSendToManagerDivision();
+                //    //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //    string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
+
+                //    // Register the script for partial postbacks
+                //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //}
+                //else
+                //{
+                //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //    SqlConnection Con = new SqlConnection(path);
+                //    Con.Open();
+                //    SqlCommand sqlcomm = new SqlCommand();
+                //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //    sqlcomm.CommandType = CommandType.StoredProcedure;
+                //    sqlcomm.Connection = Con;
+                //    sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper5Juta_SUB_SRG");
+                //    sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //    sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+
+                //    sqlcomm.ExecuteNonQuery();
+                //    Con.Close();
+                //    UpdatePriceRF();
+                //    await SendEmailSendToManagerDivision();
+                //    // Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //    string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
+                //    // Register the script for partial postbacks
+                //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //}
+                #endregion
             }
             else
             {
-                decimal parsedValue = decimal.Parse(txtGrandTotal.Value, NumberStyles.Currency);
-                int getGrandTotal = Convert.ToInt32(parsedValue);
-                if (getGrandTotal <= 5000000)
-                {
-                    if (lbDivision.Text.ToUpper() == "5D2F0CA6-961D-4C09-9EEE-978EEE6309B8")
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Under5Juta_ADMINISTRATION");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
 
-                        sqlcomm.ExecuteNonQuery();
-                        Con.Close();
-                        UpdatePriceRF();
-                        await SendEmailSendToManagerDivision();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
+                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                SqlConnection Con = new SqlConnection(path);
+                Con.Open();
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Connection = Con;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFEstimatednewSP");
+                sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                sqlcomm.Parameters.AddWithValue("@Price", getGrandTotal);
+
+                sqlcomm.ExecuteNonQuery();
+                Con.Close();
+
+                UpdatePriceRF();
+                //await SendEmailSendToManagerDivision();
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                string script = $@"
                                         $(document).ready(function() {{
                                             // Show Toastr notification
                                             toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
@@ -613,302 +757,343 @@ namespace procurement_system
                                             }}, 2000);
                                         }});
                                     ";
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                    }
-                    else if (lbDivision.Text.ToUpper() == "6471E2F5-8BBF-4EEC-991F-4B2F7A56A8E5" || lbDivision.Text.ToUpper() == "C42F75D0-F7AD-42B2-ACAD-5200199B813D" || lbDivision.Text.ToUpper() == "825B4273-6E9A-456A-81D5-8B710F50598E" || lbDivision.Text.ToUpper() == "238217DC-2872-4A00-8EBB-1F41A951D363")
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Under5Juta_OFF");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
 
-                        sqlcomm.ExecuteNonQuery();
-                        Con.Close();
-                        UpdatePriceRF();
-                        await SendEmailSendToManagerDivision();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                // Register the script for partial postbacks
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                    }
-                    else if (lbDivision.Text.ToUpper() == "2B4B4E32-3ED9-4C8E-B74C-5BDB8D0C7C9E")
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Under5Juta_BD");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                #region oldcode2
+                //decimal parsedValue = decimal.Parse(txtGrandTotal.Value, NumberStyles.Currency);
+                //int getGrandTotal = Convert.ToInt32(parsedValue);
+                //if (getGrandTotal <= 5000000)
+                //{
+                //    if (lbDivision.Text.ToUpper() == "5D2F0CA6-961D-4C09-9EEE-978EEE6309B8")
+                //    {
+                //        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //        SqlConnection Con = new SqlConnection(path);
+                //        Con.Open();
+                //        SqlCommand sqlcomm = new SqlCommand();
+                //        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //        sqlcomm.CommandType = CommandType.StoredProcedure;
+                //        sqlcomm.Connection = Con;
+                //        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Under5Juta_ADMINISTRATION");
+                //        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
 
-                        sqlcomm.ExecuteNonQuery();
-                        Con.Close();
-                        UpdatePriceRF();
-                        await SendEmailSendToManagerDivision();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                //        sqlcomm.ExecuteNonQuery();
+                //        Con.Close();
+                //        UpdatePriceRF();
+                //        await SendEmailSendToManagerDivision();
+                //        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //        string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                    }
-                    else if (lbDivision.Text.ToUpper() == "555C16F8-EDD9-493E-9E1E-82C94CB87C90")
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Under5Juta_FINACC");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
+                //        // Register the script for partial postbacks
+                //        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //    }
+                //    else if (lbDivision.Text.ToUpper() == "6471E2F5-8BBF-4EEC-991F-4B2F7A56A8E5" || lbDivision.Text.ToUpper() == "C42F75D0-F7AD-42B2-ACAD-5200199B813D" || lbDivision.Text.ToUpper() == "825B4273-6E9A-456A-81D5-8B710F50598E" || lbDivision.Text.ToUpper() == "238217DC-2872-4A00-8EBB-1F41A951D363")
+                //    {
+                //        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //        SqlConnection Con = new SqlConnection(path);
+                //        Con.Open();
+                //        SqlCommand sqlcomm = new SqlCommand();
+                //        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //        sqlcomm.CommandType = CommandType.StoredProcedure;
+                //        sqlcomm.Connection = Con;
+                //        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Under5Juta_OFF");
+                //        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
 
-                        sqlcomm.ExecuteNonQuery();
-                        Con.Close();
-                        UpdatePriceRF();
-                        await SendEmailSendToManagerDivision();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                //        sqlcomm.ExecuteNonQuery();
+                //        Con.Close();
+                //        UpdatePriceRF();
+                //        await SendEmailSendToManagerDivision();
+                //        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //        string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                    }
-                    else if (lbDivision.Text.ToUpper() == "6C1974F7-08CB-4BE0-804B-63278DB111C5")
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Under5Juta_AFF");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
+                //        // Register the script for partial postbacks
+                //        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //    }
+                //    else if (lbDivision.Text.ToUpper() == "2B4B4E32-3ED9-4C8E-B74C-5BDB8D0C7C9E")
+                //    {
+                //        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //        SqlConnection Con = new SqlConnection(path);
+                //        Con.Open();
+                //        SqlCommand sqlcomm = new SqlCommand();
+                //        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //        sqlcomm.CommandType = CommandType.StoredProcedure;
+                //        sqlcomm.Connection = Con;
+                //        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Under5Juta_BD");
+                //        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
 
-                        sqlcomm.ExecuteNonQuery();
-                        Con.Close();
-                        UpdatePriceRF();
-                        await SendEmailSendToManagerDivision();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                //        sqlcomm.ExecuteNonQuery();
+                //        Con.Close();
+                //        UpdatePriceRF();
+                //        await SendEmailSendToManagerDivision();
+                //        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //        string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                    }
-                }
-                else if (getGrandTotal >= 5000000)
-                {
-                    if (lbDivision.Text.ToUpper() == "5D2F0CA6-961D-4C09-9EEE-978EEE6309B8")
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper5Juta_ADMINISTRATION");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
+                //        // Register the script for partial postbacks
+                //        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //    }
+                //    else if (lbDivision.Text.ToUpper() == "555C16F8-EDD9-493E-9E1E-82C94CB87C90")
+                //    {
+                //        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //        SqlConnection Con = new SqlConnection(path);
+                //        Con.Open();
+                //        SqlCommand sqlcomm = new SqlCommand();
+                //        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //        sqlcomm.CommandType = CommandType.StoredProcedure;
+                //        sqlcomm.Connection = Con;
+                //        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Under5Juta_FINACC");
+                //        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
 
-                        sqlcomm.ExecuteNonQuery();
-                        Con.Close();
-                        UpdatePriceRF();
-                        await SendEmailSendToManagerDivision();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                //        sqlcomm.ExecuteNonQuery();
+                //        Con.Close();
+                //        UpdatePriceRF();
+                //        await SendEmailSendToManagerDivision();
+                //        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //        string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                    }
-                    else if (lbDivision.Text.ToUpper() == "6471E2F5-8BBF-4EEC-991F-4B2F7A56A8E5" || lbDivision.Text.ToUpper() == "C42F75D0-F7AD-42B2-ACAD-5200199B813D" || lbDivision.Text.ToUpper() == "825B4273-6E9A-456A-81D5-8B710F50598E" || lbDivision.Text.ToUpper() == "238217DC-2872-4A00-8EBB-1F41A951D363")
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper5Juta_OFF");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
+                //        // Register the script for partial postbacks
+                //        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //    }
+                //    else if (lbDivision.Text.ToUpper() == "6C1974F7-08CB-4BE0-804B-63278DB111C5")
+                //    {
+                //        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //        SqlConnection Con = new SqlConnection(path);
+                //        Con.Open();
+                //        SqlCommand sqlcomm = new SqlCommand();
+                //        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //        sqlcomm.CommandType = CommandType.StoredProcedure;
+                //        sqlcomm.Connection = Con;
+                //        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Under5Juta_AFF");
+                //        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
 
-                        sqlcomm.ExecuteNonQuery();
-                        Con.Close();
-                        UpdatePriceRF();
-                        await SendEmailSendToManagerDivision();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                //        sqlcomm.ExecuteNonQuery();
+                //        Con.Close();
+                //        UpdatePriceRF();
+                //        await SendEmailSendToManagerDivision();
+                //        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //        string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                    }
-                    else if (lbDivision.Text.ToUpper() == "2B4B4E32-3ED9-4C8E-B74C-5BDB8D0C7C9E")
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper5Juta_BD");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
+                //        // Register the script for partial postbacks
+                //        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //    }
+                //}
+                //else if (getGrandTotal >= 5000000)
+                //{
+                //    if (lbDivision.Text.ToUpper() == "5D2F0CA6-961D-4C09-9EEE-978EEE6309B8")
+                //    {
+                //        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //        SqlConnection Con = new SqlConnection(path);
+                //        Con.Open();
+                //        SqlCommand sqlcomm = new SqlCommand();
+                //        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //        sqlcomm.CommandType = CommandType.StoredProcedure;
+                //        sqlcomm.Connection = Con;
+                //        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper5Juta_ADMINISTRATION");
+                //        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
 
-                        sqlcomm.ExecuteNonQuery();
-                        Con.Close();
-                        UpdatePriceRF();
-                        await SendEmailSendToManagerDivision();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                //        sqlcomm.ExecuteNonQuery();
+                //        Con.Close();
+                //        UpdatePriceRF();
+                //        await SendEmailSendToManagerDivision();
+                //        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //        string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                    }
-                    else if (lbDivision.Text.ToUpper() == "555C16F8-EDD9-493E-9E1E-82C94CB87C90")
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper5Juta_FINACC");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
+                //        // Register the script for partial postbacks
+                //        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //    }
+                //    else if (lbDivision.Text.ToUpper() == "6471E2F5-8BBF-4EEC-991F-4B2F7A56A8E5" || lbDivision.Text.ToUpper() == "C42F75D0-F7AD-42B2-ACAD-5200199B813D" || lbDivision.Text.ToUpper() == "825B4273-6E9A-456A-81D5-8B710F50598E" || lbDivision.Text.ToUpper() == "238217DC-2872-4A00-8EBB-1F41A951D363")
+                //    {
+                //        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //        SqlConnection Con = new SqlConnection(path);
+                //        Con.Open();
+                //        SqlCommand sqlcomm = new SqlCommand();
+                //        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //        sqlcomm.CommandType = CommandType.StoredProcedure;
+                //        sqlcomm.Connection = Con;
+                //        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper5Juta_OFF");
+                //        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
 
-                        sqlcomm.ExecuteNonQuery();
-                        Con.Close();
-                        UpdatePriceRF();
-                        await SendEmailSendToManagerDivision();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                //        sqlcomm.ExecuteNonQuery();
+                //        Con.Close();
+                //        UpdatePriceRF();
+                //        await SendEmailSendToManagerDivision();
+                //        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //        string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                    }
-                    else if (lbDivision.Text.ToUpper() == "6C1974F7-08CB-4BE0-804B-63278DB111C5")
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper5Juta_AFF");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
+                //        // Register the script for partial postbacks
+                //        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //    }
+                //    else if (lbDivision.Text.ToUpper() == "2B4B4E32-3ED9-4C8E-B74C-5BDB8D0C7C9E")
+                //    {
+                //        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //        SqlConnection Con = new SqlConnection(path);
+                //        Con.Open();
+                //        SqlCommand sqlcomm = new SqlCommand();
+                //        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //        sqlcomm.CommandType = CommandType.StoredProcedure;
+                //        sqlcomm.Connection = Con;
+                //        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper5Juta_BD");
+                //        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
 
-                        sqlcomm.ExecuteNonQuery();
-                        Con.Close();
-                        UpdatePriceRF();
-                        await SendEmailSendToManagerDivision();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                //        sqlcomm.ExecuteNonQuery();
+                //        Con.Close();
+                //        UpdatePriceRF();
+                //        await SendEmailSendToManagerDivision();
+                //        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //        string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                    }
-                }
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
+                //        // Register the script for partial postbacks
+                //        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //    }
+                //    else if (lbDivision.Text.ToUpper() == "555C16F8-EDD9-493E-9E1E-82C94CB87C90")
+                //    {
+                //        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //        SqlConnection Con = new SqlConnection(path);
+                //        Con.Open();
+                //        SqlCommand sqlcomm = new SqlCommand();
+                //        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //        sqlcomm.CommandType = CommandType.StoredProcedure;
+                //        sqlcomm.Connection = Con;
+                //        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper5Juta_FINACC");
+                //        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+
+                //        sqlcomm.ExecuteNonQuery();
+                //        Con.Close();
+                //        UpdatePriceRF();
+                //        await SendEmailSendToManagerDivision();
+                //        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //        string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
+                //        // Register the script for partial postbacks
+                //        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //    }
+                //    else if (lbDivision.Text.ToUpper() == "6C1974F7-08CB-4BE0-804B-63278DB111C5")
+                //    {
+                //        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                //        SqlConnection Con = new SqlConnection(path);
+                //        Con.Open();
+                //        SqlCommand sqlcomm = new SqlCommand();
+                //        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                //        sqlcomm.CommandType = CommandType.StoredProcedure;
+                //        sqlcomm.Connection = Con;
+                //        sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateRFPriceEstimated_Upper5Juta_AFF");
+                //        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                //        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+
+                //        sqlcomm.ExecuteNonQuery();
+                //        Con.Close();
+                //        UpdatePriceRF();
+                //        await SendEmailSendToManagerDivision();
+                //        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                //        string script = $@"
+                //                        $(document).ready(function() {{
+                //                            // Show Toastr notification
+                //                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                //                            // Redirect after 2 seconds (2000 milliseconds)
+                //                            setTimeout(function() {{
+                //                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                //                            }}, 2000);
+                //                        }});
+                //                    ";
+                //        // Register the script for partial postbacks
+                //        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                //    }
+                //}
+                #endregion
+
             }
+
 
         }
         #endregion
@@ -1012,8 +1197,251 @@ namespace procurement_system
             }
 
             divSubmit.Visible = false;
-            divCheck.Visible = true;
-            divClearPrice.Visible = false;
+            //divCheck.Visible = true;
+            //divClearPrice.Visible = false;
         }
+        protected void GetItems()
+        {
+            ddlItem.Items.Clear();
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            SqlConnection Con = new SqlConnection(path);
+
+            SqlCommand sqlcomm = new SqlCommand();
+            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+            sqlcomm.CommandType = CommandType.StoredProcedure;
+            sqlcomm.Connection = Con;
+            sqlcomm.Parameters.AddWithValue("@StatementType", "AddItemName");
+            sqlcomm.Parameters.AddWithValue("@nama_branch", lbLocation.Text);
+            sqlcomm.Parameters.AddWithValue("@catalog_type", lbCatalogType.Value);
+
+            SqlDataReader dr;
+
+            try
+            {
+                System.Web.UI.WebControls.ListItem newItem = new System.Web.UI.WebControls.ListItem();
+                newItem.Text = "<Code-Category-Item-Merk-Type>";
+                newItem.Value = "00000000-0000-0000-0000-000000000000";
+                ddlItem.Items.Add(newItem);
+
+                Con.Open();
+                dr = sqlcomm.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    newItem = new System.Web.UI.WebControls.ListItem();
+                    newItem.Text = "(" + dr["item_code"].ToString() + ")" + "/(" + dr["Category"].ToString() + ")" + "/(" + dr["Item"].ToString() + ")" + "/(" + dr["ItemMerk"].ToString() + ")" + "/(" + dr["tipe"].ToString() + ")";
+                    newItem.Value = dr["stok_code"].ToString();
+                    ddlItem.Items.Add(newItem);
+                }
+                dr.Close();
+            }
+            catch (Exception err)
+            {
+                //TODO
+            }
+            finally
+            {
+                Con.Close();
+            }
+        }
+
+
+
+        protected void GetDetailItems()
+        {
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            SqlConnection Con = new SqlConnection(path);
+            Con.Open();
+            SqlCommand sqlcomm = new SqlCommand();
+            sqlcomm.CommandText = "sp_PROCUREMENT_DB_GoodsStock";
+            sqlcomm.CommandType = CommandType.StoredProcedure;
+
+            sqlcomm.Connection = Con;
+            sqlcomm.Parameters.AddWithValue("@StatementType", "DetailItemNameToRF");
+            sqlcomm.Parameters.AddWithValue("@stok_code", ddlItem.SelectedValue);
+
+            SqlDataReader dr = null;
+            dr = sqlcomm.ExecuteReader();
+
+            if (dr.Read())
+            {
+                Session.Add("id", (string)dr["id"].ToString());
+                Session.Add("id_category", (string)dr["id_category"].ToString());
+                Session.Add("Category", (string)dr["Category"].ToString());
+                Session.Add("item_code", (string)dr["item_code"].ToString());
+                Session.Add("id_item", (string)dr["id_item"].ToString());
+                Session.Add("Item", (string)dr["Item"].ToString());
+                Session.Add("id_merk", (string)dr["id_merk"].ToString());
+                Session.Add("ItemMerk", (string)dr["ItemMerk"].ToString());
+                Session.Add("id_unit", (string)dr["id_unit"].ToString());
+                Session.Add("Unit", (string)dr["Unit"].ToString());
+                Session.Add("tipe", (string)dr["tipe"].ToString());
+                Session.Add("criteria_stock", (string)dr["criteria_stock"].ToString());
+                Session.Add("active", (string)dr["active"].ToString());
+                Session.Add("MinStock", (string)dr["MinStock"].ToString());
+                Session.Add("nama_branch_detail", (string)dr["nama_branch_detail"].ToString());
+                Session.Add("stok_code", (string)dr["stok_code"].ToString());
+            }
+            else
+            {
+
+            }
+        }
+
+
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlListItems').modal();", true);
+
+            //// get 
+            LinkButton btn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            int rowIndex = row.RowIndex;
+
+            string id = TableItemPurchase.DataKeys[row.RowIndex].Value.ToString(); ;
+            hlbiddet.Value = id;
+
+            // get data by id 
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            using (SqlConnection Con = new SqlConnection(path))
+            {
+                SqlCommand sqlcomm = new SqlCommand("sp_PROCUREMENT_DB_Purchase", Con);
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "GetEditRF");
+                sqlcomm.Parameters.AddWithValue("@id", id);
+
+                Con.Open();
+                SqlDataReader dr = sqlcomm.ExecuteReader();
+                if (dr.Read())
+                {
+                    // isi form sesuai data dari DB
+                    string stokCode = dr["stok_code"].ToString();  // pastikan kolomnya sesuai
+                    string qty = dr["quantity"].ToString();
+                    string remarks = dr["remaks"].ToString();
+                    string item_code = dr["item_code"].ToString();
+
+                    // panggil GetItems supaya dropdown terisi
+                    GetItems();
+
+                    // pilih item di dropdown sesuai stok_code
+                    if (ddlItem.Items.FindByValue(stokCode) != null)
+                        ddlItem.SelectedValue = stokCode;
+
+                    // isi textbox qty dan remarks
+                    txtJumlahBeli.Value = qty;
+                    txtRemaks.InnerText = remarks;
+                    hlbCodeItem.Value = item_code;
+
+                }
+                dr.Close();
+            }
+        }
+
+
+        protected void btnRemove_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            int rowIndex = row.RowIndex;
+
+            string id = TableItemPurchase.DataKeys[row.RowIndex].Value.ToString(); ;
+            hlbiddet.Value = id;
+
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            SqlConnection Con = new SqlConnection(path);
+            Con.Open();
+            SqlCommand sqlcomm = new SqlCommand();
+            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+            sqlcomm.CommandType = CommandType.StoredProcedure;
+            sqlcomm.Connection = Con;
+            sqlcomm.Parameters.AddWithValue("@StatementType", "DeleteItem");
+            sqlcomm.Parameters.AddWithValue("@id", hlbiddet.Value);
+
+            sqlcomm.ExecuteNonQuery();
+            Con.Close();
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "DeleteSuccess();", true);
+            BindDataTableItemRF();
+
+        }
+
+
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+            string statement = "";
+            string func = "";
+            if (hlbiddet.Value != "")
+            {
+                statement = "UpdateDetailRF";
+                func = "UpdateItemsSuccess();";
+            }
+            else
+            {
+                statement = "SaveDetailPurchase";
+                func = "AddItemsSuccess();";
+
+            }
+
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            SqlConnection Con = new SqlConnection(path);
+            Con.Open();
+            SqlCommand sqlcomm = new SqlCommand();
+            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+            sqlcomm.CommandType = CommandType.StoredProcedure;
+            sqlcomm.Connection = Con;
+            sqlcomm.Parameters.AddWithValue("@StatementType", statement);
+            sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+            sqlcomm.Parameters.AddWithValue("@nik_requester", Session["nik_requester"].ToString());
+            sqlcomm.Parameters.AddWithValue("@item_code", hlbCodeItem.Value.ToString());
+            sqlcomm.Parameters.AddWithValue("@quantity", txtJumlahBeli.Value.ToString());
+            sqlcomm.Parameters.AddWithValue("@request_date", lbRequestDate.Text.Trim());
+            sqlcomm.Parameters.AddWithValue("@remaks", txtRemaks.Value.ToString());
+            sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
+            sqlcomm.Parameters.AddWithValue("@type_request", Session["type_request"].ToString());
+            sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
+            //sqlcomm.Parameters.AddWithValue("@description", txtDescription.Value.ToString());
+            sqlcomm.Parameters.AddWithValue("@nik_approver", hlbNIKApprover.Value);
+            sqlcomm.Parameters.AddWithValue("@nama_branch", lbLocation.Text.Trim());
+            //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", "890556");
+            sqlcomm.Parameters.AddWithValue("@stok_code", ddlItem.SelectedValue);
+            //sqlcomm.Parameters.AddWithValue("@id", string.IsNullOrEmpty(hlbiddet.Value) ? "" : hlbiddet.Value);
+            sqlcomm.Parameters.AddWithValue("@id", string.IsNullOrEmpty(hlbiddet.Value) ? Guid.Empty : new Guid(hlbiddet.Value));
+            //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
+            //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
+
+            sqlcomm.ExecuteNonQuery();
+
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "text", func, true);
+
+
+            sqlcomm.Dispose();
+            Con.Close();
+            Con.Dispose();
+
+            BindDataTableItemRF();
+        }
+
+
+        protected void ddlItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetDetailItems();
+            //BindDataTableItemRF();
+            hlbCodeItem.Value = Session["item_code"].ToString();
+            hlbItem.Value = Session["Item"].ToString();
+            hlbMerk.Value = Session["ItemMerk"].ToString();
+            hlbType.Value = Session["tipe"].ToString();
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlListItems').modal();", true);
+        }
+
+        protected void btnAddItem_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlListItems').modal();", true);
+            GetItems();
+            txtJumlahBeli.Value = "";
+            txtRemaks.InnerText = "";
+            hlbiddet.Value = "";
+        }
+
     }
 }

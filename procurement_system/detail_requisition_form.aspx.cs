@@ -47,6 +47,7 @@ namespace procurement_system
             {
                 divChangeApprover.Visible = true;
                 divCancelRF.Visible = true;
+                divSend.Visible = false;
             }
             else
             {
@@ -91,6 +92,8 @@ namespace procurement_system
                         Session.Add("DivisionRequester", (string)rdr["DivisionRequester"].ToString());
                         Session.Add("SectionRequester", (string)rdr["SectionRequester"]);
                         Session.Add("nik_requester", (string)rdr["nik_requester"]);
+                        Session.Add("nik_approver", (string)rdr["nik_approver"]);
+                        Session.Add("nik_approverhead", (string)rdr["nik_approverhead"]);
                         Session.Add("ManagerApprove", (string)(rdr.IsDBNull(7) ? null : rdr["ManagerApprove"]));
                         Session.Add("GMApprove", (string)(rdr.IsDBNull(9) ? null : rdr["GMApprove"]));
                         Session.Add("DeputyDirectorApprove", (string)(rdr.IsDBNull(11) ? null : rdr["DeputyDirectorApprove"]));
@@ -108,6 +111,9 @@ namespace procurement_system
                         //Session.Add("nik_adm_gm", (string)rdr["nik_adm_gm"]);
                         Session.Add("DivisionReq", (string)rdr["DivisionReq"].ToString());
                         Session.Add("IDSectionRequester", (string)rdr["IDSectionRequester"].ToString());
+                        Session.Add("sendPur", (bool)rdr["sendPur"]);
+
+
                     }
                 }
                 sqlcomm.Dispose();
@@ -129,6 +135,8 @@ namespace procurement_system
             lbCatalogType.Text = Session["catalog_type"].ToString();
             lbRFNumberBreadcrumb.Text = Session["rf_no"].ToString();
             lbRFNumberHeader.Text = Session["rf_no"].ToString();
+            hlbNIKApprover.Value = Session["nik_approverhead"].ToString();
+
             string ReqDateFromDatabase = Session["request_date"].ToString();
             DateTime ParseDatetime = DateTime.Parse(ReqDateFromDatabase);
             string ReqDate = ParseDatetime.ToString("dd MMMM yyyy");
@@ -143,6 +151,7 @@ namespace procurement_system
             lbLocation.Text = Session["nama_branch"].ToString();
             hblEmailRequester.Value = Session["EmailRequester"].ToString();
             hblEmailManager.Value = Session["EmailManagerApprove"].ToString();
+            hlbsendpur.Value = ((bool)Session["sendPur"]) ? "true" : "false";
             //hblEmailGM.Value = Session["EmailGMApprove"].ToString();
             //hlbEmailManagerAdm.Value = Session["EmailAdmManagerApprove"].ToString();
             //hlbEmailGMAdm.Value = Session["EmailAdmGMApprove"].ToString();
@@ -9273,7 +9282,7 @@ namespace procurement_system
             #region BarStatus_New
             if (Session["status_approve"].ToString() == "Price Checked")
             {
-                if (Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
+                if (Session["GMApprove"] is null && Session["x`"] is null && Session["DirectorApprove"] is null)
                 {
                     if (Session["status"].ToString() == "Canceled")
                     {
@@ -11246,6 +11255,18 @@ namespace procurement_system
                 TableItemPurchase.UseAccessibleHeader = true;
                 TableItemPurchase.HeaderRow.TableSection = TableRowSection.TableHeader;
 
+
+                if (Session["GroupName"].ToString() != "Admin Purchasing")
+                {
+                    if(hlbsendpur.Value == "true")
+                    {
+                        TableItemPurchase.Columns[8].Visible = false;
+                        divBtnAddCart.Visible = false;
+                        divSend.Visible = false;
+                    }
+
+                }
+
                 Con.Close();
             }
             else
@@ -11283,6 +11304,8 @@ namespace procurement_system
 
         protected void TableItemPurchase_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+
+
 
         }
 
@@ -14392,6 +14415,54 @@ namespace procurement_system
 
         }
 
+        protected  void btnEdit_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlListItems').modal();", true);
+
+            // get 
+            LinkButton btn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            int rowIndex = row.RowIndex;
+
+            string id = TableItemPurchase.DataKeys[row.RowIndex].Value.ToString(); ;
+            hlbiddet.Value = id;
+
+
+            // get data by id 
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;   
+            using (SqlConnection Con = new SqlConnection(path))
+            {
+                SqlCommand sqlcomm = new SqlCommand("sp_PROCUREMENT_DB_Purchase", Con);
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "GetEditRF");
+                sqlcomm.Parameters.AddWithValue("@id", id);
+
+                Con.Open();
+                SqlDataReader dr = sqlcomm.ExecuteReader();
+                if (dr.Read())
+                {
+                    // isi form sesuai data dari DB
+                    string stokCode = dr["stok_code"].ToString();  // pastikan kolomnya sesuai
+                    string qty = dr["quantity"].ToString();
+                    string remarks = dr["remaks"].ToString();
+                    string item_code = dr["item_code"].ToString();
+
+                    // panggil GetItems supaya dropdown terisi
+                    GetItems();
+
+                    // pilih item di dropdown sesuai stok_code
+                    if (ddlItem.Items.FindByValue(stokCode) != null)
+                        ddlItem.SelectedValue = stokCode;
+
+                    // isi textbox qty dan remarks
+                    txtJumlahBeli.Value = qty;  
+                    txtRemaks.InnerText = remarks;
+                    hlbCodeItem.Value = item_code;
+                }
+                dr.Close();
+            }
+        }
+
         protected void GetDetailItems()
         {
             string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
@@ -14482,6 +14553,9 @@ namespace procurement_system
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlListItems').modal();", true);
             GetItems();
+            txtJumlahBeli.Value = "";
+            txtRemaks.InnerText = "";
+            hlbiddet.Value = "";
         }
 
         protected void ddlItem_SelectedIndexChanged(object sender, EventArgs e)
@@ -14496,6 +14570,21 @@ namespace procurement_system
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
+            string statement = "";
+            string func = "";
+            if (hlbiddet.Value != "")
+            {
+                statement = "UpdateDetailRF";
+                func = "UpdateItemsSuccess();";
+            }
+            else
+            {
+                statement = "SaveDetailPurchase";
+                func = "AddItemsSuccess();";
+
+            }
+
+
             string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
             SqlConnection Con = new SqlConnection(path);
             Con.Open();
@@ -14503,7 +14592,7 @@ namespace procurement_system
             sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchase");
+            sqlcomm.Parameters.AddWithValue("@StatementType", statement);
             sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
             sqlcomm.Parameters.AddWithValue("@nik_requester", Session["nik_requester"].ToString());
             sqlcomm.Parameters.AddWithValue("@item_code", hlbCodeItem.Value.ToString());
@@ -14514,15 +14603,21 @@ namespace procurement_system
             sqlcomm.Parameters.AddWithValue("@type_request", Session["type_request"].ToString());
             sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
             //sqlcomm.Parameters.AddWithValue("@description", txtDescription.Value.ToString());
-            //sqlcomm.Parameters.AddWithValue("@nik_approver", hlbNIKApprover.Value);
+            sqlcomm.Parameters.AddWithValue("@nik_approver", hlbNIKApprover.Value);
             sqlcomm.Parameters.AddWithValue("@nama_branch", lbLocation.Text.Trim());
             //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", "890556");
             sqlcomm.Parameters.AddWithValue("@stok_code", ddlItem.SelectedValue);
+            //sqlcomm.Parameters.AddWithValue("@id", string.IsNullOrEmpty(hlbiddet.Value) ? "" : hlbiddet.Value);
+            sqlcomm.Parameters.AddWithValue("@id", string.IsNullOrEmpty(hlbiddet.Value)? Guid.Empty: new Guid(hlbiddet.Value));
             //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
             //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
 
             sqlcomm.ExecuteNonQuery();
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "AddItemsSuccess();", true);
+
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "text", func, true);
+
+
             sqlcomm.Dispose();
             Con.Close();
             Con.Dispose();
@@ -14631,41 +14726,52 @@ namespace procurement_system
                 else
                 {
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
-                    if (hlbSection.Text.ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" || hlbSection.Text.ToString().ToUpper() == "52591B16-4E97-4F3B-A48F-4807936E1052"
-                    || hlbSection.Text.ToString().ToUpper() == "0AEE271E-A132-4A2F-BC46-AAD99BBE7519" || hlbSection.Text.ToString().ToUpper() == "DCDA04FD-4920-4F6C-BAF8-77B377DE2FFF"
-                    || hlbSection.Text.ToString().ToUpper() == "E6A8EF10-5025-44C0-9CF1-7AB81CA4F523" || hlbSection.Text.ToString().ToUpper() == "3BEAD7B1-A9D4-4557-976F-DA2C6B489910"
-                    || hlbSection.Text.ToString().ToUpper() == "0BF510DE-9348-418C-9E26-735243E8C05F" || hlbSection.Text.ToString().ToUpper() == "09F99302-B5CA-468A-9508-F2F032DC090D")
-                    {
-                        //GetGMDivisionApproval();
-                        GetMGR_DivisionApproval();
-                        divManagerDivision.Visible = true;
-                        divGMDivision.Visible = false;
-                    }
-                    else if (hlbSection.Text.ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182")
-                    {
-                        //GetGMDivisionApproval();
-                        GetMGR_DivisionApproval();
-                        divManagerDivision.Visible = true;
-                        divGMDivision.Visible = false;
-                    }
-                    else
-                    {
-                        if (lbDivision.Text.ToString().ToUpper() == "C999F3FD-F604-40A3-A300-A3B63FCF8B68" || lbDivision.Text.ToString().ToUpper() == "B094D3EB-0DEC-4066-8CB9-AB118F2B81D0"
-                            || lbDivision.Text.ToString().ToUpper() == "63900462-5119-42D4-98DB-B2728A34868A")
-                        {
-                            GetMGR_SUBSRG_DivisionApproval();
-                            //GetGMDivisionApproval();
-                            divManagerDivision.Visible = true;
-                            divGMDivision.Visible = false;
-                        }
-                        else
-                        {
-                            //GetGMDivisionApproval();
-                            GetMGR_DivisionApproval();
-                            divManagerDivision.Visible = true;
-                            divGMDivision.Visible = false;
-                        }
-                    }
+                    
+                    GetMGR_DivisionApproval();
+                    
+                    divManagerDivision.Visible = true;
+                    divGMDivision.Visible = false;
+
+                    #region oldlogic
+                    //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
+                    //if (hlbSection.Text.ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" || hlbSection.Text.ToString().ToUpper() == "52591B16-4E97-4F3B-A48F-4807936E1052"
+                    //|| hlbSection.Text.ToString().ToUpper() == "0AEE271E-A132-4A2F-BC46-AAD99BBE7519" || hlbSection.Text.ToString().ToUpper() == "DCDA04FD-4920-4F6C-BAF8-77B377DE2FFF"
+                    //|| hlbSection.Text.ToString().ToUpper() == "E6A8EF10-5025-44C0-9CF1-7AB81CA4F523" || hlbSection.Text.ToString().ToUpper() == "3BEAD7B1-A9D4-4557-976F-DA2C6B489910"
+                    //|| hlbSection.Text.ToString().ToUpper() == "0BF510DE-9348-418C-9E26-735243E8C05F" || hlbSection.Text.ToString().ToUpper() == "09F99302-B5CA-468A-9508-F2F032DC090D")
+                    //{
+                    //    //GetGMDivisionApproval();
+                    //    GetMGR_DivisionApproval();
+                    //    divManagerDivision.Visible = true;
+                    //    divGMDivision.Visible = false;
+                    //}
+                    //else if (hlbSection.Text.ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182")
+                    //{
+                    //    //GetGMDivisionApproval();
+                    //    GetMGR_DivisionApproval();
+                    //    divManagerDivision.Visible = true;
+                    //    divGMDivision.Visible = false;
+                    //}
+                    //else
+                    //{
+                    //    if (lbDivision.Text.ToString().ToUpper() == "C999F3FD-F604-40A3-A300-A3B63FCF8B68" || lbDivision.Text.ToString().ToUpper() == "B094D3EB-0DEC-4066-8CB9-AB118F2B81D0"
+                    //        || lbDivision.Text.ToString().ToUpper() == "63900462-5119-42D4-98DB-B2728A34868A")
+                    //    {
+                    //        GetMGR_SUBSRG_DivisionApproval();
+                    //        //GetGMDivisionApproval();
+                    //        divManagerDivision.Visible = true;
+                    //        divGMDivision.Visible = false;
+                    //    }
+                    //    else
+                    //    {
+                    //        //GetGMDivisionApproval();
+                    //        GetMGR_DivisionApproval();
+                    //        divManagerDivision.Visible = true;
+                    //        divGMDivision.Visible = false;
+                    //    }
+                    //}
+
+
+                    #endregion
                 }
             }
             else if (Session["status_approve"].ToString() == "Approved (Division Manager)")
@@ -14679,43 +14785,50 @@ namespace procurement_system
                 else
                 {
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
-                    if (hlbSection.Text.ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" || hlbSection.Text.ToString().ToUpper() == "52591B16-4E97-4F3B-A48F-4807936E1052"
-                    || hlbSection.Text.ToString().ToUpper() == "0AEE271E-A132-4A2F-BC46-AAD99BBE7519" || hlbSection.Text.ToString().ToUpper() == "DCDA04FD-4920-4F6C-BAF8-77B377DE2FFF"
-                    || hlbSection.Text.ToString().ToUpper() == "E6A8EF10-5025-44C0-9CF1-7AB81CA4F523" || hlbSection.Text.ToString().ToUpper() == "3BEAD7B1-A9D4-4557-976F-DA2C6B489910"
-                    || hlbSection.Text.ToString().ToUpper() == "0BF510DE-9348-418C-9E26-735243E8C05F" || hlbSection.Text.ToString().ToUpper() == "09F99302-B5CA-468A-9508-F2F032DC090D")
-                    {
-                        GetGMDivisionApproval();
-                        divManagerDivision.Visible = false;
-                        divGMDivision.Visible = true;
-                    }
-                    else if (hlbSection.Text.ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182")
-                    {
-                        GetGMDivisionApproval();
-                        divManagerDivision.Visible = false;
-                        divGMDivision.Visible = true;
-                    }
-                    else
-                    {
-                        if (lbDivision.Text.ToString().ToUpper() == "C999F3FD-F604-40A3-A300-A3B63FCF8B68" || lbDivision.Text.ToString().ToUpper() == "B094D3EB-0DEC-4066-8CB9-AB118F2B81D0"
-                            || lbDivision.Text.ToString().ToUpper() == "63900462-5119-42D4-98DB-B2728A34868A")
-                        {
-                            GetGMDivisionApproval_SUBSRG();
-                            divManagerDivision.Visible = false;
-                            divGMDivision.Visible = true;
-                        }
-                        else
-                        {
-                            GetGMDivisionApproval();
-                            divManagerDivision.Visible = false;
-                            divGMDivision.Visible = true;
-                        }
-                    }
+                    GetGMDivisionApproval();
+                    divManagerDivision.Visible = false;
+                    divGMDivision.Visible = true;
+
+                    #region oldlogic
+                    //if (hlbSection.Text.ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" || hlbSection.Text.ToString().ToUpper() == "52591B16-4E97-4F3B-A48F-4807936E1052"
+                    //|| hlbSection.Text.ToString().ToUpper() == "0AEE271E-A132-4A2F-BC46-AAD99BBE7519" || hlbSection.Text.ToString().ToUpper() == "DCDA04FD-4920-4F6C-BAF8-77B377DE2FFF"
+                    //|| hlbSection.Text.ToString().ToUpper() == "E6A8EF10-5025-44C0-9CF1-7AB81CA4F523" || hlbSection.Text.ToString().ToUpper() == "3BEAD7B1-A9D4-4557-976F-DA2C6B489910"
+                    //|| hlbSection.Text.ToString().ToUpper() == "0BF510DE-9348-418C-9E26-735243E8C05F" || hlbSection.Text.ToString().ToUpper() == "09F99302-B5CA-468A-9508-F2F032DC090D")
+                    //{
+                    //    GetGMDivisionApproval();
+                    //    divManagerDivision.Visible = false;
+                    //    divGMDivision.Visible = true;
+                    //}
+                    //else if (hlbSection.Text.ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182")
+                    //{
+                    //    GetGMDivisionApproval();
+                    //    divManagerDivision.Visible = false;
+                    //    divGMDivision.Visible = true;
+                    //}
+                    //else
+                    //{
+                    //    if (lbDivision.Text.ToString().ToUpper() == "C999F3FD-F604-40A3-A300-A3B63FCF8B68" || lbDivision.Text.ToString().ToUpper() == "B094D3EB-0DEC-4066-8CB9-AB118F2B81D0"
+                    //        || lbDivision.Text.ToString().ToUpper() == "63900462-5119-42D4-98DB-B2728A34868A")
+                    //    {
+                    //        GetGMDivisionApproval_SUBSRG();
+                    //        divManagerDivision.Visible = false;
+                    //        divGMDivision.Visible = true;
+                    //    }
+                    //    else
+                    //    {
+                    //        GetGMDivisionApproval();
+                    //        divManagerDivision.Visible = false;
+                    //        divGMDivision.Visible = true;
+                    //    }
+                    //}
 
 
 
                     //GetGMDivisionApproval();
                     //divManagerDivision.Visible = false;
                     //divGMDivision.Visible = true;
+
+                    #endregion
                 }
             }
             else
@@ -14736,7 +14849,7 @@ namespace procurement_system
             sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPurchaseApproverGM");
+            sqlcomm.Parameters.AddWithValue("@StatementType", /*"ViewPurchaseApproverGM"*/ "ViewPurchaseGMNew");
             sqlcomm.Parameters.AddWithValue("@id_division", lbDivision.Text);
             //sqlcomm.Parameters.AddWithValue("@id_section", hlbSection.Text);
 
@@ -14830,8 +14943,8 @@ namespace procurement_system
             sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPurchaseApprover");
-            //sqlcomm.Parameters.AddWithValue("@id_division", lbDivisionReq.Text);
+            sqlcomm.Parameters.AddWithValue("@StatementType", /*"ViewPurchaseApprover"*/"ViewPurchaseMGRNew");
+            sqlcomm.Parameters.AddWithValue("@id_division", lbDivision.Text);
             sqlcomm.Parameters.AddWithValue("@id_section", hlbSection.Text);
 
             SqlDataReader dr;
@@ -15149,8 +15262,8 @@ namespace procurement_system
                             },
                             toRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
                             ccRecipients = new[] { new { emailAddress = new { address = hblEmailRequester.Value } } },
-                            //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                            //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                             attachments = new[] { attachment }
                         },
                         saveToSentItems = true
@@ -15670,7 +15783,23 @@ namespace procurement_system
 
         protected async void btnSend_Click(object sender, EventArgs e)
         {
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            SqlConnection Con = new SqlConnection(path);
+            Con.Open();
+            SqlCommand sqlcomm = new SqlCommand();
+            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+            sqlcomm.CommandType = CommandType.StoredProcedure;
+            sqlcomm.Connection = Con;
+            sqlcomm.Parameters.AddWithValue("@StatementType", "Updatesendpur");
+            sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+          
+            sqlcomm.ExecuteNonQuery();
+
             await SendEmailToPurchasingCheckEstimatePrice();
+            sqlcomm.Dispose();
+            Con.Close();
+
+
         }
 
         protected async void btnCancelRF_Click(object sender, EventArgs e)

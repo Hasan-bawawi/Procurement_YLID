@@ -402,22 +402,25 @@ namespace procurement_system
             LinkButton btn = (LinkButton)sender;
             GridViewRow row = (GridViewRow)btn.NamingContainer;
 
-            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            SqlConnection Con = new SqlConnection(path);
-            Con.Open();
-            SqlCommand sqlcomm = new SqlCommand();
-            sqlcomm.CommandText = "sp_PROCUREMENT_DB_UserManagement_AccessGroup";
-            sqlcomm.CommandType = CommandType.StoredProcedure;
-            sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "Delete");
-            sqlcomm.Parameters.AddWithValue("@Oid", row.Cells[1].Text.ToString());
+            if (row.Cells[1].Text.ToString().Length > 0)
+            {
+                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                SqlConnection Con = new SqlConnection(path);
+                Con.Open();
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.CommandText = "sp_PROCUREMENT_DB_UserManagement_AccessGroup";
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Connection = Con;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "Delete");
+                sqlcomm.Parameters.AddWithValue("@Oid", row.Cells[1].Text.ToString());
 
-            sqlcomm.ExecuteNonQuery();
-            Con.Close();
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncRemoveGroup();", true);
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlViews').modal();", true);
-            GetGroupAccess();
-            GetDataUserAccessGroupRole();
+                sqlcomm.ExecuteNonQuery();
+                Con.Close();
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncRemoveGroup();", true);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlViews').modal();", true);
+                GetGroupAccess();
+                GetDataUserAccessGroupRole();
+            }
         }
 
         protected void btnCloseModalGroupAccess_Click(object sender, EventArgs e)
@@ -443,9 +446,9 @@ namespace procurement_system
             sqlcomm.Connection = Con;
             sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
             sqlcomm.Parameters.AddWithValue("@CreateBy", Session["nik"].ToString());
-            sqlcomm.Parameters.AddWithValue("@CreateDate", DateTime.Now.ToString());
+            //sqlcomm.Parameters.AddWithValue("@CreateDate", DateTime.Now.ToString());
             sqlcomm.Parameters.AddWithValue("@ModifiedBy", Session["nik"].ToString());
-            sqlcomm.Parameters.AddWithValue("@ModifiedDate", DateTime.Now.ToString());
+            //sqlcomm.Parameters.AddWithValue("@ModifiedDate", DateTime.NowString());
             sqlcomm.Parameters.AddWithValue("@Oid_UserManagement", hlbOid.Value);
             sqlcomm.Parameters.AddWithValue("@GroupName", ddlGroupAccess.SelectedItem.Text.ToString());
             sqlcomm.Parameters.AddWithValue("@Oid_UserManagement_Group", ddlGroupAccess.SelectedValue);

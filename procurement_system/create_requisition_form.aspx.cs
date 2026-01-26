@@ -24,6 +24,8 @@ using System.Text;
 using ZXing;
 using System.Drawing;
 using DocumentFormat.OpenXml.Vml.Office;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
+
 
 namespace procurement_system
 {
@@ -49,44 +51,45 @@ namespace procurement_system
             if (!IsPostBack)
             {
                 GridTemporary();
+                GetApprover();
 
-                if (Session["Section"].ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" || Session["Section"].ToString().ToUpper() == "52591B16-4E97-4F3B-A48F-4807936E1052"
-                    || Session["Section"].ToString().ToUpper() == "0AEE271E-A132-4A2F-BC46-AAD99BBE7519" || Session["Section"].ToString().ToUpper() == "DCDA04FD-4920-4F6C-BAF8-77B377DE2FFF"
-                    || Session["Section"].ToString().ToUpper() == "E6A8EF10-5025-44C0-9CF1-7AB81CA4F523" || Session["Section"].ToString().ToUpper() == "3BEAD7B1-A9D4-4557-976F-DA2C6B489910"
-                    || Session["Section"].ToString().ToUpper() == "0BF510DE-9348-418C-9E26-735243E8C05F" || Session["Section"].ToString().ToUpper() == "09F99302-B5CA-468A-9508-F2F032DC090D")
-                {
-                    ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("OPS"));
-                    ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("IT"));
-                    GetApprover();
-                    //txtCatalogType.Value = "GA";
-                    
-                }
-                else if (Session["Section"].ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182")
-                {
-                    ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("GA"));
-                    ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("OPS"));
-                    GetApprover();
-                    //txtCatalogType.Value = "IT";
-                    
-                }
-                else
-                {
-                    if (Session["Division"].ToString().ToUpper() == "C999F3FD-F604-40A3-A300-A3B63FCF8B68" || Session["Division"].ToString().ToUpper() == "B094D3EB-0DEC-4066-8CB9-AB118F2B81D0"
-                        || Session["Division"].ToString().ToUpper() == "63900462-5119-42D4-98DB-B2728A34868A")
-                    {
-                        GetApproverSUBSRG();
-                        //txtCatalogType.Value = "OPS";
-                    }
-                    else
-                    {
-                        GetApprover();
-                        //txtCatalogType.Value = "OPS";
-                        ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("GA"));
-                        ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("IT"));
-                        
-                    }
-                    
-                }
+                //if (Session["Section"].ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" || Session["Section"].ToString().ToUpper() == "52591B16-4E97-4F3B-A48F-4807936E1052"
+                //    || Session["Section"].ToString().ToUpper() == "0AEE271E-A132-4A2F-BC46-AAD99BBE7519" || Session["Section"].ToString().ToUpper() == "DCDA04FD-4920-4F6C-BAF8-77B377DE2FFF"
+                //    || Session["Section"].ToString().ToUpper() == "E6A8EF10-5025-44C0-9CF1-7AB81CA4F523" || Session["Section"].ToString().ToUpper() == "3BEAD7B1-A9D4-4557-976F-DA2C6B489910"
+                //    || Session["Section"].ToString().ToUpper() == "0BF510DE-9348-418C-9E26-735243E8C05F" || Session["Section"].ToString().ToUpper() == "09F99302-B5CA-468A-9508-F2F032DC090D")
+                //{
+                //    ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("OPS"));
+                //    ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("IT"));
+                //    GetApprover();
+                //    //txtCatalogType.Value = "GA";
+
+                //}
+                //else if (Session["Section"].ToString().ToUpper() == "9AF484E4-9DA8-4CB7-9537-8DEE9B935182")
+                //{
+                //    ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("GA"));
+                //    ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("OPS"));
+                //    GetApprover();
+                //    //txtCatalogType.Value = "IT";
+
+                //}
+                //else
+                //{
+                //    if (Session["Division"].ToString().ToUpper() == "C999F3FD-F604-40A3-A300-A3B63FCF8B68" || Session["Division"].ToString().ToUpper() == "B094D3EB-0DEC-4066-8CB9-AB118F2B81D0"
+                //        || Session["Division"].ToString().ToUpper() == "63900462-5119-42D4-98DB-B2728A34868A")
+                //    {
+                //        GetApproverSUBSRG();
+                //        //txtCatalogType.Value = "OPS";
+                //    }
+                //    else
+                //    {
+                //        GetApprover();
+                //        //txtCatalogType.Value = "OPS";
+                //        ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("GA"));
+                //        ddlCatalogType.Items.Remove(ddlCatalogType.Items.FindByText("IT"));
+
+                //    }
+
+                //}
             }
 
         }
@@ -218,12 +221,24 @@ namespace procurement_system
             string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
             SqlConnection Con = new SqlConnection(path);
 
+            //SqlCommand sqlcomm = new SqlCommand();
+            //sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+            //sqlcomm.CommandType = CommandType.StoredProcedure;
+            //sqlcomm.Connection = Con;
+            //sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPurchaseApprover");
+            //sqlcomm.Parameters.AddWithValue("@id_section", Session["Section"].ToString().ToUpper());
+
+
+
             SqlCommand sqlcomm = new SqlCommand();
             sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPurchaseApprover");
+            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewManagerRF");
+            sqlcomm.Parameters.AddWithValue("@nama_branch", Session["Location"].ToString());
+            sqlcomm.Parameters.AddWithValue("@id_division", Session["Division"].ToString());
             sqlcomm.Parameters.AddWithValue("@id_section", Session["Section"].ToString().ToUpper());
+
 
             SqlDataReader dr;
 
@@ -436,6 +451,8 @@ namespace procurement_system
             GridViewRow row = (GridViewRow)btn.NamingContainer;
             DataTable dt = (DataTable)ViewState["TempData"];
             dt.Rows.RemoveAt(row.RowIndex);
+
+  
 
             TableItemPurchase.DataSource = dt;
             TableItemPurchase.DataBind();
@@ -683,8 +700,9 @@ namespace procurement_system
                             },
                             toRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
                             ccRecipients = new[] { new { emailAddress = new { address = hlbEmailRequester.Value } } },
-                            //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                            //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+
                             attachments = new[] { attachment }
                         },
                         saveToSentItems = true
@@ -845,6 +863,9 @@ namespace procurement_system
         #region Submit
         protected void SaveMasterPurchase()
         {
+
+            DateTime reqdate = GlobalHelper.ParseFlexibleDate(txtReqDate.Value);
+
             if (ddlCatalogType.SelectedItem.Text == "GA" || ddlCatalogType.SelectedItem.Text == "OPS")
             {
                 string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
@@ -856,7 +877,7 @@ namespace procurement_system
                 sqlcomm.Connection = Con;
                 sqlcomm.Parameters.AddWithValue("@StatementType", "SaveMasterPurchase");
                 sqlcomm.Parameters.AddWithValue("@rf_no", txtNota.Value.Trim());
-                sqlcomm.Parameters.AddWithValue("@request_date", txtReqDate.Value.Trim());
+                sqlcomm.Parameters.AddWithValue("@request_date", /*txtReqDate.Value*/reqdate);
                 sqlcomm.Parameters.AddWithValue("@nik_requester", hblNIK.Value.Trim());
                 sqlcomm.Parameters.AddWithValue("@nik_approver", ddlApprover.SelectedValue);
                 //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", ddlGMApprover.SelectedValue);
@@ -865,6 +886,7 @@ namespace procurement_system
                 sqlcomm.Parameters.AddWithValue("@nama_branch", lblNamaBranch.Value.Trim());
                 //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
                 //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
+                sqlcomm.Parameters.AddWithValue("@Groupname", Session["GroupName"].ToString());
                 sqlcomm.Parameters.AddWithValue("@catalog_type", ddlCatalogType.SelectedItem.Text);
 
                 sqlcomm.ExecuteNonQuery();
@@ -881,7 +903,7 @@ namespace procurement_system
                 sqlcomm.Connection = Con;
                 sqlcomm.Parameters.AddWithValue("@StatementType", "SaveMasterPurchaseIT");
                 sqlcomm.Parameters.AddWithValue("@rf_no", txtNota.Value.Trim());
-                sqlcomm.Parameters.AddWithValue("@request_date", txtReqDate.Value.Trim());
+                sqlcomm.Parameters.AddWithValue("@request_date", /*txtReqDate.Value.Trim()*/reqdate);
                 sqlcomm.Parameters.AddWithValue("@nik_requester", hblNIK.Value.Trim());
                 sqlcomm.Parameters.AddWithValue("@nik_approver", ddlApprover.SelectedValue);
                 //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", ddlGMApprover.SelectedValue);
@@ -891,6 +913,7 @@ namespace procurement_system
                 //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
                 //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
                 //sqlcomm.Parameters.AddWithValue("@nik_it_manager", "880123");
+                sqlcomm.Parameters.AddWithValue("@Groupname", Session["GroupName"].ToString());
                 sqlcomm.Parameters.AddWithValue("@catalog_type", ddlCatalogType.SelectedItem.Text);
 
                 sqlcomm.ExecuteNonQuery();
@@ -904,190 +927,84 @@ namespace procurement_system
             GetRFNumber();
             var CurentYear = DateTime.Now.Year;
 
-            if (CurentYear != (int)Session["years"])
-            {
-                SaveNumbering();
-                GetRFNumberNew();
-                hlbYearsNew.Value = Session["yearsNew"].ToString();
-                hlblast_numberNew.Value = Session["last_numberNew"].ToString();
-                int _LastNumber = Convert.ToInt32(hlblast_numberNew.Value);
-                int _getNumberUrut = _LastNumber + 1;
+            DateTime reqdate = GlobalHelper.ParseFlexibleDate(txtReqDate.Value);
 
-                if (_getNumberUrut < 10)
-                {
-                    txtNota.Value = "YLID-RF-" + CurentYear + "-" + "000" + _getNumberUrut;
-                }
-                else if (_getNumberUrut > 9 && _getNumberUrut < 99)
-                {
-                    txtNota.Value = "YLID-RF-" + CurentYear + "-" + "00" + _getNumberUrut;
-                }
-                else if (_getNumberUrut > 99 && _getNumberUrut < 999)
-                {
-                    txtNota.Value = "YLID-RF-" + CurentYear + "-" + "0" + _getNumberUrut;
-                }
-                else if (_getNumberUrut > 999)
-                {
-                    txtNota.Value = "YLID-RF-" + CurentYear + "-" + _getNumberUrut;
-                }
+            string Message = "";
 
-                SaveMasterPurchase();
-                foreach (GridViewRow row in TableItemPurchase.Rows)
-                {
-                    if (ddlCatalogType.SelectedItem.Text == "GA" || ddlCatalogType.SelectedItem.Text == "OPS")
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchase");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", txtNota.Value.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_requester", hblNIK.Value.Trim());
-                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[2].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@quantity", row.Cells[5].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@request_date", txtReqDate.Value.Trim());
-                        sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
-                        sqlcomm.Parameters.AddWithValue("@type_request", ddlReqType.SelectedItem.Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
-                        //sqlcomm.Parameters.AddWithValue("@description", row.Cells[5].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", hlbNIKApprover.Value);
-                        sqlcomm.Parameters.AddWithValue("@nama_branch", lblNamaBranch.Value.Trim());
-                        //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", "890556");
-                        sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[1].Text.ToString());
-                        //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
-                        //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
+       if (TableItemPurchase.Rows.Count <=0)
+         {
+               
+                string errorMessage = "Submit failed, Please Detail RF cannot empty!";
+                Message = $@"
+                            setTimeout(function() {{
+                                Errorresp('{HttpUtility.JavaScriptStringEncode(errorMessage)}');
+                            }}, 500);";
 
-                        sqlcomm.ExecuteNonQuery();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
-
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_form.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
-
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                        sqlcomm.Dispose();
-                        Con.Close();
-                        Con.Dispose();
-                    }
-                    else
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseIT");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", txtNota.Value.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_requester", hblNIK.Value.Trim());
-                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[2].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@quantity", row.Cells[5].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@request_date", txtReqDate.Value.Trim());
-                        sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
-                        sqlcomm.Parameters.AddWithValue("@type_request", ddlReqType.SelectedItem.Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
-                        //sqlcomm.Parameters.AddWithValue("@description", row.Cells[5].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", hlbNIKApprover.Value);
-                        sqlcomm.Parameters.AddWithValue("@nama_branch", lblNamaBranch.Value.Trim());
-                        //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", "890556");
-                        sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[1].Text.ToString());
-                        //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
-                        //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
-                        //sqlcomm.Parameters.AddWithValue("@nik_it_manager", "880123");
-
-                        sqlcomm.ExecuteNonQuery();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
-                                        $(document).ready(function() {{
-                                            // Show Toastr notification
-                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
-
-                                            // Redirect after 2 seconds (2000 milliseconds)
-                                            setTimeout(function() {{
-                                                window.location.href = 'requisition_form.aspx'; // replace with your target URL
-                                            }}, 2000);
-                                        }});
-                                    ";
-
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                        sqlcomm.Dispose();
-                        Con.Close();
-                        Con.Dispose();
-                    }
-                }
-                await SendEmailToPurchasingCheckEstimatePrice();
-                UpdateNumberingNewYear();
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showErrorWithModal", Message, true);
             }
-            else
-            {
-                UpdateNumbering();
-                GetRFNumberNew();
-                hlblast_numberNew.Value = Session["last_numberNew"].ToString();
-                int _LastNumber = Convert.ToInt32(hlblast_numberNew.Value);
-                if (_LastNumber < 10)
-                {
-                    txtNota.Value = "YLID-RF-" + CurentYear + "-" + "000" + _LastNumber;
-                }
-                else if (_LastNumber > 9 && _LastNumber < 99)
-                {
-                    txtNota.Value = "YLID-RF-" + CurentYear + "-" + "00" + _LastNumber;
-                }
-                else if (_LastNumber > 99 && _LastNumber < 999)
-                {
-                    txtNota.Value = "YLID-RF-" + CurentYear + "-" + "0" + _LastNumber;
-                }
-                else if (_LastNumber > 999)
-                {
-                    txtNota.Value = "YLID-RF-" + CurentYear + "-" + _LastNumber;
-                }
+       else
+         {
 
-                SaveMasterPurchase();
-                foreach (GridViewRow row in TableItemPurchase.Rows)
+
+                if (CurentYear != (int)Session["years"])
                 {
-                    if (ddlCatalogType.SelectedItem.Text == "GA" || ddlCatalogType.SelectedItem.Text == "OPS")
+                    SaveNumbering();
+                    GetRFNumberNew();
+                    hlbYearsNew.Value = Session["yearsNew"].ToString();
+                    hlblast_numberNew.Value = Session["last_numberNew"].ToString();
+                    int _LastNumber = Convert.ToInt32(hlblast_numberNew.Value);
+                    int _getNumberUrut = _LastNumber + 1;
+
+                    if (_getNumberUrut < 10)
                     {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchase");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", txtNota.Value.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_requester", hblNIK.Value.Trim());
-                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[2].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@quantity", row.Cells[5].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@request_date", txtReqDate.Value.Trim());
-                        sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
-                        sqlcomm.Parameters.AddWithValue("@type_request", ddlReqType.SelectedItem.Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
-                        //sqlcomm.Parameters.AddWithValue("@description", row.Cells[5].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", hlbNIKApprover.Value);
-                        sqlcomm.Parameters.AddWithValue("@nama_branch", lblNamaBranch.Value.Trim());
-                        //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", "890556");
-                        sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[1].Text.ToString());
-                        //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
-                        //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
+                        txtNota.Value = "YLID-RF-" + CurentYear + "-" + "000" + _getNumberUrut;
+                    }
+                    else if (_getNumberUrut > 9 && _getNumberUrut < 99)
+                    {
+                        txtNota.Value = "YLID-RF-" + CurentYear + "-" + "00" + _getNumberUrut;
+                    }
+                    else if (_getNumberUrut > 99 && _getNumberUrut < 999)
+                    {
+                        txtNota.Value = "YLID-RF-" + CurentYear + "-" + "0" + _getNumberUrut;
+                    }
+                    else if (_getNumberUrut > 999)
+                    {
+                        txtNota.Value = "YLID-RF-" + CurentYear + "-" + _getNumberUrut;
+                    }
 
-                        sqlcomm.ExecuteNonQuery();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
+                    SaveMasterPurchase();
+                    foreach (GridViewRow row in TableItemPurchase.Rows)
+                    {
+                        if (ddlCatalogType.SelectedItem.Text == "GA" || ddlCatalogType.SelectedItem.Text == "OPS")
+                        {
+                            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                            SqlConnection Con = new SqlConnection(path);
+                            Con.Open();
+                            SqlCommand sqlcomm = new SqlCommand();
+                            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                            sqlcomm.CommandType = CommandType.StoredProcedure;
+                            sqlcomm.Connection = Con;
+                            sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchase");
+                            sqlcomm.Parameters.AddWithValue("@rf_no", txtNota.Value.Trim());
+                            sqlcomm.Parameters.AddWithValue("@nik_requester", hblNIK.Value.Trim());
+                            sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[2].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@quantity", row.Cells[5].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@request_date", /*txtReqDate.Value.Trim()*/reqdate);
+                            sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
+                            sqlcomm.Parameters.AddWithValue("@type_request", ddlReqType.SelectedItem.Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
+                            //sqlcomm.Parameters.AddWithValue("@description", row.Cells[5].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@nik_approver", hlbNIKApprover.Value);
+                            sqlcomm.Parameters.AddWithValue("@nama_branch", lblNamaBranch.Value.Trim());
+                            //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", "890556");
+                            sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[1].Text.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
+                            //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
+
+                            sqlcomm.ExecuteNonQuery();
+                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                            string script = $@"
                                         $(document).ready(function() {{
                                             // Show Toastr notification
                                             toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
@@ -1099,43 +1016,43 @@ namespace procurement_system
                                         }});
                                     ";
 
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                        sqlcomm.Dispose();
-                        Con.Close();
-                        Con.Dispose();
-                    }
-                    else
-                    {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseIT");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", txtNota.Value.Trim());
-                        sqlcomm.Parameters.AddWithValue("@nik_requester", hblNIK.Value.Trim());
-                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[2].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@quantity", row.Cells[5].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@request_date", txtReqDate.Value.Trim());
-                        sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
-                        sqlcomm.Parameters.AddWithValue("@type_request", ddlReqType.SelectedItem.Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
-                        //sqlcomm.Parameters.AddWithValue("@description", row.Cells[5].Text.ToString());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", hlbNIKApprover.Value);
-                        sqlcomm.Parameters.AddWithValue("@nama_branch", lblNamaBranch.Value.Trim());
-                        //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", "890556");
-                        sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[1].Text.ToString());
-                        //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
-                        //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
-                        //sqlcomm.Parameters.AddWithValue("@nik_it_manager", "880123");
+                            // Register the script for partial postbacks
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                            sqlcomm.Dispose();
+                            Con.Close();
+                            Con.Dispose();
+                        }
+                        else
+                        {
+                            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                            SqlConnection Con = new SqlConnection(path);
+                            Con.Open();
+                            SqlCommand sqlcomm = new SqlCommand();
+                            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                            sqlcomm.CommandType = CommandType.StoredProcedure;
+                            sqlcomm.Connection = Con;
+                            sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseIT");
+                            sqlcomm.Parameters.AddWithValue("@rf_no", txtNota.Value.Trim());
+                            sqlcomm.Parameters.AddWithValue("@nik_requester", hblNIK.Value.Trim());
+                            sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[2].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@quantity", row.Cells[5].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@request_date", /*txtReqDate.Value.Trim()*/reqdate);
+                            sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
+                            sqlcomm.Parameters.AddWithValue("@type_request", ddlReqType.SelectedItem.Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
+                            //sqlcomm.Parameters.AddWithValue("@description", row.Cells[5].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@nik_approver", hlbNIKApprover.Value);
+                            sqlcomm.Parameters.AddWithValue("@nama_branch", lblNamaBranch.Value.Trim());
+                            //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", "890556");
+                            sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[1].Text.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
+                            //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
+                            //sqlcomm.Parameters.AddWithValue("@nik_it_manager", "880123");
 
-                        sqlcomm.ExecuteNonQuery();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        string script = $@"
+                            sqlcomm.ExecuteNonQuery();
+                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                            string script = $@"
                                         $(document).ready(function() {{
                                             // Show Toastr notification
                                             toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
@@ -1147,18 +1064,156 @@ namespace procurement_system
                                         }});
                                     ";
 
-                        // Register the script for partial postbacks
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                        sqlcomm.Dispose();
-                        Con.Close();
-                        Con.Dispose();
+                            // Register the script for partial postbacks
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                            sqlcomm.Dispose();
+                            Con.Close();
+                            Con.Dispose();
+                        }
                     }
+                    await SendEmailToPurchasingCheckEstimatePrice();
+                    UpdateNumberingNewYear();
                 }
-                await SendEmailToPurchasingCheckEstimatePrice();
+                else
+                {
+                    UpdateNumbering();
+                    GetRFNumberNew();
+                    hlblast_numberNew.Value = Session["last_numberNew"].ToString();
+                    int _LastNumber = Convert.ToInt32(hlblast_numberNew.Value);
+                    if (_LastNumber < 10)
+                    {
+                        txtNota.Value = "YLID-RF-" + CurentYear + "-" + "000" + _LastNumber;
+                    }
+                    else if (_LastNumber > 9 && _LastNumber < 99)
+                    {
+                        txtNota.Value = "YLID-RF-" + CurentYear + "-" + "00" + _LastNumber;
+                    }
+                    else if (_LastNumber > 99 && _LastNumber < 999)
+                    {
+                        txtNota.Value = "YLID-RF-" + CurentYear + "-" + "0" + _LastNumber;
+                    }
+                    else if (_LastNumber > 999)
+                    {
+                        txtNota.Value = "YLID-RF-" + CurentYear + "-" + _LastNumber;
+                    }
+
+                    SaveMasterPurchase();
+                    foreach (GridViewRow row in TableItemPurchase.Rows)
+                    {
+                        if (ddlCatalogType.SelectedItem.Text == "GA" || ddlCatalogType.SelectedItem.Text == "OPS")
+                        {
+                            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                            SqlConnection Con = new SqlConnection(path);
+                            Con.Open();
+                            SqlCommand sqlcomm = new SqlCommand();
+                            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                            sqlcomm.CommandType = CommandType.StoredProcedure;
+                            sqlcomm.Connection = Con;
+                            sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchase");
+                            sqlcomm.Parameters.AddWithValue("@rf_no", txtNota.Value.Trim());
+                            sqlcomm.Parameters.AddWithValue("@nik_requester", hblNIK.Value.Trim());
+                            sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[2].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@quantity", row.Cells[5].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@request_date", /*txtReqDate.Value.Trim()*/reqdate);
+                            sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
+                            sqlcomm.Parameters.AddWithValue("@type_request", ddlReqType.SelectedItem.Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
+                            //sqlcomm.Parameters.AddWithValue("@description", row.Cells[5].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@nik_approver", hlbNIKApprover.Value);
+                            sqlcomm.Parameters.AddWithValue("@nama_branch", lblNamaBranch.Value.Trim());
+                            //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", "890556");
+                            sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[1].Text.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
+                            //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
+
+                            sqlcomm.ExecuteNonQuery();
+                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                            string script = $@"
+                                        $(document).ready(function() {{
+                                            // Show Toastr notification
+                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                                            // Redirect after 2 seconds (2000 milliseconds)
+                                            setTimeout(function() {{
+                                                window.location.href = 'requisition_form.aspx'; // replace with your target URL
+                                            }}, 2000);
+                                        }});
+                                    ";
+
+                            // Register the script for partial postbacks
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                            sqlcomm.Dispose();
+                            Con.Close();
+                            Con.Dispose();
+                        }
+                        else
+                        {
+                            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                            SqlConnection Con = new SqlConnection(path);
+                            Con.Open();
+                            SqlCommand sqlcomm = new SqlCommand();
+                            sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                            sqlcomm.CommandType = CommandType.StoredProcedure;
+                            sqlcomm.Connection = Con;
+                            sqlcomm.Parameters.AddWithValue("@StatementType", "SaveDetailPurchaseIT");
+                            sqlcomm.Parameters.AddWithValue("@rf_no", txtNota.Value.Trim());
+                            sqlcomm.Parameters.AddWithValue("@nik_requester", hblNIK.Value.Trim());
+                            sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[2].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@quantity", row.Cells[5].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@request_date", /*txtReqDate.Value.Trim()*/ reqdate);
+                            sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
+                            sqlcomm.Parameters.AddWithValue("@type_request", ddlReqType.SelectedItem.Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
+                            //sqlcomm.Parameters.AddWithValue("@description", row.Cells[5].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@nik_approver", hlbNIKApprover.Value);
+                            sqlcomm.Parameters.AddWithValue("@nama_branch", lblNamaBranch.Value.Trim());
+                            //sqlcomm.Parameters.AddWithValue("@nik_gm_approver", "890556");
+                            sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[1].Text.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@nik_adm_manager", "891048");
+                            //sqlcomm.Parameters.AddWithValue("@nik_adm_gm", "890556");
+                            //sqlcomm.Parameters.AddWithValue("@nik_it_manager", "880123");
+
+                            sqlcomm.ExecuteNonQuery();
+                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                            string script = $@"
+                                        $(document).ready(function() {{
+                                            // Show Toastr notification
+                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                                            // Redirect after 2 seconds (2000 milliseconds)
+                                            setTimeout(function() {{
+                                                window.location.href = 'requisition_form.aspx'; // replace with your target URL
+                                            }}, 2000);
+                                        }});
+                                    ";
+
+                            // Register the script for partial postbacks
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                            sqlcomm.Dispose();
+                            Con.Close();
+                            Con.Dispose();
+                        }
+                    }
+                    await SendEmailToPurchasingCheckEstimatePrice();
+                }
+
+
+
             }
+
+
+
 
         }
         #endregion
+
+      
+
+
+
+
 
         #region Barcode
         private void GenerateAndDisplayBarcode()
@@ -1195,7 +1250,8 @@ namespace procurement_system
             int y = (combinedImage.Height - resizedLogo.Height) / 2;
             using (Graphics graphic = Graphics.FromImage(combinedImage))
             {
-                graphic.DrawImage(resizedLogo, new Point(x, y));
+                graphic.DrawImage(resizedLogo, new System.Drawing.Point(x, y));
+
             }
 
             // Menyimpan gambar barcode ke folder

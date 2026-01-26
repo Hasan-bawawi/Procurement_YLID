@@ -86,7 +86,7 @@ namespace procurement_system
                     while (rdr.Read())
                     {
                         Session.Add("po_no", (string)rdr["po_no"]);
-                        Session.Add("rf_no", (string)rdr["rf_no"]);
+                        Session.Add("rf_no", rdr["rf_no"] == DBNull.Value ? null : rdr["rf_no"].ToString());
                         Session.Add("po_type", (string)rdr["po_type"]);
                         Session.Add("vendor_name", (string)rdr["vendor_name"]);
                         Session.Add("po_date", (DateTime)rdr["po_date"]);
@@ -179,6 +179,219 @@ namespace procurement_system
             Response.Redirect("goods_received.aspx");
         }
 
+        #region
+        //protected void btnSubmit_Click(object sender, EventArgs e)
+        //{
+        //    string path_db = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //    using (SqlConnection con = new SqlConnection(path_db))
+        //    {
+        //        con.Open();
+        //        SqlTransaction transaction = con.BeginTransaction();
+
+        //        try
+        //        {
+        //            //GetGRNumber();
+        //            //var CurentYear = DateTime.Now.Year;
+        //            //if (CurentYear != (int)Session["years"])
+        //            //{
+        //                //SaveNumbering(con, transaction);
+        //                //GetGRNumberNew();
+
+        //                //hlbYearsNew.Value = DateTime.Now.Year.ToString();
+        //                //hlblast_numberNew.Value = Session["last_numberNew"].ToString();
+        //                //int _LastNumber = Convert.ToInt32(hlblast_numberNew.Value);
+        //                //int _getNumberUrut = _LastNumber + 1;
+
+        //                //if (_getNumberUrut < 10)
+        //                //{
+        //                //    txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + "000" + _getNumberUrut;
+        //                //}
+        //                //else if (_getNumberUrut > 9 && _getNumberUrut < 99)
+        //                //{
+        //                //    txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + "00" + _getNumberUrut;
+        //                //}
+        //                //else if (_getNumberUrut > 99 && _getNumberUrut < 999)
+        //                //{
+        //                //    txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + "0" + _getNumberUrut;
+        //                //}
+        //                //else if (_getNumberUrut > 999)
+        //                //{
+        //                //    txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + _getNumberUrut;
+        //                //}
+
+        //                foreach (GridViewRow row in TableItemPO.Rows)
+        //                {
+        //                    if (row.RowType == DataControlRowType.DataRow)
+        //                    {
+        //                        HtmlInputGenericControl QtyReceived = (HtmlInputGenericControl)row.FindControl("txtQtyReceived");
+        //                        if (QtyReceived != null && !string.IsNullOrEmpty(QtyReceived.Value))
+        //                        {
+        //                            string txtQtyReceived = QtyReceived.Value;
+        //                            string QtyOrder = row.Cells[8].Text.ToString();
+        //                            int GetQtyReceived = Convert.ToInt32(txtQtyReceived);
+        //                            int GetQtyOrder = Convert.ToInt32(QtyOrder);
+        //                            if (GetQtyReceived != GetQtyOrder)
+        //                            {
+        //                                ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Save Failed. The quantity received must be the same as the quantity ordered.');", true);
+        //                            }
+        //                            else
+        //                            {
+        //                            //    SqlParameter grParam = new SqlParameter("@gr_no", SqlDbType.NVarChar, 50);
+        //                            //    grParam.Direction = ParameterDirection.Output;
+
+        //                            //   sqlcomm.Parameters.Add(grParam);
+        //                            //string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //                            //    SqlConnection Con = new SqlConnection(path);
+
+
+        //                            //    Con.Open();
+        //                            //    SqlCommand sqlcomm = new SqlCommand();
+        //                            //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_GoodsReceived";
+        //                            //    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //                            //    sqlcomm.Connection = Con;
+        //                            //    sqlcomm.Parameters.AddWithValue("@StatementType", "SaveGR");
+        //                            //    sqlcomm.Parameters.AddWithValue("@gr_no", txtGRNumber.Value);
+        //                            //    sqlcomm.Parameters.AddWithValue("@po_no", lbPONumber.Text);
+        //                            //    sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[2].Text.ToString());
+        //                            //    sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[5].Text.ToString());
+        //                            //    sqlcomm.Parameters.AddWithValue("@qty_received", GetQtyReceived);
+        //                            //    sqlcomm.Parameters.AddWithValue("@gr_date", GRDate.Value);
+        //                            //    sqlcomm.Parameters.AddWithValue("@received_by", txtReceivedBy.Value);
+        //                            //    sqlcomm.Parameters.AddWithValue("@note", txtNote.Value);
+        //                            //    sqlcomm.Parameters.AddWithValue("@User", Session["nik"].ToString());
+        //                            //    sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[4].Text.ToString());
+
+        //                            //    sqlcomm.ExecuteNonQuery()
+
+
+        //                            //    CheckUploadDocument();
+        //                            //    UpdateCompleteStatusPO(con, transaction);
+        //                            //    UpdateCompleteStatusRF(con, transaction);
+        //                            //using (SqlConnection Con = new SqlConnection(ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString))
+        //                            //{
+        //                                //Con.Open();
+        //                                using (SqlCommand sqlcomm = new SqlCommand("sp_PROCUREMENT_DB_GoodsReceived", con))
+        //                                {
+        //                                    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //                                    sqlcomm.Parameters.AddWithValue("@StatementType", "SaveGR");
+
+        //                                    // OUTPUT parameter
+        //                                    SqlParameter grParam = new SqlParameter("@gr_no", SqlDbType.NVarChar, 50);
+        //                                    grParam.Direction = ParameterDirection.Output;
+        //                                    sqlcomm.Parameters.Add(grParam);
+
+        //                                    sqlcomm.Parameters.AddWithValue("@po_no", lbPONumber.Text);
+        //                                    sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[2].Text.ToString());
+        //                                    sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[5].Text.ToString());
+        //                                    sqlcomm.Parameters.AddWithValue("@qty_received", GetQtyReceived);
+        //                                    sqlcomm.Parameters.AddWithValue("@gr_date", GRDate.Value);
+        //                                    sqlcomm.Parameters.AddWithValue("@received_by", txtReceivedBy.Value);
+        //                                    sqlcomm.Parameters.AddWithValue("@note", txtNote.Value);
+        //                                    sqlcomm.Parameters.AddWithValue("@User", Session["nik"].ToString());
+        //                                    sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[4].Text.ToString());
+
+        //                                    sqlcomm.ExecuteNonQuery();
+
+        //                                    // Ambil hasil OUTPUT
+        //                                    string generatedGR = grParam.Value.ToString();
+        //                                    txtGRNumber.Value = generatedGR;
+
+        //                                    CheckUploadDocument();
+        //                                    UpdateCompleteStatusPO(con, transaction);
+        //                                    UpdateCompleteStatusRF(con, transaction);
+        //                                }
+
+        //                            //}
+
+        //                          }
+        //                        }
+        //                    }
+        //                }
+        //            //}
+        //            //else
+        //            //{
+        //            //    //UpdateNumbering(con, transaction);
+
+        //            //    //int _LastNumber = (Convert.ToInt32(hlblast_numberNew.Value) + 1);
+        //            //    //if (_LastNumber < 10)
+        //            //    //{
+        //            //    //    txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + "000" + _LastNumber;
+        //            //    //}
+        //            //    //else if (_LastNumber > 9 && _LastNumber < 99)
+        //            //    //{
+        //            //    //    txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + "00" + _LastNumber;
+        //            //    //}
+        //            //    //else if (_LastNumber > 99 && _LastNumber < 999)
+        //            //    //{
+        //            //    //    txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + "0" + _LastNumber;
+        //            //    //}
+        //            //    //else if (_LastNumber > 999)
+        //            //    //{
+        //            //    //    txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + _LastNumber;
+        //            //    //}
+
+        //            //    foreach (GridViewRow row in TableItemPO.Rows)
+        //            //    {
+        //            //        if (row.RowType == DataControlRowType.DataRow)
+        //            //        {
+        //            //            HtmlInputGenericControl QtyReceived = (HtmlInputGenericControl)row.FindControl("txtQtyReceived");
+        //            //            if (QtyReceived != null && !string.IsNullOrEmpty(QtyReceived.Value))
+        //            //            {
+        //            //                string txtQtyReceived = QtyReceived.Value;
+        //            //                string QtyOrder = row.Cells[8].Text.ToString();
+        //            //                int GetQtyReceived = Convert.ToInt32(txtQtyReceived);
+        //            //                int GetQtyOrder = Convert.ToInt32(QtyOrder);
+        //            //                if (GetQtyReceived != GetQtyOrder)
+        //            //                {
+        //            //                    ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Save Failed. The quantity received must be the same as the quantity ordered.');", true);
+        //            //                }
+        //            //                else
+        //            //                {
+        //            //                    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //            //                    SqlConnection Con = new SqlConnection(path);
+        //            //                    Con.Open();
+        //            //                    SqlCommand sqlcomm = new SqlCommand();
+        //            //                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_GoodsReceived";
+        //            //                    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //            //                    sqlcomm.Connection = Con;
+        //            //                    sqlcomm.Parameters.AddWithValue("@StatementType", "SaveGR");
+        //            //                    //sqlcomm.Parameters.AddWithValue("@gr_no", txtGRNumber.Value);
+        //            //                    sqlcomm.Parameters.AddWithValue("@po_no", lbPONumber.Text);
+        //            //                    sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[2].Text.ToString());
+        //            //                    sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[5].Text.ToString());
+        //            //                    sqlcomm.Parameters.AddWithValue("@qty_received", GetQtyReceived);
+        //            //                    sqlcomm.Parameters.AddWithValue("@gr_date", GRDate.Value);
+        //            //                    sqlcomm.Parameters.AddWithValue("@received_by", txtReceivedBy.Value);
+        //            //                    sqlcomm.Parameters.AddWithValue("@note", txtNote.Value);
+        //            //                    sqlcomm.Parameters.AddWithValue("@User", Session["nik"].ToString());
+        //            //                    sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[4].Text.ToString());
+
+        //            //                    sqlcomm.ExecuteNonQuery();
+        //            //                    CheckUploadDocument();
+        //            //                    UpdateCompleteStatusPO(con, transaction);
+        //            //                    UpdateCompleteStatusRF(con, transaction);
+        //            //                }
+        //            //            }
+        //            //        }
+        //            //    }
+        //            //}
+        //            //transaction.Commit();
+        //            //con.Close();
+        //        }
+        //         catch (Exception ex)
+        //        {
+        //            // Jika terjadi kesalahan, rollback transaksi
+        //            transaction.Rollback();
+
+        //            // Tangkap dan tangani kesalahan di sini
+        //            Response.Write($"Error: {ex.Message}");
+        //        }
+        //    }
+        //}
+        #endregion
+
+
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             string path_db = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
@@ -189,230 +402,201 @@ namespace procurement_system
 
                 try
                 {
-                    GetGRNumber();
-                    var CurentYear = DateTime.Now.Year;
-                    if (CurentYear != (int)Session["years"])
+                    foreach (GridViewRow row in TableItemPO.Rows)
                     {
-                        SaveNumbering(con, transaction);
-                        GetGRNumberNew();
+                        if (row.RowType != DataControlRowType.DataRow)
+                            continue;
 
-                        hlbYearsNew.Value = DateTime.Now.Year.ToString();
-                        hlblast_numberNew.Value = Session["last_numberNew"].ToString();
-                        int _LastNumber = Convert.ToInt32(hlblast_numberNew.Value);
-                        int _getNumberUrut = _LastNumber + 1;
+                        HtmlInputGenericControl QtyReceived = (HtmlInputGenericControl)row.FindControl("txtQtyReceived");
+                        if (QtyReceived == null || string.IsNullOrEmpty(QtyReceived.Value))
+                            continue;
 
-                        if (_getNumberUrut < 10)
+                        int GetQtyReceived = Convert.ToInt32(QtyReceived.Value);
+                        int GetQtyOrder = Convert.ToInt32(row.Cells[8].Text);
+
+                        if (GetQtyReceived != GetQtyOrder)
                         {
-                            txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + "000" + _getNumberUrut;
-                        }
-                        else if (_getNumberUrut > 9 && _getNumberUrut < 99)
-                        {
-                            txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + "00" + _getNumberUrut;
-                        }
-                        else if (_getNumberUrut > 99 && _getNumberUrut < 999)
-                        {
-                            txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + "0" + _getNumberUrut;
-                        }
-                        else if (_getNumberUrut > 999)
-                        {
-                            txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + _getNumberUrut;
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Save Failed. The quantity received must be the same as the quantity ordered.');", true);
+                            transaction.Rollback();
+                            return;
                         }
 
-                        foreach (GridViewRow row in TableItemPO.Rows)
+                        using (SqlCommand sqlcomm = new SqlCommand("sp_PROCUREMENT_DB_GoodsReceived", con, transaction))
                         {
-                            if (row.RowType == DataControlRowType.DataRow)
+                            sqlcomm.CommandType = CommandType.StoredProcedure;
+                            sqlcomm.Parameters.AddWithValue("@StatementType", "SaveGR");
+
+                            // OUTPUT parameter
+                            SqlParameter grParam = new SqlParameter("@gr_no", SqlDbType.NVarChar, 50)
                             {
-                                HtmlInputGenericControl QtyReceived = (HtmlInputGenericControl)row.FindControl("txtQtyReceived");
-                                if (QtyReceived != null && !string.IsNullOrEmpty(QtyReceived.Value))
-                                {
-                                    string txtQtyReceived = QtyReceived.Value;
-                                    string QtyOrder = row.Cells[8].Text.ToString();
-                                    int GetQtyReceived = Convert.ToInt32(txtQtyReceived);
-                                    int GetQtyOrder = Convert.ToInt32(QtyOrder);
-                                    if (GetQtyReceived != GetQtyOrder)
-                                    {
-                                        ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Save Failed. The quantity received must be the same as the quantity ordered.');", true);
-                                    }
-                                    else
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_GoodsReceived";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveGR");
-                                        sqlcomm.Parameters.AddWithValue("@gr_no", txtGRNumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_no", lbPONumber.Text);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[2].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@qty_received", GetQtyReceived);
-                                        sqlcomm.Parameters.AddWithValue("@gr_date", GRDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@received_by", txtReceivedBy.Value);
-                                        sqlcomm.Parameters.AddWithValue("@note", txtNote.Value);
-                                        sqlcomm.Parameters.AddWithValue("@User", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[4].Text.ToString());
+                                Direction = ParameterDirection.Output
+                            };
 
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        UpdateCompleteStatusPO(con, transaction);
-                                        UpdateCompleteStatusRF(con, transaction);
-                                    }
-                                }
-                            }
+                            string rfNo = row.Cells[2].Text.Trim();
+
+                            sqlcomm.Parameters.Add(grParam);
+
+                            sqlcomm.Parameters.AddWithValue("@po_no", lbPONumber.Text);
+                            //sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[2].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@rf_no",(string.IsNullOrEmpty(rfNo) || rfNo == "&nbsp;") ? (object)DBNull.Value : rfNo);
+                            sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[5].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@qty_received", GetQtyReceived);
+                            sqlcomm.Parameters.AddWithValue("@gr_date", GRDate.Value);
+                            sqlcomm.Parameters.AddWithValue("@received_by", txtReceivedBy.Value);
+                            sqlcomm.Parameters.AddWithValue("@note", txtNote.Value);
+                            sqlcomm.Parameters.AddWithValue("@User", Session["nik"].ToString());
+                            sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[4].Text.ToString());
+
+                            sqlcomm.ExecuteNonQuery();
+
+                            // Ambil hasil OUTPUT dari stored procedure
+                            string generatedGR = grParam.Value.ToString();
+                            txtGRNumber.Value = generatedGR;
+
+                            // Fungsi lain pakai transaction yang sama
+                            CheckUploadDocument();
+                            UpdateCompleteStatusPO(con, transaction);
+                            UpdateCompleteStatusRF(con, transaction);
                         }
                     }
-                    else
-                    {
-                        UpdateNumbering(con, transaction);
 
-                        int _LastNumber = (Convert.ToInt32(hlblast_numberNew.Value) + 1);
-                        if (_LastNumber < 10)
-                        {
-                            txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + "000" + _LastNumber;
-                        }
-                        else if (_LastNumber > 9 && _LastNumber < 99)
-                        {
-                            txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + "00" + _LastNumber;
-                        }
-                        else if (_LastNumber > 99 && _LastNumber < 999)
-                        {
-                            txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + "0" + _LastNumber;
-                        }
-                        else if (_LastNumber > 999)
-                        {
-                            txtGRNumber.Value = "YLID-GR-" + CurentYear + "-" + _LastNumber;
-                        }
-
-                        foreach (GridViewRow row in TableItemPO.Rows)
-                        {
-                            if (row.RowType == DataControlRowType.DataRow)
-                            {
-                                HtmlInputGenericControl QtyReceived = (HtmlInputGenericControl)row.FindControl("txtQtyReceived");
-                                if (QtyReceived != null && !string.IsNullOrEmpty(QtyReceived.Value))
-                                {
-                                    string txtQtyReceived = QtyReceived.Value;
-                                    string QtyOrder = row.Cells[8].Text.ToString();
-                                    int GetQtyReceived = Convert.ToInt32(txtQtyReceived);
-                                    int GetQtyOrder = Convert.ToInt32(QtyOrder);
-                                    if (GetQtyReceived != GetQtyOrder)
-                                    {
-                                        ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Save Failed. The quantity received must be the same as the quantity ordered.');", true);
-                                    }
-                                    else
-                                    {
-                                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                                        SqlConnection Con = new SqlConnection(path);
-                                        Con.Open();
-                                        SqlCommand sqlcomm = new SqlCommand();
-                                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_GoodsReceived";
-                                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                                        sqlcomm.Connection = Con;
-                                        sqlcomm.Parameters.AddWithValue("@StatementType", "SaveGR");
-                                        sqlcomm.Parameters.AddWithValue("@gr_no", txtGRNumber.Value);
-                                        sqlcomm.Parameters.AddWithValue("@po_no", lbPONumber.Text);
-                                        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[2].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[5].Text.ToString());
-                                        sqlcomm.Parameters.AddWithValue("@qty_received", GetQtyReceived);
-                                        sqlcomm.Parameters.AddWithValue("@gr_date", GRDate.Value);
-                                        sqlcomm.Parameters.AddWithValue("@received_by", txtReceivedBy.Value);
-                                        sqlcomm.Parameters.AddWithValue("@note", txtNote.Value);
-                                        sqlcomm.Parameters.AddWithValue("@User", Session["nik"].ToString());
-                                        sqlcomm.Parameters.AddWithValue("@stok_code", row.Cells[4].Text.ToString());
-
-                                        sqlcomm.ExecuteNonQuery();
-                                        CheckUploadDocument();
-                                        UpdateCompleteStatusPO(con, transaction);
-                                        UpdateCompleteStatusRF(con, transaction);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    transaction.Commit();
-                    con.Close();
+                    transaction.Commit(); // ✅ simpan semua perubahan
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.success('Goods Received successfully saved.');", true);
                 }
                 catch (Exception ex)
                 {
-                    // Jika terjadi kesalahan, rollback transaksi
                     transaction.Rollback();
-
-                    // Tangkap dan tangani kesalahan di sini
-                    Response.Write($"Error: {ex.Message}");
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", $"toastr.error('Error: {ex.Message}');", true);
                 }
             }
         }
 
+
+
+
+
+        //protected void UpdateCompleteStatusPO(SqlConnection con, SqlTransaction transaction)
+        //{
+        //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //    SqlConnection Con = new SqlConnection(path);
+        //    Con.Open();
+        //    SqlCommand sqlcomm = new SqlCommand();
+        //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_GoodsReceived";
+        //    sqlcomm.CommandType = CommandType.StoredProcedure;
+        //    sqlcomm.Connection = Con;
+        //    sqlcomm.Parameters.AddWithValue("@StatementType", "CompletedStatusPO");
+        //    sqlcomm.Parameters.AddWithValue("@po_no", lbPONumber.Text);
+
+        //    sqlcomm.ExecuteNonQuery();
+        //    string _vNotif = lbErrorUploadNotif.Value;
+        //    string script = $@"
+        //            $(document).ready(function() {{
+        //                // Show Toastr notification
+        //                toastr.success('Submit Successfully' + ' ' + 'File Upload:' + '{_vNotif}');
+
+        //                // Redirect after 2 seconds (2000 milliseconds)
+        //                setTimeout(function() {{
+        //                    window.location.href = 'goods_received.aspx'; // replace with your target URL
+        //                }}, 2000);
+        //            }});
+        //        ";
+
+        //    // Register the script for partial postbacks
+        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+        //    sqlcomm.Dispose();
+        //    Con.Close();
+        //    Con.Dispose();
+        //}
+
+
         protected void UpdateCompleteStatusPO(SqlConnection con, SqlTransaction transaction)
         {
-            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-            SqlConnection Con = new SqlConnection(path);
-            Con.Open();
-            SqlCommand sqlcomm = new SqlCommand();
-            sqlcomm.CommandText = "sp_PROCUREMENT_DB_GoodsReceived";
-            sqlcomm.CommandType = CommandType.StoredProcedure;
-            sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "CompletedStatusPO");
-            sqlcomm.Parameters.AddWithValue("@po_no", lbPONumber.Text);
+            using (SqlCommand sqlcomm = new SqlCommand("sp_PROCUREMENT_DB_GoodsReceived", con, transaction))
+            {
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "CompletedStatusPO");
+                sqlcomm.Parameters.AddWithValue("@po_no", lbPONumber.Text);
+                sqlcomm.ExecuteNonQuery();
+            }
 
-            sqlcomm.ExecuteNonQuery();
             string _vNotif = lbErrorUploadNotif.Value;
             string script = $@"
-                    $(document).ready(function() {{
-                        // Show Toastr notification
-                        toastr.success('Submit Successfully' + ' ' + 'File Upload:' + '{_vNotif}');
+                $(document).ready(function() {{
+                    toastr.success('Submit Successfully' + ' ' + 'File Upload:' + '{_vNotif}');
+                    setTimeout(function() {{
+                        window.location.href = 'goods_received.aspx';
+                    }}, 2000);
+                }});
+               ";
 
-                        // Redirect after 2 seconds (2000 milliseconds)
-                        setTimeout(function() {{
-                            window.location.href = 'goods_received.aspx'; // replace with your target URL
-                        }}, 2000);
-                    }});
-                ";
-
-            // Register the script for partial postbacks
             ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-            sqlcomm.Dispose();
-            Con.Close();
-            Con.Dispose();
         }
+
+        //protected void UpdateCompleteStatusRF(SqlConnection con, SqlTransaction transaction)
+        //{
+        //    foreach (GridViewRow row in TableItemPO.Rows)
+        //    {
+        //        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+        //        SqlConnection Con = new SqlConnection(path);
+        //        Con.Open();
+        //        SqlCommand sqlcomm = new SqlCommand();
+        //        sqlcomm.CommandText = "sp_PROCUREMENT_DB_GoodsReceived";
+        //        sqlcomm.CommandType = CommandType.StoredProcedure;
+        //        sqlcomm.Connection = Con;
+        //        sqlcomm.Parameters.AddWithValue("@StatementType", "CompletedStatusRF");
+        //        sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[2].Text.ToString());
+
+        //        sqlcomm.ExecuteNonQuery();
+        //        string _vNotif = lbErrorUploadNotif.Value;
+        //        string script = $@"
+        //            $(document).ready(function() {{
+        //                // Show Toastr notification
+        //                toastr.success('Submit Successfully' + ' ' + 'File Upload:' + '{_vNotif}');
+
+        //                // Redirect after 2 seconds (2000 milliseconds)
+        //                setTimeout(function() {{
+        //                    window.location.href = 'goods_received.aspx'; // replace with your target URL
+        //                }}, 2000);
+        //            }});
+        //        ";
+
+        //        // Register the script for partial postbacks
+        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+        //        sqlcomm.Dispose();
+        //        sqlcomm.Parameters.Clear();
+        //        Con.Close();
+        //        Con.Dispose();
+        //    }
+        //}
 
         protected void UpdateCompleteStatusRF(SqlConnection con, SqlTransaction transaction)
         {
             foreach (GridViewRow row in TableItemPO.Rows)
             {
-                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                SqlConnection Con = new SqlConnection(path);
-                Con.Open();
-                SqlCommand sqlcomm = new SqlCommand();
-                sqlcomm.CommandText = "sp_PROCUREMENT_DB_GoodsReceived";
-                sqlcomm.CommandType = CommandType.StoredProcedure;
-                sqlcomm.Connection = Con;
-                sqlcomm.Parameters.AddWithValue("@StatementType", "CompletedStatusRF");
-                sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[2].Text.ToString());
+                if (row.RowType != DataControlRowType.DataRow)
+                    continue;
 
-                sqlcomm.ExecuteNonQuery();
-                string _vNotif = lbErrorUploadNotif.Value;
-                string script = $@"
-                    $(document).ready(function() {{
-                        // Show Toastr notification
-                        toastr.success('Submit Successfully' + ' ' + 'File Upload:' + '{_vNotif}');
-
-                        // Redirect after 2 seconds (2000 milliseconds)
-                        setTimeout(function() {{
-                            window.location.href = 'goods_received.aspx'; // replace with your target URL
-                        }}, 2000);
-                    }});
-                ";
-
-                // Register the script for partial postbacks
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
-                sqlcomm.Dispose();
-                sqlcomm.Parameters.Clear();
-                Con.Close();
-                Con.Dispose();
+                using (SqlCommand sqlcomm = new SqlCommand("sp_PROCUREMENT_DB_GoodsReceived", con, transaction))
+                {
+                    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    sqlcomm.Parameters.AddWithValue("@StatementType", "CompletedStatusRF");
+                    sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[2].Text.ToString());
+                    sqlcomm.ExecuteNonQuery();
+                }
             }
+
+            string _vNotif = lbErrorUploadNotif.Value;
+            string script = $@"
+            $(document).ready(function() {{
+                toastr.success('Submit Successfully' + ' ' + 'File Upload:' + '{_vNotif}');
+                setTimeout(function() {{
+                    window.location.href = 'goods_received.aspx';
+                }}, 2000);
+            }});
+        ";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
         }
+
 
         protected void CheckUploadDocument()
         {

@@ -10,6 +10,10 @@
     <title>Purchasing System - YLID | <%: Page.Title %> </title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
+    <!-- test script --> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!-- Favicon icon -->
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <!-- Custom Stylesheet -->
@@ -48,6 +52,16 @@
 
     <%--<link href="vendors/toastr/toastr.min.css" rel="stylesheet" />
     <script src="vendors/toastr/toastr.min.js"></script>--%>
+    <style>
+
+     body, form {
+          margin: 0 !important;
+          padding: 0 !important;
+          background-color: #06183d; 
+      }
+       
+     </style>
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -486,6 +500,15 @@
                                 <li runat="server" id="app_po"><a href="approval_purchase_order.aspx"><span class="nav-text">Purchase Order (PO)</span></a></li>
                             </ul>
                         </li>
+                        <li runat="server" id="menu_report">
+                              <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                                  <i class="fa fa-bar-chart"></i><span class="nav-text">Report</span>
+                              </a>
+                              <ul aria-expanded="false">
+                                 <li runat="server" id="report_po"><a href="ReportPO.aspx"><span class="nav-text">Report (PO)</span></a></li>
+                              </ul>
+                        </li>
+
 
                     </ul>
                 </div>

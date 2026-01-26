@@ -484,6 +484,7 @@
     <Content Include="goods_catalog.aspx" />
     <Content Include="group_registration.aspx" />
     <Content Include="images\decline.png" />
+    <Content Include="images\Loadingylid.gif" />
     <Content Include="images\logo_sayap_barcode.png" />
     <Content Include="input_price.aspx" />
     <Content Include="input_vendor.aspx" />
@@ -4967,6 +4968,7 @@
     <Content Include="OtherThemes\quixlab\plugins\x-editable\dist\bootstrap3-editable\js\bootstrap-editable.min.js" />
     <Content Include="OtherThemes\quixlab\plugins\xml\plugin.js" />
     <Content Include="OtherThemes\quixlab\style.css" />
+    <Content Include="ReportPO.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -19895,6 +19897,9 @@
     <Compile Include="category.aspx.designer.cs">
       <DependentUpon>category.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DeleteAttachmentHandler.ashx.cs">
+      <DependentUpon>DeleteAttachmentHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="detail_purchase_order_standart.aspx.cs">
       <DependentUpon>detail_purchase_order_standart.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -19937,6 +19942,7 @@
     <Compile Include="expired_page.aspx.designer.cs">
       <DependentUpon>expired_page.aspx</DependentUpon>
     </Compile>
+    <Compile Include="GlobalHelper.cs" />
     <Compile Include="goods_catalog.aspx.cs">
       <DependentUpon>goods_catalog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -20291,6 +20297,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSet_RF_ManagerApproved.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ReportPO.aspx.cs">
+      <DependentUpon>ReportPO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportPO.aspx.designer.cs">
+      <DependentUpon>ReportPO.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="stock.aspx.cs">
       <DependentUpon>stock.aspx</DependentUpon>
@@ -20369,6 +20382,9 @@
     </Compile>
     <Compile Include="unit_of_measurement.aspx.designer.cs">
       <DependentUpon>unit_of_measurement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UploadAttachmentHandler.ashx.cs">
+      <DependentUpon>UploadAttachmentHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="user_registration.aspx.cs">
       <DependentUpon>user_registration.aspx</DependentUpon>
@@ -21011,6 +21027,7 @@
     <Content Include="IT_STOCK_DBDataSettest.xsc">
       <DependentUpon>IT_STOCK_DBDataSettest.xsd</DependentUpon>
     </Content>
+    <Content Include="DeleteAttachmentHandler.ashx" />
     <None Include="IT_STOCK_DBDataSettest.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>IT_STOCK_DBDataSettest.Designer.cs</LastGenOutput>
@@ -22949,6 +22966,7 @@
     <Content Include="PROCUREMENT_DBDataSet_RF_ManagerApproved.xss">
       <DependentUpon>PROCUREMENT_DBDataSet_RF_ManagerApproved.xsd</DependentUpon>
     </Content>
+    <Content Include="UploadAttachmentHandler.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -23029,6 +23047,8 @@
           <DevelopmentServerPort>51349</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>https://localhost:44309/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>https://localhost:44309/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -37,6 +37,20 @@
                 background-color: #06183d;
                 color: white;
             }
+                   .dataTables_filter input {
+            border: 3px solid darkblue !important;
+            background-color: #f0f8ff !important;
+            padding: 6px 10px !important;
+            font-weight: bold !important;
+            height:20px;
+        }
+            
+        /* Tambahan efek saat fokus */
+        .dataTables_filter input:focus {
+            outline: none;
+            border-color: midnightblue !important; /* biru terang */
+            box-shadow: 0 0 5px rgba(0,123,255,0.5);
+        }
     </style>
 
     <script type="text/javascript" src="vendors/date/JS/jquery-1.10.2.min.js"></script>
@@ -395,14 +409,15 @@
                                             <div class='col-sm-12'>
                                                 <div class="table-responsive">
                                                     <asp:GridView ID="TableRequisitionForm" runat="server" CssClass="table table-striped row-border order-column table-bordered zero-configuration text-nowrap grid" AutoGenerateColumns="False" Style="width: 100%"
-                                                        ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found" OnRowCommand="TableRequisitionForm_RowCommand" OnRowDataBound="TableRequisitionForm_RowDataBound" OnSelectedIndexChanged="TableRequisitionForm_SelectedIndexChanged">
+                                                        ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found" OnRowCommand="TableRequisitionForm_RowCommand" DataKeyNames="POallcreated" OnRowDataBound="TableRequisitionForm_RowDataBound" OnSelectedIndexChanged="TableRequisitionForm_SelectedIndexChanged" >
                                                         <HeaderStyle BackColor="#06183d" ForeColor="White" />
                                                         <Columns>
                                                             <asp:TemplateField HeaderText="View">
-                                                                <HeaderStyle CssClass="fixed-column fixed-column-header" />
-                                                                <ItemStyle CssClass="fixed-column" />
+<%--                                                            <HeaderStyle CssClass="fixed-column fixed-column-header" />
+                                                                <ItemStyle CssClass="fixed-column" />--%>
                                                                 <ItemTemplate>
-                                                                    <asp:LinkButton runat="server" ID="btnView" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
+                                                                    <asp:LinkButton runat="server" ID="btnView" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn btn-sm buttonColorGridview" OnClick="btnView_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
+                                                                    <asp:LinkButton runat="server" ID="btnCreatePO" CommandName="Buat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn btn-sm btn-success" OnClick="btnCreatePO_Click" ToolTip="Create PO"> Create PO <i class="fa fa-file-circle-plus"></i></asp:LinkButton>
                                                                     <%--<asp:LinkButton runat="server" ID="btnEdit" CommandName="Ubah" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnEdit_Click" ToolTip="Edit"><i class="fa-solid fa-pen-to-square"></i></asp:LinkButton>--%>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
@@ -442,15 +457,17 @@
                                                 <asp:Button runat="server" Style="display: none;" ID="btnGenerateExcel_Admin" OnClick="btnGenerateExcel_Admin_Click"></asp:Button>--%>
                                                 <div class="table-responsive">
                                                     <asp:GridView ID="TableRequisitionFormFilter" runat="server" CssClass="table table-striped row-border order-column table-bordered nowrap zero-configuration grid" AutoGenerateColumns="False" Style="width: 100%"
-                                                        ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found">
+                                                        ShowHeaderWhenEmpty="true" OnRowDataBound="TableRequisitionFormFilter_RowDataBound"  DataKeyNames="POallcreated" EmptyDataText="No Record Found">
                                                         <HeaderStyle BackColor="#06183d" ForeColor="White" />
                                                         <Columns>
                                                             <asp:TemplateField HeaderText="Action">
-                                                                <HeaderStyle CssClass="fixed-column fixed-column-header" />
-                                                                <ItemStyle CssClass="fixed-column" />
+                                                                <%--<HeaderStyle CssClass="fixed-column fixed-column-header" />
+                                                                <ItemStyle CssClass="fixed-column" />--%>
                                                                 <ItemTemplate>
-                                                                    <asp:LinkButton runat="server" ID="btnView_Admin" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_Admin_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
+                                                                    <asp:LinkButton runat="server" ID="btnView_Admin" CommandName="Lihat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn btn-sm buttonColorGridview" OnClick="btnView_Admin_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
+                                                                    <asp:LinkButton runat="server" ID="btnCreatePO" CommandName="Buat" CommandArgument='<%# Eval("rf_no") %>'  CssClass="btn btn-sm btn-success" OnClick="btnCreatePO_Click" ToolTip="Create PO"> Create PO <i class="fa fa-file-circle-plus"></i></asp:LinkButton>
                                                                     <%--<asp:LinkButton runat="server" ID="btnEdit" CommandName="Ubah" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnEdit_Click" ToolTip="Edit"><i class="fa-solid fa-pen-to-square"></i></asp:LinkButton>--%>
+                                                                    <%-- CommandArgument="<%# Container.DataItemIndex %>"--%>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                             <asp:BoundField DataField="id" HeaderText="id" />

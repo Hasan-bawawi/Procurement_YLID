@@ -35,6 +35,7 @@ namespace procurement_system
                     divDashoardRF.Visible = true;
                     divTableUser.Visible = false;
 
+
                     GetDataTotalRF();
                     lbTotalRF.Text = Session["TotalRF"].ToString();
 
@@ -53,6 +54,8 @@ namespace procurement_system
                     divTableAdmin.Visible = false;
                     divDashoardRF.Visible = false;
                     divTableUser.Visible = true;
+
+
                 }
             }
         }
@@ -215,7 +218,7 @@ namespace procurement_system
             sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "View");
+            sqlcomm.Parameters.AddWithValue("@StatementType", "c");
             sqlcomm.Parameters.AddWithValue("@nik_requester", hblNIK.Text);
             DataTable dtb = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -231,7 +234,9 @@ namespace procurement_system
             TableRequisitionForm.UseAccessibleHeader = true;
             TableRequisitionForm.HeaderRow.TableSection = TableRowSection.TableHeader;
 
-            Con.Close();
+        
+
+                Con.Close();
         }
 
         protected void GetTableRFByFilter()
@@ -243,7 +248,7 @@ namespace procurement_system
             sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewFilter");
+            sqlcomm.Parameters.AddWithValue("@StatementType", /*"ViewFilter"*/"ViewFilterforRF");
             sqlcomm.Parameters.AddWithValue("@rf_no", txtRFNo.Value);
             sqlcomm.Parameters.AddWithValue("@date_from", txtDate1.Value);
             sqlcomm.Parameters.AddWithValue("@date_to", txtDate2.Value);
@@ -272,8 +277,120 @@ namespace procurement_system
 
         }
 
+        //protected void TableRequisitionFormFilter_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        LinkButton btnCreatePO = (LinkButton)e.Row.FindControl("btnCreatePO");
+
+        //        if (btnCreatePO != null)
+        //        {
+        //            if (Session["GroupName"].ToString().Trim() != "Admin Purchasing")
+        //            {
+
+        //                if (e.Row.Cells[10].Text.ToString().Trim() == "Approved (Fully Approved)" && e.Row.Cells[11].Text.ToString().Trim() == "Not Complete" )
+        //                {
+        //                    btnCreatePO.Visible = true;
+
+        //                }
+        //                else
+        //                {
+        //                    btnCreatePO.Visible = false;
+
+        //                }
+
+        //            }
+        //            else
+        //            {
+        //                if (e.Row.Cells[10].Text.ToString().Trim() == "Approved (Fully Approved)" && e.Row.Cells[11].Text.ToString().Trim() == "Not Complete")
+        //                {
+        //                    btnCreatePO.Visible = true;
+
+        //                }
+        //                else
+        //                {
+        //                    btnCreatePO.Visible = false;
+        //                }   
+
+        //            }
+        //        }
+        //    }
+
+        //}
+        //
+
+        protected void TableRequisitionFormFilter_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                LinkButton btnCreatePO = (LinkButton)e.Row.FindControl("btnCreatePO");
+                if (btnCreatePO != null)
+                {
+                    string groupName = Session["GroupName"]?.ToString().Trim() ?? "";
+                    string statusApproval = e.Row.Cells[10].Text.ToString().Trim();
+                    string statusPO = e.Row.Cells[11].Text.ToString().Trim();
+
+                    int POallcreated = 0;
+                    object keyVal = TableRequisitionFormFilter.DataKeys[e.Row.RowIndex].Value;
+                    if (keyVal != null)
+                    {
+                        string val = keyVal.ToString().Trim();
+
+                        if (val.Equals("True", StringComparison.OrdinalIgnoreCase))
+                            POallcreated = 1;
+                        else if (val.Equals("False", StringComparison.OrdinalIgnoreCase))
+                            POallcreated = 0;
+                        else
+                            int.TryParse(val, out POallcreated);
+                    }
+
+
+                    bool isApproved = statusApproval == "Approved (Fully Approved)";
+                    bool isStatusValid = statusPO == "Not Complete" || statusPO == "PO Created";
+                    bool isPOAllCreated = POallcreated == 0;
+
+                    if (isApproved && isStatusValid && isPOAllCreated)
+                    {
+                        btnCreatePO.Visible = true;
+                    }
+                    else
+                    {
+                        btnCreatePO.Visible = false;
+                    }
+                }
+            }
+        }
+
+
         protected void TableRequisitionForm_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+
+
+                LinkButton btnCreatePO = (LinkButton)e.Row.FindControl("btnCreatePO");
+
+                btnCreatePO.Visible = false;
+
+
+                //if (btnCreatePO != null)
+                //{
+                //    if (Session["GroupName"].ToString().Trim() != "Admin Purchasing")
+                //    {
+
+                //        if (e.Row.Cells[10].Text.ToString().Trim() == "Approved (Fully Approved)")
+                //        {
+                //            btnCreatePO.Visible = false;
+
+                //        }
+                //        else
+                //        {
+                //            btnCreatePO.Visible = false;
+                //        }
+
+                //    }
+                //}
+            }
 
         }
 
@@ -303,6 +420,17 @@ namespace procurement_system
             //{
             //    Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "CannotEdit();", true);
             //}
+        }
+
+
+
+        protected void btnCreatePO_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            string rf_no = btn.CommandArgument;
+
+            Response.Redirect("~/create_purchase_order_standart.aspx?rf_no=" + rf_no);
+
         }
 
         protected void GenerateExcel_Click(object sender, EventArgs e)
