@@ -122,9 +122,9 @@ namespace procurement_system
                 sqlcomm.Parameters.AddWithValue("@category_vendor", txtCategory.Value.Trim());
                 sqlcomm.Parameters.AddWithValue("@active", ckActive.Checked);
                 sqlcomm.Parameters.AddWithValue("@createby", txtCreateByNew.Value.Trim());
-                sqlcomm.Parameters.AddWithValue("@create_date", txtCreateDateNew.Value.Trim());
+                //sqlcomm.Parameters.AddWithValue("@create_date", txtCreateDateNew.Value.Trim());
                 sqlcomm.Parameters.AddWithValue("@modifiedby", txtModifiedByNew.Value.Trim());
-                sqlcomm.Parameters.AddWithValue("@modified_date", txtModifiedDateNew.Value.Trim());
+                //sqlcomm.Parameters.AddWithValue("@modified_date", txtModifiedDateNew.Value.Trim());
 
                 sqlcomm.ExecuteNonQuery();
                 GetDataCategory();
@@ -147,7 +147,7 @@ namespace procurement_system
             sqlcomm.Parameters.AddWithValue("@category_vendor", txtCategory.Value.Trim());
             sqlcomm.Parameters.AddWithValue("@active", ckActive.Checked);
             sqlcomm.Parameters.AddWithValue("@modifiedby", Session["Fullname"].ToString());
-            sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
+            //sqlcomm.Parameters.AddWithValue("@modified_date", DateTime.Now.ToString());
 
             sqlcomm.ExecuteNonQuery();
             GetDataCategory();

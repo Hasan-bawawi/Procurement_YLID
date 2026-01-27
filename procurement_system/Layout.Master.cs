@@ -94,7 +94,7 @@ namespace procurement_system
 
 
             //View Total Notif:
-            if (lbNIK.Text== "891011" || lbNIK.Text == "891163")
+            if (/*lbNIK.Text== "891011" || lbNIK.Text == "891163"*/  Session["GroupName"].ToString() == "Admin Purchasing")
                 {
                 int notif = Convert.ToInt32(lblnotifEstimatePriceRF.Text) + Convert.ToInt32(lblnotifNeedCreatePO.Text) + Convert.ToInt32(lblnotifNeedApproveManagerDivisionRF.Text);
                 lblnotif.Text = notif.ToString();
@@ -386,6 +386,7 @@ namespace procurement_system
             app_po.Visible = false;
             vendor_detail.Visible = false;
             event_calender.Visible = false;
+            menu_report.Visible = false;
 
             string vUserCode = vNIK;
 
@@ -429,6 +430,8 @@ namespace procurement_system
                     if (vDR["ModuleName"].ToString().Trim() == "app_rf") { app_rf.Visible = Convert.ToBoolean(vDR["RoleNavigation"]); }
                     if (vDR["ModuleName"].ToString().Trim() == "app_po") { app_po.Visible = Convert.ToBoolean(vDR["RoleNavigation"]); }
                     if (vDR["ModuleName"].ToString().Trim() == "event_calender") { event_calender.Visible = Convert.ToBoolean(vDR["RoleNavigation"]); }
+                    if (vDR["ModuleName"].ToString().Trim() == "menu_report") { menu_report.Visible = Convert.ToBoolean(vDR["RoleNavigation"]); }
+                    if (vDR["ModuleName"].ToString().Trim() == "report_po") { report_po.Visible = Convert.ToBoolean(vDR["RoleNavigation"]); }
                 }
             }
         }

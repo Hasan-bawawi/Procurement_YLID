@@ -177,9 +177,9 @@ namespace procurement_system
                 sqlcomm.Connection = Con;
                 sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                 sqlcomm.Parameters.AddWithValue("@CreateBy", Session["Fullname"].ToString());
-                sqlcomm.Parameters.AddWithValue("@CreateDate", DateTime.Now.ToString());
+                //sqlcomm.Parameters.AddWithValue("@CreateDate", DateTime.Now.ToString());
                 sqlcomm.Parameters.AddWithValue("@ModifiedBy", Session["Fullname"].ToString());
-                sqlcomm.Parameters.AddWithValue("@ModifiedDate", DateTime.Now.ToString());
+                //sqlcomm.Parameters.AddWithValue("@ModifiedDate", DateTime.Now.ToString());
                 sqlcomm.Parameters.AddWithValue("@Code", hlbCode.Value);
                 sqlcomm.Parameters.AddWithValue("@GroupName", txtGroupName.Value);
                 sqlcomm.Parameters.AddWithValue("@IsActive", ckActive.Checked);
@@ -203,7 +203,7 @@ namespace procurement_system
             sqlcomm.Parameters.AddWithValue("@StatementType", "Update");
             sqlcomm.Parameters.AddWithValue("@Oid", hlbOid.Value.ToString());
             sqlcomm.Parameters.AddWithValue("@ModifiedBy", Session["Fullname"].ToString());
-            sqlcomm.Parameters.AddWithValue("@ModifiedDate", DateTime.Now.ToString());
+            //sqlcomm.Parameters.AddWithValue("@ModifiedDate", DateTime.Now.ToString());
             sqlcomm.Parameters.AddWithValue("@GroupName", txtGroupName.Value);
             sqlcomm.Parameters.AddWithValue("@IsActive", ckActive.Checked);
 
@@ -342,9 +342,9 @@ namespace procurement_system
                 sqlcomm.Connection = Con;
                 sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                 sqlcomm.Parameters.AddWithValue("@CreateBy", Session["Fullname"].ToString());
-                sqlcomm.Parameters.AddWithValue("@CreateDate", DateTime.Now.ToString());
+                //sqlcomm.Parameters.AddWithValue("@CreateDate", DateTime.Now.ToString());
                 sqlcomm.Parameters.AddWithValue("@ModifiedBy", Session["Fullname"].ToString());
-                sqlcomm.Parameters.AddWithValue("@ModifiedDate", DateTime.Now.ToString());
+                //sqlcomm.Parameters.AddWithValue("@ModifiedDate", DateTime.Now.ToString());
                 sqlcomm.Parameters.AddWithValue("@Oid_ModuleName", ddlModuleName.SelectedValue);
                 sqlcomm.Parameters.AddWithValue("@Oid_UserManagement_Group", hlbOid.Value);
                 sqlcomm.Parameters.AddWithValue("@IsActive", ckActive_Navigation.Checked);
@@ -371,7 +371,7 @@ namespace procurement_system
             sqlcomm.Connection = Con;
             sqlcomm.Parameters.AddWithValue("@StatementType", "Update");
             sqlcomm.Parameters.AddWithValue("@ModifiedBy", Session["Fullname"].ToString());
-            sqlcomm.Parameters.AddWithValue("@ModifiedDate", DateTime.Now.ToString());
+            //sqlcomm.Parameters.AddWithValue("@ModifiedDate", DateTime.Now.ToString());
             sqlcomm.Parameters.AddWithValue("@Oid", hlbOidModule.Value);
             sqlcomm.Parameters.AddWithValue("@IsActive", ckActive_Navigation.Checked);
             sqlcomm.Parameters.AddWithValue("@RoleNavigation", ckActiveNavigationRole.Checked);

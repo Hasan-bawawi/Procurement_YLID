@@ -289,9 +289,9 @@ namespace procurement_system
                 sqlcomm.Connection = Con;
                 sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                 sqlcomm.Parameters.AddWithValue("@CreateBy", Session["nik"].ToString());
-                sqlcomm.Parameters.AddWithValue("@CreateDate", DateTime.Now.ToString());
+                //sqlcomm.Parameters.AddWithValue("@CreateDate", DateTime.Now.ToString());
                 sqlcomm.Parameters.AddWithValue("@ModifiedBy", Session["nik"].ToString());
-                sqlcomm.Parameters.AddWithValue("@ModifiedDate", DateTime.Now.ToString());
+                //sqlcomm.Parameters.AddWithValue("@ModifiedDate", DateTime.Now.ToString());
                 sqlcomm.Parameters.AddWithValue("@Employees", ddlEmployees.SelectedValue);
                 sqlcomm.Parameters.AddWithValue("@IsActive", ckActive.Checked);
                 sqlcomm.Parameters.AddWithValue("@UserName", txtUsername.Value.ToString().Trim());
