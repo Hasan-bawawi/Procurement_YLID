@@ -19997,6 +19997,11 @@
     <Compile Include="module_registration.aspx.designer.cs">
       <DependentUpon>module_registration.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PROCUREMENT_DBDataSetFormPurchase.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -20216,6 +20221,71 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSetRF_ManagerApproved.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_GAHeadApproved.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_GAHeadApproved.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_GA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_GA.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_IT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_IT.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_GA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_GA.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_IT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_IT.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_GA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_GA.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_IT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_IT.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_PO_GAHeadApproved_ITHeadNull.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_GAHeadApproved_ITHeadNull.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_PO_GMAdminApproved.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_GMAdminApproved.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_PO_GMAdminApproved_ITHeadNull.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_GMAdminApproved_ITHeadNull.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_PO_ITHeadApproved.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_ITHeadApproved.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendGAManager.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendGAManager.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendITManager.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendITManager.xsd</DependentUpon>
     </Compile>
     <Compile Include="PROCUREMENT_DBDataSet_RF_DepDirApproved.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -22306,6 +22376,17 @@
     <Content Include="PROCUREMENT_DBDataSetFormPurchase.xsc">
       <DependentUpon>PROCUREMENT_DBDataSetFormPurchase.xsd</DependentUpon>
     </Content>
+    <Content Include="PROCUREMENT_DBDataSet.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="PROCUREMENT_DBDataSetFormPurchase.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PROCUREMENT_DBDataSetFormPurchase.Designer.cs</LastGenOutput>
@@ -22801,6 +22882,149 @@
     </None>
     <Content Include="PROCUREMENT_DBDataSetRF_ManagerApproved.xss">
       <DependentUpon>PROCUREMENT_DBDataSetRF_ManagerApproved.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendITManager.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendITManager.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendGAManager.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendGAManager.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_GAHeadApproved.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_GAHeadApproved.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_GAHeadApproved.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_GAHeadApproved.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_GAHeadApproved.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_GAHeadApproved.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_PO_GAHeadApproved_ITHeadNull.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_GAHeadApproved_ITHeadNull.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_IT.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_IT.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_GA.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_GA.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_GA.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_GA.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_GA.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_GA.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_IT.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_IT.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_IT.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_IT.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_IT.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_IT.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_GA.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_GA.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_GA.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_GA.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_GA.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_GA.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_IT.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_IT.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_IT.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Under20jt_IT.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_IT.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_IT.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_GA.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_GA.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_GA.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_GA.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_GA.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_GA.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_IT.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_IT.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_IT.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_FullApproval_Upper20jt_IT.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_PO_GAHeadApproved_ITHeadNull.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_PO_GAHeadApproved_ITHeadNull.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_PO_GAHeadApproved_ITHeadNull.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_GAHeadApproved_ITHeadNull.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_PO_GMAdminApproved.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_GMAdminApproved.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_PO_GMAdminApproved.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_PO_GMAdminApproved.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_PO_GMAdminApproved.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_GMAdminApproved.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_PO_GMAdminApproved_ITHeadNull.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_GMAdminApproved_ITHeadNull.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_PO_GMAdminApproved_ITHeadNull.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_PO_GMAdminApproved_ITHeadNull.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_PO_GMAdminApproved_ITHeadNull.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_GMAdminApproved_ITHeadNull.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_PO_ITHeadApproved.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_ITHeadApproved.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_PO_ITHeadApproved.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_PO_ITHeadApproved.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_PO_ITHeadApproved.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_PO_ITHeadApproved.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendGAManager.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendGAManager.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendGAManager.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendGAManager.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendITManager.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendITManager.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendITManager.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_PurchaseOrderCreated_SendITManager.xsd</DependentUpon>
     </Content>
     <None Include="PROCUREMENT_DBDataSet_RF_DepDirApproved.xsd">
       <Generator>MSDataSetGenerator</Generator>

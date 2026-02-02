@@ -1715,6 +1715,13 @@
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
+                            <TextRun>
+                              <Value>-[merk_name]</Value>
+                              <Style>
+                                <FontFamily>Calibri</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
                           </TextRuns>
                           <Style>
                             <TextAlign>Left</TextAlign>
@@ -1840,7 +1847,6 @@
                         <rd:FormatSymbolCulture>en-ID</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>

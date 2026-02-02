@@ -927,6 +927,13 @@
                                 <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
+                            <TextRun>
+                              <Value>-[tipe]-[merk_name]</Value>
+                              <Style>
+                                <FontFamily>Calibri</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
@@ -3435,7 +3442,6 @@
           <Value>="file:///D:/WebFolder-PurchasingSystem/ylid-purchasing/Barcode/PO/barcode_po.png"</Value>
           <MIMEType>image/png</MIMEType>
           <Sizing>Fit</Sizing>
-          <Top>0cm</Top>
           <Left>0.20416in</Left>
           <Height>0.80023in</Height>
           <Width>0.96877in</Width>
@@ -3530,6 +3536,14 @@
           <DataField>item_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="tipe">
+          <DataField>tipe</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="merk_name">
+          <DataField>merk_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="unit_name">
           <DataField>unit_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -3616,8 +3630,8 @@
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>PROCUREMENT_DBDataSetFormPurchaseOrderFullApproveUnder1jt_ITNull</rd:DataSetName>
-        <rd:SchemaPath>D:\MY WORK\MY PROJECT\SYSTEM INTERNAL YLID\PROCUREMENT SYSTEM\procurement_system\procurement_system\PROCUREMENT_DBDataSetFormPurchaseOrderFullApproveUnder1jt_ITNull.xsd</rd:SchemaPath>
+        <rd:DataSetName>PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_GA</rd:DataSetName>
+        <rd:SchemaPath>D:\procurement_system\procurement_system\PROCUREMENT_DBDataSet_PO_FullApproval_Under1jt_GA.xsd</rd:SchemaPath>
         <rd:TableName>sp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under1jt_GA</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

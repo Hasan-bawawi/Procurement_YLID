@@ -347,6 +347,10 @@ namespace procurement_system {
             
             private global::System.Data.DataColumn columnsignature_po_checked_by_it;
             
+            private global::System.Data.DataColumn columntipe;
+            
+            private global::System.Data.DataColumn columnmerk_name;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public sp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GADataTable() {
@@ -654,6 +658,22 @@ namespace procurement_system {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn tipeColumn {
+                get {
+                    return this.columntipe;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn merk_nameColumn {
+                get {
+                    return this.columnmerk_name;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -723,7 +743,9 @@ namespace procurement_system {
                         byte[] signature_po_approved_by, 
                         byte[] signature_po_checked_by, 
                         byte[] signature_authorized_by, 
-                        byte[] signature_po_checked_by_it) {
+                        byte[] signature_po_checked_by_it, 
+                        string tipe, 
+                        string merk_name) {
                 sp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GARow rowsp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GARow = ((sp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GARow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         po_no,
@@ -759,7 +781,9 @@ namespace procurement_system {
                         signature_po_approved_by,
                         signature_po_checked_by,
                         signature_authorized_by,
-                        signature_po_checked_by_it};
+                        signature_po_checked_by_it,
+                        tipe,
+                        merk_name};
                 rowsp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GARow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowsp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GARow);
                 return rowsp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GARow;
@@ -816,6 +840,8 @@ namespace procurement_system {
                 this.columnsignature_po_checked_by = base.Columns["signature_po_checked_by"];
                 this.columnsignature_authorized_by = base.Columns["signature_authorized_by"];
                 this.columnsignature_po_checked_by_it = base.Columns["signature_po_checked_by_it"];
+                this.columntipe = base.Columns["tipe"];
+                this.columnmerk_name = base.Columns["merk_name"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -889,6 +915,10 @@ namespace procurement_system {
                 base.Columns.Add(this.columnsignature_authorized_by);
                 this.columnsignature_po_checked_by_it = new global::System.Data.DataColumn("signature_po_checked_by_it", typeof(byte[]), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsignature_po_checked_by_it);
+                this.columntipe = new global::System.Data.DataColumn("tipe", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntipe);
+                this.columnmerk_name = new global::System.Data.DataColumn("merk_name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmerk_name);
                 this.columnpo_no.MaxLength = 50;
                 this.columnrf_no.MaxLength = 50;
                 this.columnRemarksItem.MaxLength = 2147483647;
@@ -924,6 +954,8 @@ namespace procurement_system {
                 this.columnsignature_po_checked_by.ReadOnly = true;
                 this.columnsignature_authorized_by.ReadOnly = true;
                 this.columnsignature_po_checked_by_it.ReadOnly = true;
+                this.columntipe.MaxLength = 500;
+                this.columnmerk_name.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1644,6 +1676,40 @@ namespace procurement_system {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string tipe {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GA.tipeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'tipe\' in table \'sp_PROCUREMENT_DB_Attachment_PO_FullApprova" +
+                                "l_Under20jt_GA\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GA.tipeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string merk_name {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GA.merk_nameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'merk_name\' in table \'sp_PROCUREMENT_DB_Attachment_PO_FullAp" +
+                                "proval_Under20jt_GA\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GA.merk_nameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Ispo_noNull() {
                 return this.IsNull(this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GA.po_noColumn);
             }
@@ -2049,6 +2115,30 @@ namespace procurement_system {
             public void Setsignature_po_checked_by_itNull() {
                 this[this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GA.signature_po_checked_by_itColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IstipeNull() {
+                return this.IsNull(this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GA.tipeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SettipeNull() {
+                this[this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GA.tipeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Ismerk_nameNull() {
+                return this.IsNull(this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GA.merk_nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setmerk_nameNull() {
+                this[this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Under20jt_GA.merk_nameColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -2244,6 +2334,8 @@ namespace procurement_system.PROCUREMENT_DBDataSetPOFullApprovedUnder20JTGATable
             tableMapping.ColumnMappings.Add("signature_po_checked_by", "signature_po_checked_by");
             tableMapping.ColumnMappings.Add("signature_authorized_by", "signature_authorized_by");
             tableMapping.ColumnMappings.Add("signature_po_checked_by_it", "signature_po_checked_by_it");
+            tableMapping.ColumnMappings.Add("tipe", "tipe");
+            tableMapping.ColumnMappings.Add("merk_name", "merk_name");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

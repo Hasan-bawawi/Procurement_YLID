@@ -2182,6 +2182,13 @@
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
+                            <TextRun>
+                              <Value>-[merk_name]</Value>
+                              <Style>
+                                <FontFamily>Calibri</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
                           </TextRuns>
                           <Style>
                             <TextAlign>Left</TextAlign>

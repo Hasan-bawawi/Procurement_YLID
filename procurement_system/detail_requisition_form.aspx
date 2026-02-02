@@ -658,13 +658,13 @@
                                                 </button>
                                                 <asp:Button runat="server" Style="display: none;" ID="btnCancelRF" OnClick="btnCancelRF_Click" OnClientClick="ShowLoading()"></asp:Button>
                                             </div>
-                                            <div class='col-sm-12' id="divSend" runat="server">
+<%--                                            <div class='col-sm-12' id="divSend" runat="server">
                                                 <button type="button" style="float: right;" onclick="<%=btnSend.ClientID %>.click()" class="btn mb-1 buttonColor">
                                                     Send to Purchasing
 									                <span class="btn-icon-right"><i class="fa-solid fa-paper-plane"></i></span>
                                                 </button>
                                                 <asp:Button runat="server" Style="display: none;" ID="btnSend" OnClick="btnSend_Click" OnClientClick="ShowLoading()"></asp:Button>
-                                            </div>
+                                            </div>--%>
                                         </div>
                                     </div>
                                 </fieldset>

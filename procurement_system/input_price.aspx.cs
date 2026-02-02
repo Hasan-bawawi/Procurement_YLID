@@ -393,7 +393,7 @@ namespace procurement_system
                                 content = body
                             },
                             toRecipients = new[] { new { emailAddress = new { address = hlbEmailMgrApprover.Value } } },
-                            ccRecipients = new[] { /*new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },*/new { emailAddress = new { address = hlbEmailRequester.Value } } },
+                            ccRecipients = new[] { /*new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },*/new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }, new { emailAddress = new { address = hlbEmailRequester.Value } } },
                             //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             attachments = new[] { attachment }
@@ -744,7 +744,7 @@ namespace procurement_system
                 Con.Close();
 
                 UpdatePriceRF();
-                //await SendEmailSendToManagerDivision();
+                await SendEmailSendToManagerDivision();
                 //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
                 string script = $@"
                                         $(document).ready(function() {{

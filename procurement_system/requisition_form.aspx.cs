@@ -218,7 +218,7 @@ namespace procurement_system
             sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
-            sqlcomm.Parameters.AddWithValue("@StatementType", "c");
+            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewNewRF");
             sqlcomm.Parameters.AddWithValue("@nik_requester", hblNIK.Text);
             DataTable dtb = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);

@@ -335,6 +335,12 @@ namespace procurement_system {
             
             private global::System.Data.DataColumn columnrequesting_dept;
             
+            private global::System.Data.DataColumn columntipe;
+            
+            private global::System.Data.DataColumn columnmerk_name;
+            
+            private global::System.Data.DataColumn columnother_condition;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public sp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManagerDataTable() {
@@ -594,6 +600,30 @@ namespace procurement_system {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn tipeColumn {
+                get {
+                    return this.columntipe;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn merk_nameColumn {
+                get {
+                    return this.columnmerk_name;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn other_conditionColumn {
+                get {
+                    return this.columnother_condition;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -657,7 +687,10 @@ namespace procurement_system {
                         string approve_status, 
                         string po_status, 
                         int amount, 
-                        string requesting_dept) {
+                        string requesting_dept, 
+                        string tipe, 
+                        string merk_name, 
+                        string other_condition) {
                 sp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManagerRow rowsp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManagerRow = ((sp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManagerRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         po_no,
@@ -687,7 +720,10 @@ namespace procurement_system {
                         approve_status,
                         po_status,
                         amount,
-                        requesting_dept};
+                        requesting_dept,
+                        tipe,
+                        merk_name,
+                        other_condition};
                 rowsp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManagerRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowsp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManagerRow);
                 return rowsp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManagerRow;
@@ -738,6 +774,9 @@ namespace procurement_system {
                 this.columnpo_status = base.Columns["po_status"];
                 this.columnamount = base.Columns["amount"];
                 this.columnrequesting_dept = base.Columns["requesting_dept"];
+                this.columntipe = base.Columns["tipe"];
+                this.columnmerk_name = base.Columns["merk_name"];
+                this.columnother_condition = base.Columns["other_condition"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -799,6 +838,12 @@ namespace procurement_system {
                 base.Columns.Add(this.columnamount);
                 this.columnrequesting_dept = new global::System.Data.DataColumn("requesting_dept", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnrequesting_dept);
+                this.columntipe = new global::System.Data.DataColumn("tipe", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntipe);
+                this.columnmerk_name = new global::System.Data.DataColumn("merk_name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmerk_name);
+                this.columnother_condition = new global::System.Data.DataColumn("other_condition", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnother_condition);
                 this.columnpo_no.MaxLength = 50;
                 this.columnrf_no.MaxLength = 50;
                 this.columnRemarksItem.MaxLength = 2147483647;
@@ -827,6 +872,9 @@ namespace procurement_system {
                 this.columnpo_status.MaxLength = 50;
                 this.columnrequesting_dept.ReadOnly = true;
                 this.columnrequesting_dept.MaxLength = 100;
+                this.columntipe.MaxLength = 500;
+                this.columnmerk_name.MaxLength = 100;
+                this.columnother_condition.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1445,6 +1493,57 @@ namespace procurement_system {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string tipe {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.tipeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'tipe\' in table \'sp_PROCUREMENT_DB_Attachment_PurchaseOrderC" +
+                                "reated_SendITManager\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.tipeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string merk_name {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.merk_nameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'merk_name\' in table \'sp_PROCUREMENT_DB_Attachment_PurchaseO" +
+                                "rderCreated_SendITManager\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.merk_nameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string other_condition {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.other_conditionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'other_condition\' in table \'sp_PROCUREMENT_DB_Attachment_Pur" +
+                                "chaseOrderCreated_SendITManager\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.other_conditionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Ispo_noNull() {
                 return this.IsNull(this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.po_noColumn);
             }
@@ -1778,6 +1877,42 @@ namespace procurement_system {
             public void Setrequesting_deptNull() {
                 this[this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.requesting_deptColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IstipeNull() {
+                return this.IsNull(this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.tipeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SettipeNull() {
+                this[this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.tipeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Ismerk_nameNull() {
+                return this.IsNull(this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.merk_nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setmerk_nameNull() {
+                this[this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.merk_nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Isother_conditionNull() {
+                return this.IsNull(this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.other_conditionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setother_conditionNull() {
+                this[this.tablesp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager.other_conditionColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -1967,6 +2102,9 @@ namespace procurement_system.PROCUREMENT_DBDataSetPurchaseOrderCreated_SendITMan
             tableMapping.ColumnMappings.Add("po_status", "po_status");
             tableMapping.ColumnMappings.Add("amount", "amount");
             tableMapping.ColumnMappings.Add("requesting_dept", "requesting_dept");
+            tableMapping.ColumnMappings.Add("tipe", "tipe");
+            tableMapping.ColumnMappings.Add("merk_name", "merk_name");
+            tableMapping.ColumnMappings.Add("other_condition", "other_condition");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

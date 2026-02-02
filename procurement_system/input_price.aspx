@@ -518,18 +518,7 @@
                                                                         <asp:ListItem Text="" Value=""></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </ItemTemplate>
-                                                             </asp:TemplateField>
-                                                             <asp:TemplateField HeaderText="@ Previous Price Input">
-                                                                <ItemTemplate>
-                                                                    <input type="text" 
-                                                                           name="txtPrevPrice" id="txtPrevPrice"
-                                                                           class="input-priceprev form-control"
-                                                                           runat="server"
-                                                                           value=""
-                                                                           data-quantity='<%# Eval("quantity") %>' 
-                                                                           placeholder="enter price per @" />
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
+                                                             </asp:TemplateField>                                                           
                                                             <asp:TemplateField HeaderText="@ Price Input">
                                                                 <ItemTemplate>
                                                                     <input type="text" 
@@ -541,7 +530,17 @@
                                                                            placeholder="enter price per @" />
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
-
+                                                              <asp:TemplateField HeaderText="@ Previous Price Input">
+                                                             <ItemTemplate>
+                                                                 <input type="text" 
+                                                                        name="txtPrevPrice" id="txtPrevPrice"
+                                                                        class="input-priceprev form-control"
+                                                                        runat="server"
+                                                                        value=""
+                                                                        data-quantity='<%# Eval("quantity") %>' 
+                                                                        placeholder="enter price per @" />
+                                                             </ItemTemplate>
+                                                         </asp:TemplateField>
                                                         </Columns>
                                                     </asp:GridView>
                                                 </div>

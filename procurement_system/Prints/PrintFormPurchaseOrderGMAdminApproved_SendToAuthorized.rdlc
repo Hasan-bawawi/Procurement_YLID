@@ -927,6 +927,13 @@
                                 <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
+                            <TextRun>
+                              <Value>-[tipe]-[merk_name]</Value>
+                              <Style>
+                                <FontFamily>Calibri</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
@@ -3563,6 +3570,14 @@
           <DataField>item_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="tipe">
+          <DataField>tipe</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="merk_name">
+          <DataField>merk_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="unit_name">
           <DataField>unit_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -3649,8 +3664,8 @@
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>PROCUREMENT_DBDataSetPO_GMAdminApproved</rd:DataSetName>
-        <rd:SchemaPath>D:\MY WORK\MY PROJECT\SYSTEM INTERNAL YLID\PROCUREMENT SYSTEM\procurement_system\procurement_system\PROCUREMENT_DBDataSetPO_GMAdminApproved.xsd</rd:SchemaPath>
+        <rd:DataSetName>PROCUREMENT_DBDataSet_PO_GMAdminApproved</rd:DataSetName>
+        <rd:SchemaPath>D:\procurement_system\procurement_system\PROCUREMENT_DBDataSet_PO_GMAdminApproved.xsd</rd:SchemaPath>
         <rd:TableName>sp_PROCUREMENT_DB_Attachment_PO_GMAdminApproved</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

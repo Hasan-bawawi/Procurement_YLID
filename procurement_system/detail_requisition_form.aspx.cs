@@ -47,7 +47,7 @@ namespace procurement_system
             {
                 divChangeApprover.Visible = true;
                 divCancelRF.Visible = true;
-                divSend.Visible = false;
+                //divSend.Visible = false;
             }
             else
             {
@@ -11262,7 +11262,7 @@ namespace procurement_system
                     {
                         TableItemPurchase.Columns[8].Visible = false;
                         divBtnAddCart.Visible = false;
-                        divSend.Visible = false;
+                        //divSend.Visible = false;
                     }
 
                 }
@@ -11297,7 +11297,7 @@ namespace procurement_system
 
                 Con.Close();
                 divBtnAddCart.Visible = false;
-                divSend.Visible = false;
+                //divSend.Visible = false;
             }
             
         }
@@ -15729,7 +15729,7 @@ namespace procurement_system
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = Session["EmailRequester"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
-                            new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },
+                            new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }, new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },
                             attachments = new[] { attachment }
                         },
                         saveToSentItems = true
