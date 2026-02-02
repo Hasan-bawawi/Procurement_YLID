@@ -15725,11 +15725,11 @@ namespace procurement_system
                                 contentType = "HTML",
                                 content = body
                             },
-                            //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                            //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                            toRecipients = new[] { new { emailAddress = new { address = Session["EmailRequester"].ToString() } } },
-                            ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
-                            new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }, new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },
+                            toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = Session["EmailRequester"].ToString() } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
+                            //new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }, new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },
                             attachments = new[] { attachment }
                         },
                         saveToSentItems = true
@@ -15818,6 +15818,9 @@ namespace procurement_system
             }
             else
             {
+
+                string reason = hfCancelReason.Value;
+
                 string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
                 SqlConnection Con = new SqlConnection(path);
                 Con.Open();
@@ -15828,6 +15831,7 @@ namespace procurement_system
                 sqlcomm.Parameters.AddWithValue("@StatementType", "CancelRF");
                 sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
                 sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                sqlcomm.Parameters.AddWithValue("@reasoncancel",reason ?? "");
 
                 sqlcomm.ExecuteNonQuery();
 

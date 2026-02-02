@@ -916,14 +916,9 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!item_name.Value</Value>
-                              <Style>
-                                <FontFamily>Calibri</FontFamily>
-                                <FontSize>9pt</FontSize>
-                              </Style>
-                            </TextRun>
-                            <TextRun>
-                              <Value>-[tipe]-[merk_name]</Value>
+                              <Value>=Fields!item_name.Value &amp; "-" &amp;
+Fields!tipe.Value &amp; "-" &amp;
+Fields!merk_name.Value</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -3409,7 +3404,6 @@
           <Value>="file:///D:/WebFolder-PurchasingSystem/ylid-purchasing/Barcode/PO/barcode_po.png"</Value>
           <MIMEType>image/png</MIMEType>
           <Sizing>Fit</Sizing>
-          <Top>0cm</Top>
           <Left>0.20416in</Left>
           <Height>0.80023in</Height>
           <Width>0.96877in</Width>
