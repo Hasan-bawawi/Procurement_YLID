@@ -20297,6 +20297,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PROCUREMENT_DBDataSet_RF_DepDirApprovedNew.xsd</DependentUpon>
     </Compile>
+    <Compile Include="PROCUREMENT_DBDataSet_RF_DivisionDirectorApproved.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_DivisionDirectorApproved.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PROCUREMENT_DBDataSet_RF_FullApproved.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -23047,6 +23052,17 @@
     </None>
     <Content Include="PROCUREMENT_DBDataSet_RF_DepDirApprovedNew.xss">
       <DependentUpon>PROCUREMENT_DBDataSet_RF_DepDirApprovedNew.xsd</DependentUpon>
+    </Content>
+    <Content Include="PROCUREMENT_DBDataSet_RF_DivisionDirectorApproved.xsc">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_DivisionDirectorApproved.xsd</DependentUpon>
+    </Content>
+    <None Include="PROCUREMENT_DBDataSet_RF_DivisionDirectorApproved.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PROCUREMENT_DBDataSet_RF_DivisionDirectorApproved.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PROCUREMENT_DBDataSet_RF_DivisionDirectorApproved.xss">
+      <DependentUpon>PROCUREMENT_DBDataSet_RF_DivisionDirectorApproved.xsd</DependentUpon>
     </Content>
     <None Include="PROCUREMENT_DBDataSet_RF_FullApproved.xsd">
       <Generator>MSDataSetGenerator</Generator>

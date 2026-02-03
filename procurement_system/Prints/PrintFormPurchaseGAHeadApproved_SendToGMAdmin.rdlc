@@ -271,7 +271,7 @@
         <Top>0.80083in</Top>
         <Left>5.4896in</Left>
         <Height>0.32292in</Height>
-        <Width>1.93764in</Width>
+        <Width>2.29003in</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -377,7 +377,7 @@
         <Top>1.12375in</Top>
         <Left>4.63543in</Left>
         <Height>0.32292in</Height>
-        <Width>2.79181in</Width>
+        <Width>3.1442in</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
@@ -400,7 +400,7 @@
                 <Value>=Fields!SectionRequester.Value</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -448,7 +448,7 @@
         <Top>1.44667in</Top>
         <Left>6.15973in</Left>
         <Height>0.32292in</Height>
-        <Width>1.26751in</Width>
+        <Width>1.6199in</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -597,7 +597,7 @@
         <Top>2.97446in</Top>
         <Left>1.84202in</Left>
         <Height>0.32292in</Height>
-        <Width>5.6044in</Width>
+        <Width>5.93761in</Width>
         <ZIndex>16</ZIndex>
         <Style>
           <Border>
@@ -633,7 +633,7 @@
         <Top>2.65154in</Top>
         <Left>2.96701in</Left>
         <Height>0.32292in</Height>
-        <Width>4.47941in</Width>
+        <Width>4.81262in</Width>
         <ZIndex>17</ZIndex>
         <Style>
           <Border>
@@ -1805,10 +1805,10 @@
               <Width>0.35547in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.22786in</Width>
+              <Width>0.99694in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.48982in</Width>
+              <Width>1.19813in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.60417in</Width>
@@ -1820,7 +1820,10 @@
               <Width>1in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.56241in</Width>
+              <Width>1in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.43741in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -1906,7 +1909,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Description / Specification</Value>
+                              <Value>Description</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -2024,6 +2027,41 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox25</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox26">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Total Price Estimation</Value>
+                              <Style>
+                                <FontFamily>Calibri</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox26</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -2256,17 +2294,18 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox26">
+                    <Textbox Name="price">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=Fields!price.Value</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
+                                <Format>'Rp'#,0;('Rp'#,0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -2275,7 +2314,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox26</rd:DefaultName>
+                      <rd:DefaultName>price</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -2285,6 +2324,45 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>en-ID</rd:FormatSymbolCulture>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox27">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=CDbl(IIf(IsNothing(Fields!quantity.Value), 0, Fields!quantity.Value)) *
+ CDbl(IIf(IsNothing(Fields!price.Value), 0, Fields!price.Value))</Value>
+                              <Style>
+                                <FontFamily>Calibri</FontFamily>
+                                <FontSize>8pt</FontSize>
+                                <Format>'Rp'#,0;('Rp'#,0)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox27</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>en-ID</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -2337,6 +2415,7 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -2353,7 +2432,7 @@
         <Top>1.76959in</Top>
         <Left>0.23957in</Left>
         <Height>0.84375in</Height>
-        <Width>7.18767in</Width>
+        <Width>7.54006in</Width>
         <ZIndex>50</ZIndex>
         <Style>
           <Border>
@@ -2394,7 +2473,7 @@
         <Top>2.68279in</Top>
         <Left>0.25751in</Left>
         <Height>0in</Height>
-        <Width>7.18891in</Width>
+        <Width>7.52212in</Width>
         <ZIndex>52</ZIndex>
         <Style>
           <Border>
@@ -2994,10 +3073,10 @@
         </Style>
       </Image>
     </ReportItems>
-    <Height>10.3229in</Height>
+    <Height>8.67707in</Height>
     <Style />
   </Body>
-  <Width>7.77in</Width>
+  <Width>8.01574in</Width>
   <Page>
     <PageHeight>11.69in</PageHeight>
     <PageWidth>8.27in</PageWidth>

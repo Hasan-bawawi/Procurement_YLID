@@ -271,7 +271,7 @@
         <Top>0.80083in</Top>
         <Left>5.4896in</Left>
         <Height>0.32292in</Height>
-        <Width>1.93724in</Width>
+        <Width>2.47907in</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -377,7 +377,7 @@
         <Top>1.12375in</Top>
         <Left>4.63543in</Left>
         <Height>0.32292in</Height>
-        <Width>2.79141in</Width>
+        <Width>3.33324in</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
@@ -448,7 +448,7 @@
         <Top>1.44667in</Top>
         <Left>6.16668in</Left>
         <Height>0.32292in</Height>
-        <Width>1.26016in</Width>
+        <Width>1.80199in</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -597,7 +597,7 @@
         <Top>2.97446in</Top>
         <Left>1.82506in</Left>
         <Height>0.32292in</Height>
-        <Width>5.604in</Width>
+        <Width>6.14361in</Width>
         <ZIndex>16</ZIndex>
         <Style>
           <Border>
@@ -633,7 +633,7 @@
         <Top>2.65154in</Top>
         <Left>2.96047in</Left>
         <Height>0.32292in</Height>
-        <Width>4.46859in</Width>
+        <Width>5.0082in</Width>
         <ZIndex>17</ZIndex>
         <Style>
           <Border>
@@ -1805,10 +1805,10 @@
               <Width>0.35547in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.22786in</Width>
+              <Width>1.10283in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.48942in</Width>
+              <Width>1.38545in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.60417in</Width>
@@ -1820,7 +1820,10 @@
               <Width>1in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.56241in</Width>
+              <Width>1in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.33324in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -1906,7 +1909,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Description / Specification</Value>
+                              <Value>Description</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
@@ -2024,6 +2027,41 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox25</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox26">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Total Price Estimation</Value>
+                              <Style>
+                                <FontFamily>Calibri</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox26</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -2182,7 +2220,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -2257,14 +2294,52 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox26">
+                    <Textbox Name="price">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=Fields!price.Value</Value>
+                              <Style>
+                                <FontFamily>Calibri</FontFamily>
+                                <FontSize>8pt</FontSize>
+                                <Format>'Rp'#,0;('Rp'#,0)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>price</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>en-ID</rd:FormatSymbolCulture>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox27">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=CDbl(IIf(IsNothing(Fields!quantity.Value), 0, Fields!quantity.Value)) *
+ CDbl(IIf(IsNothing(Fields!price.Value), 0, Fields!price.Value))</Value>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -2276,7 +2351,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox26</rd:DefaultName>
+                      <rd:DefaultName>Textbox27</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>Solid</Style>
@@ -2338,6 +2413,7 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -2354,7 +2430,7 @@
         <Top>1.76959in</Top>
         <Left>0.23957in</Left>
         <Height>0.84375in</Height>
-        <Width>7.18727in</Width>
+        <Width>7.7291in</Width>
         <ZIndex>50</ZIndex>
         <Style>
           <Border>
@@ -2395,7 +2471,7 @@
         <Top>2.68279in</Top>
         <Left>0.24055in</Left>
         <Height>0in</Height>
-        <Width>7.18851in</Width>
+        <Width>7.72812in</Width>
         <ZIndex>52</ZIndex>
         <Style>
           <Border>
@@ -3027,10 +3103,10 @@
         </Style>
       </Image>
     </ReportItems>
-    <Height>10.3299in</Height>
+    <Height>8.71184in</Height>
     <Style />
   </Body>
-  <Width>7.77in</Width>
+  <Width>8.14023in</Width>
   <Page>
     <PageHeight>11.69in</PageHeight>
     <PageWidth>8.27in</PageWidth>

@@ -1804,22 +1804,25 @@
               <Width>0.35547in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.22786in</Width>
+              <Width>1.06152in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.55184in</Width>
+              <Width>1.30416in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.60417in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.94794in</Width>
+              <Width>0.84261in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>0.88519in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.57317in</Width>
+              <Width>0.86705in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.33199in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -2038,6 +2041,41 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox26">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Total Price Estimation</Value>
+                              <Style>
+                                <FontFamily>Calibri</FontFamily>
+                                <FontSize>9pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox26</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox98">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -2184,7 +2222,6 @@ Fields!merk_name.Value</ToolTip>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -2270,6 +2307,7 @@ Fields!merk_name.Value</ToolTip>
                               <Style>
                                 <FontFamily>Calibri</FontFamily>
                                 <FontSize>8pt</FontSize>
+                                <Format>'Rp'#,0;('Rp'#,0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -2288,6 +2326,46 @@ Fields!merk_name.Value</ToolTip>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>en-ID</rd:FormatSymbolCulture>
+                      </Style>
+                    </Textbox>
+                    <rd:Selected>true</rd:Selected>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox27">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=CDbl(IIf(IsNothing(Fields!quantity.Value), 0, Fields!quantity.Value)) *
+ CDbl(IIf(IsNothing(Fields!price.Value), 0, Fields!price.Value))</Value>
+                              <Style>
+                                <FontFamily>Calibri</FontFamily>
+                                <FontSize>8pt</FontSize>
+                                <Format>'Rp'#,0;('Rp'#,0)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox27</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>Solid</Style>
+                        </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>en-ID</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -2340,6 +2418,7 @@ Fields!merk_name.Value</ToolTip>
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -2356,7 +2435,7 @@ Fields!merk_name.Value</ToolTip>
         <Top>1.76959in</Top>
         <Left>0.23957in</Left>
         <Height>0.84375in</Height>
-        <Width>7.26045in</Width>
+        <Width>7.25216in</Width>
         <ZIndex>50</ZIndex>
         <Style>
           <Border>
@@ -2967,7 +3046,7 @@ Fields!merk_name.Value</ToolTip>
     <Height>10.3229in</Height>
     <Style />
   </Body>
-  <Width>7.77in</Width>
+  <Width>8.49173in</Width>
   <Page>
     <PageHeight>11.69in</PageHeight>
     <PageWidth>8.27in</PageWidth>
