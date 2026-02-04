@@ -10368,7 +10368,7 @@ namespace procurement_system
                     }
                 }
             }
-            else if (Session["status_approve"].ToString() == "Reject (Division Manager)" || Session["status_approve"].ToString() == "Cancel (Division Manager)")
+            else if (Session["status_approve"].ToString() == "Reject (Division Manager)" || Session["status_approve"].ToString() == "Canceled (Division Manager)")
             {
                 if (Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                 {
@@ -10458,7 +10458,7 @@ namespace procurement_system
                     lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["MgrApprovalreject"].ToString();
                 }
             }
-            else if (Session["status_approve"].ToString() == "Reject (Division GM)" || Session["status_approve"].ToString() == "Cancel (Division GM)")
+            else if (Session["status_approve"].ToString() == "Reject (Division GM)" || Session["status_approve"].ToString() == "Canceled (Division GM)")
             {
                 if (Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                 {
@@ -10553,7 +10553,7 @@ namespace procurement_system
                     lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DivGMApprovalreject"].ToString();
                 }
             }
-            else if (Session["status_approve"].ToString() == "Reject (Deputy Director)" || Session["status_approve"].ToString() == "Cancel (Deputy Director)")
+            else if (Session["status_approve"].ToString() == "Reject (Deputy Director)" || Session["status_approve"].ToString() == "Canceled (Deputy Director)")
             {
                 GetDataPriceEstimatedApproval();
                 GetDataMgrApproval();
@@ -10581,7 +10581,7 @@ namespace procurement_system
                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DeputyDirectorApprovalreject"].ToString();
             }
-            else if (Session["status_approve"].ToString() == "Reject (Division Director)" || Session["status_approve"].ToString() == "Cancel (Division Director)")
+            else if (Session["status_approve"].ToString() == "Reject (Division Director)" || Session["status_approve"].ToString() == "Canceled (Division Director)")
             {
                 if (Session["DeputyDirectorApprove"] is null)
                 {
@@ -14193,7 +14193,7 @@ namespace procurement_system
                     }
                 }
             }
-            else if (Session["status_approve"].ToString() == "Reject (Division Manager)" || Session["status_approve"].ToString() == "Cancel (Division Manager)")
+            else if (Session["status_approve"].ToString() == "Reject (Division Manager)" || Session["status_approve"].ToString() == "Canceled (Division Manager)")
             {
                 string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
                 SqlConnection Con = new SqlConnection(path);
@@ -14232,7 +14232,7 @@ namespace procurement_system
                 Response.BinaryWrite(mybytes); // create the file
                 Response.Flush();
             }
-            else if (Session["status_approve"].ToString() == "Reject (Division GM)" || Session["status_approve"].ToString() == "Cancel (Division GM)")
+            else if (Session["status_approve"].ToString() == "Reject (Division GM)" || Session["status_approve"].ToString() == "Canceled (Division GM)")
             {
                 string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
                 SqlConnection Con = new SqlConnection(path);
@@ -14271,7 +14271,7 @@ namespace procurement_system
                 Response.BinaryWrite(mybytes); // create the file
                 Response.Flush();
             }
-            else if (Session["status_approve"].ToString() == "Reject (Deputy Director)" || Session["status_approve"].ToString() == "Cancel (Deputy Director)")
+            else if (Session["status_approve"].ToString() == "Reject (Deputy Director)" || Session["status_approve"].ToString() == "Canceled (Deputy Director)")
             {
                 string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
                 SqlConnection Con = new SqlConnection(path);
@@ -14310,7 +14310,7 @@ namespace procurement_system
                 Response.BinaryWrite(mybytes); // create the file
                 Response.Flush();
             }
-            else if (Session["status_approve"].ToString() == "Reject (Division Director)" || Session["status_approve"].ToString() == "Cancel (Division Director)")
+            else if (Session["status_approve"].ToString() == "Reject (Division Director)" || Session["status_approve"].ToString() == "Canceled (Division Director)")
             {
                 string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
                 SqlConnection Con = new SqlConnection(path);
@@ -14349,7 +14349,7 @@ namespace procurement_system
                 Response.BinaryWrite(mybytes); // create the file
                 Response.Flush();
             }
-            else if (Session["status_approve"].ToString() == "Reject (Fully Approved)" || Session["status_approve"].ToString() == "Cancel (Fully Approved)")
+            else if (Session["status_approve"].ToString() == "Reject (Fully Approved)" || Session["status_approve"].ToString() == "Canceled (Fully Approved)")
             {
                 string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
                 SqlConnection Con = new SqlConnection(path);

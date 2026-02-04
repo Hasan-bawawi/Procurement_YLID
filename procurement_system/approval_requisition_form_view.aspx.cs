@@ -9480,11 +9480,11 @@ namespace procurement_system
                                 contentType = "HTML",
                                 content = body
                             },
-                            //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                            //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+
                             toRecipients = new[] { new { emailAddress = new { address = Session["EmailGMApprove"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
-                            //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } },
                             new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } },
                             new { emailAddress = new { address = Session["EmailRequester"].ToString() } },
                             new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },
@@ -14363,6 +14363,8 @@ namespace procurement_system
             //body = body.Replace("{GMAPPROVER}", GMapprover);
             body = body.Replace("{ReqDate}", reqdate);
             body = body.Replace("{STATUS}", status_approve);
+            body = body.Replace("{REASON}", "");
+
             return body;
         }
 
@@ -14449,8 +14451,9 @@ namespace procurement_system
                                 contentType = "HTML",
                                 content = body
                             },
-                            //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                            //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+
                             toRecipients = new[] { new { emailAddress = new { address = Session["EmailRequester"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }, new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },
                             attachments = new[] { attachment }
@@ -14901,7 +14904,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             await SendEmailRejectCancel();
@@ -14946,7 +14949,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             await SendEmailRejectCancel();
@@ -14987,7 +14990,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             await SendEmailRejectCancel();
@@ -15028,7 +15031,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             await SendEmailRejectCancel();
@@ -15073,7 +15076,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             await SendEmailRejectCancel();
@@ -15114,7 +15117,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             await SendEmailRejectCancel();
@@ -15155,7 +15158,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             await SendEmailRejectCancel();
@@ -15198,7 +15201,7 @@ namespace procurement_system
                             DeleteSelectedItems(item_code);
                         }
                     }
-                    if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                    if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                     {
                         UpdateStatusRejectCancel();
                         await SendEmailRejectCancel();

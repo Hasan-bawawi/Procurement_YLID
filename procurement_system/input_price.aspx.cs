@@ -564,11 +564,9 @@ namespace procurement_system
 
         protected async void btnSubmit_Click(object sender, EventArgs e)
         {
-            //divSubmit.Visible = false;
-            //divCheck.Visible = true;
-            //decimal parsedValue = decimal.Parse(txtGrandTotal.Value, NumberStyles.Currency);
+          
+            //CheckUploadDocument();
 
-            //int getGrandTotal = Convert.ToInt32(parsedValue);
 
             decimal parsedValue = decimal.Parse(txtGrandTotal.Value, NumberStyles.AllowThousands, CultureInfo.InvariantCulture);
 
@@ -609,8 +607,8 @@ namespace procurement_system
                 Con.Close();
 
                 UpdatePriceRF();
+
                 await SendEmailSendToManagerDivision();
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
                 string script = $@"
                                         $(document).ready(function() {{
                                             // Show Toastr notification
@@ -747,7 +745,6 @@ namespace procurement_system
 
                 UpdatePriceRF();
                 await SendEmailSendToManagerDivision();
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
                 string script = $@"
                                         $(document).ready(function() {{
                                             // Show Toastr notification
@@ -1099,6 +1096,100 @@ namespace procurement_system
 
         }
         #endregion
+
+
+        //protected void CheckUploadDocument()
+        //{
+        //    if (FileUploadEDocs.HasFiles)
+        //    {
+        //        int filecount = 0;
+        //        int fileuploadcount = 0;
+        //        lbErrorUploadNotif.InnerText = ""; // Clear previous messages
+
+        //        // Check the number of selected files
+        //        filecount = FileUploadEDocs.PostedFiles.Count();
+        //        string[] allowedExtensions = { ".pdf" };
+
+        //        if (filecount <= 5)
+        //        {
+        //            foreach (HttpPostedFile postfiles in FileUploadEDocs.PostedFiles)
+        //            {
+        //                // Get the File Extension
+        //                string filetype = Path.GetExtension(postfiles.FileName);
+
+        //                if (IsValidFileType(filetype, allowedExtensions))
+        //                {
+        //                    // Get the File Size In Byte
+        //                    double filesize = postfiles.ContentLength;
+
+        //                    if (filesize < (5242880))
+        //                    {
+        //                        fileuploadcount++;
+        //                        string serverfolder = string.Empty;
+        //                        string serverpath = string.Empty;
+
+        //                        // Adding File Into Specific Folder Depend On his Extension
+        //                        switch (filetype.ToLower())
+        //                        {
+        //                            case ".pdf":
+
+        //                                serverfolder = Server.MapPath("~/eDocs_Files/RF/");
+
+        //                                // Ensure the folder is available
+        //                                if (!Directory.Exists(serverfolder))
+        //                                {
+        //                                    // Create the folder
+        //                                    Directory.CreateDirectory(serverfolder);
+        //                                }
+
+        //                                // Append a unique identifier to avoid overwriting
+        //                                string uniqueFileName = "RF-OFFERING" + Path.GetFileNameWithoutExtension(postfiles.FileName) + "_" + Guid.NewGuid().ToString("N").Substring(0, 8) + Path.GetExtension(postfiles.FileName);
+
+        //                                serverpath = Path.Combine(serverfolder, uniqueFileName);
+
+        //                                postfiles.SaveAs(serverpath);
+        //                                hlbOK.Value = "OK";
+        //                                hfAttachmentPath.Value = "eDocs_Files/RF/" + uniqueFileName;
+
+        //                                break;
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        lbErrorUploadNotif.InnerText += "[" + postfiles.FileName + "]- File not uploaded; size is greater than 5MB. Your File Size is " + (filesize / (1024 * 1034)) + " MB";
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    lbErrorUploadNotif.InnerText += "[" + postfiles.FileName + "]- Invalid file type. Allowed types are .pdf";
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            lbErrorUploadNotif.InnerText = "You have selected " + filecount + " files. Please select a maximum of 5 files.";
+        //        }
+        //    }
+        //    else
+        //    {
+        //        lbErrorUploadNotif.InnerText = "No Files Upload.";
+        //    }
+        //}
+
+        // Function to check if the file type is valid
+
+        private bool IsValidFileType(string fileType, string[] allowedExtensions)
+        {
+            return Array.Exists(allowedExtensions, ext => ext.Equals(fileType, StringComparison.OrdinalIgnoreCase));
+        }
+
+
+
+
+
+
+
+
 
         #region Barcode
         private void GenerateAndDisplayBarcode()

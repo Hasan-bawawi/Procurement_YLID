@@ -400,6 +400,9 @@
     <asp:HiddenField ID="hlbiddet" runat="server" />
     <asp:HiddenField ID="lbCatalogType" runat="server" />
     <asp:HiddenField ID="hlbNIKApprover" runat="server" />
+    <asp:HiddenField ID="hlbOK" runat="server" />
+    <asp:HiddenField ID="hfAttachmentPath" runat="server" />
+
 
     <div hidden="hidden">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -561,11 +564,25 @@
                                     </div>
                                 </div>
                             </div>--%>
+                            
+                                      <%--     <div class='col-sm-8' id="divUploadFile" runat="server" visible="true">
+                                                 <div class="form-group">
+                                                     <div class="input-group">
+                                                         <div class="input-group-append">
+                                                             <span class="input-group-text">Upload Offering&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                         </div>
+                                                         <div class="input-group-append">
+                                                             <span class="input-group-text">
+                                                                 <asp:FileUpload ID="FileUploadEDocs" AllowMultiple="true" runat="server" /></span>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                             </div>--%>
+
+
                             <div class='col-sm-4'>
                                 <div class="form-group">
                                     <div class="input-group">
-
-
                                          <div class="input-group-append ml-1 d-flex align-items-center mr-2">
                                             <div class="form-check mb-0">
                                                 <input type="checkbox" runat="server" id="chkNoNeedPO" class="form-check-input" />
