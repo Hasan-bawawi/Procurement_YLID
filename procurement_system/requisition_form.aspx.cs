@@ -331,10 +331,16 @@ namespace procurement_system
                     string statusPO = e.Row.Cells[11].Text.ToString().Trim();
 
                     int POallcreated = 0;
-                    object keyVal = TableRequisitionFormFilter.DataKeys[e.Row.RowIndex].Value;
-                    if (keyVal != null)
+                    int NoneedPO = 0;
+
+                    var keyVal = TableRequisitionFormFilter.DataKeys[e.Row.RowIndex];
+                    object keyPO = keyVal["POallcreated"];
+                    object keyNoNeedPO = keyVal["NoneedPO"];
+
+
+                    if (keyPO != null)
                     {
-                        string val = keyVal.ToString().Trim();
+                        string val = keyPO.ToString().Trim();
 
                         if (val.Equals("True", StringComparison.OrdinalIgnoreCase))
                             POallcreated = 1;
@@ -345,18 +351,38 @@ namespace procurement_system
                     }
 
 
+                    if (keyNoNeedPO != null)
+                    {
+                        string val = keyNoNeedPO.ToString().Trim();
+
+                        if (val.Equals("True", StringComparison.OrdinalIgnoreCase))
+                            NoneedPO = 1;
+                        else if (val.Equals("False", StringComparison.OrdinalIgnoreCase))
+                            NoneedPO = 0;
+                        else
+                            int.TryParse(val, out NoneedPO);
+                    }
+                  
                     bool isApproved = statusApproval == "Approved (Fully Approved)";
                     bool isStatusValid = statusPO == "Not Complete" || statusPO == "PO Created";
                     bool isPOAllCreated = POallcreated == 0;
+                    bool isNoneedPO = NoneedPO == 1;
 
-                    if (isApproved && isStatusValid && isPOAllCreated)
-                    {
-                        btnCreatePO.Visible = true;
-                    }
-                    else
-                    {
-                        btnCreatePO.Visible = false;
-                    }
+                    btnCreatePO.Visible =
+                      isApproved &&
+                      isStatusValid &&
+                      isPOAllCreated &&
+                      NoneedPO == 0;   // ⬅️ hanya muncul kalau BUKAN NoneedPO
+
+
+                    //if (isApproved && isStatusValid && isPOAllCreated && !isNoneedPO)
+                    //{
+                    //    btnCreatePO.Visible = true;
+                    //}
+                    //else
+                    //{
+                    //    btnCreatePO.Visible = false;
+                    //}
                 }
             }
         }

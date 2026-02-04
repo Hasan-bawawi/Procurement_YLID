@@ -15627,7 +15627,7 @@ namespace procurement_system
         #endregion
 
         #region EmailCancel
-        private string PopulateBodyCancelToRequester(string reqby, string reqno, string reqdate, string status_approve)
+        private string PopulateBodyCancelToRequester(string reqby, string reqno, string reqdate, string status_approve,string reason)
         {
 
             string body = string.Empty;
@@ -15639,13 +15639,14 @@ namespace procurement_system
             body = body.Replace("{ReqNo}", reqno);
             body = body.Replace("{ReqDate}", reqdate);
             body = body.Replace("{STATUS}", status_approve);
+            body = body.Replace("{REASON}",reason);
             return body;
         }
 
         private async Task SendEmailCancel()
         {
             string body = this.PopulateBodyCancelToRequester
-            (lbRequester.Text, lbRFNumberBreadcrumb.Text, lbRequestDate.Text, "Canceled (Purchasing)");
+            (lbRequester.Text, lbRFNumberBreadcrumb.Text, lbRequestDate.Text, "Canceled (Purchasing)",hfCancelReason.Value);
 
             try
             {
@@ -15725,11 +15726,11 @@ namespace procurement_system
                                 contentType = "HTML",
                                 content = body
                             },
-                            toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
-                            ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
-                            //toRecipients = new[] { new { emailAddress = new { address = Session["EmailRequester"].ToString() } } },
-                            //ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
-                            //new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }, new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            toRecipients = new[] { new { emailAddress = new { address = Session["EmailRequester"].ToString() } } },
+                            ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
+                            new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }, new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },
                             attachments = new[] { attachment }
                         },
                         saveToSentItems = true

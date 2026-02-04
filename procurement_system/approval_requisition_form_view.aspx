@@ -494,6 +494,8 @@
                                                             <asp:BoundField DataField="merk_name" HeaderText="Merk" />
                                                             <%--<asp:BoundField DataField="description" HeaderText="Description" />--%>
                                                             <asp:BoundField DataField="quantity" HeaderText="Quantity" />
+                                                            <asp:BoundField DataField="price" HtmlEncode="false" DataFormatString="{0:N0}" HeaderText="Price" />
+                                                            <asp:BoundField DataField="TotalPriceEstimate" HtmlEncode="false" DataFormatString="{0:N0}"  HeaderText="Total Price" />
                                                             <asp:BoundField DataField="remaks" HeaderText="Remarks" />
                                                             <asp:TemplateField HeaderText="Delete Selected Items">
                                                                 <ItemTemplate>

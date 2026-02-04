@@ -602,6 +602,8 @@ namespace procurement_system
                 sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
                 sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                 sqlcomm.Parameters.AddWithValue("@Price", getGrandTotal);
+                sqlcomm.Parameters.AddWithValue("@NoneedPO", chkNoNeedPO.Checked);
+
 
                 sqlcomm.ExecuteNonQuery();
                 Con.Close();

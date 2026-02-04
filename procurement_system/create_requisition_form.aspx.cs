@@ -992,7 +992,8 @@ namespace procurement_system
                             sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[2].Text.ToString());
                             sqlcomm.Parameters.AddWithValue("@quantity", row.Cells[5].Text.ToString());
                             sqlcomm.Parameters.AddWithValue("@request_date", /*txtReqDate.Value.Trim()*/reqdate);
-                            sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@remaks", Server.HtmlDecode(row.Cells[7].Text));
                             sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
                             sqlcomm.Parameters.AddWithValue("@type_request", ddlReqType.SelectedItem.Text.ToString());
                             sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
@@ -1039,7 +1040,8 @@ namespace procurement_system
                             sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[2].Text.ToString());
                             sqlcomm.Parameters.AddWithValue("@quantity", row.Cells[5].Text.ToString());
                             sqlcomm.Parameters.AddWithValue("@request_date", /*txtReqDate.Value.Trim()*/reqdate);
-                            sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@remaks", Server.HtmlDecode(row.Cells[7].Text));
                             sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
                             sqlcomm.Parameters.AddWithValue("@type_request", ddlReqType.SelectedItem.Text.ToString());
                             sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
@@ -1117,7 +1119,9 @@ namespace procurement_system
                             sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[2].Text.ToString());
                             sqlcomm.Parameters.AddWithValue("@quantity", row.Cells[5].Text.ToString());
                             sqlcomm.Parameters.AddWithValue("@request_date", /*txtReqDate.Value.Trim()*/reqdate);
-                            sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@remaks", Server.HtmlDecode(row.Cells[7].Text));
+
                             sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
                             sqlcomm.Parameters.AddWithValue("@type_request", ddlReqType.SelectedItem.Text.ToString());
                             sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
@@ -1164,7 +1168,9 @@ namespace procurement_system
                             sqlcomm.Parameters.AddWithValue("@item_code", row.Cells[2].Text.ToString());
                             sqlcomm.Parameters.AddWithValue("@quantity", row.Cells[5].Text.ToString());
                             sqlcomm.Parameters.AddWithValue("@request_date", /*txtReqDate.Value.Trim()*/ reqdate);
-                            sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
+                            //sqlcomm.Parameters.AddWithValue("@remaks", row.Cells[7].Text.ToString());
+                            sqlcomm.Parameters.AddWithValue("@remaks", Server.HtmlDecode(row.Cells[7].Text));
+
                             sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
                             sqlcomm.Parameters.AddWithValue("@type_request", ddlReqType.SelectedItem.Text.ToString());
                             sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");

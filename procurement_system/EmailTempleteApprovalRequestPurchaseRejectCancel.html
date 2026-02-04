@@ -205,63 +205,208 @@
                                                         </td>
                                                     </tr>
                                                 </table>
+                                                <table style="margin:0 auto; table-layout:fixed; width:100%;"
+                                                       cellspacing="0" cellpadding="0" class="force-width-80">
 
-
-                                                <table style="margin:0 auto;" cellspacing="0" cellpadding="0" class="force-width-80">
                                                     <tr>
-                                                        <td class="mobile-block">
-                                                            <br />
-                                                            <br />
-
-                                                            <table cellspacing="0" cellpadding="0" class="force-full-width">
+                                                        <td class="mobile-block" width="33.33%" valign="top">
+                                                            <br /><br />
+                                                            <table cellspacing="0" cellpadding="0"
+                                                                   class="force-full-width"
+                                                                   style="table-layout:fixed; width:100%;">
                                                                 <tr>
-                                                                    <td style="color:#ffffff; background-color:#ac4d2f; padding: 10px 0px;">
+                                                                    <td style="color:#ffffff; background-color:#ac4d2f; padding:10px 0;">
                                                                         RequestBy
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style="color:#933f24; padding:10px 0px; background-color: #f7a084;">
+                                                                    <!--<td style="color:#933f24; padding:10px 5px;
+                                                                           background-color:#f7a084;
+                                                                           word-wrap:break-word;
+                                                                           overflow-wrap:break-word;
+                                                                           white-space:normal;">
+                                                                            {ReqBy}
+                                                                        </td>-->
+                                                                    <td valign="top"
+                                                                        style="color:#933f24;
+                                                                           padding:12px 5px;
+                                                                           background-color:#f7a084;
+                                                                           min-height:48px;
+                                                                           line-height:20px;
+                                                                           word-wrap:break-word;
+                                                                           overflow-wrap:break-word;
+                                                                           white-space:normal;
+                                                                           vertical-align:top;">
                                                                         {ReqBy}
                                                                     </td>
                                                                 </tr>
                                                             </table>
                                                         </td>
-                                                        <td class="mobile-block">
-                                                            <br />
-                                                            <br />
 
-                                                            <table cellspacing="0" cellpadding="0" class="force-full-width">
+                                                        <td class="mobile-block" width="33.33%" valign="top">
+                                                            <br /><br />
+                                                            <table cellspacing="0" cellpadding="0"
+                                                                   class="force-full-width"
+                                                                   style="table-layout:fixed; width:100%;">
                                                                 <tr>
-                                                                    <td style="color:#ffffff; background-color:#ac4d2f; padding: 10px 0px;">
+                                                                    <td style="color:#ffffff; background-color:#ac4d2f; padding:10px 0;">
                                                                         Request Date
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style="color:#933f24; padding:10px 0px; background-color: #f7a084;">
-                                                                        {ReqDate}
+                                                                    <!--<td style="color:#933f24; padding:10px 5px;
+                                                                            background-color:#f7a084;">
+                                                                            {ReqDate}
+                                                                        </td>-->
+
+
+                                                                    <td valign="top"
+                                                                        style="color:#933f24;
+                                                                       padding:12px 5px;
+                                                                       background-color:#f7a084;
+                                                                       line-height:20px;
+                                                                       vertical-align:top;">        
+                                                                        {ReqDate}<br />
+                                                                        <span style="font-size:0; line-height:20px;">&nbsp;</span>
                                                                     </td>
                                                                 </tr>
                                                             </table>
                                                         </td>
-                                                        <td class="mobile-block">
-                                                            <br />
-                                                            <br />
 
-                                                            <table cellspacing="0" cellpadding="0" class="force-full-width">
+                                                        <td class="mobile-block" width="33.33%" valign="top">
+                                                            <br /><br />
+                                                            <table cellspacing="0" cellpadding="0"
+                                                                   class="force-full-width"
+                                                                   style="table-layout:fixed; width:100%;">
                                                                 <tr>
-                                                                    <td style="color:#ffffff; background-color:#ac4d2f; padding: 10px 0px;">
+                                                                    <td style="color:#ffffff; background-color:#ac4d2f; padding:10px 0;">
                                                                         Approval Status
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style="color:#933f24; padding:10px 0px; background-color: #f7a084;">
+                                                                    <!--<td style="color:#933f24; padding:10px 5px;
+                                                                               background-color:#f7a084;
+                                                                               word-wrap:break-word;
+                                                                               overflow-wrap:break-word;
+                                                                               white-space:normal;">
+                                                                            {STATUS}
+                                                                        </td>-->
+                                                                    <td valign="top"
+                                                                        style="color:#933f24;
+                                                                        padding:12px 5px;
+                                                                        background-color:#f7a084;
+                                                                        min-height:48px;
+                                                                        line-height:20px;
+                                                                        word-wrap:break-word;
+                                                                        overflow-wrap:break-word;
+                                                                        white-space:normal;
+                                                                        vertical-align:top;">
                                                                         {STATUS}
+                                                                    </td>
+
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- REASON -->
+                                                    <tr>
+                                                        <td colspan="3" style="padding-top:20px;">
+                                                            <table cellspacing="0" cellpadding="0"
+                                                                   class="force-full-width"
+                                                                   style="table-layout:fixed; width:100%;">
+                                                                <tr>
+                                                                    <td style="color:#ffffff; background-color:#ac4d2f; padding:10px 0;">
+                                                                        Reason
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="color:#933f24; padding:10px;
+                                                                           background-color:#f7a084;
+                                                                           word-wrap:break-word;
+                                                                           overflow-wrap:break-word;
+                                                                           white-space:normal;">
+                                                                        {REASON}
                                                                     </td>
                                                                 </tr>
                                                             </table>
                                                         </td>
                                                     </tr>
+
                                                 </table>
+
+
+                                                <!--<table style="margin:0 auto;" cellspacing="0" cellpadding="0" class="force-width-80">
+        <tr>
+            <td class="mobile-block">
+                <br />
+                <br />
+
+                <table cellspacing="0" cellpadding="0" class="force-full-width">
+                    <tr>
+                        <td style="color:#ffffff; background-color:#ac4d2f; padding: 10px 0px;">
+                            RequestBy
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="color:#933f24; padding:10px 0px; background-color: #f7a084;">
+                            {ReqBy}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td class="mobile-block">
+                <br />
+                <br />
+
+                <table cellspacing="0" cellpadding="0" class="force-full-width">
+                    <tr>
+                        <td style="color:#ffffff; background-color:#ac4d2f; padding: 10px 0px;">
+                            Request Date
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="color:#933f24; padding:10px 0px; background-color: #f7a084;">
+                            {ReqDate}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td class="mobile-block">
+                <br />
+                <br />
+
+                <table cellspacing="0" cellpadding="0" class="force-full-width">
+                    <tr>
+                        <td style="color:#ffffff; background-color:#ac4d2f; padding: 10px 0px;">
+                            Approval Status
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="color:#933f24; padding:10px 0px; background-color: #f7a084;">
+                            {STATUS}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="padding-top:20px;">
+                <table cellspacing="0" cellpadding="0" class="force-full-width">
+                    <tr>
+                        <td style="color:#ffffff; background-color:#ac4d2f; padding: 10px 0px;">
+                            Reason
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="color:#933f24; padding:10px; background-color: #f7a084;">
+                            {REASON}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>-->
 
 
                                                 <table style="margin: 0 auto;" cellspacing="0" cellpadding="0" class="force-width-80">

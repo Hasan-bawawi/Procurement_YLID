@@ -457,7 +457,7 @@
                                                 <asp:Button runat="server" Style="display: none;" ID="btnGenerateExcel_Admin" OnClick="btnGenerateExcel_Admin_Click"></asp:Button>--%>
                                                 <div class="table-responsive">
                                                     <asp:GridView ID="TableRequisitionFormFilter" runat="server" CssClass="table table-striped row-border order-column table-bordered nowrap zero-configuration grid" AutoGenerateColumns="False" Style="width: 100%"
-                                                        ShowHeaderWhenEmpty="true" OnRowDataBound="TableRequisitionFormFilter_RowDataBound"  DataKeyNames="POallcreated" EmptyDataText="No Record Found">
+                                                        ShowHeaderWhenEmpty="true" OnRowDataBound="TableRequisitionFormFilter_RowDataBound"  DataKeyNames="POallcreated,NoneedPO" EmptyDataText="No Record Found">
                                                         <HeaderStyle BackColor="#06183d" ForeColor="White" />
                                                         <Columns>
                                                             <asp:TemplateField HeaderText="Action">

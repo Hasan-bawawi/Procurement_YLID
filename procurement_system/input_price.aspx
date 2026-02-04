@@ -550,7 +550,7 @@
                                 </fieldset>
                             </div>
                             <div class='col-sm-8'></div>
-                            <div class='col-sm-4'>
+<%--                            <div class='col-sm-4'>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-append">
@@ -560,7 +560,42 @@
                                         <button type="button" class="btn btn-sm btn-danger ml-2" onclick="clearEstimasi();"> Clear <i class="fa-solid  fa-refresh"></i></button>
                                     </div>
                                 </div>
+                            </div>--%>
+                            <div class='col-sm-4'>
+                                <div class="form-group">
+                                    <div class="input-group">
+
+
+                                         <div class="input-group-append ml-1 d-flex align-items-center mr-2">
+                                            <div class="form-check mb-0">
+                                                <input type="checkbox" runat="server" id="chkNoNeedPO" class="form-check-input" />
+                                                <label class="form-check-label" for="chkNoNeedPO">
+                                                    No Need PO
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Grand Total (IDR)&nbsp;&nbsp;&nbsp;</span>
+                                        </div>
+
+                                       <input runat="server" id="txtGrandTotal" data-validate-length-range="5,15" type="text" class="form-control" placeholder="0" value="0" readonly>
+
+
+                                        <!-- ✅ Checkbox No Need PO -->
+
+
+                                        <button type="button" class="btn btn-sm btn-danger ml-2" onclick="clearEstimasi();">
+                                            Clear <i class="fa-solid fa-refresh"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
                             </div>
+
+
+
                             <div class='col-sm-8'></div>
                            <%-- <div class='col-sm-4' id="divClearPrice" runat="server" visible="true">--%>
 <%--                                <button type="button" style="float: right;" class="btn btn-danger mb-1">
