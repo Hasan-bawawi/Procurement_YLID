@@ -14715,6 +14715,7 @@ namespace procurement_system
 
         protected void btnChangeApprover_Click(object sender, EventArgs e)
         {
+           
             if (Session["status_approve"].ToString() == "Price Checked")
             {
                 if (Session["status"].ToString() == "Canceled")
@@ -14831,6 +14832,12 @@ namespace procurement_system
                     #endregion
                 }
             }
+            else if (Session["status_approve"].ToString() == "Canceled")
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, RF has been Canceled.');", true);
+                divManagerDivision.Visible = false;
+                divGMDivision.Visible = false;
+            }
             else
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, RF has been approved by the Division Manager & GM !!');", true);
@@ -14944,8 +14951,11 @@ namespace procurement_system
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
             sqlcomm.Parameters.AddWithValue("@StatementType", /*"ViewPurchaseApprover"*/"ViewPurchaseMGRNew");
-            sqlcomm.Parameters.AddWithValue("@id_division", lbDivision.Text);
-            sqlcomm.Parameters.AddWithValue("@id_section", hlbSection.Text);
+            //sqlcomm.Parameters.AddWithValue("@id_division", lbDivision.Text);
+            //sqlcomm.Parameters.AddWithValue("@id_section", hlbSection.Text);
+            sqlcomm.Parameters.AddWithValue("@catalog_type", lbCatalogType.Text);
+
+           ;
 
             SqlDataReader dr;
 

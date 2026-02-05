@@ -319,7 +319,7 @@
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text">Manager Approver&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                            <span class="input-group-text">Manager Approver Catalog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                         </div>
                                                         <asp:DropDownList ID="ddlApprover" class="selectpicker form-control" data-show-subtext="true" data-live-search="true" AppendDataBoundItems="true" AutoPostBack="true"
                                                             runat="server" OnSelectedIndexChanged="ddlApprover_SelectedIndexChanged">

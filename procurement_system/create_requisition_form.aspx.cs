@@ -51,7 +51,7 @@ namespace procurement_system
             if (!IsPostBack)
             {
                 GridTemporary();
-                GetApprover();
+                //GetApprover();
 
                 //if (Session["Section"].ToString().ToUpper() == "95ED03F4-2420-4FCB-9D22-443787E5BF40" || Session["Section"].ToString().ToUpper() == "52591B16-4E97-4F3B-A48F-4807936E1052"
                 //    || Session["Section"].ToString().ToUpper() == "0AEE271E-A132-4A2F-BC46-AAD99BBE7519" || Session["Section"].ToString().ToUpper() == "DCDA04FD-4920-4F6C-BAF8-77B377DE2FFF"
@@ -235,9 +235,11 @@ namespace procurement_system
             sqlcomm.CommandType = CommandType.StoredProcedure;
             sqlcomm.Connection = Con;
             sqlcomm.Parameters.AddWithValue("@StatementType", "ViewManagerRF");
-            sqlcomm.Parameters.AddWithValue("@nama_branch", Session["Location"].ToString());
-            sqlcomm.Parameters.AddWithValue("@id_division", Session["Division"].ToString());
-            sqlcomm.Parameters.AddWithValue("@id_section", Session["Section"].ToString().ToUpper());
+            //sqlcomm.Parameters.AddWithValue("@nama_branch", Session["Location"].ToString());
+            //sqlcomm.Parameters.AddWithValue("@id_division", Session["Division"].ToString());
+            //sqlcomm.Parameters.AddWithValue("@id_section", Session["Section"].ToString().ToUpper());
+            sqlcomm.Parameters.AddWithValue("@catalog_type", ddlCatalogType.SelectedItem.Text);
+
 
 
             SqlDataReader dr;
@@ -461,6 +463,8 @@ namespace procurement_system
         protected void ddlCatalogType_SelectedIndexChanged(object sender, EventArgs e)
         {
             GetItems();
+            GetApprover();
+
         }
 
         #region Tables
