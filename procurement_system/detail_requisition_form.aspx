@@ -137,6 +137,13 @@
             border-color: midnightblue !important; /* biru terang */
             box-shadow: 0 0 5px rgba(0,123,255,0.5);
         }
+
+        .btn-match {
+            height: 41px;           /* ikut Change Approver */
+            padding-top: 0;
+            padding-bottom: 0;
+            line-height: 41px;      /* kunci tinggi */
+        }
     </style>
 
 
@@ -368,12 +375,6 @@
             return false;
         }
 
-
-
-
-
-
-
     </script>
 
     <script type="text/javascript">
@@ -546,7 +547,7 @@
                                                         <ul class="StepProgress">
                                                             <li id="rf_created" runat="server" class="StepProgress-item is-done"><strong>RF Created</strong><asp:Label ID="lbDateCreateRF" runat="server"></asp:Label></li>
                                                             <li id="price_estimated" runat="server" class="StepProgress-item current"><strong>Price Check</strong><asp:Label ID="lbDatePriceEstimate" runat="server"></asp:Label></li>
-                                                            <li id="manager" runat="server" class="StepProgress-item current"><strong>Manager</strong><asp:Label ID="lbDateMgr" runat="server"></asp:Label></li>
+                                                            <li id="manager" runat="server" class="StepProgress-item current"><strong>Manager Catalog</strong><asp:Label ID="lbDateMgr" runat="server"></asp:Label></li>
                                                             <li id="gm" runat="server" class="StepProgress-item current"><strong>General Manager</strong><asp:Label ID="lbDateGM" runat="server"></asp:Label></li>
                                                             <li id="deputy_director" runat="server" class="StepProgress-item current"><strong>Deputy Director</strong><asp:Label ID="lbDateDepDir" runat="server"></asp:Label></li>
                                                             <li id="director" runat="server" class="StepProgress-item current"><strong>Director</strong><asp:Label ID="lbDateDir" runat="server"></asp:Label></li>
@@ -658,20 +659,83 @@
                                                                 :&nbsp;<asp:Label runat="server" ID="lbLocation"></asp:Label>
                                                             </div>
                                                         </div>
-                                                        <div class='col-sm-6'>
+<%--                                                        <div class='col-sm-6'>
                                                             <button type="button" onclick="<%=btnDownloadRF.ClientID %>.click()" class="btn mb-1 buttonColor">
                                                                 Download Form
                                                             <span class="btn-icon-right"><i class="fa fa-download"></i></span>
                                                             </button>
                                                             <asp:Button runat="server" Style="display: none;" ID="btnDownloadRF" OnClick="btnDownloadRF_Click"></asp:Button>
-                                                        </div>
-                                                        <div class='col-sm-6' id="divChangeApprover" runat="server">
+
+                                                               <button type="button" onclick="<%=btnseeattach.ClientID %>.click()" class="btn mb-1 buttonColor">
+                                                                   see attachment
+                                                               <span class="btn-icon-right"><i class="fa fa-eye"></i></span>
+                                                               </button>
+                                                               <asp:Button runat="server" Style="display: none;" ID="btnseeattach" OnClick="btnseeattach_Click"></asp:Button>
+                                                        </div>--%>
+                                                       <div class="col-sm-6 d-flex align-items-center">
+                                                             <div style="margin-right:12px;">
+                                                                <button type="button"
+                                                                    onclick="<%=btnDownloadRF.ClientID %>.click()"
+                                                                    class="btn buttonColor btn-match">
+                                                                    Download Form
+                                                                    <i class="fa fa-download ms-1"></i>
+                                                                </button>
+                                                            </div>
+
+                                                            <asp:Button runat="server" Style="display:none;"
+                                                                ID="btnDownloadRF"
+                                                                OnClick="btnDownloadRF_Click" />
+
+                                                            <div id="divbtnseeattach" runat="server"  style="margin-right:12px;">
+                                                                <%--<button type="button"
+                                                                    onclick="<%=btnseeattach.ClientID %>.click()"
+                                                                    class="btn buttonColor btn-match">
+                                                                    See Offering doc
+                                                                    <i class="fa fa-eye ms-1"></i>
+                                                                </button>--%>
+                                                                <button type="button"
+                                                                    onclick="openPdfModal()"
+                                                                    class="btn buttonColor btn-match">
+                                                                    See Offering doc
+                                                                    <i class="fa fa-eye ms-1"></i>
+                                                                </button>
+                                                            </div>
+                                                          <%--  <asp:Button runat="server" Style="display:none;"
+                                                                ID="btnseeattach"
+                                                                OnClick="btnseeattach_Click" />--%>
+
+
+
+
+                                                           
+                                                            <div id="divChangeApprover" runat="server">
+                                                                <button type="button"
+                                                                    onclick="<%=btnChangeApprover.ClientID %>.click()"
+                                                                    class="btn buttonColor btn-match">
+                                                                  Change Appover
+                                                                    <i class="fa fa-refresh ms-1"></i>
+                                                                </button>
+                                                            </div>
+
+                                                            <asp:Button runat="server" Style="display:none;"
+                                                                ID="btnChangeApprover"
+                                                                OnClick="btnChangeApprover_Click" />
+
+                                                       </div>
+
+
+
+<%--                                                        <div class='col-sm-6' id="divChangeApprover" runat="server">
                                                             <button type="button" style="float: right;" onclick="<%=btnChangeApprover.ClientID %>.click()" class="btn mb-1 buttonColor">
                                                                 Change Appover
                                                             <span class="btn-icon-right"><i class="fa fa-refresh"></i></span>
                                                             </button>
                                                             <asp:Button runat="server" Style="display: none;" ID="btnChangeApprover" OnClick="btnChangeApprover_Click"></asp:Button>
-                                                        </div>
+                                                        </div>--%>
+
+<%--                                                         <div class='col-sm-6'>
+                                                         
+                                                        </div>--%>
                                                     </div>
                                                 </div>
                                             </div>
@@ -880,7 +944,79 @@
         </div>
     </div>
 
+<%--<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Offering Document</h5>
+                <button type="button" class="close" onclick="closePdfModal()">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body p-0" style="height:85vh;">
+                <iframe id="pdfFrame"
+                        style="width:100%; height:100%; border:none;">
+                </iframe>
+            </div>
+
+        </div>
+    </div>
+</div>--%>
+
+
+    <div class="modal fade" id="pdfModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered"
+         style="max-width:95%; width:95%;">
+        <div class="modal-content">
+
+            <!-- HEADER -->
+            <div class="modal-header d-flex justify-content-between align-items-center">
+                <h5 class="modal-title mb-0">Offering Document</h5>
+
+                <!-- CLOSE MANUAL (TIDAK TERGANTUNG BOOTSTRAP) -->
+                <button type="button"
+                        onclick="closePdfModal()"
+                        style="border:none; background:transparent;
+                               font-size:28px; line-height:1; cursor:pointer;">
+                    &times;
+                </button>
+            </div>
+
+            <!-- BODY -->
+            <div class="modal-body p-0" style="height:85vh;">
+                <iframe id="pdfFrame"
+                        style="width:100%; height:100%; border:none;">
+                </iframe>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
     <script type="text/javascript" src="vendors/date/JS/jquery-1.10.2.min.js"></script>
+<script>
+    function openPdfModal() {
+        const frame = document.getElementById('pdfFrame');
+
+        frame.src = '<%= ResolveUrl("~/") + Convert.ToString(Session["OfferAttchment"]) %>';
+
+        $('#pdfModal').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    }
+
+    function closePdfModal() {
+        $('#pdfFrame').attr('src', '');
+        $('#pdfModal').modal('hide');
+    }
+</script>
+
 
     <script>
         $(document).ready(function () {
@@ -896,4 +1032,7 @@
             return true;
         }
     </script>
+
+
+
 </asp:Content>

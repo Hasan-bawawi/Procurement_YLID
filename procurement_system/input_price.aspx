@@ -355,6 +355,17 @@
             function ErrorSubmit_() {
                 swal('Submit Failed!', 'Details cannot empty ', 'error');
             }
+
+            function showUploadError(message) {
+                swal({
+                    title: 'Upload Failed',
+                    html: true,
+                    text: "<ul><li>" + message.replace(/<br\/>/g, "</li><li>") + "</li></ul>",
+                    type: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+
         </script>
     <style>
         .page-head {
@@ -402,6 +413,7 @@
     <asp:HiddenField ID="hlbNIKApprover" runat="server" />
     <asp:HiddenField ID="hlbOK" runat="server" />
     <asp:HiddenField ID="hfAttachmentPath" runat="server" />
+    <asp:HiddenField ID="lbErrorUploadNotif" runat="server" />
 
 
     <div hidden="hidden">
@@ -565,7 +577,7 @@
                                 </div>
                             </div>--%>
                             
-                                      <%--     <div class='col-sm-8' id="divUploadFile" runat="server" visible="true">
+                                           <div class='col-sm-8' id="divUploadFile" runat="server" visible="true">
                                                  <div class="form-group">
                                                      <div class="input-group">
                                                          <div class="input-group-append">
@@ -577,7 +589,7 @@
                                                          </div>
                                                      </div>
                                                  </div>
-                                             </div>--%>
+                                             </div>
 
 
                             <div class='col-sm-4'>

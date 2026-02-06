@@ -112,6 +112,7 @@ namespace procurement_system
                         Session.Add("DivisionReq", (string)rdr["DivisionReq"].ToString());
                         Session.Add("IDSectionRequester", (string)rdr["IDSectionRequester"].ToString());
                         Session.Add("sendPur", (bool)rdr["sendPur"]);
+                        Session["OfferAttchment"] = rdr["OfferAttchment"] == DBNull.Value? null : rdr["OfferAttchment"].ToString();
 
 
                     }
@@ -159,6 +160,10 @@ namespace procurement_system
             //hlbNIKGMAdm.Value = Session["nik_adm_gm"].ToString();
             //hlbManagerAdm.Value = Session["AdmManagerApprove"].ToString();
             //hlbGMAdm.Value = Session["AdmGMApprove"].ToString();
+            if (Session["OfferAttchment"] == null || string.IsNullOrEmpty(Session["OfferAttchment"].ToString()))
+            {
+                divbtnseeattach.Visible = false;
+            }
 
             #region BarStatus_OLD
             //if (lbLocation.Text == "YLID-SUB" || lbLocation.Text == "YLID-SRG")
@@ -9280,9 +9285,17 @@ namespace procurement_system
             #endregion
 
             #region BarStatus_New
+
+
+
+
+
+
+
+
             if (Session["status_approve"].ToString() == "Price Checked")
             {
-                if (Session["GMApprove"] is null && Session["x`"] is null && Session["DirectorApprove"] is null)
+                if (Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                 {
                     if (Session["status"].ToString() == "Canceled")
                     {
@@ -9302,6 +9315,7 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
                     }
                     else
                     {
@@ -9336,6 +9350,8 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
+
                     }
                     else
                     {
@@ -9368,6 +9384,8 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
+
                     }
                     else
                     {
@@ -9399,6 +9417,8 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
+
                     }
                     else
                     {
@@ -9429,6 +9449,8 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
+
                     }
                     else
                     {
@@ -9516,6 +9538,8 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
+
                     }
                     else
                     {
@@ -9560,6 +9584,8 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
+
                     }
                     else
                     {
@@ -9603,6 +9629,8 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
+
                     }
                     else
                     {
@@ -9645,6 +9673,8 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
+
                     }
                     else
                     {
@@ -9691,6 +9721,8 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
+
                     }
                     else
                     {
@@ -9741,6 +9773,8 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
+
                     }
                     else
                     {
@@ -9790,6 +9824,8 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
+
                     }
                     else
                     {
@@ -9838,6 +9874,8 @@ namespace procurement_system
                         DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                         string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                         lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                        divCancelRF.Visible = false;
+
                     }
                     else
                     {
@@ -9898,6 +9936,8 @@ namespace procurement_system
                     DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                     string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                     lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                    divCancelRF.Visible = false;
+
                 }
                 else
                 {
@@ -10101,6 +10141,8 @@ namespace procurement_system
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                             string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                             lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                            divCancelRF.Visible = false;
+
                         }
                         else
                         {
@@ -10153,6 +10195,8 @@ namespace procurement_system
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                             string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                             lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                            divCancelRF.Visible = false;
+
                         }
                         else
                         {
@@ -10209,6 +10253,8 @@ namespace procurement_system
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                             string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                             lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                            divCancelRF.Visible = false;
+
                         }
                         else
                         {
@@ -10270,6 +10316,8 @@ namespace procurement_system
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                             string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                             lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                            divCancelRF.Visible = false;
+
                         }
                         else
                         {
@@ -10330,6 +10378,8 @@ namespace procurement_system
                             DateTime ParseDateCancel = DateTime.Parse(DateCancel);
                             string GetDateCancel = ParseDateCancel.ToString("dd MMMM yyyy");
                             lbDateComplete.Text = GetDateCancel + "&nbsp;-&nbsp;" + "Canceled by" + "&nbsp" + Session["CanceledBy"].ToString();
+                            divCancelRF.Visible = false;
+
                         }
                         else
                         {
@@ -10370,6 +10420,9 @@ namespace procurement_system
             }
             else if (Session["status_approve"].ToString() == "Reject (Division Manager)" || Session["status_approve"].ToString() == "Canceled (Division Manager)")
             {
+                divCancelRF.Visible = false;
+
+
                 if (Session["GMApprove"] is null && Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                 {
                     GetDataPriceEstimatedApproval();
@@ -10388,6 +10441,7 @@ namespace procurement_system
                     gm.Attributes.Add("style", "display:none");
                     deputy_director.Attributes.Add("style", "display:none");
                     director.Attributes.Add("style", "display:none");
+
                 }
                 else if (Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                 {
@@ -10406,6 +10460,7 @@ namespace procurement_system
                     lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["MgrApprovalreject"].ToString();
                     deputy_director.Attributes.Add("style", "display:none");
                     director.Attributes.Add("style", "display:none");
+
                 }
                 else if (Session["DeputyDirectorApprove"] is null)
                 {
@@ -10423,6 +10478,7 @@ namespace procurement_system
                     string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                     lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["MgrApprovalreject"].ToString();
                     deputy_director.Attributes.Add("style", "display:none");
+
                 }
                 else if (Session["DirectorApprove"] is null)
                 {
@@ -10440,6 +10496,7 @@ namespace procurement_system
                     string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                     lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["MgrApprovalreject"].ToString();
                     director.Attributes.Add("style", "display:none");
+
                 }
                 else
                 {
@@ -10456,10 +10513,14 @@ namespace procurement_system
                     DateTime ParseDatetimeMgr = DateTime.Parse(ReqDateMgr);
                     string GetReqDateMgr = ParseDatetimeMgr.ToString("dd MMMM yyyy");
                     lbDateMgr.Text = GetReqDateMgr + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["MgrApprovalreject"].ToString();
+
                 }
             }
             else if (Session["status_approve"].ToString() == "Reject (Division GM)" || Session["status_approve"].ToString() == "Canceled (Division GM)")
             {
+
+                divCancelRF.Visible = false;
+
                 if (Session["DeputyDirectorApprove"] is null && Session["DirectorApprove"] is null)
                 {
                     GetDataPriceEstimatedApproval();
@@ -10483,6 +10544,7 @@ namespace procurement_system
                     lbDateGM.Text = GetReqDateDivGM + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DivGMApprovalreject"].ToString();
                     deputy_director.Attributes.Add("style", "display:none");
                     director.Attributes.Add("style", "display:none");
+
                 }
                 else if (Session["DeputyDirectorApprove"] is null)
                 {
@@ -10555,6 +10617,9 @@ namespace procurement_system
             }
             else if (Session["status_approve"].ToString() == "Reject (Deputy Director)" || Session["status_approve"].ToString() == "Canceled (Deputy Director)")
             {
+                divCancelRF.Visible = false;
+
+
                 GetDataPriceEstimatedApproval();
                 GetDataMgrApproval();
                 GetDataDivGMApproval();
@@ -10580,9 +10645,12 @@ namespace procurement_system
                 DateTime ParseDatetimeDeputyDirector = DateTime.Parse(ReqDateDeputyDirector);
                 string GetReqDateDeputyDirector = ParseDatetimeDeputyDirector.ToString("dd MMMM yyyy");
                 lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DeputyDirectorApprovalreject"].ToString();
+
             }
             else if (Session["status_approve"].ToString() == "Reject (Division Director)" || Session["status_approve"].ToString() == "Canceled (Division Director)")
             {
+                divCancelRF.Visible = false;
+
                 if (Session["DeputyDirectorApprove"] is null)
                 {
                     GetDataPriceEstimatedApproval();
@@ -10641,6 +10709,38 @@ namespace procurement_system
                     lbDateDepDir.Text = GetReqDateDeputyDirector + "&nbsp;-&nbsp;" + "Rejected by" + "&nbsp" + Session["DeputyDirectorApprovalreject"].ToString();
                     director.Attributes.Add("style", "display:none");
                 }
+            }
+            else if (Session["status_approve"].ToString() == "Canceled")
+            {
+
+
+                rf_created.Attributes.Add("class", "StepProgress-item is-reject");
+                lbDateCreateRF.Text = "Canceled by" + "&nbsp" + "Purcashing";
+
+
+                price_estimated.Attributes.Add("class", "StepProgress-item is-reject");
+                lbDatePriceEstimate.Text = "Canceled by" + "&nbsp" + "Purcashing";
+
+                manager.Attributes.Add("class", "StepProgress-item is-reject");
+                lbDateMgr.Text = "Canceled by" + "&nbsp" + "Purcashing";
+
+
+                gm.Attributes.Add("class", "StepProgress-item is-reject");
+                lbDateGM.Text = "Canceled by" + "&nbsp" + "Purcashing";
+
+                deputy_director.Attributes.Add("class", "StepProgress-item is-reject");
+                lbDateDepDir.Text = "Canceled by" + "&nbsp" + "Purcashing";
+
+
+                director.Attributes.Add("class", "StepProgress-item is-reject");
+                lbDateDir.Text = "Canceled by" + "&nbsp" + "Purcashing";
+
+                status_completed.Attributes.Add("style", "display:none");
+
+
+                divCancelRF.Visible = false;
+
+
             }
 
             #endregion
@@ -11319,6 +11419,18 @@ namespace procurement_system
 
         }
 
+
+        //protected void btnseeattach_Click(object sender, EventArgs e)
+        //{
+
+            //string path = Convert.ToString(Session["OfferAttchment"]);
+            //if (string.IsNullOrEmpty(path))
+            //    return;
+
+            //iframePdf.Attributes["src"] = ResolveUrl("~/" + path);
+            //iframePdf.Style["display"] = "block";
+
+        //}
         protected void btnDownloadRF_Click(object sender, EventArgs e)
         {
             #region Code_Old

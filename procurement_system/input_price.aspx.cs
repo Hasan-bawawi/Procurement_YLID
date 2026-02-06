@@ -565,8 +565,24 @@ namespace procurement_system
         protected async void btnSubmit_Click(object sender, EventArgs e)
         {
           
-            //CheckUploadDocument();
+            bool isUploadValid = CheckUploadDocument();
 
+            if (!isUploadValid)
+            {
+                string msg = lbErrorUploadNotif.Value
+                        .Replace("'", "\\'")
+                        .Replace("|", "\\n");
+
+                ScriptManager.RegisterStartupScript(
+                    this,
+                    GetType(),
+                    "toastrMessage",
+                    $"toastr.error('{msg}', 'Upload Error');",
+                    true
+                );
+                return;
+
+            }
 
             decimal parsedValue = decimal.Parse(txtGrandTotal.Value, NumberStyles.AllowThousands, CultureInfo.InvariantCulture);
 
@@ -576,11 +592,9 @@ namespace procurement_system
 
             if (Session["RowCountDetail"] != null) rowCount = Convert.ToInt32(Session["RowCountDetail"]);
 
-
             if (rowCount == 0)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "ErrorSubmit_();", true);
-
             }
             else if (getGrandTotal == 0)
             {
@@ -601,7 +615,7 @@ namespace procurement_system
                 sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                 sqlcomm.Parameters.AddWithValue("@Price", getGrandTotal);
                 sqlcomm.Parameters.AddWithValue("@NoneedPO", chkNoNeedPO.Checked);
-
+                sqlcomm.Parameters.AddWithValue("@attachmentRF", hfAttachmentPath.Value.Trim());
 
                 sqlcomm.ExecuteNonQuery();
                 Con.Close();
@@ -739,12 +753,15 @@ namespace procurement_system
                 sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
                 sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                 sqlcomm.Parameters.AddWithValue("@Price", getGrandTotal);
+                sqlcomm.Parameters.AddWithValue("@NoneedPO", chkNoNeedPO.Checked);
+                sqlcomm.Parameters.AddWithValue("@attachmentRF", hfAttachmentPath.Value.Trim());
+
 
                 sqlcomm.ExecuteNonQuery();
                 Con.Close();
 
                 UpdatePriceRF();
-                await SendEmailSendToManagerDivision();
+                //await SendEmailSendToManagerDivision();
                 string script = $@"
                                         $(document).ready(function() {{
                                             // Show Toastr notification
@@ -1093,7 +1110,6 @@ namespace procurement_system
 
             }
 
-
         }
         #endregion
 
@@ -1177,6 +1193,65 @@ namespace procurement_system
         //}
 
         // Function to check if the file type is valid
+
+        protected bool CheckUploadDocument()
+        {
+            lbErrorUploadNotif.Value = "";
+
+            if (!FileUploadEDocs.HasFiles)
+            {
+               
+                return true;
+            }
+
+            int filecount = FileUploadEDocs.PostedFiles.Count();
+            string[] allowedExtensions = { ".pdf" };
+
+            if (filecount > 5)
+            {
+                lbErrorUploadNotif.Value =
+                    $"You selected {filecount} files. Maximum allowed is 5 files.";
+                return false;
+            }
+
+            foreach (HttpPostedFile postfiles in FileUploadEDocs.PostedFiles)
+            {
+                string filetype = Path.GetExtension(postfiles.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(filetype))
+                {
+                    lbErrorUploadNotif.Value += $"[{postfiles.FileName}] Invalid file type. Only PDF allowed.<br/>";
+                    return false;
+                }
+
+                if (postfiles.ContentLength > 5242880)
+                {
+                    lbErrorUploadNotif.Value +=
+                        $"[{postfiles.FileName}] File size exceeds 5 MB.<br/>";
+                    return false;
+                }
+
+                // ===== SAVE FILE =====
+                string serverfolder = Server.MapPath("~/eDocs_Files/RF/");
+                if (!Directory.Exists(serverfolder))
+                    Directory.CreateDirectory(serverfolder);
+
+                string uniqueFileName =
+                    "RF-OFFERING_" + Path.GetFileNameWithoutExtension(postfiles.FileName) + "_" +
+                    Guid.NewGuid().ToString("N").Substring(0, 8) + ".pdf";
+
+                string serverpath = Path.Combine(serverfolder, uniqueFileName);
+                postfiles.SaveAs(serverpath);
+
+                hfAttachmentPath.Value = "eDocs_Files/RF/" + uniqueFileName;
+            }
+
+            return true; 
+        }
+
+
+
+
 
         private bool IsValidFileType(string fileType, string[] allowedExtensions)
         {
