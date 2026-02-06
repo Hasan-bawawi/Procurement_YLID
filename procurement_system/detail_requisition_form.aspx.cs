@@ -14500,6 +14500,47 @@ namespace procurement_system
                 Response.BinaryWrite(mybytes); // create the file
                 Response.Flush();
             }
+            else if (Session["status_approve"].ToString() == "Canceled")
+            {
+
+                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                SqlConnection Con = new SqlConnection(path);
+                Con.Open();
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.CommandText = "sp_PROCUREMENT_DB_Attachment_PurchaseRejectCancel";
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberHeader.Text.Trim());
+
+                sqlcomm.Connection = Con;
+                DataTable dtb = new DataTable();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+
+                sda.Fill(dtb);
+                GenerateAndDisplayBarcode();
+                ReportViewerPurchase.ProcessingMode = ProcessingMode.Local;
+                ReportViewerPurchase.LocalReport.ReportPath = Server.MapPath("~/Prints/PrintFormPurchaseRejectCancel.rdlc");
+                ReportViewerPurchase.LocalReport.EnableExternalImages = true;
+                ReportViewerPurchase.LocalReport.DataSources.Clear();
+                ReportViewerPurchase.LocalReport.DataSources.Add(new ReportDataSource("DataSetFormPurchase", dtb));
+                ReportViewerPurchase.LocalReport.Refresh();
+
+                string FileName = "Requisition Form - " + lbRFNumberHeader.Text + ".pdf";
+                string extension;
+                string encoding;
+                string mimeType;
+                string[] streams;
+                Warning[] warnings;
+                Byte[] mybytes = ReportViewerPurchase.LocalReport.Render("PDF", null,
+                                out extension, out encoding,
+                                out mimeType, out streams, out warnings);
+                Response.Buffer = true;
+                Response.Clear();
+                Response.ContentType = mimeType;
+                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                Response.BinaryWrite(mybytes); // create the file
+                Response.Flush();
+
+            }
             #endregion
         }
 

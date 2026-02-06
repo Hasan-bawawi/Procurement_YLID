@@ -132,6 +132,24 @@ namespace procurement_system
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtMinimumStock;
 
         /// <summary>
+        /// TxtStock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl TxtStock;
+
+        /// <summary>
+        /// txtJmlhStock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtJmlhStock;
+
+        /// <summary>
         /// ddlLocation control.
         /// </summary>
         /// <remarks>

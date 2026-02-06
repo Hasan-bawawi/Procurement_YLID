@@ -147,6 +147,7 @@ namespace procurement_system
             btnUpdate.Visible = false;
             TxtItem.Visible = false;
             ddlItem.Visible = true;
+            TxtStock.Visible = false;
         }
 
         protected void btnEdit_Click(object sender, EventArgs e)
@@ -156,6 +157,7 @@ namespace procurement_system
             ddlItem.Visible = false;
             ddlLocation.Enabled = false;
             TxtItem.Visible = true;
+            
             LinkButton btn = (LinkButton)sender;
             GridViewRow row = (GridViewRow)btn.NamingContainer;
 
@@ -165,8 +167,10 @@ namespace procurement_system
             txtItemName.Value = row.Cells[5].Text.ToString() + "-" + row.Cells[3].Text.ToString() + "-" + row.Cells[6].Text.ToString() + "-" + row.Cells[7].Text.ToString() + "-" + row.Cells[8].Text.ToString();
             txtCode.Value = row.Cells[5].Text.ToString();
             txtMinimumStock.Value = row.Cells[11].Text.ToString();
+            txtJmlhStock.Value = row.Cells[10].Text.ToString();
             ddlLocation.SelectedItem.Text = row.Cells[13].Text.ToString();
             lblID.Text = row.Cells[1].Text.ToString();
+
         }
 
         protected void GetDetailItems()
@@ -330,6 +334,7 @@ namespace procurement_system
             sqlcomm.Parameters.AddWithValue("@StatementType", "Update");
             sqlcomm.Parameters.AddWithValue("@id", lblID.Text);
             sqlcomm.Parameters.AddWithValue("@minimal_stok", txtMinimumStock.Value);
+            sqlcomm.Parameters.AddWithValue("@quantity", txtJmlhStock.Value);
 
             sqlcomm.ExecuteNonQuery();
             Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncUpdate();", true);

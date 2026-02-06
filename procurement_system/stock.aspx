@@ -290,6 +290,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                   <div class='col-sm-12'  id="TxtStock" runat="server">
+                                        Stock
+										<div class="form-group">
+                                            <div class='input-group'>
+                                                <input runat="server" id="txtJmlhStock" data-validate-length-range="5,15" type="number" class="form-control input-rounded" placeholder="Jumlah Stock" onkeypress="return isNumberKey(event)">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class='col-sm-12'>
                                         Location
 										<div class="form-group">
@@ -315,7 +323,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="modal-footer">
                 </div>
             </div>
