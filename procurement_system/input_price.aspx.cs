@@ -515,7 +515,7 @@ namespace procurement_system
         #endregion
 
         #region Submit
-        protected void submitrow(int getprice, string item_code, int getprevprice,string vendor)
+        protected void submitrow(int getprice, string item_code, int getprevprice,string vendor, bool noneed)
         {
             string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
             SqlConnection Con = new SqlConnection(path);
@@ -530,6 +530,7 @@ namespace procurement_system
             sqlcomm.Parameters.AddWithValue("@item_code", item_code);
             sqlcomm.Parameters.AddWithValue("@Previousprice", getprevprice);
             sqlcomm.Parameters.AddWithValue("@id_vendor",vendor);
+            sqlcomm.Parameters.AddWithValue("@NoneedPO", noneed);
 
 
             sqlcomm.ExecuteNonQuery();
@@ -545,20 +546,25 @@ namespace procurement_system
             {
                 HtmlInputText price = (HtmlInputText)grow.FindControl("txtPrice");
                 HtmlInputText prevprice = (HtmlInputText)grow.FindControl("txtPrevPrice");
+                CheckBox NoneedPO = (CheckBox)grow.FindControl("chkNoNeedPO");
+
 
                 decimal parsedValue = decimal.Parse(price.Value, NumberStyles.AllowThousands, CultureInfo.InvariantCulture);
                 decimal parsedValue2 = decimal.Parse(prevprice.Value, NumberStyles.AllowThousands, CultureInfo.InvariantCulture);
 
                 int getprice = Convert.ToInt32(parsedValue);
                 int getprevprice = Convert.ToInt32(parsedValue2);
-               
+
+
+                bool getnoneedPO = NoneedPO.Checked;
+
                 string item_code = grow.Cells[3].Text;
                 
                 DropDownList dlList = (DropDownList)grow.FindControl("ddlVendor");
                 string selectedvalue = dlList.SelectedItem.Value;
               
 
-                submitrow(getprice, item_code,getprevprice,selectedvalue);
+                submitrow(getprice, item_code,getprevprice,selectedvalue,getnoneedPO);
             }
         }
 
@@ -614,7 +620,7 @@ namespace procurement_system
                 sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
                 sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                 sqlcomm.Parameters.AddWithValue("@Price", getGrandTotal);
-                sqlcomm.Parameters.AddWithValue("@NoneedPO", chkNoNeedPO.Checked);
+                ////sqlcomm.Parameters.AddWithValue("@NoneedPO", chkNoNeedPO.Checked);
                 sqlcomm.Parameters.AddWithValue("@attachmentRF", hfAttachmentPath.Value.Trim());
 
                 sqlcomm.ExecuteNonQuery();
@@ -622,7 +628,7 @@ namespace procurement_system
 
                 UpdatePriceRF();
 
-                await SendEmailSendToManagerDivision();
+                //await SendEmailSendToManagerDivision();
                 string script = $@"
                                         $(document).ready(function() {{
                                             // Show Toastr notification
@@ -753,7 +759,7 @@ namespace procurement_system
                 sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
                 sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                 sqlcomm.Parameters.AddWithValue("@Price", getGrandTotal);
-                sqlcomm.Parameters.AddWithValue("@NoneedPO", chkNoNeedPO.Checked);
+                ////sqlcomm.Parameters.AddWithValue("@NoneedPO", chkNoNeedPO.Checked);
                 sqlcomm.Parameters.AddWithValue("@attachmentRF", hfAttachmentPath.Value.Trim());
 
 
@@ -761,7 +767,7 @@ namespace procurement_system
                 Con.Close();
 
                 UpdatePriceRF();
-                //await SendEmailSendToManagerDivision();
+                await SendEmailSendToManagerDivision();
                 string script = $@"
                                         $(document).ready(function() {{
                                             // Show Toastr notification

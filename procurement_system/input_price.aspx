@@ -82,6 +82,28 @@
             border-color: midnightblue !important; /* biru terang */
             box-shadow: 0 0 5px rgba(0,123,255,0.5);
         }
+
+        .grid-scroll {
+            max-height: 350px;        /* scroll Y */
+            overflow-y: auto;
+            overflow-x: auto;         /* scroll X */
+            white-space: nowrap;
+        }
+
+        /* supaya header tetap rapi */
+        .grid-scroll table {
+            min-width: 1400px;        /* paksa scroll X muncul */
+        }
+        .remarks-col {
+            white-space: normal !important;
+            word-wrap: break-word;
+            max-width: 220px;
+        }
+        .form-check {
+            display: flex;
+            justify-content: center;
+        }
+
     </style>
     <script type="text/javascript">
         function ShowLoading() {
@@ -495,7 +517,7 @@
                                                 <asp:Button runat="server" Style="display: none;" ID="btnAddItem" OnClick="btnAddItem_Click"></asp:Button>
                                             </div>--%>
                                             <div class='col-sm-12'>
-                                                <div class="table-responsive">
+                                                <div class="table-responsive grid-scroll">
                                                     <asp:GridView ID="TableItemPurchase" runat="server" CssClass="table table-bordered table-striped verticle-middle" AutoGenerateColumns="False" Style="width: 100%"
                                                         ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found" OnRowCommand="TableItemPurchase_RowCommand" OnRowDataBound="TableItemPurchase_RowDataBound" OnSelectedIndexChanged="TableItemPurchase_SelectedIndexChanged" DataKeyNames="id">
                                                         <HeaderStyle BackColor="#06183d" ForeColor="White" HorizontalAlign="Center" />
@@ -521,7 +543,10 @@
                                                             <asp:BoundField DataField="merk_name" HeaderText="Merk" />
                                                             <%--<asp:BoundField DataField="description" HeaderText="Description" />--%>
                                                             <asp:BoundField DataField="quantity" HeaderText="Quantity" />
-                                                            <asp:BoundField DataField="remaks" HeaderText="Remarks" />
+                                                            <asp:BoundField DataField="remaks" HeaderText="Remarks">
+                                                                 <HeaderStyle Width="220px" />
+                                                                <ItemStyle Width="220px" CssClass="remarks-col" />
+                                                            </asp:BoundField>
 <%--                                                            <asp:TemplateField HeaderText="@ Price Input">
                                                                 <ItemTemplate>
                                                                     <input type="text" class="input-group-text" runat="server" value='<%# string.Format("{0:#,#}", Convert.ToDecimal(Eval("price"))) %>' name="txtPrice" id="txtPrice" data-qty='<%# Eval("quantity") %>' data-type="currency" placeholder="enter price per @" />
@@ -529,12 +554,13 @@
                                                             </asp:TemplateField>--%>
                                                              <asp:TemplateField HeaderText="Vendor">
                                                                 <ItemTemplate>
-                                                                    <asp:DropDownList class="input-group-text" ID="ddlVendor" data-width="80%" data-show-subtext="true" data-live-search="true" AppendDataBoundItems="true" AutoPostBack="false" runat="server" OnSelectedIndexChanged="ddlVendor_SelectedIndexChanged">
+                                                                    <asp:DropDownList class="input-group-text" ID="ddlVendor" data-width="30%" data-show-subtext="true" data-live-search="true" AppendDataBoundItems="true" AutoPostBack="false" runat="server" OnSelectedIndexChanged="ddlVendor_SelectedIndexChanged">
                                                                         <asp:ListItem Text="" Value=""></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </ItemTemplate>
                                                              </asp:TemplateField>                                                           
                                                             <asp:TemplateField HeaderText="@ Price Input">
+                                                                    <HeaderStyle HorizontalAlign="Center" Width="300px" />
                                                                 <ItemTemplate>
                                                                     <input type="text" 
                                                                            name="txtPrice" id="txtPrice"
@@ -545,7 +571,7 @@
                                                                            placeholder="enter price per @" />
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
-                                                              <asp:TemplateField HeaderText="@ Previous Price Input">
+                                                             <asp:TemplateField HeaderText="@ Previous Price Input">
                                                              <ItemTemplate>
                                                                  <input type="text" 
                                                                         name="txtPrevPrice" id="txtPrevPrice"
@@ -555,7 +581,19 @@
                                                                         data-quantity='<%# Eval("quantity") %>' 
                                                                         placeholder="enter price per @" />
                                                              </ItemTemplate>
-                                                         </asp:TemplateField>
+                                                            </asp:TemplateField>
+                                                                <asp:TemplateField HeaderText="No Need PO">
+                                                                    <HeaderStyle HorizontalAlign="Center" Width="90px" />
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                    <ItemTemplate>
+                                                                        <div class="form-check">
+                                                                            <asp:CheckBox 
+                                                                                ID="chkNoNeedPO"
+                                                                                runat="server"
+                                                                                CssClass="form-check-input" />
+                                                                        </div>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
                                                         </Columns>
                                                     </asp:GridView>
                                                 </div>
@@ -595,14 +633,14 @@
                             <div class='col-sm-4'>
                                 <div class="form-group">
                                     <div class="input-group">
-                                         <div class="input-group-append ml-1 d-flex align-items-center mr-2">
+<%--                                         <div class="input-group-append ml-1 d-flex align-items-center mr-2">
                                             <div class="form-check mb-0">
                                                 <input type="checkbox" runat="server" id="chkNoNeedPO" class="form-check-input" />
                                                 <label class="form-check-label" for="chkNoNeedPO">
                                                     No Need PO
                                                 </label>
                                             </div>
-                                        </div>
+                                        </div>--%>
 
 
                                         <div class="input-group-append">

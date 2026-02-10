@@ -285,15 +285,6 @@ namespace procurement_system
         protected global::System.Web.UI.WebControls.FileUpload FileUploadEDocs;
 
         /// <summary>
-        /// chkNoNeedPO control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkNoNeedPO;
-
-        /// <summary>
         /// txtGrandTotal control.
         /// </summary>
         /// <remarks>
