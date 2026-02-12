@@ -144,6 +144,7 @@ namespace procurement_system
             string id_vendor = formData["IDVendor"];
             string deliveryselect = formData["Deliveryselect"].Trim();
             hfAttachmentPath.Value = formData["FilePath"];
+            string attachmentpathPO = "~/" + formData["FilePath"];
 
             //return;
 
@@ -167,7 +168,9 @@ namespace procurement_system
                     sqlcomm.Parameters.AddWithValue("@vat", vat);
                     sqlcomm.Parameters.AddWithValue("@aset_status", assetType);
                     sqlcomm.Parameters.AddWithValue("@payment_term", paymentTerm);
-                    sqlcomm.Parameters.AddWithValue("@other_condition", otherCondition);
+                    //sqlcomm.Parameters.AddWithValue("@other_condition", otherCondition);
+                    sqlcomm.Parameters.AddWithValue("@other_condition",string.IsNullOrWhiteSpace(otherCondition) ? (object)DBNull.Value : otherCondition);
+
                     //sqlcomm.Parameters.AddWithValue("@remarks", remark);
                     sqlcomm.Parameters.AddWithValue("@rf_no", lblRFNumber.Text);
                     sqlcomm.Parameters.AddWithValue("@id_vendor", id_vendor);
@@ -176,17 +179,35 @@ namespace procurement_system
                     sqlcomm.Parameters.AddWithValue("@catalog_type", Catalog);
                     sqlcomm.Parameters.AddWithValue("@status", "PO Created");
                     sqlcomm.Parameters.AddWithValue("@deliveryselect", deliveryselect);
-                    //sqlcomm.Parameters.AddWithValue("@attachment_path", hfAttachmentPath.Value);
+                    sqlcomm.Parameters.AddWithValue("@attachment_path", attachmentpathPO);
                     sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
                     sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
                     sqlcomm.Parameters.AddWithValue("@requesting_dept", iddivision);
                     //sqlcomm.ExecuteNonQuery();
 
 
-                    object result = sqlcomm.ExecuteScalar();
-                    transaction.Commit();                   
-                    string newPONumber = result != null ? result.ToString() : "";
-                    
+                    //object result = sqlcomm.ExecuteScalar();
+                    //transaction.Commit();                   
+                    //string newPONumber = result != null ? result.ToString() : "";
+
+                    //txtPONumber.Value = newPONumber;
+
+                    string newPONumber = "";
+                    string Headapprover = "";
+                    bool poAllCreated = false;
+
+                    using (SqlDataReader dr = sqlcomm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            newPONumber = dr["NoPO"].ToString();
+                            poAllCreated = Convert.ToBoolean(dr["POallcreated"]);
+                            Headapprover = dr["Headapprover"].ToString();
+
+                        }
+                    }
+
+                    transaction.Commit();
                     txtPONumber.Value = newPONumber;
                     txtReqBy.Value = TableDetailsRF.Rows[rowIndex].Cells[4].Text.ToString();
                     txtReqDept.Value = TableDetailsRF.Rows[rowIndex].Cells[5].Text.ToString(); ;
@@ -212,12 +233,12 @@ namespace procurement_system
                     if (Catalog == "IT")
                     {
 
-                        await SendEmailToManagerIT("satuan",newPONumber, hfAttachmentPath.Value);
+                        await SendEmailToManagerIT("satuan", newPONumber, hfAttachmentPath.Value,poAllCreated,Headapprover);
 
                     }
                     else
                     {
-                        await SendEmailToManagerGA("satuan", newPONumber, hfAttachmentPath.Value);
+                        await SendEmailToManagerGA("satuan", newPONumber, hfAttachmentPath.Value,poAllCreated,Headapprover);
 
 
                     }
@@ -310,14 +331,16 @@ namespace procurement_system
          
                         using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                         {
-                            List<(string PONumber, string Catalog, string AttachmentPath)> poResults = new List<(string, string, string)>();
+                            List<(string PONumber, string Catalog, string AttachmentPath, string headapprover)> poResults = new List<(string, string, string,string)>();
 
                             while (await reader.ReadAsync())
                             {
                                 string poNumber = reader["PONumber"].ToString();
                                 string catalog = reader["Catalog"].ToString();
                                 string attachment = reader["AttachmentPath"].ToString();
-                                poResults.Add((poNumber, catalog, attachment));
+                                string headapprover = reader["Headapprover"].ToString();
+                                poResults.Add((poNumber, catalog, attachment,headapprover));
+
                             }
 
                             if (poResults.Count == 0)
@@ -352,7 +375,7 @@ namespace procurement_system
                                         hfAttachmentPath.Value = newFileName;
                                     }
 
-                                    await SendEmailToManagerIT("all",po.PONumber,hfAttachmentPath.Value);
+                                    await SendEmailToManagerIT("all",po.PONumber,hfAttachmentPath.Value,true,po.headapprover);
                                         successCount++;
                                     }
                                 else if  (po.Catalog.Equals("GA", StringComparison.OrdinalIgnoreCase))
@@ -367,7 +390,7 @@ namespace procurement_system
                                         string newFileName = Path.GetFileName(oldFilePath);
                                         hfAttachmentPath.Value = newFileName;
                                     }
-                                    await SendEmailToManagerGA("all", po.PONumber, hfAttachmentPath.Value);
+                                    await SendEmailToManagerGA("all", po.PONumber, hfAttachmentPath.Value,true,po.headapprover);
                                     successCount++;
                                 }
 
@@ -2044,10 +2067,10 @@ namespace procurement_system
             return body;
         }
 
-        private async Task SendEmailToManagerIT(string btn,string pono,string attcment)
+        private async Task SendEmailToManagerIT(string btn,string pono,string attcment,bool ispo,string headapprover)
         {
             string body = this.PopulateBodySendToManagerIT
-            ("DUDY SETIADI", /*txtPONumber.Value*/ pono, txtIssuedDate.Value, txtReqBy.Value, Session["fullname"].ToString(), "PO Created");
+            (headapprover/*"DUDY SETIADI"*/, /*txtPONumber.Value*/ pono, txtIssuedDate.Value, txtReqBy.Value, Session["fullname"].ToString(), "PO Created");
 
             try
             {
@@ -2183,7 +2206,9 @@ namespace procurement_system
                                 //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                                 //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                                 toRecipients = new[] { new { emailAddress = new { address = _emailITMgr } } },
-                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
+                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } },
+                                    new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
+                                    new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                                 //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 attachments = new[] { attachment }.Concat(attachments1).ToArray()
@@ -2205,7 +2230,7 @@ namespace procurement_system
                         {
                             // Assuming 'FuncSave()' and 'FailedSend()' are JavaScript functions on the client side
                             //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);                                                  
-                            if (btn == "satuan")
+                            if (btn == "satuan" && ispo == false)
                             {
 
                                 string Message = $@"
@@ -2216,25 +2241,24 @@ namespace procurement_system
                                 return;
 
                             }
-                            //else
-                            //{
-                            //    string script = $@"
-                            //            $(document).ready(function() {{
-                            //                // Show Toastr notification
-                            //                toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                            else if (btn == "satuan" && ispo == true)
+                            {
+                                string script = $@"
+                                        $(document).ready(function() {{
+                                            // Show Toastr notification
+                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                            //                // Redirect after 2 seconds (2000 milliseconds)
-                            //                setTimeout(function() {{
-                            //                    window.location.href = 'purchase_order.aspx'; // replace with your target URL
-                            //                }}, 2000);
-                            //            }});
-                            //        ";
+                                            // Redirect after 2 seconds (2000 milliseconds)
+                                            setTimeout(function() {{
+                                                window.location.href = 'purchase_order.aspx'; // replace with your target URL
+                                            }}, 2000);
+                                        }});
+                                    ";
 
-                            //    // Register the script for partial postbacks
-                            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                                // Register the script for partial postbacks
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
 
-
-                            //}
+                            }
 
 
                         }
@@ -2312,7 +2336,8 @@ namespace procurement_system
                                 //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                                 //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                                 toRecipients = new[] { new { emailAddress = new { address = _emailITMgr } } },
-                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
+                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
+                                new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                                 //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 attachments = new[] { attachment }
@@ -2335,7 +2360,7 @@ namespace procurement_system
                             // Assuming 'FuncSave()' and 'FailedSend()' are JavaScript functions on the client side
                             //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
 
-                            if (btn == "satuan")
+                            if (btn == "satuan" && ispo == false)
                             {
 
                                 string Message = $@"
@@ -2346,24 +2371,24 @@ namespace procurement_system
                                 return;
 
                             }
-                            //else
-                            //{
-                            //    string script = $@"
-                            //            $(document).ready(function() {{
-                            //                // Show Toastr notification
-                            //                toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                            else if (btn == "satuan" && ispo == true)
+                            {
+                                string script = $@"
+                                        $(document).ready(function() {{
+                                            // Show Toastr notification
+                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                            //                // Redirect after 2 seconds (2000 milliseconds)
-                            //                setTimeout(function() {{
-                            //                    window.location.href = 'purchase_order.aspx'; // replace with your target URL
-                            //                }}, 2000);
-                            //            }});
-                            //        ";
+                                            // Redirect after 2 seconds (2000 milliseconds)
+                                            setTimeout(function() {{
+                                                window.location.href = 'purchase_order.aspx'; // replace with your target URL
+                                            }}, 2000);
+                                        }});
+                                    ";
 
-                            //    // Register the script for partial postbacks
-                            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                                // Register the script for partial postbacks
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
 
-                            //}
+                            }
 
                         }
                         else
@@ -2414,10 +2439,10 @@ namespace procurement_system
             return body;
         }
 
-        private async Task SendEmailToManagerGA(string btn, string pono, string attcment)
+        private async Task SendEmailToManagerGA(string btn, string pono, string attcment, bool ispo, string headapprover)
         {
             string body = this.PopulateBodySendToManagerGA
-            ("SURI ARBAD", /*txtPONumber.Value*/ pono, txtIssuedDate.Value, txtReqBy.Value, Session["fullname"].ToString(), "PO Created");
+            (/*"SURI ARBAD"*/headapprover, /*txtPONumber.Value*/ pono, txtIssuedDate.Value, txtReqBy.Value, Session["fullname"].ToString(), "PO Created");
 
             try
             {
@@ -2522,7 +2547,8 @@ namespace procurement_system
                                     content = body
                                 },
                                 toRecipients = new[] { new { emailAddress = new { address = _emailGAMgr } } },
-                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
+                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
+                                new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                                 //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 attachments = new[] { attachment }.Concat(attachments1).ToArray()
@@ -2547,7 +2573,7 @@ namespace procurement_system
                             //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
 
 
-                            if (btn == "satuan")
+                            if (btn == "satuan" && ispo == false)
                             {
 
                                 string Message = $@"
@@ -2558,24 +2584,24 @@ namespace procurement_system
 
                                 return;
                             }
-                            //else
-                            //{
-                            //    string script = $@"
-                            //            $(document).ready(function() {{
-                            //                // Show Toastr notification
-                            //                toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                            else if (btn == "satuan" && ispo == true)
+                            {
+                                string script = $@"
+                                        $(document).ready(function() {{
+                                            // Show Toastr notification
+                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                            //                // Redirect after 2 seconds (2000 milliseconds)
-                            //                setTimeout(function() {{
-                            //                    window.location.href = 'purchase_order.aspx'; // replace with your target URL
-                            //                }}, 2000);
-                            //            }});
-                            //        ";
+                                            // Redirect after 2 seconds (2000 milliseconds)
+                                            setTimeout(function() {{
+                                                window.location.href = 'purchase_order.aspx'; // replace with your target URL
+                                            }}, 2000);
+                                        }});
+                                    ";
 
-                            //    // Register the script for partial postbacks
-                            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                                // Register the script for partial postbacks
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
 
-                            //}
+                            }
 
                         }
                         else
@@ -2649,7 +2675,8 @@ namespace procurement_system
                                     content = body
                                 },
                                 toRecipients = new[] { new { emailAddress = new { address = _emailGAMgr } } },
-                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } },
+                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } ,
+                                    new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                                 //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 attachments = new[] { attachment }
@@ -2672,7 +2699,7 @@ namespace procurement_system
                             // Assuming 'FuncSave()' and 'FailedSend()' are JavaScript functions on the client side
                             //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
 
-                            if (btn == "satuan")
+                            if (btn == "satuan" && ispo == false)
                             {
 
                                 string Message = $@"
@@ -2684,24 +2711,24 @@ namespace procurement_system
                                 return;
 
                             }
-                            //else
-                            //{
-                            //    string script = $@"
-                            //            $(document).ready(function() {{
-                            //                // Show Toastr notification
-                            //                toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+                            else if (btn == "satuan" && ispo == true)
+                            {
+                                string script = $@"
+                                        $(document).ready(function() {{
+                                            // Show Toastr notification
+                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
 
-                            //                // Redirect after 2 seconds (2000 milliseconds)
-                            //                setTimeout(function() {{
-                            //                    window.location.href = 'purchase_order.aspx'; // replace with your target URL
-                            //                }}, 2000);
-                            //            }});
-                            //        ";
+                                            // Redirect after 2 seconds (2000 milliseconds)
+                                            setTimeout(function() {{
+                                                window.location.href = 'purchase_order.aspx'; // replace with your target URL
+                                            }}, 2000);
+                                        }});
+                                    ";
 
-                            //    // Register the script for partial postbacks
-                            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                                // Register the script for partial postbacks
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
 
-                            //}
+                            }
                         }
                         else
                         {   

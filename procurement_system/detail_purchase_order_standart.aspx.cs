@@ -98,6 +98,8 @@ namespace procurement_system
                         Session.Add("email_authorized_by", (string)(rdr.IsDBNull(35) ? null : rdr["email_authorized_by"]));
                         Session.Add("email_po_checked_by_it", (string)(rdr.IsDBNull(36) ? null : rdr["email_po_checked_by_it"]));
                         Session.Add("Requester", (string)rdr["Requester"]);
+                        Session["AttachmentPO"] = rdr["AttachmentPO"] == DBNull.Value ? null : rdr["AttachmentPO"].ToString();
+
                     }
                 }
                 sqlcomm.Dispose();
@@ -119,6 +121,13 @@ namespace procurement_system
             txtVAT.Value = Session["vat"].ToString();
             hlbIDVendor.Value = Session["id_vendor"].ToString();
 
+            if (Session["AttachmentPO"] == null || string.IsNullOrEmpty(Session["AttachmentPO"].ToString()))
+            {
+                divbtnseeattach.Visible = false;
+            }
+
+               
+
             //if (Session["gr_no"].ToString() != "" || Session["gr_no"].ToString() != "&nbsp;" || Session["gr_no"].ToString() != null)
             //{
             //    hlbGRNo.Value = Session["gr_no"].ToString();
@@ -127,7 +136,7 @@ namespace procurement_system
             //{
             //    hlbGRNo.Value = "";
             //}
-            
+
 
             if (!IsPostBack)
             {

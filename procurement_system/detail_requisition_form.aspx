@@ -478,6 +478,13 @@
             position: relative;
             top: -99px; /* Adjust the top position to move the card body down */
         }
+
+        .disabled-link {
+            pointer-events: none;
+            color: #999;
+            cursor: not-allowed;
+        }
+
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -488,7 +495,8 @@
         <ol class="breadcrumb">
             <li><a href="javascript:void(0)"><i class="fa-solid fa-cart-arrow-down"></i>&nbsp;Orders</a></li>
             <li class="active">&nbsp;&nbsp;<i class="fa fa-caret-right"></i></li>
-            <li><a href="javascript:void(0)">&nbsp;Requisition Form (RF)</a></li>
+            <li id="testhrf" runat="server"> <a href="requisition_form.aspx" id="lnkRF" runat="server">&nbsp;Requisition Form (RF)</a></li>
+<%--            <li id="testhrf" runat ="server" ><a href="requisition_form.aspx">&nbsp;Requisition Form (RF)</a></li>--%>
             <li class="active">&nbsp;&nbsp;<i class="fa fa-caret-right"></i></li>
             <li class="active">&nbsp;&nbsp;Detail Requisition Form (RF) - 
             <asp:Label runat="server" ID="lbRFNumberBreadcrumb"></asp:Label></li>

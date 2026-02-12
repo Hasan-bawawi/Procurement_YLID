@@ -177,7 +177,7 @@
                                         <div class="row">
                                             <div class='col-sm-12'>
                                                 <fieldset class="scheduler-border">
-                                                    <legend class="scheduler-border">List of Requisition Form (RF) - Need IT Head Approved</legend>
+                                                    <legend class="scheduler-border">List of Purchase Order (PO) - Need IT Head Approved</legend>
                                                     <div class="control-group">
                                                         <div class="row">
                                                             <div class='col-sm-12'>
@@ -237,7 +237,7 @@
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />
-                                                                            <asp:BoundField DataField="rf_no" HeaderText="RF Number" />
+                                                                            <asp:BoundField DataField="po_no" HeaderText="Po Number" />
                                                                             <asp:BoundField DataField="tgl_approve" HeaderText="Approval Date" />
                                                                             <asp:BoundField DataField="nik_approver" HeaderText="NIK" />
                                                                             <asp:BoundField DataField="ManagerApprove" HeaderText="Approver" />
@@ -260,7 +260,7 @@
                                         <div class="row">
                                             <div class='col-sm-12'>
                                                 <fieldset class="scheduler-border">
-                                                    <legend class="scheduler-border">List of Requisition Form (RF) - Need GA Head Approved</legend>
+                                                    <legend class="scheduler-border">List of Purchase Order (PO) - Need GA Head Approved</legend>
                                                     <div class="control-group">
                                                         <div class="row">
                                                             <div class='col-sm-12'>
@@ -319,7 +319,7 @@
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />
-                                                                            <asp:BoundField DataField="rf_no" HeaderText="RF Number" />
+                                                                            <asp:BoundField DataField="po_no" HeaderText="Po Number" />
                                                                             <asp:BoundField DataField="tgl_approve" HeaderText="Approval Date" />
                                                                             <asp:BoundField DataField="nik_approver" HeaderText="NIK" />
                                                                             <asp:BoundField DataField="ManagerApprove" HeaderText="Approver" />
@@ -342,7 +342,7 @@
                                         <div class="row">
                                             <div class='col-sm-12'>
                                                 <fieldset class="scheduler-border">
-                                                    <legend class="scheduler-border">List of Requisition Form (RF) - Need Administration GM Approved</legend>
+                                                    <legend class="scheduler-border">List of Purchase Order (PO) - Need Administration GM Approved</legend>
                                                     <div class="control-group">
                                                         <div class="row">
                                                             <div class='col-sm-12'>
@@ -360,7 +360,7 @@
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />
                                                                             <asp:BoundField DataField="po_type" HeaderText="PO Type" />
-                                                                            <asp:BoundField DataField="po_no" HeaderText="PO Number" />
+                                                                            <asp:BoundField DataField="po_no" HeaderText="Po Number" />
                                                                             <asp:BoundField DataField="code" HeaderText="Vendor Code" />
                                                                             <asp:BoundField DataField="vendor_name" HeaderText="Vendor Name" />
                                                                             <asp:BoundField DataField="po_date" HeaderText="PO Date" />
@@ -401,7 +401,7 @@
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />
-                                                                            <asp:BoundField DataField="rf_no" HeaderText="RF Number" />
+                                                                            <asp:BoundField DataField="po_no" HeaderText="Po Number" />
                                                                             <asp:BoundField DataField="tgl_approve" HeaderText="Approval Date" />
                                                                             <asp:BoundField DataField="nik_approver" HeaderText="NIK" />
                                                                             <asp:BoundField DataField="ManagerApprove" HeaderText="Approver" />
@@ -424,7 +424,7 @@
                                         <div class="row">
                                             <div class='col-sm-12'>
                                                 <fieldset class="scheduler-border">
-                                                    <legend class="scheduler-border">List of Requisition Form (RF) - Need Director Approved</legend>
+                                                    <legend class="scheduler-border">List of Purchase Order (PO) - Need Director Approved</legend>
                                                     <div class="control-group">
                                                         <div class="row">
                                                             <div class='col-sm-12'>
@@ -483,7 +483,7 @@
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateField>
                                                                             <asp:BoundField DataField="id" HeaderText="id" />
-                                                                            <asp:BoundField DataField="rf_no" HeaderText="RF Number" />
+                                                                            <asp:BoundField DataField="po_no" HeaderText="Po Number" />
                                                                             <asp:BoundField DataField="tgl_approve" HeaderText="Approval Date" />
                                                                             <asp:BoundField DataField="nik_approver" HeaderText="NIK" />
                                                                             <asp:BoundField DataField="ManagerApprove" HeaderText="Approver" />

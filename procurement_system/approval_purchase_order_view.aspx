@@ -437,13 +437,37 @@
                                                                 :&nbsp;<asp:Label runat="server" ID="lbPaymentTerms"></asp:Label>
                                                             </div>
                                                         </div>
-                                                        <div class='col-sm-12'>
+                                                    <div class="col-sm-6 d-flex align-items-center">
+                                                             <div style="margin-right:12px;">
+                                                                <button type="button"
+                                                                    onclick="<%=btnDownloadPO.ClientID %>.click()"
+                                                                    class="btn buttonColor btn-match">
+                                                                    Download Form
+                                                                    <i class="fa fa-download ms-1"></i>
+                                                                </button>
+                                                            </div>
+
+                                                            <asp:Button runat="server" Style="display:none;"
+                                                                ID="btnDownloadPO"
+                                                                OnClick="btnDownloadPO_Click" />
+
+                                                            <div id="divbtnseeattach" runat="server"  style="margin-right:12px;">
+                                                                <button type="button"
+                                                                    onclick="openPdfModal()"
+                                                                    class="btn buttonColor btn-match">
+                                                                    See Attach doc
+                                                                    <i class="fa fa-eye ms-1"></i>
+                                                                </button>
+                                                            </div>                                                           
+                                                       </div>
+
+<%--                                                        <div class='col-sm-12'>
                                                             <button type="button" onclick="<%=btnDownloadPO.ClientID %>.click()" class="btn mb-1 buttonColor">
                                                                 Download Form
                                                             <span class="btn-icon-right"><i class="fa fa-download"></i></span>
                                                             </button>
                                                             <asp:Button runat="server" Style="display: none;" ID="btnDownloadPO" OnClick="btnDownloadPO_Click"></asp:Button>
-                                                        </div>
+                                                        </div>--%>
                                                     </div>
                                                 </div>
                                             </div>
@@ -584,7 +608,52 @@
             </div>
         </div>
     </div>
+            <div class="modal fade" id="pdfModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered"
+         style="max-width:95%; width:95%;">
+        <div class="modal-content">
 
+            <!-- HEADER -->
+            <div class="modal-header d-flex justify-content-between align-items-center">
+                <h5 class="modal-title mb-0">Attachment Document</h5>
+
+                <!-- CLOSE MANUAL (TIDAK TERGANTUNG BOOTSTRAP) -->
+                <button type="button"
+                        onclick="closePdfModal()"
+                        style="border:none; background:transparent;
+                               font-size:28px; line-height:1; cursor:pointer;">
+                    &times;
+                </button>
+            </div>
+
+            <!-- BODY -->
+            <div class="modal-body p-0" style="height:85vh;">
+                <iframe id="pdfFrame"
+                        style="width:100%; height:100%; border:none;">
+                </iframe>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+        <script>
+            function openPdfModal() {
+                const frame = document.getElementById('pdfFrame');
+
+                frame.src = '<%= ResolveUrl(Convert.ToString(Session["AttachmentPO"])) %>';
+
+                $('#pdfModal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+            }
+
+            function closePdfModal() {
+                $('#pdfFrame').attr('src', '');
+                $('#pdfModal').modal('hide');
+            }
+        </script>
     <script type="text/javascript" src="vendors/date/JS/jquery-1.10.2.min.js"></script>
 
     <script>

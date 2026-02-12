@@ -47,12 +47,14 @@ namespace procurement_system
             {
                 divChangeApprover.Visible = true;
                 divCancelRF.Visible = true;
+                //lnkRF.Attributes["class"] = "disabled-link";
                 //divSend.Visible = false;
             }
             else
             {
                 divChangeApprover.Visible = false;
                 divCancelRF.Visible = false;
+                lnkRF.Attributes["class"] = "disabled-link";
             }
 
             string id = Request.QueryString["rf_no"];
@@ -14752,7 +14754,7 @@ namespace procurement_system
             sqlcomm.Parameters.AddWithValue("@quantity", txtJumlahBeli.Value.ToString());
             sqlcomm.Parameters.AddWithValue("@request_date", lbRequestDate.Text.Trim());
             sqlcomm.Parameters.AddWithValue("@remaks", txtRemaks.Value.ToString());
-            sqlcomm.Parameters.AddWithValue("@status", "Not Complete");
+            sqlcomm.Parameters.AddWithValue("@status", "Not Completed");
             sqlcomm.Parameters.AddWithValue("@type_request", Session["type_request"].ToString());
             sqlcomm.Parameters.AddWithValue("@status_approve", "NOT YET");
             //sqlcomm.Parameters.AddWithValue("@description", txtDescription.Value.ToString());

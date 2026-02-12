@@ -100,6 +100,9 @@ namespace procurement_system
                             Session.Add("email_po_checked_by", (string)(rdr.IsDBNull(34) ? null : rdr["email_po_checked_by"]));
                             Session.Add("email_authorized_by", (string)(rdr.IsDBNull(35) ? null : rdr["email_authorized_by"]));
                             Session.Add("email_po_checked_by_it", (string)(rdr.IsDBNull(36) ? null : rdr["email_po_checked_by_it"]));
+                            Session["AttachmentPO"] = rdr["AttachmentPO"] == DBNull.Value ? null : rdr["AttachmentPO"].ToString();
+
+
                         }
                     }
                     sqlcomm.Dispose();
@@ -120,6 +123,12 @@ namespace procurement_system
                 lbPaymentTerms.Text = Session["payment_term"].ToString();
                 txtVAT.Value = Session["vat"].ToString();
                 hlbIDVendor.Value = Session["id_vendor"].ToString();
+
+                if (Session["AttachmentPO"] == null || string.IsNullOrEmpty(Session["AttachmentPO"].ToString()))
+                {
+                    divbtnseeattach.Visible = false;
+                }
+
 
                 if (!IsPostBack)
                 {
@@ -2258,7 +2267,7 @@ namespace procurement_system
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } },
-                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
+                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } ,  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true
@@ -2449,7 +2458,7 @@ namespace procurement_system
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } },
                                 new { emailAddress = new { address = Session["email_po_checked_by_it"].ToString() } },
-                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
+                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } ,  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true
@@ -2639,7 +2648,7 @@ namespace procurement_system
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } },
-                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } },
+                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } ,  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true
@@ -2830,7 +2839,7 @@ namespace procurement_system
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } },
                                 new { emailAddress = new { address = Session["email_po_checked_by_it"].ToString() } },
-                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } },
+                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } }  ,  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true
@@ -3021,7 +3030,7 @@ namespace procurement_system
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } },
                                 new { emailAddress = new { address = Session["authorized_by"].ToString() } },
-                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } },
+                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } ,  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true
@@ -3213,7 +3222,7 @@ namespace procurement_system
                             ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } },
                                 new { emailAddress = new { address = Session["email_po_checked_by_it"].ToString() } },
                                 new { emailAddress = new { address = Session["email_authorized_by"].ToString() } },
-                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } },
+                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } ,  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }},
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true
@@ -3403,7 +3412,7 @@ namespace procurement_system
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by_it"].ToString() } },
-                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
+                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } ,  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true
@@ -3594,7 +3603,7 @@ namespace procurement_system
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by_it"].ToString() } },
                                 new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } },
-                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
+                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } },  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true
@@ -3784,7 +3793,7 @@ namespace procurement_system
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = "email_po_checked_by" } },
-                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
+                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } , new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true
@@ -3974,7 +3983,7 @@ namespace procurement_system
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_authorized_by"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = "email_po_checked_by" } }, new { emailAddress = new { address = "email_po_approved_by" } },
-                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
+                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } ,  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }},
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true
@@ -4165,7 +4174,7 @@ namespace procurement_system
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_authorized_by"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = "email_po_checked_by" } },new { emailAddress = new { address = "email_po_approved_by" } },
                                 new { emailAddress = new { address = Session["email_po_created_by"].ToString() } },
-                                new { emailAddress = new { address = Session["email_po_checked_by_it"].ToString() } } },
+                                new { emailAddress = new { address = Session["email_po_checked_by_it"].ToString() } } ,  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true

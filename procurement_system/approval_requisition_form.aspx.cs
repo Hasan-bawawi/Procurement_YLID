@@ -532,7 +532,7 @@ namespace procurement_system
 
         //protected void btnViewGASectionHead_Click(object sender, EventArgs e)
         //{
-        //    LinkButton btn = (LinkButton)sender;
+        //    LinkButton s = (LinkButton)sender;
         //    GridViewRow row = (GridViewRow)btn.NamingContainer;
         //    GetDataTableRFNeedApproveGASectionHead();
         //    if (row.Cells[3].Text == "")

@@ -952,7 +952,6 @@ Fields!merk_name.Value</Value>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -3121,7 +3120,7 @@ Fields!merk_name.Value</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox2</rd:DefaultName>
-        <Top>6.71577in</Top>
+        <Top>6.72618in</Top>
         <Left>0.19704in</Left>
         <Height>0.98784in</Height>
         <Width>7.31467in</Width>

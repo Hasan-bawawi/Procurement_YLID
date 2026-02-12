@@ -355,9 +355,9 @@ namespace procurement_system
                     {
                         string val = keyNoNeedPO.ToString().Trim();
 
-                        if (val.Equals("True", StringComparison.OrdinalIgnoreCase))
+                        if (val.Equals("1", StringComparison.OrdinalIgnoreCase))
                             NoneedPO = 1;
-                        else if (val.Equals("False", StringComparison.OrdinalIgnoreCase))
+                        else if (val.Equals("0", StringComparison.OrdinalIgnoreCase))
                             NoneedPO = 0;
                         else
                             int.TryParse(val, out NoneedPO);

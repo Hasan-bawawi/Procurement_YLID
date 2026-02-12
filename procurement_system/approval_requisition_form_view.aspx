@@ -130,6 +130,14 @@
             border-color: midnightblue !important; /* biru terang */
             box-shadow: 0 0 5px rgba(0,123,255,0.5);
         }
+
+        
+           .btn-match {
+           height: 41px;           /* ikut Change Approver */
+           padding-top: 0;
+           padding-bottom: 0;
+           line-height: 41px;      /* kunci tinggi */
+       }
     </style>
 
 
