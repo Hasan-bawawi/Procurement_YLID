@@ -47,7 +47,7 @@ namespace procurement_system
                 Response.Redirect("login.aspx?url=" + Server.UrlEncode(Request.Url.AbsoluteUri));
             }
 
-            if ((Session["GroupName"].ToString() == "PO Approval") || (Session["GroupName"].ToString() == "RF AND PO Approval"))
+            if ((Session["GroupName"].ToString() == "PO Approval") || (Session["GroupName"].ToString() == "RF AND PO Approval") || (Session["GroupName"].ToString() == "Admin Purchasing"))
             {
                 string po_no = Request.QueryString["po_no"];
                 string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
@@ -3792,8 +3792,10 @@ namespace procurement_system
                             //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } },
-                            ccRecipients = new[] { new { emailAddress = new { address = "email_po_checked_by" } },
-                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } , new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
+                            ccRecipients = new[] { 
+                                new { emailAddress = new { address = "email_po_checked_by" } },
+                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } ,
+                                new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true

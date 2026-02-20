@@ -116,7 +116,7 @@
             transform: rotate(45deg);
         }
 
-               .dataTables_filter input {
+        .dataTables_filter input {
             border: 3px solid darkblue !important;
             background-color: #f0f8ff !important;
             padding: 6px 10px !important;
@@ -131,7 +131,7 @@
             box-shadow: 0 0 5px rgba(0,123,255,0.5);
         }
 
-           .btn-match {
+       .btn-match {
            height: 41px;           /* ikut Change Approver */
            padding-top: 0;
            padding-bottom: 0;
@@ -259,6 +259,71 @@
                 allowOutsideClick: false
             });
         }
+
+
+        function confirmCancelPO() {
+            debugger
+            swal({
+                title: 'Are you sure?',
+                text: `
+            <div style="margin-top:10px;">
+                Do you want to cancel this PO?<br/><br/>
+                <textarea id="cancelReason"
+                    placeholder="Enter cancel reason..."
+                    style="width:100%; height:80px; padding:8px; border:1px solid #ccc; border-radius:4px;"></textarea>
+                <div id="reasonError" style="color:red; display:none; margin-top:6px; font-size:13px;">
+                    Cancel reason is required
+                </div>
+            </div>
+        `,
+                type: 'warning',
+                html: true,
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Cancel it!',
+                cancelButtonText: 'No',
+                confirmButtonColor: '#d33',
+                closeOnConfirm: false
+            }, function (isConfirm) {
+
+                if (!isConfirm) return;
+
+                var txt = document.getElementById("cancelReason");
+                var error = document.getElementById("reasonError");
+                var reason = txt.value.trim();
+
+                if (reason === "") {
+                    error.style.display = "block";
+                    txt.style.border = "2px solid red";
+                    txt.focus();
+                    return false;
+                }
+
+                // Simpan ke hidden field
+                var reason = document.getElementById("cancelReason").value.trim();
+
+                var hidden = document.querySelector("input[id$='hfCancelReason']");
+                hidden.value = reason;
+
+                swal.close();
+
+                setTimeout(function () {
+                    ShowLoading();
+                    document.getElementById('<%= btnCancelForm.ClientID %>').click();
+                }, 200);
+                    });
+
+                    setTimeout(function () {
+                        var txt = document.getElementById("cancelReason");
+                        if (txt) {
+                            txt.addEventListener("input", function () {
+                                this.style.border = "1px solid #ccc";
+                                document.getElementById("reasonError").style.display = "none";
+                            });
+                        }
+                    }, 300);
+
+                    return false;
+                }
     </script>
 
     <script type="text/javascript">
@@ -324,6 +389,8 @@
     <asp:HiddenField ID="hlbCatalog" runat="server" />
     <asp:HiddenField ID="hlbIDVendor" runat="server" />
     <asp:HiddenField ID="hlbGRNo" runat="server" />
+    <asp:HiddenField ID="hfCancelReason" runat="server" />
+
 
     <div class="container-fluid">
         <div class="row">
@@ -494,13 +561,26 @@
                                                        </div>
 
 
-                                                        <div class='col-sm-6' id="divCancel" runat="server">
-                                                            <button type="button" style="float: right;" onclick="<%=btnCancelForm.ClientID %>.click()" class="btn mb-1 buttonColor">
+<%--                                                        <div class='col-sm-6' id="divCancel" runat="server">
+                                                            <button type="button" style="float: right;" onclick="<%=btnCancelForm.ClientID %>.click()" class="btn btn-danger mb-1">
                                                                 Cancel Form
                                                                 <span class="btn-icon-right"><i class="fa fa-cancel"></i></span>
                                                             </button>
                                                             <asp:Button runat="server" Style="display: none;" ID="btnCancelForm" OnClick="btnCancelForm_Click"></asp:Button>
-                                                        </div>
+                                                        </div>--%>
+
+
+                                              <div class='col-sm-6' id="divCancel" runat="server" style="margin-top:3px;">
+                                                <button type="button" style="float: right;"  onclick="confirmCancelPO()" class="btn btn-danger mb-1">
+                                                    Cancel Form
+                                                    <span class="btn-icon-right"><i class="fa-solid fa-remove"></i></span>
+                                                </button>
+                                                <asp:Button 
+                                                    runat="server" 
+                                                    ID="btnCancelForm" 
+                                                    Style="display:none;" 
+                                                    OnClick="btnCancelForm_Click" />
+                                              </div>
                                                    
                                                     </div>
                                                 </div>

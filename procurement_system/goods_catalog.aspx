@@ -131,6 +131,11 @@
         }
     </script>
     <script type="text/javascript">
+            function Selectmerk() {
+                swal('Save Failed!', 'Please enter Merk!', 'error');
+            }
+        </script>
+    <script type="text/javascript">
         function DuplicateCode() {
             swal('Save Failed!', 'Item Code is already in Catalog, please submit to Good Stock!', 'error');
         }

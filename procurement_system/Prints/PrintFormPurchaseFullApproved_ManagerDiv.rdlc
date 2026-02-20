@@ -11,7 +11,7 @@
               <TextRun>
                 <Value>PT Yusen Logistics Indonesia</Value>
                 <Style>
-                  <FontFamily>Century Schoolbook</FontFamily>
+                  <FontFamily>Calibri</FontFamily>
                   <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
@@ -2355,7 +2355,14 @@ Fields!merk_name.Value</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>④Deputy Director</Value>
+                <Value>④</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>Deputy Director</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2391,7 +2398,14 @@ Fields!merk_name.Value</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>③AGM/GM/SGM</Value>
+                <Value>③</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>AGM/GM/SGM</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2427,7 +2441,14 @@ Fields!merk_name.Value</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>②AM/Mgr/SM</Value>
+                <Value>②</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>AM/Mgr/SM</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2463,7 +2484,14 @@ Fields!merk_name.Value</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>①Applicant</Value>
+                <Value>①</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>Applicant</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2499,7 +2527,14 @@ Fields!merk_name.Value</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>⑦President</Value>
+                <Value>⑦</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>President</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2535,7 +2570,14 @@ Fields!merk_name.Value</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>⑥ Director</Value>
+                <Value>⑥</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value> Director</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2571,7 +2613,14 @@ Fields!merk_name.Value</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>⑤Director</Value>
+                <Value>⑤</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>Director</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>

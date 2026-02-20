@@ -952,7 +952,6 @@ Fields!merk_name.Value</Value>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -2359,7 +2358,15 @@ Fields!merk_name.Value</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>④Authorized by</Value>
+                <Value>④</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>Authorized by</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2395,7 +2402,15 @@ Fields!merk_name.Value</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>③Approved by</Value>
+                <Value>③</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>Approved by</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2431,7 +2446,15 @@ Fields!merk_name.Value</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>②Checked by</Value>
+                <Value>②</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>Checked by</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2467,7 +2490,15 @@ Fields!merk_name.Value</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>①Prepared by</Value>
+                <Value>①</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>Prepared by</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -3123,7 +3154,7 @@ Fields!merk_name.Value</Value>
         <rd:DefaultName>Textbox2</rd:DefaultName>
         <Top>6.66266in</Top>
         <Left>0.20417in</Left>
-        <Height>0.98784in</Height>
+        <Height>1.05136in</Height>
         <Width>7.31467in</Width>
         <ZIndex>57</ZIndex>
         <Style>
@@ -3372,7 +3403,7 @@ Fields!merk_name.Value</Value>
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>7.70013in</Height>
+    <Height>7.78346in</Height>
     <Style />
   </Body>
   <Width>7.63417in</Width>

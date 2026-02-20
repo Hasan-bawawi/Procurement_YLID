@@ -144,7 +144,9 @@ namespace procurement_system
             string id_vendor = formData["IDVendor"];
             string deliveryselect = formData["Deliveryselect"].Trim();
             hfAttachmentPath.Value = formData["FilePath"];
-            string attachmentpathPO = "~/" + formData["FilePath"];
+            //string attachmentpathPO = "~/" + formData["FilePath"];
+            string filePath = formData["FilePath"];
+            string attachmentpathPO = string.IsNullOrWhiteSpace(filePath)? null : "~/" + filePath;
 
             //return;
 
@@ -179,7 +181,8 @@ namespace procurement_system
                     sqlcomm.Parameters.AddWithValue("@catalog_type", Catalog);
                     sqlcomm.Parameters.AddWithValue("@status", "PO Created");
                     sqlcomm.Parameters.AddWithValue("@deliveryselect", deliveryselect);
-                    sqlcomm.Parameters.AddWithValue("@attachment_path", attachmentpathPO);
+                    //sqlcomm.Parameters.AddWithValue("@attachment_path", attachmentpathPO);
+                    sqlcomm.Parameters.AddWithValue("@attachment_path",(object)attachmentpathPO ?? DBNull.Value);
                     sqlcomm.Parameters.AddWithValue("@approve_status", "PO Created");
                     sqlcomm.Parameters.AddWithValue("@po_status", "Not Complete");
                     sqlcomm.Parameters.AddWithValue("@requesting_dept", iddivision);
@@ -2206,8 +2209,9 @@ namespace procurement_system
                                 //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                                 //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                                 toRecipients = new[] { new { emailAddress = new { address = _emailITMgr } } },
-                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } },
-                                    new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
+                                ccRecipients = new[] {
+                                    //new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } },
+                                    //new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
                                     new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                                 //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
@@ -2336,7 +2340,9 @@ namespace procurement_system
                                 //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                                 //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                                 toRecipients = new[] { new { emailAddress = new { address = _emailITMgr } } },
-                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
+                                ccRecipients = new[] {
+                                //new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, 
+                                //new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
                                 new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                                 //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
@@ -2547,7 +2553,9 @@ namespace procurement_system
                                     content = body
                                 },
                                 toRecipients = new[] { new { emailAddress = new { address = _emailGAMgr } } },
-                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
+                                ccRecipients = new[] {
+                                //new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, 
+                                //new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
                                 new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                                 //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
@@ -2675,7 +2683,9 @@ namespace procurement_system
                                     content = body
                                 },
                                 toRecipients = new[] { new { emailAddress = new { address = _emailGAMgr } } },
-                                ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } ,
+                                ccRecipients = new[] {
+                                    //new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, 
+                                    //new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } ,
                                     new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                                 //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                                 //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },

@@ -168,6 +168,15 @@ namespace procurement_system
         protected global::System.Web.UI.WebControls.HiddenField hlbGRNo;
 
         /// <summary>
+        /// hfCancelReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfCancelReason;
+
+        /// <summary>
         /// divPOStatus control.
         /// </summary>
         /// <remarks>

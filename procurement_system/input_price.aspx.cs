@@ -628,7 +628,7 @@ namespace procurement_system
 
                 UpdatePriceRF();
 
-                //await SendEmailSendToManagerDivision();
+                await SendEmailSendToManagerDivision();
                 string script = $@"
                                         $(document).ready(function() {{
                                             // Show Toastr notification

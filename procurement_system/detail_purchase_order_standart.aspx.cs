@@ -1004,60 +1004,86 @@ namespace procurement_system
 
         protected void GetTableItemPO()
         {
-            if (Session["approve_status"].ToString() == "PO Created")
-            {
-                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                SqlConnection Con = new SqlConnection(path);
-                Con.Open();
-                SqlCommand sqlcomm = new SqlCommand();
-                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                sqlcomm.CommandType = CommandType.StoredProcedure;
-                sqlcomm.Connection = Con;
-                sqlcomm.Parameters.AddWithValue("@StatementType", "ViewDetailPurchaseOrder");
-                sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberBreadcrumb.Text);
-                DataTable dtb = new DataTable();
-                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
-                sda.Fill(dtb);
-                ViewState["myViewState"] = dtb;
-                TableItemPO.DataSource = dtb;
-                TableItemPO.DataBind();
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            SqlConnection Con = new SqlConnection(path);
+            Con.Open();
+            SqlCommand sqlcomm = new SqlCommand();
+            sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+            sqlcomm.CommandType = CommandType.StoredProcedure;
+            sqlcomm.Connection = Con;
+            sqlcomm.Parameters.AddWithValue("@StatementType", "ViewDetailPurchaseOrder");
+            sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberBreadcrumb.Text);
+            DataTable dtb = new DataTable();
+            SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
-                TableItemPO.Columns[11].Visible = false;
+            sda.Fill(dtb);
+            ViewState["myViewState"] = dtb;
+            TableItemPO.DataSource = dtb;
+            TableItemPO.DataBind();
 
-                TableItemPO.UseAccessibleHeader = true;
-                TableItemPO.HeaderRow.TableSection = TableRowSection.TableHeader;
+            TableItemPO.Columns[11].Visible = false;
 
-                Con.Close();
-            }
-            else
-            {
-                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                SqlConnection Con = new SqlConnection(path);
-                Con.Open();
-                SqlCommand sqlcomm = new SqlCommand();
-                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
-                sqlcomm.CommandType = CommandType.StoredProcedure;
-                sqlcomm.Connection = Con;
-                sqlcomm.Parameters.AddWithValue("@StatementType", "ViewDetailPurchaseOrder");
-                sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberBreadcrumb.Text);
-                DataTable dtb = new DataTable();
-                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+            TableItemPO.UseAccessibleHeader = true;
+            TableItemPO.HeaderRow.TableSection = TableRowSection.TableHeader;
 
-                sda.Fill(dtb);
-                ViewState["myViewState"] = dtb;
-                TableItemPO.DataSource = dtb;
-                TableItemPO.DataBind();
+            Con.Close();
 
-                TableItemPO.Columns[11].Visible = false;
 
-                TableItemPO.UseAccessibleHeader = true;
-                TableItemPO.HeaderRow.TableSection = TableRowSection.TableHeader;
+            //if (Session["approve_status"].ToString() == "PO Created")
+            //{
+            //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            //    SqlConnection Con = new SqlConnection(path);
+            //    Con.Open();
+            //    SqlCommand sqlcomm = new SqlCommand();
+            //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+            //    sqlcomm.CommandType = CommandType.StoredProcedure;
+            //    sqlcomm.Connection = Con;
+            //    sqlcomm.Parameters.AddWithValue("@StatementType", "ViewDetailPurchaseOrder");
+            //    sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberBreadcrumb.Text);
+            //    DataTable dtb = new DataTable();
+            //    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
-                Con.Close();
-                divCancel.Visible = false;
-            }
-            
+            //    sda.Fill(dtb);
+            //    ViewState["myViewState"] = dtb;
+            //    TableItemPO.DataSource = dtb;
+            //    TableItemPO.DataBind();
+
+            //    TableItemPO.Columns[11].Visible = false;
+
+            //    TableItemPO.UseAccessibleHeader = true;
+            //    TableItemPO.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+            //    Con.Close();
+            //}
+            //else
+            //{
+            //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            //    SqlConnection Con = new SqlConnection(path);
+            //    Con.Open();
+            //    SqlCommand sqlcomm = new SqlCommand();
+            //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+            //    sqlcomm.CommandType = CommandType.StoredProcedure;
+            //    sqlcomm.Connection = Con;
+            //    sqlcomm.Parameters.AddWithValue("@StatementType", "ViewDetailPurchaseOrder");
+            //    sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberBreadcrumb.Text);
+            //    DataTable dtb = new DataTable();
+            //    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+
+            //    sda.Fill(dtb);
+            //    ViewState["myViewState"] = dtb;
+            //    TableItemPO.DataSource = dtb;
+            //    TableItemPO.DataBind();
+
+            //    TableItemPO.Columns[11].Visible = false;
+
+            //    TableItemPO.UseAccessibleHeader = true;
+            //    TableItemPO.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+            //    Con.Close();
+            //    divCancel.Visible = false;
+            //}
+
         }
 
         #region Barcode
@@ -2095,7 +2121,7 @@ namespace procurement_system
         }
 
         #region EmailCancel
-        private string PopulateBodyCancel(string po_no, string issued_date, string reqby, string preparedby)
+        private string PopulateBodyCancel(string po_no, string issued_date, string reqby, string preparedby, string reason)
         {
 
             string body = string.Empty;
@@ -2107,13 +2133,15 @@ namespace procurement_system
             body = body.Replace("{IssuedDate}", issued_date);
             body = body.Replace("{RequestBy}", reqby);
             body = body.Replace("{PreparedBy}", preparedby);
+            body = body.Replace("{REASON}", reason);
+
             return body;
         }
 
         private async Task SendEmailCancel()
         {
             string body = this.PopulateBodyCancel
-            (lbPONumberHeader.Text, lbIssuedDate.Text, lbRequester.Text, Session["po_created_by"].ToString());
+            (lbPONumberHeader.Text, lbIssuedDate.Text, lbRequester.Text, Session["po_created_by"].ToString(), hfCancelReason.Value);
 
             string searchTerm = "IT"; // Get the search term (case-insensitive)
 
@@ -2491,6 +2519,9 @@ namespace procurement_system
                 UpdateDetail_RF();
             }
 
+            string reason = hfCancelReason.Value;
+
+
             string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
             SqlConnection Con = new SqlConnection(path);
             Con.Open();
@@ -2502,6 +2533,8 @@ namespace procurement_system
             sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text);
             //sqlcomm.Parameters.AddWithValue("@rf_no", Session["rf_no"].ToString());
             sqlcomm.Parameters.AddWithValue("@rf_no",Session["rf_no"] == null ? (object)DBNull.Value : Session["rf_no"].ToString());
+            sqlcomm.Parameters.AddWithValue("@reasoncancel", reason ?? "");
+
             sqlcomm.Parameters.AddWithValue("@po_type", Session["po_type"].ToString());
 
 

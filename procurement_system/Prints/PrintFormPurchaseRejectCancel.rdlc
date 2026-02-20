@@ -11,7 +11,7 @@
               <TextRun>
                 <Value>PT. Yusen Logistics Indonesia</Value>
                 <Style>
-                  <FontFamily>Century Schoolbook</FontFamily>
+                  <FontFamily>Calibri</FontFamily>
                   <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
@@ -24,9 +24,7 @@
         <Height>0.30208in</Height>
         <Width>2.96875in</Width>
         <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
+          <Border />
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -87,7 +85,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
         <Top>0.80083in</Top>
-        <Left>0.2396in</Left>
+        <Left>0.23957in</Left>
         <Height>0.32292in</Height>
         <Width>1.58333in</Width>
         <ZIndex>2</ZIndex>
@@ -1319,9 +1317,7 @@
         <Width>1.79829in</Width>
         <ZIndex>36</ZIndex>
         <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
+          <Border />
           <VerticalAlign>Middle</VerticalAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -2103,7 +2099,14 @@ Fields!merk_name.Value</ToolTip>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>④Deputy Director</Value>
+                <Value>④</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>Deputy Director</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2139,7 +2142,14 @@ Fields!merk_name.Value</ToolTip>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>③AGM/GM/SGM</Value>
+                <Value>③</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>AGM/GM/SGM</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2175,7 +2185,14 @@ Fields!merk_name.Value</ToolTip>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>②AM/Mgr/SM</Value>
+                <Value>②</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>AM/Mgr/SM</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2211,7 +2228,14 @@ Fields!merk_name.Value</ToolTip>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>①Applicant</Value>
+                <Value>①</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>Applicant</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>9pt</FontSize>
@@ -2388,8 +2412,8 @@ Fields!merk_name.Value</ToolTip>
         <Source>Embedded</Source>
         <Value>decline1</Value>
         <Sizing>FitProportional</Sizing>
-        <Top>2.6853in</Top>
-        <Left>1.95587in</Left>
+        <Top>0.95044in</Top>
+        <Left>2.08645in</Left>
         <Height>4.07387in</Height>
         <Width>4.39824in</Width>
         <ZIndex>48</ZIndex>
@@ -2481,6 +2505,7 @@ Fields!merk_name.Value</ToolTip>
               <TextRun>
                 <Value>Assets</Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
@@ -2612,7 +2637,14 @@ Fields!merk_name.Value</ToolTip>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>       LOW VALUE ASSETS</Value>
+                <Value xml:space="preserve">       </Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value>LOW VALUE ASSETS</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -2659,7 +2691,7 @@ Fields!merk_name.Value</ToolTip>
         </Style>
       </Image>
     </ReportItems>
-    <Height>7.74624in</Height>
+    <Height>7.73012in</Height>
     <Style />
   </Body>
   <Width>7.52646in</Width>

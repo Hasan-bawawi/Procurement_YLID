@@ -165,7 +165,7 @@ namespace procurement_system
             try
             {
                 ListItem newItem = new ListItem();
-                newItem.Text = "NO BRAND";
+                newItem.Text = "<Select merk>";
                 newItem.Value = "00000000-0000-0000-0000-000000000000";
                 ddlMerk.Items.Add(newItem);
 
@@ -462,6 +462,12 @@ namespace procurement_system
                 BindDataTableCatalog();
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlAddItem').modal();", true);
             }
+            else if (ddlMerk.SelectedItem.Text == "<Select merk>")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "Selectmerk();", true);
+                BindDataTableCatalog();
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlAddItem').modal();", true);
+            }
             else if (txtType.Value == "")
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FieldType();", true);
@@ -479,7 +485,7 @@ namespace procurement_system
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "SelectCatalogType();", true);
                 BindDataTableCatalog();
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlAddItem').modal();", true);
-            }
+            }            
             else
             {
                 bool isexistsduplicate_item_code = CheckCodeItemDuplicate(txtCode.Value);
