@@ -3216,7 +3216,7 @@ Fields!merk_name.Value</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Kawasan Industri MM2100 Blok EE-4, Desa Indah, Cikarang Barat, Bekasi, Jawa Barat 17520</Value>
+                <Value>PT Yusen Logistics Indonesia, Temas Building Lantai 3A, Jl. Yos Sudarso Kav.33, Sunter Jaya, Jakarta Utara 14350, Indonesia</Value>
                 <Style>
                   <FontFamily>Calibri</FontFamily>
                   <FontSize>8pt</FontSize>
@@ -3231,7 +3231,7 @@ Fields!merk_name.Value</Value>
         <Top>0.40625in</Top>
         <Left>0.20416in</Left>
         <Height>0.23139in</Height>
-        <Width>4.75699in</Width>
+        <Width>5.92349in</Width>
         <ZIndex>61</ZIndex>
         <Style>
           <Border>
@@ -3503,6 +3503,7 @@ Fields!merk_name.Value</Value>
           <Value>="file:///D:/WebFolder-PurchasingSystem/ylid-purchasing/Barcode/PO/barcode_po.png"</Value>
           <MIMEType>image/png</MIMEType>
           <Sizing>Fit</Sizing>
+          <Top>0cm</Top>
           <Left>0.20416in</Left>
           <Height>0.80023in</Height>
           <Width>0.96877in</Width>

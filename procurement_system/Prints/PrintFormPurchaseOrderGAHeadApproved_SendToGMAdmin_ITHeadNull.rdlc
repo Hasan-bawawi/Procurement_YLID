@@ -3207,40 +3207,6 @@ Fields!merk_name.Value</Value>
           </Border>
         </Style>
       </Image>
-      <Textbox Name="Textbox3">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Kawasan Industri MM2100 Blok EE-4, Desa Indah, Cikarang Barat, Bekasi, Jawa Barat 17520</Value>
-                <Style>
-                  <FontFamily>Calibri</FontFamily>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox2</rd:DefaultName>
-        <Top>0.40625in</Top>
-        <Left>0.20416in</Left>
-        <Height>0.23139in</Height>
-        <Width>4.75699in</Width>
-        <ZIndex>61</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Textbox Name="Textbox2">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -3264,7 +3230,7 @@ Fields!merk_name.Value</Value>
         <Left>3.06532in</Left>
         <Height>0.25in</Height>
         <Width>1.36458in</Width>
-        <ZIndex>62</ZIndex>
+        <ZIndex>61</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3353,7 +3319,7 @@ Fields!merk_name.Value</Value>
         <Left>4.62744in</Left>
         <Height>0.62848in</Height>
         <Width>1.17708in</Width>
-        <ZIndex>63</ZIndex>
+        <ZIndex>62</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3389,7 +3355,7 @@ Fields!merk_name.Value</Value>
         <Left>4.62744in</Left>
         <Height>0.22223in</Height>
         <Width>1.17708in</Width>
-        <ZIndex>64</ZIndex>
+        <ZIndex>63</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -3409,13 +3375,47 @@ Fields!merk_name.Value</Value>
         <Left>3.65891in</Left>
         <Height>0.39361in</Height>
         <Width>0.65627in</Width>
-        <ZIndex>65</ZIndex>
+        <ZIndex>64</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Image>
+      <Textbox Name="Textbox3">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>PT Yusen Logistics Indonesia, Temas Building Lantai 3A, Jl. Yos Sudarso Kav.33, Sunter Jaya, Jakarta Utara 14350, Indonesia</Value>
+                <Style>
+                  <FontFamily>Calibri</FontFamily>
+                  <FontSize>8pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox2</rd:DefaultName>
+        <Top>0.40625in</Top>
+        <Left>0.18992in</Left>
+        <Height>0.23139in</Height>
+        <Width>5.92349in</Width>
+        <ZIndex>65</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
     <Height>7.82513in</Height>
     <Style />
