@@ -705,7 +705,7 @@ namespace procurement_system
                     }
                 }
             }
-            else if (Session["approve_status"].ToString() == "CANCEL")
+            else if (Session["approve_status"].ToString() == "Canceled")
             {
                 // Price<= 1Jt GA Catalog
                 if (Session["po_checked_by_it"] is null && Session["po_approved_by"] is null && Session["authorized_by"] is null)
@@ -1905,7 +1905,7 @@ namespace procurement_system
                     Response.Flush();
                 }
             }
-            else if (Session["approve_status"].ToString() == "CANCEL")
+            else if (Session["approve_status"].ToString() == "Canceled")
             {
                 // Price<= 1Jt GA Catalog
                 if (Session["po_checked_by_it"] is null && Session["po_approved_by"] is null && Session["authorized_by"] is null)
@@ -2083,6 +2083,105 @@ namespace procurement_system
             //    }
             //}
         }
+
+
+
+
+        //protected void btnChangeApprover_Click(object sender, EventArgs e)
+        //{
+        //    if (Session["approve_status"].ToString() == "PO Created")
+        //    {
+        //        if (Session["po_status"].ToString() == "Canceled")
+        //        {
+        //            ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been Canceled.');", true);
+
+        //            divIThead.Visible = false;
+        //            divGAHead.Visible = false;
+        //            divGMDivision.Visible = false;
+        //        }
+        //        else if (Session["po_checked_by_it"].ToString() == null || Session["po_checked_by_it"].ToString() == "")
+        //        {
+        //            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
+
+        //            //GetMGR_DivisionApproval();
+
+        //            divIThead.Visible = false;
+        //            divGAHead.Visible = true;
+        //            divGMDivision.Visible = false;
+
+
+        //        }
+        //        else if (Session["po_checked_by"].ToString() == null || Session["po_checked_by"].ToString() == "")
+        //        {
+        //            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
+        //            //GetMGR_DivisionApproval();
+
+        //            divIThead.Visible = true;
+        //            divGAHead.Visible = false;
+        //            divGMDivision.Visible = false;
+
+        //        }
+        //    }
+        //    else if (Session["approve_status"].ToString() == "Approved (Checked by IT Head)")
+        //    {
+        //        if (Session["po_status"].ToString() == "Canceled")
+        //        {
+        //            ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been Canceled.');", true);
+        //            divIThead.Visible = false;
+        //            divGAHead.Visible = false;
+        //            divGMDivision.Visible = false;
+        //        }
+        //        else
+        //        {
+        //            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
+        //            //GetGMDivisionApproval();
+        //            divIThead.Visible = false;
+        //            divGAHead.Visible = true;
+        //            divGMDivision.Visible = false;
+
+        //        }
+        //    }
+        //    else if (Session["approve_status"].ToString() == "Approved (Checked by GA Head)")
+        //    {
+        //        if (Session["po_status"].ToString() == "Canceled")
+        //        {
+        //            ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been Canceled.');", true);
+        //            divIThead.Visible = false;
+        //            divGAHead.Visible = false;
+        //            divGMDivision.Visible = false;
+        //        }
+        //        else
+        //        {
+        //            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
+        //            //GetGMDivisionApproval();
+        //            divIThead.Visible = false;
+        //            divGAHead.Visible = false;
+        //            divGMDivision.Visible = true;
+
+        //        }
+        //    }
+        //    else if (Session["approve_status"].ToString() == "Canceled")
+        //    {
+        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been Canceled.');", true);
+        //        divIThead.Visible = false;
+        //        divGAHead.Visible = false;
+        //        divGMDivision.Visible = false;
+        //    }
+        //    else
+        //    {
+        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been approved by the Division Manager & GM !!');", true);
+        //        divIThead.Visible = false;
+        //        divGAHead.Visible = false;
+        //        divGMDivision.Visible = false;
+        //    }
+        //}
+
+
+
+
+
+
+
 
         protected void TableRequesitionItem_RowCommand(object sender, GridViewCommandEventArgs e)
         {

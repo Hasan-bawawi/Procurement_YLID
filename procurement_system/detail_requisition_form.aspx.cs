@@ -14987,6 +14987,16 @@ namespace procurement_system
                     #endregion
                 }
             }
+            else if (Session["status_approve"].ToString() == "NOT YET")
+            {
+               
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
+                    GetMGR_DivisionApproval();
+                    divManagerDivision.Visible = true;
+                    divGMDivision.Visible = false;
+              
+
+            }
             else if (Session["status_approve"].ToString() == "Canceled")
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, RF has been Canceled.');", true);

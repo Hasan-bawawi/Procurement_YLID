@@ -544,7 +544,25 @@
                                                                     See Attach doc
                                                                     <i class="fa fa-eye ms-1"></i>
                                                                 </button>
-                                                            </div>                                                           
+                                                            </div> 
+
+   <%--                                                        <div id="divChangeApprover" runat="server">
+                                                                <button type="button"
+                                                                    onclick="<%=btnChangeApprover.ClientID %>.click()"
+                                                                    class="btn buttonColor btn-match">
+                                                                  Change Appover
+                                                                    <i class="fa fa-refresh ms-1"></i>
+                                                                </button>
+                                                            </div>
+
+                                                            <asp:Button runat="server" Style="display:none;"
+                                                                ID="btnChangeApprover"
+                                                                OnClick="btnChangeApprover_Click" />--%>
+
+
+
+
+
 <%--                                                            <div id="divChangeApprover" runat="server">
                                                                 <button type="button"
                                                                     onclick="<%=btnChangeApprover.ClientID %>.click()"
@@ -700,6 +718,77 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+    <!--**********************************
+		Modal Change Approver
+	***********************************-->
+<%--    <div class="modal fade bs-example-modal-lg" id="mdlChangeApprover" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="mdlChangeApprover1">List of Approver</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="x_content">
+                        <div class="row">
+                            <div class='col-sm-12' id="divIThead" runat="server">
+                                IT HEAD
+				            <div class="form-group">
+                                <div class='input-group'>
+                                    <asp:DropDownList ID="ddlITHead" class="selectpicker form-control" data-show-subtext="true" data-live-search="true" AppendDataBoundItems="true" AutoPostBack="false"
+                                        runat="server" OnSelectedIndexChanged="ddlITHead_SelectedIndexChanged">
+                                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                            </div>
+                            <div class='col-sm-12' id="divGAHead" runat="server">
+                               GA HEAD
+                                <div class="form-group">
+                                    <div class='input-group'>
+                                        <asp:DropDownList ID="ddlGAHead" class="selectpicker form-control" data-show-subtext="true" data-live-search="true" AppendDataBoundItems="true" AutoPostBack="false"
+                                            runat="server" OnSelectedIndexChanged="ddlGAHead_SelectedIndexChanged">
+                                            <asp:ListItem Text="" Value=""></asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='col-sm-12' id="divGMDivision" runat="server">
+                                General Manager
+                                <div class="form-group">
+                                    <div class='input-group'>
+                                        <asp:DropDownList ID="ddlGMDivision" class="selectpicker form-control" data-show-subtext="true" data-live-search="true" AppendDataBoundItems="true" AutoPostBack="false"
+                                            runat="server" OnSelectedIndexChanged="ddlGMDivision_SelectedIndexChanged">
+                                            <asp:ListItem Text="" Value=""></asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="<%=btnUpdateApproval.ClientID %>.click()" class="btn mb-1 buttonColor">
+                        Update
+		            <span class="btn-icon-right"><i class="fa fa-refresh"></i></span>
+                    </button>
+                    <asp:Button runat="server" Style="display: none;" ID="btnUpdateApproval" OnClick="btnUpdateApproval_Click" OnClientClick="ShowLoading()"></asp:Button>
+                </div>
+            </div>
+        </div>
+    </div>--%>
+
+
+
+
+
 
     <!--**********************************
 		Modal Add Item

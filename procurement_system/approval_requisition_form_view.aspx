@@ -528,7 +528,7 @@
                                             runat="server" OnSelectedIndexChanged="ddlApproval_SelectedIndexChanged" ValidateRequestMode="Enabled">
                                             <asp:ListItem Enabled="true" Text="" Value="0"></asp:ListItem>
                                             <asp:ListItem Text="Approved" Value="1"></asp:ListItem>
-                                            <asp:ListItem Text="Reject" Value="2"></asp:ListItem>
+<%--                                            <asp:ListItem Text="Reject" Value="2"></asp:ListItem>--%>
                                             <asp:ListItem Text="Canceled" Value="3"></asp:ListItem>
                                         </asp:DropDownList>
                                     </div>

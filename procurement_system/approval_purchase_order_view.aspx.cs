@@ -376,7 +376,7 @@ namespace procurement_system
                         lbDateGMAdm.Text = GetAppGMAdmDate + "&nbsp;-&nbsp;" + "Checked by" + "&nbsp" + Session["GMAdminApprover"].ToString();
                     }
                 }
-                else if (Session["approve_status"].ToString() == "CANCEL")
+                else if (Session["approve_status"].ToString() == "Canceled")
                 {
                     // Price<= 1Jt GA Catalog
                     if (Session["po_checked_by_it"] is null && Session["po_approved_by"] is null && Session["authorized_by"] is null)
@@ -990,7 +990,7 @@ namespace procurement_system
                     Response.Flush();
                 }
             }
-            else if (Session["approve_status"].ToString() == "CANCEL")
+            else if (Session["approve_status"].ToString() == "Canceled")
             {
                 // Price<= 1Jt GA Catalog
                 if (Session["po_checked_by_it"] is null && Session["po_approved_by"] is null && Session["authorized_by"] is null)
@@ -1084,7 +1084,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             UpdateDetail_RFCancelReject();
@@ -1126,7 +1126,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             UpdateDetail_RFCancelReject();
@@ -1168,7 +1168,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             UpdateDetail_RFCancelReject();
@@ -1214,7 +1214,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             UpdateDetail_RFCancelReject();
@@ -1257,7 +1257,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             UpdateDetail_RFCancelReject();
@@ -1303,7 +1303,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             UpdateDetail_RFCancelReject();
@@ -1345,7 +1345,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             UpdateDetail_RFCancelReject();
@@ -1387,7 +1387,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             UpdateDetail_RFCancelReject();
@@ -1429,7 +1429,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             UpdateDetail_RFCancelReject();
@@ -1474,7 +1474,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             UpdateDetail_RFCancelReject();
@@ -1516,7 +1516,7 @@ namespace procurement_system
                                 DeleteSelectedItems(item_code);
                             }
                         }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Cancel")
+                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
                         {
                             UpdateStatusRejectCancel();
                             UpdateDetail_RFCancelReject();
