@@ -390,6 +390,9 @@
     <asp:HiddenField ID="hlbIDVendor" runat="server" />
     <asp:HiddenField ID="hlbGRNo" runat="server" />
     <asp:HiddenField ID="hfCancelReason" runat="server" />
+    <asp:HiddenField ID="txtIssuedDate" runat="server" />
+    <asp:HiddenField ID="lblnikhead" runat="server" />
+    <asp:HiddenField ID ="lbEmailHead" runat="server" />
 
 
     <div class="container-fluid">
@@ -546,7 +549,7 @@
                                                                 </button>
                                                             </div> 
 
-   <%--                                                        <div id="divChangeApprover" runat="server">
+                                                           <div id="divChangeApprover" runat="server">
                                                                 <button type="button"
                                                                     onclick="<%=btnChangeApprover.ClientID %>.click()"
                                                                     class="btn buttonColor btn-match">
@@ -557,7 +560,7 @@
 
                                                             <asp:Button runat="server" Style="display:none;"
                                                                 ID="btnChangeApprover"
-                                                                OnClick="btnChangeApprover_Click" />--%>
+                                                                OnClick="btnChangeApprover_Click" />
 
 
 
@@ -726,7 +729,7 @@
     <!--**********************************
 		Modal Change Approver
 	***********************************-->
-<%--    <div class="modal fade bs-example-modal-lg" id="mdlChangeApprover" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
+    <div class="modal fade bs-example-modal-lg" id="mdlChangeApprover" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -783,7 +786,7 @@
                 </div>
             </div>
         </div>
-    </div>--%>
+    </div>
 
 
 

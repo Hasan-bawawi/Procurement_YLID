@@ -3222,7 +3222,8 @@ namespace procurement_system
                             ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } },
                                 new { emailAddress = new { address = Session["email_po_checked_by_it"].ToString() } },
                                 new { emailAddress = new { address = Session["email_authorized_by"].ToString() } },
-                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } ,  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }},
+                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } , 
+                                new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }},
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true
@@ -3984,7 +3985,7 @@ namespace procurement_system
                             //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_authorized_by"].ToString() } } },
-                            ccRecipients = new[] { new { emailAddress = new { address = "email_po_checked_by" } }, new { emailAddress = new { address = "email_po_approved_by" } },
+                            ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } }, new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } },
                                 new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } ,  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }},
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
@@ -4174,9 +4175,11 @@ namespace procurement_system
                             //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_authorized_by"].ToString() } } },
-                            ccRecipients = new[] { new { emailAddress = new { address = "email_po_checked_by" } },new { emailAddress = new { address = "email_po_approved_by" } },
+                            ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } },
+                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } },
                                 new { emailAddress = new { address = Session["email_po_created_by"].ToString() } },
-                                new { emailAddress = new { address = Session["email_po_checked_by_it"].ToString() } } ,  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
+                                new { emailAddress = new { address = Session["email_po_checked_by_it"].ToString() } } , 
+                                new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
                         saveToSentItems = true

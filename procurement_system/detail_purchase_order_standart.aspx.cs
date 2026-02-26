@@ -20,6 +20,10 @@ using System.Threading.Tasks;
 using System.Text;
 using System.Drawing;
 using ZXing;
+using Microsoft.Graph.Models;
+using Microsoft.SqlServer.Server;
+//using DocumentFormat.OpenXml.Drawing.Diagrams;
+using DocumentFormat.OpenXml.Office2016.Drawing.Command;
 
 namespace procurement_system
 {
@@ -81,8 +85,10 @@ namespace procurement_system
                         Session.Add("po_checked_by", (string)(rdr.IsDBNull(17) ? null : rdr["po_checked_by"]));
                         Session.Add("authorized_by", (string)(rdr.IsDBNull(18) ? null : rdr["authorized_by"]));
                         Session.Add("po_checked_by_it", (string)(rdr.IsDBNull(19) ? null : rdr["po_checked_by_it"]));
-                        Session.Add("approve_status", (string)rdr["approve_status"]);
-                        Session.Add("po_status", (string)rdr["po_status"]);
+                        //Session.Add("approve_status", (string)rdr["approve_status"]);
+                        //Session.Add("po_status", (string)rdr["po_status"]);
+                        Session["approve_status"] = rdr["approve_status"]?.ToString();
+                        Session["po_status"] = rdr["po_status"]?.ToString();
                         Session.Add("Dept", (string)rdr["Dept"]);
                         Session.Add("create_date", (DateTime)rdr["create_date"]);
                         Session.Add("modifiedby", (string)rdr["modifiedby"]);
@@ -126,6 +132,11 @@ namespace procurement_system
                 divbtnseeattach.Visible = false;
             }
 
+            if(Session["po_status"] == "Canceled")
+            {
+
+
+            }
                
 
             //if (Session["gr_no"].ToString() != "" || Session["gr_no"].ToString() != "&nbsp;" || Session["gr_no"].ToString() != null)
@@ -2087,102 +2098,1207 @@ namespace procurement_system
 
 
 
-        //protected void btnChangeApprover_Click(object sender, EventArgs e)
+        protected void btnChangeApprover_Click(object sender, EventArgs e)
+        {
+            if (Session["approve_status"].ToString() == "PO Created")
+            {
+                if (Session["po_status"].ToString() == "Canceled")
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been Canceled.');", true);
+
+                    divIThead.Visible = false;
+                    divGAHead.Visible = false;
+                    divGMDivision.Visible = false;
+                }
+                else if (Session["po_checked_by_it"].ToString() == null || Session["po_checked_by_it"].ToString() == "")
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
+
+                    //GetMGR_DivisionApproval();
+                    GETHead("GA");
+                    divIThead.Visible = false;
+                    divGAHead.Visible = true;
+                    divGMDivision.Visible = false;
+
+
+                }
+                else if (Session["po_checked_by"].ToString() != null || Session["po_checked_by"].ToString() != "")
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
+                    //GetMGR_DivisionApproval();
+                    GETHead("IT");
+                    divIThead.Visible = true;
+                    divGAHead.Visible = false;
+                    divGMDivision.Visible = false;
+
+                }
+            }
+            else if (Session["approve_status"].ToString() == "Approved (Checked by IT Head)")
+            {
+                if (Session["po_status"].ToString() == "Canceled")
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been Canceled.');", true);
+                    divIThead.Visible = false;
+                    divGAHead.Visible = false;
+                    divGMDivision.Visible = false;
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
+                    //GetGMDivisionApproval();
+                    GETHead("GA");
+                    divIThead.Visible = false;
+                    divGAHead.Visible = true;
+                    divGMDivision.Visible = false;
+
+                }
+            }
+            else if (Session["approve_status"].ToString() == "Approved (Checked by GA Head)")
+            {
+                if (Session["po_status"].ToString() == "Canceled")
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been Canceled.');", true);
+                    divIThead.Visible = false;
+                    divGAHead.Visible = false;
+                    divGMDivision.Visible = false;
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
+                    //GetGMDivisionApproval();
+                    GETHead("GM");
+                    divIThead.Visible = false;
+                    divGAHead.Visible = false;
+                    divGMDivision.Visible = true;
+
+                }
+            }
+            else if (Session["approve_status"].ToString() == "Canceled")
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been Canceled.');", true);
+                divIThead.Visible = false;
+                divGAHead.Visible = false;
+                divGMDivision.Visible = false;
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been approved by the HEAD IT OR GA & GM !!');", true);
+                divIThead.Visible = false;
+                divGAHead.Visible = false;
+                divGMDivision.Visible = false;
+            }
+        }
+
+        protected void GETHead(string head)
+        {
+
+            if(head == "IT")
+            {
+                ddlITHead.Items.Clear();
+                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                SqlConnection Con = new SqlConnection(path);
+
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Connection = Con;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPOApprover");
+                sqlcomm.Parameters.AddWithValue("@headGAIT", head);
+
+                SqlDataReader dr;
+
+                try
+                {
+                    System.Web.UI.WebControls.ListItem newItem = new System.Web.UI.WebControls.ListItem();
+                    newItem.Text = "";
+                    newItem.Value = "00000000-0000-0000-0000-000000000000";
+                    ddlITHead.Items.Add(newItem);
+
+                    Con.Open();
+                    dr = sqlcomm.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        newItem = new System.Web.UI.WebControls.ListItem();
+                        newItem.Text = dr["FulnameApprover"].ToString();
+                        newItem.Value = dr["NikApprover"].ToString();
+                        newItem.Attributes["data-email"] = dr["email_karyawan"].ToString();
+                        ddlITHead.Items.Add(newItem);
+                    }
+                    dr.Close();
+                }
+                catch (Exception err)
+                {
+                    //TODO
+                }
+                finally
+                {
+                    Con.Close();
+                }
+
+
+            }
+            else if (head == "GA")
+            {
+                ddlGAHead.Items.Clear();
+                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                SqlConnection Con = new SqlConnection(path);
+
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Connection = Con;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPOApprover");
+                sqlcomm.Parameters.AddWithValue("@headGAIT", head);
+
+                SqlDataReader dr;
+
+                try
+                {
+                    System.Web.UI.WebControls.ListItem newItem = new System.Web.UI.WebControls.ListItem();
+                    newItem.Text = "";
+                    newItem.Value = "00000000-0000-0000-0000-000000000000";
+                    ddlGAHead.Items.Add(newItem);
+
+                    Con.Open();
+                    dr = sqlcomm.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        newItem = new System.Web.UI.WebControls.ListItem();
+                        newItem.Text = dr["FulnameApprover"].ToString();
+                        newItem.Value = dr["NikApprover"].ToString();
+                        newItem.Attributes["data-email"] = dr["email_karyawan"].ToString();
+                        ddlGAHead.Items.Add(newItem);
+                    }
+                    dr.Close();
+                }
+                catch (Exception err)
+                {
+                    //TODO
+                }
+                finally
+                {
+                    Con.Close();
+                }
+
+
+            }
+            else
+            {
+                ddlGMDivision.Items.Clear();
+                string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                SqlConnection Con = new SqlConnection(path);
+
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Connection = Con;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "ViewPOApprover");
+                sqlcomm.Parameters.AddWithValue("@headGAIT", head);
+
+                SqlDataReader dr;
+
+                try
+                {
+                    System.Web.UI.WebControls.ListItem newItem = new System.Web.UI.WebControls.ListItem();
+                    newItem.Text = "";
+                    newItem.Value = "00000000-0000-0000-0000-000000000000";
+                    ddlGMDivision.Items.Add(newItem);
+
+                    Con.Open();
+                    dr = sqlcomm.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        newItem = new System.Web.UI.WebControls.ListItem();
+                        newItem.Text = dr["FulnameApprover"].ToString();
+                        newItem.Value = dr["NikApprover"].ToString();
+                        newItem.Attributes["data-email"] = dr["email_karyawan"].ToString();
+                        ddlGMDivision.Items.Add(newItem);
+                    }
+                    dr.Close();
+                }
+                catch (Exception err)
+                {
+                    //TODO
+                }
+                finally
+                {
+                    Con.Close();
+                }
+
+
+            }
+
+
+
+        }
+
+
+        protected async void btnUpdateApproval_Click(object sender, EventArgs e)
+        {
+            string nikapprover = "";
+            string nameapprover = "";
+            string headGAIT = "";
+            string emailapprover = "";
+
+            DateTime currentDateTime = DateTime.Now;
+            txtIssuedDate.Value = currentDateTime.ToString();
+
+
+            string approveStatus = Session["approve_status"] as string;
+
+
+            if (approveStatus == "PO Created")
+            {
+                if (ddlGAHead.SelectedItem.Text != "" || ddlITHead.SelectedItem.Text != "")
+                {
+
+                    //nikapprover = ddlITHead.SelectedItem.Text != "" ? ddlITHead.SelectedValue : ddlGAHead.SelectedValue;
+
+                    if (!string.IsNullOrEmpty(ddlITHead.SelectedItem.Text))
+                    {
+                        nikapprover = ddlITHead.SelectedValue;
+                        nameapprover = ddlITHead.SelectedItem.Text;
+                        headGAIT = "IT";
+                        emailapprover = lbEmailHead.Value;
+                    }
+                    else
+                    {
+                        nikapprover = ddlGAHead.SelectedValue;
+                        nameapprover = ddlGAHead.SelectedItem.Text;
+                        headGAIT = "GA";
+                        emailapprover = lbEmailHead.Value;
+
+                    }
+
+
+                    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                    SqlConnection Con = new SqlConnection(path);
+                    Con.Open();
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_PurchaseOrder";
+                    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    sqlcomm.Connection = Con;
+                    sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateApproverHEAD");
+                    sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberBreadcrumb.Text);
+                    sqlcomm.Parameters.AddWithValue("@nik_approver", nikapprover);
+                    sqlcomm.Parameters.AddWithValue("@headGAIT", headGAIT);
+
+                    sqlcomm.ExecuteNonQuery();
+
+                    if (headGAIT == "IT")
+                    {
+                        await SendEmailToManagerIT(lbPONumberBreadcrumb.Text, nameapprover, emailapprover);
+
+                    }
+                    else
+                    {
+                        await SendEmailToManagerGA(lbPONumberBreadcrumb.Text, nameapprover, emailapprover);
+
+                    }
+                    sqlcomm.Dispose();
+                    Con.Close();
+                    Con.Dispose();
+
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Update Failed!, Please select Approver!!');", true);
+                }
+            }
+            else if (approveStatus == "Approved (Checked by IT Head)")
+            {
+                if (ddlGAHead.SelectedItem.Text != "")
+                {
+
+                    nikapprover = ddlGAHead.SelectedValue;
+                    nameapprover = ddlGAHead.SelectedItem.Text;
+                    emailapprover = lbEmailHead.Value;
+
+
+                    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                    SqlConnection Con = new SqlConnection(path);
+                    Con.Open();
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    sqlcomm.Connection = Con;
+                    sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateApproverHEAD");
+                    sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberBreadcrumb.Text);
+                    sqlcomm.Parameters.AddWithValue("@nik_approver", nikapprover);
+                    sqlcomm.Parameters.AddWithValue("@headGAIT", "GA");
+
+                    sqlcomm.ExecuteNonQuery();
+                    await SendEmailToManagerGA(lbPONumberBreadcrumb.Text, nameapprover, emailapprover);
+                    sqlcomm.Dispose();
+                    Con.Close();
+                    Con.Dispose();
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Update Failed!, Please select Approver!!');", true);
+                }
+            }
+            else if (approveStatus == "Approved (Checked by GA Head)")
+            {
+
+                if (ddlGMDivision.SelectedItem.Text != "")
+                {
+
+                    nikapprover = ddlGMDivision.SelectedValue;
+                    nameapprover = ddlGMDivision.SelectedItem.Text;
+                    emailapprover = lbEmailHead.Value;
+
+
+                    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                    SqlConnection Con = new SqlConnection(path);
+                    Con.Open();
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    sqlcomm.Connection = Con;
+                    sqlcomm.Parameters.AddWithValue("@StatementType", "UpdateApproverGM");
+                    sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberBreadcrumb.Text);
+                    sqlcomm.Parameters.AddWithValue("@nik_approver", nikapprover);
+
+                    sqlcomm.ExecuteNonQuery();
+
+                    if (Session["po_checked_by_it"].ToString() == null || Session["po_checked_by_it"].ToString() == "")
+                    {
+                        await SendEmailToGMAdmin_ITHeadNull(nameapprover, emailapprover);
+
+                    }
+                    else {
+
+                       await SendEmailToGMAdmin(nameapprover, emailapprover);
+
+                    }
+
+                    sqlcomm.Dispose();
+                    Con.Close();
+                    Con.Dispose();
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Update Failed!, Please select Approver!!');", true);
+                }
+
+            }
+        }
+            
+
+        #region SendToManagerIT
+        private string PopulateBodySendToManagerIT(string approver, string po_no, string issued_date, string reqby, string preparedby, string po_status)
+        {
+
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/EmailTemplatePurchaseOrderCreated_SendToITManager.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{APPROVER}", approver);
+            body = body.Replace("{PONo}", po_no);
+            body = body.Replace("{IssuedDate}", issued_date);
+            body = body.Replace("{RequestBy}", reqby);
+            body = body.Replace("{PreparedBy}", preparedby);
+            body = body.Replace("{POStatus}", po_status);
+
+            return body;
+        }
+
+        private async Task SendEmailToManagerIT(string pono, string headapprover ,string emailapprover)
+        {
+            string body = this.PopulateBodySendToManagerIT
+            (headapprover, pono, txtIssuedDate.Value, Session["Requester"].ToString(), Session["fullname"].ToString(), "PO Created");
+
+            try
+            {
+                // Konfigurasi autentikasi
+                var authority = $"https://login.microsoftonline.com/{_tenantId}";
+                var scopes = new[] { "https://graph.microsoft.com/.default" };
+
+                var confidentialClientApplication = ConfidentialClientApplicationBuilder
+                    .Create(_clientId)
+                    .WithClientSecret(_clientSecret)
+                    .WithAuthority(authority)
+                    .Build();
+
+                // Mendapatkan token akses
+                var authResult = await confidentialClientApplication.AcquireTokenForClient(scopes).ExecuteAsync();
+                var accessToken = authResult.AccessToken;
+
+                // Create HttpClient with Authorization Header
+                using (var httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+                    // Read HTML content from file
+                    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                    SqlConnection Con = new SqlConnection(path);
+                    Con.Open();
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendITManager";
+                    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    sqlcomm.Parameters.AddWithValue("@po_no", /*txtPONumber.Value*/pono);
+
+                    sqlcomm.Connection = Con;
+                    DataTable dtb = new DataTable();
+                    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+
+                    sda.Fill(dtb);
+                    GenerateAndDisplayBarcode();
+                    ReportViewerPurchase.ProcessingMode = ProcessingMode.Local;
+                    ReportViewerPurchase.LocalReport.ReportPath = Server.MapPath("~/Prints/PrintFormPurchaseOrderCreated_SendITManager.rdlc");
+                    ReportViewerPurchase.LocalReport.EnableExternalImages = true;
+                    ReportViewerPurchase.LocalReport.DataSources.Clear();
+                    ReportViewerPurchase.LocalReport.DataSources.Add(new ReportDataSource("DataSetFormPurchaseOrderCreated", dtb));
+                    ReportViewerPurchase.LocalReport.Refresh();
+
+                    string FileName = pono + ".pdf";
+                    string extension;
+                    string encoding;
+                    string mimeType;
+                    string[] streams;
+                    Warning[] warnings;
+                    Byte[] mybytes = ReportViewerPurchase.LocalReport.Render("PDF", null,
+                                  out extension, out encoding,
+                                  out mimeType, out streams, out warnings);
+                    using (FileStream fs = File.Create(Server.MapPath("~/Prints/" + FileName)))
+                    {
+                        fs.Write(mybytes, 0, mybytes.Length);
+                    }
+
+                    var attachmentBytes = File.ReadAllBytes(Server.MapPath("~/Prints/" + FileName));
+                    var attachmentBase64 = Convert.ToBase64String(attachmentBytes);
+
+                    var attachment = new FileAttachment
+                    {
+                        Type = "#microsoft.graph.fileAttachment",
+                        Name = FileName,
+                        ContentBytes = attachmentBase64
+                    };
+
+
+                    // Create email content with HTML body
+                    var emailBody = new
+                    {
+                        message = new
+                        {
+                            subject = "PURCHASE ORDER FORM : " + /*txtPONumber.Value*/pono,
+                            body = new
+                            {
+                                contentType = "HTML",
+                                content = body
+                            },
+                            //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            toRecipients = new[] { new { emailAddress = new { address = emailapprover } } },
+                            ccRecipients = new[] {new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
+
+
+                        },
+                        saveToSentItems = true
+                    };
+                        var emailBodyJson = JsonConvert.SerializeObject(emailBody);
+                        var content = new StringContent(emailBodyJson, Encoding.UTF8, "application/json");
+
+                        File.Delete(Server.MapPath("~/Prints/" + FileName));
+
+                        // Send HTTP request to send email
+                        var response = await httpClient.PostAsync(_endpoint, content);
+                        var responseContent = await response.Content.ReadAsStringAsync();
+
+                        // Handle response
+                        if (response.IsSuccessStatusCode)
+                        {
+                            // Assuming 'FuncSave()' and 'FailedSend()' are JavaScript functions on the client side
+                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+
+                                string script = $@"
+                                        $(document).ready(function() {{
+                                            // Show Toastr notification
+                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                                            // Redirect after 2 seconds (2000 milliseconds)
+                                            setTimeout(function() {{
+                                                window.location.href = 'detail_purchase_order_standart.aspx?po_no={lbPONumberBreadcrumb.Text}'; // replace with your target URL
+                                            }}, 2000);
+                                        }});
+                                    ";                       
+                                // Register the script for partial postbacks
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+
+
+
+                        }
+                        else
+                        {
+                            Response.Write(responseContent.ToString());
+                           ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Submit failed');", true);
+
+                        }                  
+                 
+                 }
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Submit failed');", true);
+            }
+        }
+        #endregion
+
+        #region SendToManagerGA
+        private string PopulateBodySendToManagerGA(string approver, string po_no, string issued_date, string reqby, string preparedby, string po_status)
+        {
+
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/EmailTemplatePurchaseOrderCreated_SendToGAManager.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{APPROVER}", approver);
+            body = body.Replace("{PONo}", po_no);
+            body = body.Replace("{IssuedDate}", issued_date);
+            body = body.Replace("{RequestBy}", reqby);
+            body = body.Replace("{PreparedBy}", preparedby);
+            body = body.Replace("{POStatus}", po_status);
+
+            return body;
+        }
+
+        private async Task SendEmailToManagerGA(string pono, string headapprover, string emailapprover)
+        {
+            string body = this.PopulateBodySendToManagerGA
+            (headapprover, pono, txtIssuedDate.Value, Session["Requester"].ToString(), Session["fullname"].ToString(), "PO Created");
+
+            try
+            {
+                // Konfigurasi autentikasi
+                var authority = $"https://login.microsoftonline.com/{_tenantId}";
+                var scopes = new[] { "https://graph.microsoft.com/.default" };
+
+                var confidentialClientApplication = ConfidentialClientApplicationBuilder
+                    .Create(_clientId)
+                    .WithClientSecret(_clientSecret)
+                    .WithAuthority(authority)
+                    .Build();
+
+                // Mendapatkan token akses
+                var authResult = await confidentialClientApplication.AcquireTokenForClient(scopes).ExecuteAsync();
+                var accessToken = authResult.AccessToken;
+
+                // Create HttpClient with Authorization Header
+                using (var httpClient = new HttpClient())
+                {
+                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+                         // Read HTML content from file
+                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        SqlConnection Con = new SqlConnection(path);
+                        Con.Open();
+                        SqlCommand sqlcomm = new SqlCommand();
+                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_Attachment_PurchaseOrderCreated_SendGAManager";
+                        sqlcomm.CommandType = CommandType.StoredProcedure;
+                        sqlcomm.Parameters.AddWithValue("@po_no", pono);
+
+                        sqlcomm.Connection = Con;
+                        DataTable dtb = new DataTable();
+                        SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+
+                        sda.Fill(dtb);
+                        GenerateAndDisplayBarcode();
+                        ReportViewerPurchase.ProcessingMode = ProcessingMode.Local;
+                        ReportViewerPurchase.LocalReport.ReportPath = Server.MapPath("~/Prints/PrintFormPurchaseOrderCreated_SendGAManager.rdlc");
+                        ReportViewerPurchase.LocalReport.EnableExternalImages = true;
+                        ReportViewerPurchase.LocalReport.DataSources.Clear();
+                        ReportViewerPurchase.LocalReport.DataSources.Add(new ReportDataSource("DataSetFormPurchaseOrderCreated", dtb));
+                        ReportViewerPurchase.LocalReport.Refresh();
+
+                        string FileName = /*txtPONumber.Value.Trim()*/ pono.Trim() + ".pdf";
+                        string extension;
+                        string encoding;
+                        string mimeType;
+                        string[] streams;
+                        Warning[] warnings;
+                        Byte[] mybytes = ReportViewerPurchase.LocalReport.Render("PDF", null,
+                                      out extension, out encoding,
+                                      out mimeType, out streams, out warnings);
+                        using (FileStream fs = File.Create(Server.MapPath("~/Prints/" + FileName)))
+                        {
+                            fs.Write(mybytes, 0, mybytes.Length);
+                        }
+
+                        var attachmentBytes = File.ReadAllBytes(Server.MapPath("~/Prints/" + FileName));
+                        var attachmentBase64 = Convert.ToBase64String(attachmentBytes);
+
+                        var attachment = new FileAttachment
+                        {
+                            Type = "#microsoft.graph.fileAttachment",
+                            Name = FileName,
+                            ContentBytes = attachmentBase64
+                        };
+
+                        // Create email content with HTML body
+                        var emailBody = new
+                        {
+                            message = new
+                            {
+                                subject = "PURCHASE ORDER FORM : " + /*txtPONumber.Value*/ pono,
+                                body = new
+                                {
+                                    contentType = "HTML",
+                                    content = body
+                                },
+                                toRecipients = new[] { new { emailAddress = new { address = emailapprover } } },
+                                ccRecipients = new[] {
+                                    //new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, 
+                                    //new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } } ,
+                                    new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
+                                
+                                attachments = new[] { attachment }
+                            },
+                            saveToSentItems = true
+                        };
+
+                        var emailBodyJson = JsonConvert.SerializeObject(emailBody);
+                        var content = new StringContent(emailBodyJson, Encoding.UTF8, "application/json");
+
+                        File.Delete(Server.MapPath("~/Prints/" + FileName));
+
+                        // Send HTTP request to send email
+                        var response = await httpClient.PostAsync(_endpoint, content);
+                        var responseContent = await response.Content.ReadAsStringAsync();
+
+                        // Handle response
+                        if (response.IsSuccessStatusCode)
+                        {
+                            // Assuming 'FuncSave()' and 'FailedSend()' are JavaScript functions on the client side
+                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+
+                          
+                                string script = $@"
+                                        $(document).ready(function() {{
+                                            // Show Toastr notification
+                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                                            // Redirect after 2 seconds (2000 milliseconds)
+                                            setTimeout(function() {{
+                                                window.location.href = 'detail_purchase_order_standart.aspx?po_no={lbPONumberBreadcrumb.Text}'; // replace with your target URL
+                                            }}, 2000);
+                                        }});
+                                    ";
+
+                                // Register the script for partial postbacks
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                        
+                        }
+                        else
+                        {
+                        Response.Write(responseContent.ToString());
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Submit failed');", true);
+
+                        }
+                    
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Submit failed');", true);
+            }
+        }
+        #endregion
+
+
+        #region EmailToGMAdmin
+        private string PopulateBodyEmailSendToGMAdmin(string approver, string po_no, string issued_date, string reqby, string preparedby, string po_status)
+        {
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/EmailTemplatePurchaseOrderGAHeadApproved_SendToGMAdmin.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{APPROVER}", approver);
+            body = body.Replace("{PONo}", po_no);
+            body = body.Replace("{IssuedDate}", issued_date);
+            body = body.Replace("{RequestBy}", reqby);
+            body = body.Replace("{PreparedBy}", preparedby);
+            body = body.Replace("{POStatus}", po_status);
+            return body;
+        }
+
+        private async Task SendEmailToGMAdmin(string nameapprover, string emailapprover)
+        {
+            string body = this.PopulateBodyEmailSendToGMAdmin
+            (nameapprover, lbPONumberBreadcrumb.Text, txtIssuedDate.Value, Session["Requester"].ToString(), Session["fullname"].ToString(), "Approved (Checked by GA Head)");
+
+            try
+            {
+                // Konfigurasi autentikasi
+                var authority = $"https://login.microsoftonline.com/{_tenantId}";
+                var scopes = new[] { "https://graph.microsoft.com/.default" };
+
+                var confidentialClientApplication = ConfidentialClientApplicationBuilder
+                    .Create(_clientId)
+                    .WithClientSecret(_clientSecret)
+                    .WithAuthority(authority)
+                    .Build();
+
+                // Mendapatkan token akses
+                var authResult = await confidentialClientApplication.AcquireTokenForClient(scopes).ExecuteAsync();
+                var accessToken = authResult.AccessToken;
+
+                // Create HttpClient with Authorization Header
+                using (var httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+                    // Read HTML content from file
+                    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                    SqlConnection Con = new SqlConnection(path);
+                    Con.Open();
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Attachment_PO_GAHeadApproved";
+                    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
+
+                    sqlcomm.Connection = Con;
+                    DataTable dtb = new DataTable();
+                    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+
+                    sda.Fill(dtb);
+                    GenerateAndDisplayBarcode();
+                    ReportViewerPurchase.ProcessingMode = ProcessingMode.Local;
+                    ReportViewerPurchase.LocalReport.ReportPath = Server.MapPath("~/Prints/PrintFormPurchaseOrderGAHeadApproved_SendToGMAdmin.rdlc");
+                    ReportViewerPurchase.LocalReport.EnableExternalImages = true;
+                    ReportViewerPurchase.LocalReport.DataSources.Clear();
+                    ReportViewerPurchase.LocalReport.DataSources.Add(new ReportDataSource("DataSetFormPurchaseOrderCreated", dtb));
+                    ReportViewerPurchase.LocalReport.Refresh();
+
+                    string FileName = lbPONumberBreadcrumb.Text.Trim() + ".pdf";
+                    string extension;
+                    string encoding;
+                    string mimeType;
+                    string[] streams;
+                    Warning[] warnings;
+                    Byte[] mybytes = ReportViewerPurchase.LocalReport.Render("PDF", null,
+                                  out extension, out encoding,
+                                  out mimeType, out streams, out warnings);
+                    using (FileStream fs = File.Create(Server.MapPath("~/Prints/" + FileName)))
+                    {
+                        fs.Write(mybytes, 0, mybytes.Length);
+                    }
+
+                    var attachmentBytes = File.ReadAllBytes(Server.MapPath("~/Prints/" + FileName));
+                    var attachmentBase64 = Convert.ToBase64String(attachmentBytes);
+
+                    var attachment = new FileAttachment
+                    {
+                        Type = "#microsoft.graph.fileAttachment",
+                        Name = FileName,
+                        ContentBytes = attachmentBase64
+                    };
+
+                    string _vPONo = lbPONumberBreadcrumb.Text.Trim();
+                    string folderPath = Server.MapPath("~/eDocs_Files/PO/" + _vPONo + "/"); // Specify the path to your folder
+
+                    List<FileAttachment> attachments1 = new List<FileAttachment>();
+
+                    if (Directory.Exists(folderPath))
+                    {
+                        // Get all files in the folder
+                        string[] fileNames = Directory.GetFiles(folderPath);
+
+                        foreach (string filePath in fileNames)
+                        {
+                            // Extract the file name
+                            string fileName = Path.GetFileName(filePath);
+
+                            // Read the file into a byte array
+                            byte[] attachBytes = File.ReadAllBytes(filePath);
+
+                            // Convert the byte array to Base64
+                            string attachBase64 = Convert.ToBase64String(attachBytes);
+
+                            // Create the file attachment object
+                            var attach = new FileAttachment
+                            {
+                                Type = "#microsoft.graph.fileAttachment",
+                                Name = fileName,
+                                ContentBytes = attachBase64
+                            };
+
+                            // Add the attachment to the list
+                            attachments1.Add(attach);
+                        }
+                    }
+
+                    // Create email content with HTML body
+                    var emailBody = new
+                    {
+                        message = new
+                        {
+                            subject = "PURCHASE ORDER FORM : " + lbPONumberBreadcrumb.Text,
+                            body = new
+                            {
+                                contentType = "HTML",
+                                content = body
+                            },
+                            //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            toRecipients = new[] { new { emailAddress = new { emailapprover } } },
+                            ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by_it"].ToString() } },
+                                new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } },
+                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } },  new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
+                            attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
+                        },
+                        saveToSentItems = true
+                    };
+
+                    var emailBodyJson = JsonConvert.SerializeObject(emailBody);
+                    var content = new StringContent(emailBodyJson, Encoding.UTF8, "application/json");
+
+                    File.Delete(Server.MapPath("~/Prints/" + FileName));
+
+                    // Send HTTP request to send email
+                    var response = await httpClient.PostAsync(_endpoint, content);
+                    var responseContent = await response.Content.ReadAsStringAsync();
+
+                    // Handle response
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Assuming 'FuncSave()' and 'FailedSend()' are JavaScript functions on the client side
+                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        string script = $@"
+                                        $(document).ready(function() {{
+                                            // Show Toastr notification
+                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                                            // Redirect after 2 seconds (2000 milliseconds)
+                                            setTimeout(function() {{
+                                                window.location.href = 'detail_purchase_order_standart.aspx?po_no={lbPONumberBreadcrumb.Text}'; // replace with your target URL
+                                            }}, 2000);
+                                        }});
+                                    ";
+
+                        // Register the script for partial postbacks
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                    }
+                    else
+                    {
+                        Response.Write(responseContent.ToString());
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Submit failed');", true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                Response.Write(ex.ToString());
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Submit failed');", true);
+            }
+        }
+        #endregion
+
+        #region EmailToGMAdmin_ITHeadNull
+        private string PopulateBodyEmailSendToGMAdmin_ITHeadNull(string approver, string po_no, string issued_date, string reqby, string preparedby, string po_status)
+        {
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/EmailTemplatePurchaseOrderGAHeadApproved_SendToGMAdmin.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{APPROVER}", approver);
+            body = body.Replace("{PONo}", po_no);
+            body = body.Replace("{IssuedDate}", issued_date);
+            body = body.Replace("{RequestBy}", reqby);
+            body = body.Replace("{PreparedBy}", preparedby);
+            body = body.Replace("{POStatus}", po_status);
+            return body;
+        }
+
+        private async Task SendEmailToGMAdmin_ITHeadNull(string nameapprover, string emailapprover)
+        {
+            string body = this.PopulateBodyEmailSendToGMAdmin_ITHeadNull
+            (nameapprover, lbPONumberBreadcrumb.Text, txtIssuedDate.Value, Session["Requester"].ToString(), Session["fullname"].ToString(), "Approved (Checked by GA Head)");
+
+            try
+            {
+                // Konfigurasi autentikasi
+                var authority = $"https://login.microsoftonline.com/{_tenantId}";
+                var scopes = new[] { "https://graph.microsoft.com/.default" };
+
+                var confidentialClientApplication = ConfidentialClientApplicationBuilder
+                    .Create(_clientId)
+                    .WithClientSecret(_clientSecret)
+                    .WithAuthority(authority)
+                    .Build();
+
+                // Mendapatkan token akses
+                var authResult = await confidentialClientApplication.AcquireTokenForClient(scopes).ExecuteAsync();
+                var accessToken = authResult.AccessToken;
+
+                // Create HttpClient with Authorization Header
+                using (var httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+                    // Read HTML content from file
+                    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                    SqlConnection Con = new SqlConnection(path);
+                    Con.Open();
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.CommandText = "sp_PROCUREMENT_DB_Attachment_PO_GAHeadApproved_ITHeadNull";
+                    sqlcomm.CommandType = CommandType.StoredProcedure;
+                    sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberBreadcrumb.Text.Trim());
+
+                    sqlcomm.Connection = Con;
+                    DataTable dtb = new DataTable();
+                    SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+
+                    sda.Fill(dtb);
+                    GenerateAndDisplayBarcode();
+                    ReportViewerPurchase.ProcessingMode = ProcessingMode.Local;
+                    ReportViewerPurchase.LocalReport.ReportPath = Server.MapPath("~/Prints/PrintFormPurchaseOrderGAHeadApproved_SendToGMAdmin_ITHeadNull.rdlc");
+                    ReportViewerPurchase.LocalReport.EnableExternalImages = true;
+                    ReportViewerPurchase.LocalReport.DataSources.Clear();
+                    ReportViewerPurchase.LocalReport.DataSources.Add(new ReportDataSource("DataSetFormPurchaseOrderCreated", dtb));
+                    ReportViewerPurchase.LocalReport.Refresh();
+
+                    string FileName = lbPONumberBreadcrumb.Text.Trim() + ".pdf";
+                    string extension;
+                    string encoding;
+                    string mimeType;
+                    string[] streams;
+                    Warning[] warnings;
+                    Byte[] mybytes = ReportViewerPurchase.LocalReport.Render("PDF", null,
+                                  out extension, out encoding,
+                                  out mimeType, out streams, out warnings);
+                    using (FileStream fs = File.Create(Server.MapPath("~/Prints/" + FileName)))
+                    {
+                        fs.Write(mybytes, 0, mybytes.Length);
+                    }
+
+                    var attachmentBytes = File.ReadAllBytes(Server.MapPath("~/Prints/" + FileName));
+                    var attachmentBase64 = Convert.ToBase64String(attachmentBytes);
+
+                    var attachment = new FileAttachment
+                    {
+                        Type = "#microsoft.graph.fileAttachment",
+                        Name = FileName,
+                        ContentBytes = attachmentBase64
+                    };
+
+                    string _vPONo = lbPONumberHeader.Text.Trim();
+                    string folderPath = Server.MapPath("~/eDocs_Files/PO/" + _vPONo + "/"); // Specify the path to your folder
+
+                    List<FileAttachment> attachments1 = new List<FileAttachment>();
+
+                    if (Directory.Exists(folderPath))
+                    {
+                        // Get all files in the folder
+                        string[] fileNames = Directory.GetFiles(folderPath);
+
+                        foreach (string filePath in fileNames)
+                        {
+                            // Extract the file name
+                            string fileName = Path.GetFileName(filePath);
+
+                            // Read the file into a byte array
+                            byte[] attachBytes = File.ReadAllBytes(filePath);
+
+                            // Convert the byte array to Base64
+                            string attachBase64 = Convert.ToBase64String(attachBytes);
+
+                            // Create the file attachment object
+                            var attach = new FileAttachment
+                            {
+                                Type = "#microsoft.graph.fileAttachment",
+                                Name = fileName,
+                                ContentBytes = attachBase64
+                            };
+
+                            // Add the attachment to the list
+                            attachments1.Add(attach);
+                        }
+                    }
+
+                    // Create email content with HTML body
+                    var emailBody = new
+                    {
+                        message = new
+                        {
+                            subject = "PURCHASE ORDER FORM : " + lbPONumberBreadcrumb.Text,
+                            body = new
+                            {
+                                contentType = "HTML",
+                                content = body
+                            },
+                            //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            toRecipients = new[] { new { emailAddress = new { address = emailapprover } } },
+                            ccRecipients = new[] {
+                                new { emailAddress = new { address = "email_po_checked_by" } },
+                                new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } ,
+                                new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } } },
+                            attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
+                        },
+                        saveToSentItems = true
+                    };
+
+                    var emailBodyJson = JsonConvert.SerializeObject(emailBody);
+                    var content = new StringContent(emailBodyJson, Encoding.UTF8, "application/json");
+
+                    File.Delete(Server.MapPath("~/Prints/" + FileName));
+
+                    // Send HTTP request to send email
+                    var response = await httpClient.PostAsync(_endpoint, content);
+                    var responseContent = await response.Content.ReadAsStringAsync();
+
+                    // Handle response
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Assuming 'FuncSave()' and 'FailedSend()' are JavaScript functions on the client side
+                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        string script = $@"
+                                        $(document).ready(function() {{
+                                            // Show Toastr notification
+                                            toastr.success('Your operation was successful, Please wait to redirect the page!', 'Submit Success');
+
+                                            // Redirect after 2 seconds (2000 milliseconds)
+                                            setTimeout(function() {{
+                                                window.location.href = 'detail_purchase_order_standart.aspx?po_no={lbPONumberBreadcrumb.Text}'; // replace with your target URL
+                                            }}, 2000);
+                                        }});
+                                    ";
+
+                        // Register the script for partial postbacks
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
+                    }
+                    else
+                    {
+                        Response.Write(responseContent.ToString());
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Submit failed');", true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                Response.Write(ex.ToString());
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Submit failed');", true);
+            }
+        }
+        #endregion
+
+
+
+
+
+
+
+
+
+        private string GetEmailByNik(string nik)
+        {
+            string email = string.Empty;
+
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            using (SqlConnection Con = new SqlConnection(path))
+            {
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.CommandText = "sp_PROCUREMENT_DB_Purchase";
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Connection = Con;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "GetEmailByNik");
+                sqlcomm.Parameters.AddWithValue("@nik_approver", nik);
+
+                try
+                {
+                    Con.Open();
+                    SqlDataReader dr = sqlcomm.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        email = dr["email_karyawan"].ToString();
+                    }
+
+                    dr.Close();
+                }
+                catch (Exception err)
+                {
+                    //TODO: Handle the exception
+                }
+            }
+
+            return email;
+        }
+
+
+
+        protected void ddlGAHead_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            string selectedNik = ddlGAHead.SelectedValue;
+
+
+            if (selectedNik != "0")
+            {
+                string selectedEmail = GetEmailByNik(selectedNik);
+                lbEmailHead.Value = selectedEmail;
+            }
+
+
+        }
+
+
+        //protected void ddlITHead_SelectedIndexChanged(object sender, EventArgs e)
         //{
-        //    if (Session["approve_status"].ToString() == "PO Created")
+        //    string selectedNik = ddlITHead.SelectedValue;
+
+        //    if (selectedNik != "0") // Pastikan bukan nilai default "<Select PIC>"
         //    {
-        //        if (Session["po_status"].ToString() == "Canceled")
-        //        {
-        //            ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been Canceled.');", true);
+        //        string selectedEmail = GetEmailByNik(selectedNik);
 
-        //            divIThead.Visible = false;
-        //            divGAHead.Visible = false;
-        //            divGMDivision.Visible = false;
-        //        }
-        //        else if (Session["po_checked_by_it"].ToString() == null || Session["po_checked_by_it"].ToString() == "")
-        //        {
-        //            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
-
-        //            //GetMGR_DivisionApproval();
-
-        //            divIThead.Visible = false;
-        //            divGAHead.Visible = true;
-        //            divGMDivision.Visible = false;
-
-
-        //        }
-        //        else if (Session["po_checked_by"].ToString() == null || Session["po_checked_by"].ToString() == "")
-        //        {
-        //            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
-        //            //GetMGR_DivisionApproval();
-
-        //            divIThead.Visible = true;
-        //            divGAHead.Visible = false;
-        //            divGMDivision.Visible = false;
-
-        //        }
+        //        // Lakukan sesuatu dengan nilai email yang didapatkan
+        //        // Misalnya, tampilkan di label atau simpan ke variabel lain
+        //        lbEmailHead.Text = selectedEmail;
         //    }
-        //    else if (Session["approve_status"].ToString() == "Approved (Checked by IT Head)")
-        //    {
-        //        if (Session["po_status"].ToString() == "Canceled")
-        //        {
-        //            ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been Canceled.');", true);
-        //            divIThead.Visible = false;
-        //            divGAHead.Visible = false;
-        //            divGMDivision.Visible = false;
-        //        }
-        //        else
-        //        {
-        //            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
-        //            //GetGMDivisionApproval();
-        //            divIThead.Visible = false;
-        //            divGAHead.Visible = true;
-        //            divGMDivision.Visible = false;
 
-        //        }
-        //    }
-        //    else if (Session["approve_status"].ToString() == "Approved (Checked by GA Head)")
-        //    {
-        //        if (Session["po_status"].ToString() == "Canceled")
-        //        {
-        //            ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been Canceled.');", true);
-        //            divIThead.Visible = false;
-        //            divGAHead.Visible = false;
-        //            divGMDivision.Visible = false;
-        //        }
-        //        else
-        //        {
-        //            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlChangeApprover').modal();", true);
-        //            //GetGMDivisionApproval();
-        //            divIThead.Visible = false;
-        //            divGAHead.Visible = false;
-        //            divGMDivision.Visible = true;
-
-        //        }
-        //    }
-        //    else if (Session["approve_status"].ToString() == "Canceled")
-        //    {
-        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been Canceled.');", true);
-        //        divIThead.Visible = false;
-        //        divGAHead.Visible = false;
-        //        divGMDivision.Visible = false;
-        //    }
-        //    else
-        //    {
-        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.error('Cannot be changed!, PO has been approved by the Division Manager & GM !!');", true);
-        //        divIThead.Visible = false;
-        //        divGAHead.Visible = false;
-        //        divGMDivision.Visible = false;
-        //    }
         //}
 
+        protected void ddlITHead_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedNik = ddlITHead.SelectedValue;
+
+          
+            if (selectedNik != "0") 
+            {
+                string selectedEmail = GetEmailByNik(selectedNik);
+                lbEmailHead.Value = selectedEmail;
+            }
+
+        }
+
+        protected void ddlGMDivision_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            string selectedNik = ddlGMDivision.SelectedValue;
 
 
+            if (selectedNik != "0")
+            {
+                string selectedEmail = GetEmailByNik(selectedNik);
+                lbEmailHead.Value = selectedEmail;
+            }
 
 
-
-
-
+        }
         protected void TableRequesitionItem_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 

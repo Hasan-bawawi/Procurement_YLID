@@ -177,6 +177,33 @@ namespace procurement_system
         protected global::System.Web.UI.WebControls.HiddenField hfCancelReason;
 
         /// <summary>
+        /// txtIssuedDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField txtIssuedDate;
+
+        /// <summary>
+        /// lblnikhead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField lblnikhead;
+
+        /// <summary>
+        /// lbEmailHead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField lbEmailHead;
+
+        /// <summary>
         /// divPOStatus control.
         /// </summary>
         /// <remarks>
@@ -411,6 +438,24 @@ namespace procurement_system
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divbtnseeattach;
 
         /// <summary>
+        /// divChangeApprover control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divChangeApprover;
+
+        /// <summary>
+        /// btnChangeApprover control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnChangeApprover;
+
+        /// <summary>
         /// divCancel control.
         /// </summary>
         /// <remarks>
@@ -472,6 +517,69 @@ namespace procurement_system
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtGrandTotal;
+
+        /// <summary>
+        /// divIThead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divIThead;
+
+        /// <summary>
+        /// ddlITHead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlITHead;
+
+        /// <summary>
+        /// divGAHead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGAHead;
+
+        /// <summary>
+        /// ddlGAHead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlGAHead;
+
+        /// <summary>
+        /// divGMDivision control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGMDivision;
+
+        /// <summary>
+        /// ddlGMDivision control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlGMDivision;
+
+        /// <summary>
+        /// btnUpdateApproval control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateApproval;
 
         /// <summary>
         /// btnCloseModalAddItem control.

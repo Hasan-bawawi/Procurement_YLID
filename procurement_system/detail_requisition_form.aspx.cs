@@ -15120,7 +15120,7 @@ namespace procurement_system
             //sqlcomm.Parameters.AddWithValue("@id_section", hlbSection.Text);
             sqlcomm.Parameters.AddWithValue("@catalog_type", lbCatalogType.Text);
 
-           ;
+           
 
             SqlDataReader dr;
 
@@ -15589,7 +15589,10 @@ namespace procurement_system
                                 content = body
                             },
                             toRecipients = new[] { new { emailAddress = new { address = lbEmailMGRNew.Value } } },
-                            ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
+                            ccRecipients = new[] { 
+                                //new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } },
+                                //new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
+                                new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } },
                                 new { emailAddress = new { address = hblEmailRequester.Value } } },
                             //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
@@ -15619,10 +15622,11 @@ namespace procurement_system
 
                                             // Redirect after 2 seconds (2000 milliseconds)
                                             setTimeout(function() {{
-                                                window.location.href = 'requisition_price_check.aspx'; // replace with your target URL
+                                                window.location.href = 'detail_requisition_form.aspx?rf_no={lbRFNumberBreadcrumb.Text}'; // replace with your target URL
                                             }}, 2000);
                                         }});
                                     ";
+
 
                         // Register the script for partial postbacks
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
@@ -15746,7 +15750,9 @@ namespace procurement_system
                             //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = lbEmailGMNew.Value.ToString() } } },
-                            ccRecipients = new[] { new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } }, new { emailAddress = new { address = "rizal.syahputra@id.yusen-logistics.com" } },
+                            ccRecipients = new[] { 
+                                //new { emailAddress = new { address = "sardi.evelina@id.yusen-logistics.com" } },
+                                new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } },
                                 new { emailAddress = new { address = Session["EmailRequester"].ToString() } },
                                 new { emailAddress = new { address = Session["EmailManagerApprove"].ToString() } } },
                             attachments = new[] { attachment }
@@ -15775,7 +15781,7 @@ namespace procurement_system
 
                                             // Redirect after 2 seconds (2000 milliseconds)
                                             setTimeout(function() {{
-                                                window.location.href = 'approval_requisition_form.aspx'; // replace with your target URL
+                                                window.location.href = 'detail_requisition_form.aspx?rf_no={lbRFNumberBreadcrumb.Text}'; // replace with your target URL
                                             }}, 2000);
                                         }});
                                     ";
