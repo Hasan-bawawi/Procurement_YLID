@@ -46,21 +46,93 @@
             color: white;
         }
 
-            .buttonColor:hover {
-                background-color: #ff6d10;
-                color: white;
-            }
+        .buttonColor:hover {
+             background-color: #ff6d10;
+             color: white;
+         }
 
         .buttonColorGridview {
             background-color: #ff6d10;
             color: white;
         }
 
-            .buttonColorGridview:hover {
-                background-color: #06183d;
-                color: white;
-            }
+        .buttonColorGridview:hover {
+             background-color: #06183d;
+              color: white;
+         }
+
+         .dataTables_filter input {
+               border: 3px solid darkblue !important;
+               background-color: #f0f8ff !important;
+               padding: 6px 10px !important;
+               font-weight: bold !important;
+               height:20px;
+           }
+       
+           /* Tambahan efek saat fokus */
+           .dataTables_filter input:focus {
+               outline: none;
+               border-color: midnightblue !important; /* biru terang */
+               box-shadow: 0 0 5px rgba(0,123,255,0.5);
+           }
     </style>
+
+
+<style>
+
+    /* ===== MODAL SIZE ===== */
+    .modal-super {
+        max-width: 95% !important;
+        width: 95% !important;
+    }
+
+    .modal-body {
+        font-size: 14px;
+    }
+
+    /* ===== FIELDSET STYLE ===== */
+    .scheduler-border {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        background-color: #ffffff;
+        margin-bottom: 20px;
+    }
+
+    .scheduler-border legend {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 0 10px;
+        width: auto;
+        color: #ff6600;
+    }
+
+    /* ===== FORM STYLE ===== */
+    .form-label-custom {
+        font-weight: 600;
+    }
+
+    .form-control[disabled],
+    textarea[disabled] {
+        background-color: #f8f9fa;
+    }
+
+
+    .gr-table thead {
+        background-color: #06183d !important;
+    }
+
+    .gr-table thead th {
+        background-color: #06183d !important;
+        color: #ffffff !important;
+        text-align: center;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+
+</style>
 
 
     <script type="text/javascript" src="vendors/date/JS/jquery-1.10.2.min.js"></script>
@@ -201,6 +273,7 @@
     <asp:HiddenField ID="txtGRNumber" runat="server" />
     <asp:HiddenField ID="lbErrorUploadNotif" runat="server" />
     <asp:HiddenField ID="hlbOK" runat="server" />
+    <asp:HiddenField ID="lblAttachment" runat="server" />
 
     <div class="container-fluid">
         <div class="row">
@@ -345,15 +418,34 @@
                                             <div class='col-sm-12'>
                                                 <div class="table-responsive">
                                                     <asp:GridView ID="TableGR" runat="server" CssClass="table table-striped row-border order-column table-bordered zero-configuration text-nowrap grid" AutoGenerateColumns="False" Style="width: 100%"
-                                                        ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found">
+                                                        OnRowDataBound="TableGR_RowDataBound" ShowHeaderWhenEmpty="true" EmptyDataText="No Record Found">
                                                         <HeaderStyle BackColor="#06183d" ForeColor="White" />
                                                         <Columns>
                                                             <asp:TemplateField HeaderText="View">
                                                                 <HeaderStyle CssClass="fixed-column fixed-column-header" />
                                                                 <ItemStyle CssClass="fixed-column" />
                                                                 <ItemTemplate>
+                                                                    <asp:HiddenField 
+                                                                        ID="hfAttachment" 
+                                                                        runat="server" 
+                                                                        Value='<%# ResolveUrl(Convert.ToString(Eval("AttachmentGR"))) %>' />
                                                                     <asp:LinkButton runat="server" ID="btnView" CommandName="Buat" CommandArgument="<%# Container.DataItemIndex %>" CssClass="btn buttonColorGridview" OnClick="btnView_Click" ToolTip="View Details"><i class="fa fa-search"></i></asp:LinkButton>
-                                                                </ItemTemplate>
+                                                                    <%--<button type="button"
+                                                                            ID="btnSee"
+                                                                            runat="server"
+                                                                            class="btn btn-sm btn-primary"
+                                                                            onclick='openPdfModal("<%# ResolveUrl(Convert.ToString(Eval("AttachmentGR"))) %>")'>
+                                                                        See Attachment <i class="fa fa-eye"></i>
+                                                                    </button>--%>
+                                                                    <button type="button"
+                                                                            ID="btnSee"
+                                                                            runat="server"
+                                                                            class="btn btn-sm btn-primary"
+                                                                            data-path='<%# ResolveUrl(Convert.ToString(Eval("AttachmentGR"))) %>'
+                                                                            onclick="openPdfFromButton(this)">
+                                                                        See Attachment <i class="fa fa-eye"></i>
+                                                                    </button>
+                                                               </ItemTemplate>
                                                             </asp:TemplateField>
                                                             <asp:BoundField DataField="id" HeaderText="id" />
                                                             <asp:BoundField DataField="gr_no" HeaderText="GR Number" />
@@ -592,11 +684,485 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="vendors/date/JS/jquery-1.10.2.min.js"></script>
+<%--<div class="modal fade bs-example-modal-xl" id="mdlViewGR" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
 
+            <!-- HEADER -->
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    View Detail Goods Received
+                </h4>
+                <button type="button" class="close" onclick="closeViewGR()">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <!-- BODY -->
+            <div class="modal-body" style="max-height:75vh; overflow-y:auto;">
+
+                <div class="row">
+
+                    <!-- ===================== PO INFORMATION ===================== -->
+
+                    <div class='col-sm-12'>
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">
+                                PO NO. :&nbsp;
+                                <asp:Label ID="lbViewPONumber" runat="server"></asp:Label>
+                            </legend>
+
+                            <div class="row">
+
+                                <div class='col-sm-6'>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text width-212"><strong>Issued Date</strong></span>
+                                        </div>
+                                        <input type="text" id="lbViewIssuedDate" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+
+                                <div class='col-sm-6'>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text width-212"><strong>Delivery Date</strong></span>
+                                        </div>
+                                        <input type="text" id="lbViewDeliveryDate" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+
+                                <div class='col-sm-6'>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text width-212"><strong>Asset Type</strong></span>
+                                        </div>
+                                        <input type="text" id="lbViewAssetType" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+
+                                <div class='col-sm-6'>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text width-212"><strong>Vendor Name</strong></span>
+                                        </div>
+                                        <input type="text" id="lbViewVendorName" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+
+                                <div class='col-sm-6'>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text width-212"><strong>PO Status</strong></span>
+                                        </div>
+                                        <input type="text" id="lbViewPOStatus" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+
+                                <div class='col-sm-6'>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text width-212"><strong>Payment Terms</strong></span>
+                                        </div>
+                                        <input type="text" id="lbViewPaymentTerms" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <!-- ===================== GR INFORMATION ===================== -->
+
+                    <div class='col-sm-12 mt-3'>
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">
+                                <i class="fa-solid fa-file-lines"></i>
+                                &nbsp;Goods Receipt Detail
+                            </legend>
+
+                            <div class="row">
+
+                                <!-- No GR -->
+                                <div class='col-sm-6'>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text width-212"><strong>No. GR</strong></span>
+                                        </div>
+                                        <input type="text" id="viewGRNumber" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+
+                                <!-- GR Date -->
+                                <div class='col-sm-6'>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text width-212"><strong>Goods Received Date</strong></span>
+                                        </div>
+                                        <input type="text" id="viewGRDate" runat="server"
+                                            class="form-control" disabled />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Received By -->
+                                <div class='col-sm-6'>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text width-212"><strong>Received By</strong></span>
+                                        </div>
+                                        <input type="text" id="viewReceivedBy" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+
+                                <!-- Note -->
+                                <div class='col-sm-6'>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text width-212"><strong>Note</strong></span>
+                                        </div>
+                                        <textarea id="viewNote" runat="server"
+                                            class="form-control"
+                                            rows="3"
+                                            disabled></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <!-- ===================== TABLE DETAIL ===================== -->
+
+                    <div class='col-sm-12 mt-3'>
+                        <div class="table-responsive">
+                            <asp:GridView ID="gvViewGRDetail"
+                                runat="server"
+                                CssClass="table table-bordered table-striped verticle-middle"
+                                AutoGenerateColumns="False"
+                                ShowHeaderWhenEmpty="true"
+                                EmptyDataText="No Record Found">
+                                <HeaderStyle BackColor="#06183d" ForeColor="White" />
+                                <Columns>
+                                    <asp:TemplateField HeaderText="No.">
+                                        <ItemTemplate>
+                                            <%# Container.DataItemIndex + 1 %>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="catalog_type" HeaderText="Catalog" />
+                                    <asp:BoundField DataField="rf_no" HeaderText="RF No." />
+                                    <asp:BoundField DataField="po_type" HeaderText="PO Type" />
+                                    <asp:BoundField DataField="stok_code" HeaderText="Stock Code" />
+                                    <asp:BoundField DataField="item_code" HeaderText="Code" />
+                                    <asp:BoundField DataField="item_name" HeaderText="Item" />
+                                    <asp:BoundField DataField="quantity" HeaderText="Qty PO" />
+                                    <asp:BoundField DataField="qty_received" HeaderText="Qty Received" />
+                                    <asp:BoundField DataField="unit_name" HeaderText="UOM" />
+                                    <asp:BoundField DataField="price" HeaderText="Price"
+                                        DataFormatString="{0:N0}" />
+                                    <asp:BoundField DataField="amount" HeaderText="Amount"
+                                        DataFormatString="{0:N0}" />
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>--%>
+<div class="modal fade" id="mdlViewGR" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-super modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <!-- HEADER -->
+            <div class="modal-header text-black">
+                <h4 class="modal-title">
+                    View Detail Goods Received
+                </h4>
+                <button type="button" class="close text-black" onclick="closeViewGR()">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <!-- BODY -->
+            <div class="modal-body">
+                <div class="container-fluid">
+
+                    <!-- ===================== PO INFORMATION ===================== -->
+                    <fieldset class="scheduler-border">
+                        <legend>
+                            PO NO :
+                            <asp:Label ID="lbViewPONumber" runat="server"></asp:Label>
+                        </legend>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label form-label-custom">Issued Date</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="lbViewIssuedDate" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label form-label-custom">Delivery Date</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="lbViewDeliveryDate" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label form-label-custom">Asset Type</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="lbViewAssetType" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label form-label-custom">Vendor Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="lbViewVendorName" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label form-label-custom">PO Status</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="lbViewPOStatus" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label form-label-custom">Payment Terms</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="lbViewPaymentTerms" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+
+                    <!-- ===================== GR INFORMATION ===================== -->
+                    <fieldset class="scheduler-border">
+                        <legend>Goods Receipt Detail</legend>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label form-label-custom">No. GR</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="viewGRNumber" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label form-label-custom">Goods Received Date</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="viewGRDate" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label form-label-custom">Received By</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="viewReceivedBy" runat="server"
+                                            class="form-control" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label form-label-custom">Note</label>
+                                    <div class="col-sm-8">
+                                        <textarea id="viewNote" runat="server"
+                                            class="form-control"
+                                            rows="2"
+                                            disabled></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+
+                    <!-- ===================== TABLE DETAIL ===================== -->
+                    <div class="table-responsive" style="max-height:400px; overflow:auto;">
+                        <%--<asp:GridView ID="gvViewGRDetail"
+                            runat="server"
+                            CssClass="table table-bordered table-striped table-sm custom-header"
+                            AutoGenerateColumns="False"
+                            ShowHeaderWhenEmpty="true"
+                            EmptyDataText="No Record Found">--%>
+                        <asp:GridView ID="gvViewGRDetail"
+                                        runat="server"
+                                        CssClass="table table-bordered table-sm gr-table"
+                                        AutoGenerateColumns="False"
+                                        EmptyDataText="No Record Found"
+                                        UseAccessibleHeader="true">    
+                            <Columns>
+
+                                <asp:TemplateField HeaderText="No.">
+                                    <ItemTemplate>
+                                        <%# Container.DataItemIndex + 1 %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                                <asp:BoundField DataField="catalog_type" HeaderText="Catalog" />
+                                <asp:BoundField DataField="rf_no" HeaderText="RF No." />
+                                <asp:BoundField DataField="po_type" HeaderText="PO Type" />
+                                <asp:BoundField DataField="stok_code" HeaderText="Stock Code" />
+                                <asp:BoundField DataField="item_code" HeaderText="Code" />
+                                <asp:BoundField DataField="item_name" HeaderText="Item" />
+                                <asp:BoundField DataField="quantity" HeaderText="Qty PO" />
+                                <asp:BoundField DataField="qty_received" HeaderText="Qty Received" />
+                                <asp:BoundField DataField="unit_name" HeaderText="UOM" />
+                                <asp:BoundField DataField="price" HeaderText="Price" DataFormatString="{0:N0}" />
+                                <asp:BoundField DataField="amount" HeaderText="Amount" DataFormatString="{0:N0}" />
+
+                            </Columns>
+                        </asp:GridView>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="pdfModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered"
+         style="max-width:95%; width:95%;">
+        <div class="modal-content">
+
+            <!-- HEADER -->
+            <div class="modal-header d-flex justify-content-between align-items-center">
+                <h5 class="modal-title mb-0">Attachment Document</h5>
+
+                <!-- CLOSE MANUAL (TIDAK TERGANTUNG BOOTSTRAP) -->
+                <button type="button"
+                        onclick="closePdfModal()"
+                        style="border:none; background:transparent;
+                               font-size:28px; line-height:1; cursor:pointer;">
+                    &times;
+                </button>
+            </div>
+
+            <!-- BODY -->
+            <div class="modal-body p-0" style="height:85vh;">
+                <iframe id="pdfFrame"
+                        style="width:100%; height:100%; border:none;">
+                </iframe>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="vendors/date/JS/jquery-1.10.2.min.js"></script>
+        <script>
+            function openPdfFromButton(btn) {
+
+                var path = btn.getAttribute("data-path");
+                openPdfModal(path);
+
+            }
+
+            function openPdfModal(path) {
+                debugger
+                if (!path || path.trim() === "") {
+                    alert("Attachment kosong.");
+                    return;
+                }
+
+                document.getElementById("pdfFrame").src = path;
+
+                $('#pdfModal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+
+               
+            }
+
+            function closePdfModal() {
+                $('#pdfFrame').attr('src', '');
+                $('#pdfModal').modal('hide');
+            }
+
+
+            function openViewGR() {
+                $('#mdlViewGR').modal('show');
+            }
+
+            function closeViewGR() {
+                $('#mdlViewGR').modal('hide');
+            }
+        </script>
     <script>
         $(document).ready(function () {
             $(".datepicker1").datepicker({ format: 'mm/dd/yyyy', autoclose: true, todayBtn: 'linked' })
         });
+    </script>
+    <script>
+
+        $(window).on('load', function () {
+
+            var tableId = '#<%= TableGR.ClientID %>';
+
+                if ($(tableId).length > 0) {
+
+                    $(tableId).DataTable({
+                        destroy: true,   // 🔥 ini wajib
+                        order: [[1, 'desc']], // RF Number (karena id hidden)
+                        columnDefs: [
+                            { orderable: false, targets: 0 }
+                        ]
+                    });
+
+                }
+
+            });
     </script>
 </asp:Content>

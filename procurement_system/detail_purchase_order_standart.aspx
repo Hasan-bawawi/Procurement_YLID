@@ -310,20 +310,20 @@
                     ShowLoading();
                     document.getElementById('<%= btnCancelForm.ClientID %>').click();
                 }, 200);
+            });
+
+            setTimeout(function () {
+                var txt = document.getElementById("cancelReason");
+                if (txt) {
+                    txt.addEventListener("input", function () {
+                        this.style.border = "1px solid #ccc";
+                        document.getElementById("reasonError").style.display = "none";
                     });
-
-                    setTimeout(function () {
-                        var txt = document.getElementById("cancelReason");
-                        if (txt) {
-                            txt.addEventListener("input", function () {
-                                this.style.border = "1px solid #ccc";
-                                document.getElementById("reasonError").style.display = "none";
-                            });
-                        }
-                    }, 300);
-
-                    return false;
                 }
+            }, 300);
+
+            return false;
+        }
     </script>
 
     <script type="text/javascript">

@@ -1,19 +1,20 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Org.BouncyCastle.Asn1.Cmp;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Globalization;
-using System.Configuration;
+using System.IO;
 using System.Linq;
-using System.Web.Configuration;
+using System.Transactions;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Drawing;
-using System.IO;
-using DocumentFormat.OpenXml.Spreadsheet;
-using Org.BouncyCastle.Asn1.Cmp;
 
 namespace procurement_system
 {
@@ -455,12 +456,15 @@ namespace procurement_system
 
                             // Fungsi lain pakai transaction yang sama
                             CheckUploadDocument();
+                            //Updatepattachment();
                             UpdateCompleteStatusPO(con, transaction);
                             UpdateCompleteStatusRF(con, transaction);
+
                         }
                     }
 
                     transaction.Commit(); // ✅ simpan semua perubahan
+                    Updatepattachment(lblAttachment.Value);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "toastrMessage", "toastr.success('Goods Received successfully saved.');", true);
                 }
                 catch (Exception ex)
@@ -516,6 +520,8 @@ namespace procurement_system
                 sqlcomm.CommandType = CommandType.StoredProcedure;
                 sqlcomm.Parameters.AddWithValue("@StatementType", "CompletedStatusPO");
                 sqlcomm.Parameters.AddWithValue("@po_no", lbPONumber.Text);
+                //sqlcomm.Parameters.AddWithValue("@Pathattachment", lblAttachment.Value);
+                //sqlcomm.Parameters.AddWithValue("@gr_no", txtGRNumber.Value);
                 sqlcomm.ExecuteNonQuery();
             }
 
@@ -581,6 +587,7 @@ namespace procurement_system
                     sqlcomm.CommandType = CommandType.StoredProcedure;
                     sqlcomm.Parameters.AddWithValue("@StatementType", "CompletedStatusRF");
                     sqlcomm.Parameters.AddWithValue("@rf_no", row.Cells[2].Text.ToString());
+                    sqlcomm.Parameters.AddWithValue("@po_no", lbPONumber.Text);
                     sqlcomm.ExecuteNonQuery();
                 }
             }
@@ -597,6 +604,26 @@ namespace procurement_system
             ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastrRedirect", script, true);
         }
 
+        protected void Updatepattachment( string attacment)
+        {
+
+            string path_db = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(path_db))
+            using (SqlCommand sqlcomm = new SqlCommand("sp_PROCUREMENT_DB_GoodsReceived", con))
+            {
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+
+                sqlcomm.Parameters.AddWithValue("@StatementType", "UpdatePathAttachment");
+                sqlcomm.Parameters.AddWithValue("@gr_no", txtGRNumber.Value);
+                sqlcomm.Parameters.AddWithValue("@Pathattachment", attacment);
+
+                con.Open();
+                sqlcomm.ExecuteNonQuery();
+            }
+
+
+        }
 
         protected void CheckUploadDocument()
         {
@@ -605,7 +632,7 @@ namespace procurement_system
                 int filecount = 0;
                 int fileuploadcount = 0;
                 lbErrorUploadNotif.Value = ""; // Clear previous messages
-
+                lblAttachment.Value = ""; // Clear previous attachment path
                 // Check the number of selected files
                 filecount = FileUploadEDocs.PostedFiles.Count();
                 string[] allowedExtensions = { ".pdf" };
@@ -643,11 +670,12 @@ namespace procurement_system
                                         }
 
                                         // Append a unique identifier to avoid overwriting
-                                        string uniqueFileName = Path.GetFileNameWithoutExtension(postfiles.FileName)
-                                            + Path.GetExtension(postfiles.FileName);
+                                        string uniqueFileName = Path.GetFileNameWithoutExtension(postfiles.FileName) + Path.GetExtension(postfiles.FileName);
 
                                         serverpath = Path.Combine(serverfolder, uniqueFileName);
                                         postfiles.SaveAs(serverpath);
+
+                                        lblAttachment.Value = "~/eDocs_Files/GR" + "/" + _vGRNumber + "/" + uniqueFileName;
                                         lbErrorUploadNotif.Value += "[" + uniqueFileName + "]- " + filetype + " file uploaded successfully";
                                         hlbOK.Value = "OK";
                                         break;
@@ -826,10 +854,14 @@ namespace procurement_system
             TableGR.DataSource = dtb;
             TableGR.DataBind();
 
+            Response.Write(dtb.Rows.Count);
+            Response.Write(dtb.Columns.Contains("AttachmentGR"));
+
             TableGR.Columns[1].Visible = false;
 
             TableGR.UseAccessibleHeader = true;
             TableGR.HeaderRow.TableSection = TableRowSection.TableHeader;
+
 
             dtb.Dispose();
             sqlcomm.Dispose();
@@ -838,11 +870,110 @@ namespace procurement_system
             Con.Close();
         }
 
+
+        #endregion
+
+        protected void TableGR_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                System.Web.UI.HtmlControls.HtmlButton btnsee = (System.Web.UI.HtmlControls.HtmlButton)e.Row.FindControl("btnSee");
+                if (btnsee != null)
+                {
+
+                    string attachmentPath = DataBinder.Eval(e.Row.DataItem, "AttachmentGR").ToString();
+                    if (!string.IsNullOrEmpty(attachmentPath) && attachmentPath != "&nbsp;")
+                    {
+                        btnsee.Visible = true;
+                        
+
+                    }
+                    else
+                    {
+                        btnsee.Visible = false;
+                    }
+
+                }
+            }
+        }
+
         protected void btnView_Click(object sender, EventArgs e)
         {
+            LinkButton btn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+
+            GetDataPurchaseOrder();
+
+            lbPONumber.Text = row.Cells[3].Text;
+            
+            GetTableItemPO();
+
+            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(path))
+            {
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.CommandText = "sp_PROCUREMENT_DB_GoodsReceived";
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Connection = con;
+                sqlcomm.Parameters.AddWithValue("@StatementType", "ViewDetailGoodReceived");
+                sqlcomm.Parameters.AddWithValue("@gr_no", row.Cells[2].Text); // pakai gr_no ya, bukan po_no
+
+                con.Open();
+
+                DataTable dt = new DataTable();
+
+                using (SqlDataReader rdr = sqlcomm.ExecuteReader())
+                {
+                    dt.Load(rdr);
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        DataRow rowHeader = dt.Rows[0];
+
+                        lbViewPONumber.Text = rowHeader["po_no"].ToString();
+
+                        lbViewIssuedDate.Value = Convert.ToDateTime(rowHeader["Issueddate"]).ToString("dd MMMM yyyy");
+
+                        lbViewDeliveryDate.Value =Convert.ToDateTime(rowHeader["delivery_date"]).ToString("dd MMMM yyyy");
+
+                        lbViewAssetType.Value = rowHeader["aset_status"].ToString();
+                        lbViewVendorName.Value = rowHeader["vendor_name"].ToString();
+                        lbViewPOStatus.Value = rowHeader["po_status"].ToString();
+                        lbViewPaymentTerms.Value = rowHeader["payment_term"].ToString();
+
+                        viewGRNumber.Value = rowHeader["gr_no"].ToString();
+                        viewGRDate.Value = Convert.ToDateTime(rowHeader["gr_date"]).ToString("dd MMMM yyyy");
+
+                        viewReceivedBy.Value = rowHeader["received_by"].ToString();
+                        viewNote.InnerText = rowHeader["note"].ToString();
+                    }
+                }
+
+                // ================= DETAIL GRID =================
+                gvViewGRDetail.DataSource = dt;
+                gvViewGRDetail.DataBind();
+
+                if (gvViewGRDetail.Rows.Count > 0)
+                {
+                    gvViewGRDetail.HeaderRow.TableSection = TableRowSection.TableHeader;
+                }
+
+                TableGR.Columns[1].Visible = false;
+
+                TableGR.UseAccessibleHeader = true;
+                TableGR.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+                con.Close();
+
+            }
+
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlCreateGR').modal();", true);
+            ScriptManager.RegisterStartupScript(this,this.GetType(),"viewGR","openViewGR();",true);
 
         }
-        #endregion
+
+
+
 
         protected void TablePurchaseOrder_RowDataBound(object sender, GridViewRowEventArgs e)
         {

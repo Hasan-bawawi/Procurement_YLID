@@ -456,7 +456,7 @@
                                                 </button>
                                                 <asp:Button runat="server" Style="display: none;" ID="btnGenerateExcel_Admin" OnClick="btnGenerateExcel_Admin_Click"></asp:Button>--%>
                                                 <div class="table-responsive">
-                                                    <asp:GridView ID="TableRequisitionFormFilter" runat="server" CssClass="table table-striped row-border order-column table-bordered nowrap zero-configuration grid" AutoGenerateColumns="False" Style="width: 100%"
+                                                    <asp:GridView ID="TableRequisitionFormFilter" runat="server" CssClass="table table-striped row-border order-column table-bordered nowrap grid" AutoGenerateColumns="False" Style="width: 100%"
                                                         ShowHeaderWhenEmpty="true" OnRowDataBound="TableRequisitionFormFilter_RowDataBound"  DataKeyNames="POallcreated,NoneedPO" EmptyDataText="No Record Found">
                                                         <HeaderStyle BackColor="#06183d" ForeColor="White" />
                                                         <Columns>
@@ -598,4 +598,25 @@
             </div>
         </div>
     </div>
+
+
+<script>
+    $(window).on('load', function () {
+
+        var tableId = '#<%= TableRequisitionFormFilter.ClientID %>';
+
+        if ($(tableId).length > 0) {
+
+            $(tableId).DataTable({
+                destroy: true,   // 🔥 ini wajib
+                order: [[2, 'desc']], // RF Number (karena id hidden)
+                columnDefs: [
+                    { orderable: false, targets: 0 }
+                ]
+            });
+
+        }
+
+    });
+</script>
 </asp:Content>
