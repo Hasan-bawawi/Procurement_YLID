@@ -15097,44 +15097,95 @@ namespace procurement_system
                     }
                     else if (Session["DeputyDirectorApprove"] is null)
                     {
-                        string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
-                        SqlConnection Con = new SqlConnection(path);
-                        Con.Open();
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
-                        sqlcomm.CommandType = CommandType.StoredProcedure;
-                        sqlcomm.Connection = Con;
-                        sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
-                        sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
-                        sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
-                        sqlcomm.Parameters.AddWithValue("@level_approver", "Division Director");
-                        sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Fully Approved)");
 
-                        sqlcomm.ExecuteNonQuery();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
-                        Con.Close();
+                        //if (Session["DirectorApprove"] != null)
+                        //{
 
-                        foreach (GridViewRow grow in TableItemPurchase.Rows)
-                        {
-                            //Searching CheckBox("chkSelect") in an individual row of Grid  
-                            CheckBox chkdel = (CheckBox)grow.FindControl("ckSelectRemove");
-                            //If CheckBox is checked than delete the record with particular id  
-                            if (chkdel.Checked)
+                        //    string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                        //    SqlConnection Con = new SqlConnection(path);
+                        //    Con.Open();
+                        //    SqlCommand sqlcomm = new SqlCommand();
+                        //    sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
+                        //    sqlcomm.CommandType = CommandType.StoredProcedure;
+                        //    sqlcomm.Connection = Con;
+                        //    sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
+                        //    sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                        //    sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        //    sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                        //    sqlcomm.Parameters.AddWithValue("@level_approver", "Division Director");
+                        //    sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (General Manager(GM))");
+
+                        //    sqlcomm.ExecuteNonQuery();
+                        //    //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                        //    Con.Close();
+
+                        //    foreach (GridViewRow grow in TableItemPurchase.Rows)
+                        //    {
+                        //        //Searching CheckBox("chkSelect") in an individual row of Grid  
+                        //        CheckBox chkdel = (CheckBox)grow.FindControl("ckSelectRemove");
+                        //        //If CheckBox is checked than delete the record with particular id  
+                        //        if (chkdel.Checked)
+                        //        {
+                        //            string item_code = grow.Cells[2].Text;
+                        //            DeleteSelectedItems(item_code);
+                        //        }
+                        //    }
+                        //    if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
+                        //    {
+                        //        UpdateStatusRejectCancel();
+                        //        await SendEmailRejectCancel();
+                        //    }
+                        //    else
+                        //    {
+                        //        await SendEmailToDirector_DeputyDirectorApproved();
+                        //    }
+
+
+                        //}
+                        //else
+                        //{
+
+                            string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
+                            SqlConnection Con = new SqlConnection(path);
+                            Con.Open();
+                            SqlCommand sqlcomm = new SqlCommand();
+                            sqlcomm.CommandText = "sp_PROCUREMENT_DB_ApprovalRequisitionForm";
+                            sqlcomm.CommandType = CommandType.StoredProcedure;
+                            sqlcomm.Connection = Con;
+                            sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
+                            sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
+                            sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                            sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
+                            sqlcomm.Parameters.AddWithValue("@level_approver", "Division Director");
+                            sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Fully Approved)");
+
+                            sqlcomm.ExecuteNonQuery();
+                            //Page.ClientScript.RegisterStartupScript(this.GetType(), "text", "FuncSave();", true);
+                            Con.Close();
+
+                            foreach (GridViewRow grow in TableItemPurchase.Rows)
                             {
-                                string item_code = grow.Cells[2].Text;
-                                DeleteSelectedItems(item_code);
+                                //Searching CheckBox("chkSelect") in an individual row of Grid  
+                                CheckBox chkdel = (CheckBox)grow.FindControl("ckSelectRemove");
+                                //If CheckBox is checked than delete the record with particular id  
+                                if (chkdel.Checked)
+                                {
+                                    string item_code = grow.Cells[2].Text;
+                                    DeleteSelectedItems(item_code);
+                                }
                             }
-                        }
-                        if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
-                        {
-                            UpdateStatusRejectCancel();
-                            await SendEmailRejectCancel();
-                        }
-                        else
-                        {
-                            await SendEmailFullApproved_DepDirNull();
-                        }
+                            if (ddlApproval.SelectedItem.Text.ToString() == "Reject" || ddlApproval.SelectedItem.Text.ToString() == "Canceled")
+                            {
+                                UpdateStatusRejectCancel();
+                                await SendEmailRejectCancel();
+                            }
+                            else
+                            {
+                                await SendEmailFullApproved_DepDirNull();
+                            }
+
+                        //}
+
                     }
                     else
                     {

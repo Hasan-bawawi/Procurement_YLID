@@ -524,8 +524,7 @@
                                         <div class="input-group-append">
                                             <span class="input-group-text">Approval</span>
                                         </div>
-                                        <asp:DropDownList ID="ddlApproval" class="selectpicker form-control" AppendDataBoundItems="true"
-                                            runat="server" OnSelectedIndexChanged="ddlApproval_SelectedIndexChanged" ValidateRequestMode="Enabled">
+                                        <asp:DropDownList ID="ddlApproval" class="selectpicker form-control" AppendDataBoundItems="true" runat="server" OnSelectedIndexChanged="ddlApproval_SelectedIndexChanged" ValidateRequestMode="Enabled">
                                             <asp:ListItem Enabled="true" Text="" Value="0"></asp:ListItem>
                                             <asp:ListItem Text="Approved" Value="1"></asp:ListItem>
 <%--                                            <asp:ListItem Text="Reject" Value="2"></asp:ListItem>--%>
