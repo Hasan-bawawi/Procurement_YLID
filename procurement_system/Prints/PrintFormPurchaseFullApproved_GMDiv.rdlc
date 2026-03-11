@@ -2695,7 +2695,7 @@ Fields!merk_name.Value</Value>
         <Value>="file:///D:/WebFolder-PurchasingSystem/ylid-purchasing/Barcode/RF/barcode_rf.png"</Value>
         <MIMEType>image/png</MIMEType>
         <Sizing>Fit</Sizing>
-        <Top>6.10546in</Top>
+        <Top>6.03824in</Top>
         <Left>5.69897in</Left>
         <Height>1.59818in</Height>
         <Width>1.66668in</Width>
@@ -2739,7 +2739,7 @@ Fields!merk_name.Value</Value>
         </Style>
       </Image>
     </ReportItems>
-    <Height>7.88197in</Height>
+    <Height>7.73614in</Height>
     <Style />
   </Body>
   <Width>7.78787in</Width>

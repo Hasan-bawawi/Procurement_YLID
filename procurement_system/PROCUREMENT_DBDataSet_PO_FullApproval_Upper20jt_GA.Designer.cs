@@ -351,6 +351,8 @@ namespace procurement_system {
             
             private global::System.Data.DataColumn columnsignature_po_checked_by_it;
             
+            private global::System.Data.DataColumn columnBarcodeImage;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public sp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GADataTable() {
@@ -674,6 +676,14 @@ namespace procurement_system {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn BarcodeImageColumn {
+                get {
+                    return this.columnBarcodeImage;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -745,7 +755,8 @@ namespace procurement_system {
                         byte[] signature_po_approved_by, 
                         byte[] signature_po_checked_by, 
                         byte[] signature_authorized_by, 
-                        byte[] signature_po_checked_by_it) {
+                        byte[] signature_po_checked_by_it, 
+                        string BarcodeImage) {
                 sp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GARow rowsp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GARow = ((sp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GARow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         po_no,
@@ -783,7 +794,8 @@ namespace procurement_system {
                         signature_po_approved_by,
                         signature_po_checked_by,
                         signature_authorized_by,
-                        signature_po_checked_by_it};
+                        signature_po_checked_by_it,
+                        BarcodeImage};
                 rowsp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GARow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowsp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GARow);
                 return rowsp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GARow;
@@ -842,6 +854,7 @@ namespace procurement_system {
                 this.columnsignature_po_checked_by = base.Columns["signature_po_checked_by"];
                 this.columnsignature_authorized_by = base.Columns["signature_authorized_by"];
                 this.columnsignature_po_checked_by_it = base.Columns["signature_po_checked_by_it"];
+                this.columnBarcodeImage = base.Columns["BarcodeImage"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -919,6 +932,8 @@ namespace procurement_system {
                 base.Columns.Add(this.columnsignature_authorized_by);
                 this.columnsignature_po_checked_by_it = new global::System.Data.DataColumn("signature_po_checked_by_it", typeof(byte[]), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsignature_po_checked_by_it);
+                this.columnBarcodeImage = new global::System.Data.DataColumn("BarcodeImage", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBarcodeImage);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnrequesting_dept}, false));
                 this.columnpo_no.MaxLength = 50;
@@ -1703,6 +1718,23 @@ namespace procurement_system {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string BarcodeImage {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GA.BarcodeImageColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BarcodeImage\' in table \'sp_PROCUREMENT_DB_Attachment_PO_Ful" +
+                                "lApproval_Upper20jt_GA\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GA.BarcodeImageColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Ispo_noNull() {
                 return this.IsNull(this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GA.po_noColumn);
             }
@@ -2131,6 +2163,18 @@ namespace procurement_system {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Setsignature_po_checked_by_itNull() {
                 this[this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GA.signature_po_checked_by_itColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsBarcodeImageNull() {
+                return this.IsNull(this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GA.BarcodeImageColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetBarcodeImageNull() {
+                this[this.tablesp_PROCUREMENT_DB_Attachment_PO_FullApproval_Upper20jt_GA.BarcodeImageColumn] = global::System.Convert.DBNull;
             }
         }
         

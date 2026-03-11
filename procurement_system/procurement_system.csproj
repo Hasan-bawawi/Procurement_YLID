@@ -444,6 +444,7 @@
     <Content Include="detail_purchase_order_standart.aspx" />
     <Content Include="detail_requisition_form.aspx" />
     <Content Include="document_validation.aspx" />
+    <Content Include="document_verify.aspx" />
     <Content Include="EmailTemplatePurchaseOrderPresdir_DirectorApproved_SendToPurchaseTim.html" />
     <Content Include="EmailTemplatePurchaseOrderPresdir_DirectorApproved_ITNull_SendToPurchaseTim.html" />
     <Content Include="EmailTemplatePurchaseOrderGMAdminApproved_SendToAuthorized.html" />
@@ -19920,6 +19921,13 @@
     </Compile>
     <Compile Include="document_validation.aspx.designer.cs">
       <DependentUpon>document_validation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="document_verify.aspx.cs">
+      <DependentUpon>document_verify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="document_verify.aspx.designer.cs">
+      <DependentUpon>document_verify.aspx</DependentUpon>
     </Compile>
     <Compile Include="error_page.aspx.cs">
       <DependentUpon>error_page.aspx</DependentUpon>

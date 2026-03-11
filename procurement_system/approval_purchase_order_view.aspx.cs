@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -21,6 +22,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using ZXing;
+using ZXing.Common;
 
 namespace procurement_system
 {
@@ -1050,6 +1052,12 @@ namespace procurement_system
         {
             if (txtApprovalDate.Value != "" && ddlApproval.SelectedValue != "0")
             {
+
+                DateTime approveDate = DateTime.Parse(txtApprovalDate.Value);
+                approveDate = approveDate.Add(DateTime.Now.TimeOfDay);
+
+
+
                 if (Session["approve_status"].ToString() == "PO Created")
                 {
                     //GA Catalog
@@ -1064,7 +1072,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Checked by GA Head");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Full Approval)");
@@ -1106,7 +1114,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Checked by GA Head");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Checked by GA Head)");
@@ -1148,7 +1156,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Checked by IT Head");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Checked by IT Head)");
@@ -1185,6 +1193,7 @@ namespace procurement_system
                     // Price<= 1Jt IT Catalog
                     if (Session["po_approved_by"] is null && Session["authorized_by"] is null)
                     {
+                       
                         string path = ConfigurationManager.ConnectionStrings["dbpath"].ConnectionString;
                         SqlConnection Con = new SqlConnection(path);
                         Con.Open();
@@ -1194,7 +1203,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Checked by GA Head");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Full Approval)");
@@ -1237,7 +1246,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Checked by GA Head");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Checked by GA Head)");
@@ -1283,7 +1292,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Admin GM");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Full Approval)");
@@ -1325,7 +1334,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Admin GM");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Full Approval)");
@@ -1367,7 +1376,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Admin GM");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Admin GM)");
@@ -1409,7 +1418,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Admin GM");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Admin GM)");
@@ -1454,7 +1463,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Presdir/Director");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Full Approval)");
@@ -1496,7 +1505,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@po_no", lbPONumberHeader.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Presdir/Director");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Full Approval)");
@@ -2948,6 +2957,19 @@ namespace procurement_system
                     SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
                     sda.Fill(dtb);
+
+                    if (!dtb.Columns.Contains("BarcodeImage"))
+                    {
+                        dtb.Columns.Add("BarcodeImage", typeof(byte[]));
+                    }
+
+                    foreach (DataRow row in dtb.Rows)
+                    {
+                        string qrText = "https://172.19.160.3:8585/ylid-purchasing/document_verify.aspx?po=" + lbPONumberHeader.Text.ToString();
+
+                        row["BarcodeImage"] = GenerateBarcode(qrText);
+                    }
+
                     GenerateAndDisplayBarcode();
                     ReportViewerPurchase.ProcessingMode = ProcessingMode.Local;
                     ReportViewerPurchase.LocalReport.ReportPath = Server.MapPath("~/Prints/PrintFormPurchaseOrderPresdir_DirectorApproved_SendToPurchaseTim_ITHeadNull.rdlc");
@@ -3025,8 +3047,8 @@ namespace procurement_system
                                 contentType = "HTML",
                                 content = body
                             },
-                            //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                            //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } },
                                 new { emailAddress = new { address = Session["authorized_by"].ToString() } },
@@ -3139,6 +3161,22 @@ namespace procurement_system
                     SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
 
                     sda.Fill(dtb);
+
+
+                    if (!dtb.Columns.Contains("BarcodeImage"))
+                    {
+                        dtb.Columns.Add("BarcodeImage", typeof(byte[]));
+                    }
+
+                    foreach (DataRow row in dtb.Rows)
+                    { 
+                        string qrText = "https://172.19.160.3:8585/ylid-purchasing/document_verify.aspx?po=" +lbPONumberHeader.Text.ToString();
+
+                        row["BarcodeImage"] = GenerateBarcode(qrText);
+                    }
+
+
+
                     GenerateAndDisplayBarcode();
                     ReportViewerPurchase.ProcessingMode = ProcessingMode.Local;
                     ReportViewerPurchase.LocalReport.ReportPath = Server.MapPath("~/Prints/PrintFormPurchaseOrderPresdir_DirectorApproved_SendToPurchaseTim.rdlc");
@@ -3216,13 +3254,13 @@ namespace procurement_system
                                 contentType = "HTML",
                                 content = body
                             },
-                            //toRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
-                            //ccRecipients = new[] { new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } }, new { emailAddress = new { address = "widhi.kusuma@id.yusen-logistics.com" } } },
+                            //toRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
+                            //ccRecipients = new[] { new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } }, new { emailAddress = new { address = "hasan.bawawi@id.yusen-logistics.com" } } },
                             toRecipients = new[] { new { emailAddress = new { address = Session["email_po_created_by"].ToString() } } },
                             ccRecipients = new[] { new { emailAddress = new { address = Session["email_po_checked_by"].ToString() } },
                                 new { emailAddress = new { address = Session["email_po_checked_by_it"].ToString() } },
                                 new { emailAddress = new { address = Session["email_authorized_by"].ToString() } },
-                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } , 
+                                new { emailAddress = new { address = Session["email_po_approved_by"].ToString() } } ,
                                 new { emailAddress = new { address = "YLID.ML.IT@id.yusen-logistics.com" } }},
                             attachments = Directory.Exists(folderPath) ? new[] { attachment }.Concat(attachments1).ToArray() : new[] { attachment }
                         },
@@ -4230,6 +4268,31 @@ namespace procurement_system
             }
         }
         #endregion
+
+
+        public byte[] GenerateBarcode(string text)
+        {
+            var writer = new BarcodeWriter
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = new EncodingOptions
+                {
+                    Width = 600,
+                    Height = 600,
+                    Margin = 1
+                }
+            };
+
+            using (Bitmap bitmap = writer.Write(text))
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    bitmap.Save(ms, ImageFormat.Png);
+                    return ms.ToArray();
+                }
+            }
+        }
+
 
     }
 }

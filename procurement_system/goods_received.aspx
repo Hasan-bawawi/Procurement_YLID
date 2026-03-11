@@ -887,7 +887,7 @@
     <div class="modal-dialog modal-super modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
 
-            <!-- HEADER -->
+            
             <div class="modal-header text-black">
                 <h4 class="modal-title">
                     View Detail Goods Received
@@ -897,7 +897,7 @@
                 </button>
             </div>
 
-            <!-- BODY -->
+            
             <div class="modal-body">
                 <div class="container-fluid">
 
@@ -1081,7 +1081,7 @@
             <div class="modal-header d-flex justify-content-between align-items-center">
                 <h5 class="modal-title mb-0">Attachment Document</h5>
 
-                <!-- CLOSE MANUAL (TIDAK TERGANTUNG BOOTSTRAP) -->
+
                 <button type="button"
                         onclick="closePdfModal()"
                         style="border:none; background:transparent;
@@ -1090,7 +1090,7 @@
                 </button>
             </div>
 
-            <!-- BODY -->
+            
             <div class="modal-body p-0" style="height:85vh;">
                 <iframe id="pdfFrame"
                         style="width:100%; height:100%; border:none;">
@@ -1154,8 +1154,9 @@
                 if ($(tableId).length > 0) {
 
                     $(tableId).DataTable({
-                        destroy: true,   // 🔥 ini wajib
-                        order: [[1, 'desc']], // RF Number (karena id hidden)
+                        stateSave: true, 
+                        destroy: true,   
+                        order: [[1, 'desc']], 
                         columnDefs: [
                             { orderable: false, targets: 0 }
                         ]

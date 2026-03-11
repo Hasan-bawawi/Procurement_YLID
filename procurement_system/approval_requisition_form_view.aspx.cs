@@ -14838,6 +14838,10 @@ namespace procurement_system
         {
             if (txtApprovalDate.Value!="" && ddlApproval.SelectedValue!="0")
             {
+
+                DateTime approveDate = DateTime.Parse(txtApprovalDate.Value);
+                approveDate = approveDate.Add(DateTime.Now.TimeOfDay);
+
                 //Division Manager Approval
                 if (Session["status_approve"].ToString() == "Price Checked")
                 {
@@ -14893,7 +14897,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Division Manager");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Division Manager)");
@@ -14938,7 +14942,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Division GM");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Fully Approved)");
@@ -14979,7 +14983,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Division GM");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Division GM)");
@@ -15020,7 +15024,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Division GM");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Division GM)");
@@ -15065,7 +15069,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Deputy Director");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Fully Approved)");
@@ -15154,7 +15158,7 @@ namespace procurement_system
                             sqlcomm.Connection = Con;
                             sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                             sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                            sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                            sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                             sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                             sqlcomm.Parameters.AddWithValue("@level_approver", "Division Director");
                             sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Fully Approved)");
@@ -15198,7 +15202,7 @@ namespace procurement_system
                         sqlcomm.Connection = Con;
                         sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                         sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                        sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                        sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                         sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                         sqlcomm.Parameters.AddWithValue("@level_approver", "Deputy Director");
                         sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Deputy Director)");
@@ -15241,7 +15245,7 @@ namespace procurement_system
                     sqlcomm.Connection = Con;
                     sqlcomm.Parameters.AddWithValue("@StatementType", "Save");
                     sqlcomm.Parameters.AddWithValue("@rf_no", lbRFNumberBreadcrumb.Text.Trim());
-                    sqlcomm.Parameters.AddWithValue("@tgl_approve", txtApprovalDate.Value.ToString());
+                    sqlcomm.Parameters.AddWithValue("@tgl_approve", approveDate);
                     sqlcomm.Parameters.AddWithValue("@nik_approver", Session["nik"].ToString());
                     sqlcomm.Parameters.AddWithValue("@level_approver", "Division Director");
                     sqlcomm.Parameters.AddWithValue("@approval_status", ddlApproval.SelectedItem.Text.ToString() + " (Fully Approved)");

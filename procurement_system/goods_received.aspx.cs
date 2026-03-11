@@ -851,8 +851,13 @@ namespace procurement_system
 
             sda.Fill(dtb);
             ViewState["myViewState"] = dtb;
+            Session["GRTable"] = dtb;
+
             TableGR.DataSource = dtb;
             TableGR.DataBind();
+
+
+
 
             Response.Write(dtb.Rows.Count);
             Response.Write(dtb.Columns.Contains("AttachmentGR"));
@@ -968,11 +973,9 @@ namespace procurement_system
             }
 
             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal", "$('#mdlCreateGR').modal();", true);
-            ScriptManager.RegisterStartupScript(this,this.GetType(),"viewGR","openViewGR();",true);
+            ScriptManager.RegisterStartupScript(this,this.GetType(),"viewGR","c();",true);
 
         }
-
-
 
 
         protected void TablePurchaseOrder_RowDataBound(object sender, GridViewRowEventArgs e)
